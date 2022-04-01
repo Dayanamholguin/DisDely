@@ -13,9 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_documentos', function (Blueprint $table) {
+        Schema::create('abonos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->String('nombre');
+
+            $table->unsignedBigInteger('idPedido');  
+            $table->foreign('idPedido')->references('id')->on('pedidos');
+
+            $table->double('precioPagar');
+            $table->String('img',500)->nullable();
+            $table->timestamps();            
         });
     }
 
@@ -26,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_documentos');
+        Schema::dropIfExists('abonos');
     }
 };
