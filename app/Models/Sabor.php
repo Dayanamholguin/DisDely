@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sabor extends Model
 {
-    public $table = "disdely";
+    public $table = "sabores";
 
     public $timestamps = false;
     

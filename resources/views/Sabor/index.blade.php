@@ -12,14 +12,13 @@ Gestión de Sabores
     </div>
     <div class="card-body">
       
-        <table id="disdely" class="table" style="width: 100%;">
+        <table id="sabores" class="table" style="width: 100%;">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Nombre</th>
                     <th>Estado</th>
                     <th>Editar</th>
-                    <th>Detalle</th>
                     <th>Cambiar Estado</th>
                 </tr>
             </thead>
@@ -35,7 +34,7 @@ Gestión de Sabores
 @section("scripts")
 <script>
     $(document).ready(function() {
-        $('#disdely').DataTable({
+        $('#sabores').DataTable({
             processing: true,
             serverSide: true,
             ajax: '/sabor/listar',
@@ -54,12 +53,6 @@ Gestión de Sabores
                 {
                     data: 'editar',
                     name: 'editar',
-                    orderable: false,
-                    searchable: false
-                },
-                {
-                    data: 'detalle',
-                    name: 'detalle',
                     orderable: false,
                     searchable: false
                 },

@@ -25,9 +25,6 @@ class SaborController extends Controller
             ->addColumn('editar', function ($sabor) {
                 return '<a class="btn btn-primary btn-sm" href="/sabor/editar/' . $sabor->id . '">Editar</a>';
             })
-            ->addColumn('detalle', function ($sabor) {
-                return '<a class="btn btn-info btn-sm" href="/sabor/show/' . $sabor->id . '">Ver</a>';
-            })
             ->addColumn('cambiar', function ($sabor) {
                 if ($sabor->estado == 1) {
                     return '<a class="btn btn-danger btn-sm" href="/sabor/cambiar/estado/' . $sabor->id . '/0">Inactivar</a>';
@@ -35,7 +32,7 @@ class SaborController extends Controller
                     return '<a class="btn btn-success btn-sm" href="/sabor/cambiar/estado/' . $sabor->id . '/1">Activar</a>';
                 }
             })
-            ->rawColumns(['editar', 'detalle', 'eambiar'])
+            ->rawColumns(['editar', 'cambiar'])
             ->make(true);
     }
 
