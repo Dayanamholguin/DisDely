@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sabor;
-use Yajra\DataTables\DataTables;
+//use Yajra\DataTables\DataTables;
+use DataTables;
+use Flash;
 
 class SaborController extends Controller
 {
@@ -47,7 +49,11 @@ class SaborController extends Controller
 
         $request->validate(Sabor::$rules);
         $input = $request->all();
-
+        $sabor = Sabor::select('*')->where('nombre', $request->nombre)->value('nombre');
+        if ($sabor!=null) {
+            Flash::error("El sabor ".$sabor." ya está creado");
+            return redirect("/sabor/crear");
+        }
         try {
             Sabor::create([
                 "nombre" => $input["nombre"],
@@ -64,9 +70,9 @@ class SaborController extends Controller
 
     public function edit($id)
     {
-
+        
         $sabor = Sabor::find($id);
-
+        
         if ($sabor == null) {
          
             return redirect("/sabor");
@@ -80,6 +86,14 @@ class SaborController extends Controller
 
         $request->validate(Sabor::$rules);
         $input = $request->all();
+
+        $id=$request->id;
+        $sabor = Sabor::select('*')->where('nombre',$request->nombre)->value('nombre');
+        
+        if ($sabor!=null) {
+            Flash::error("El sabor ".$sabor." ya está creado");
+            return redirect("/sabor/editar/$id");
+        }
 
         try {
             $sabor = Sabor::find($input["id"]);

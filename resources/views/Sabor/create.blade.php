@@ -10,6 +10,7 @@ Sabores
         <strong>Crear Sabor</strong>
     </div>
     <div class="card-body">
+    @include('flash::message')
         <form id="form" action="/sabor/guardar" method="post">
             @csrf
             <div class="row">

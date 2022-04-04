@@ -16,7 +16,7 @@ class Sabor extends Model
     ];
 
     public static $rules = [
-        'nombre' => 'required',
+        'nombre' => 'required|min:3',
         'estado' => 'in:1,0'
     ];
 }

@@ -10,6 +10,7 @@ Sabores
         <strong>Editar Sabor</strong>
     </div>
     <div class="card-body">
+    @include('flash::message')
         <form action="/sabor/actualizar" method="post">
             @csrf
             <input type="hidden" name="id" value="{{$sabor->id}}" />

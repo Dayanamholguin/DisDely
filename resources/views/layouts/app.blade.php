@@ -20,6 +20,8 @@
 
     <!-- Custom styles for this template-->
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+    <!--datatables-->
+    <link href="/css/datatables.min.css" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.6.0/dt-1.11.5/datatables.min.css" />
@@ -372,7 +374,7 @@
 
         <!-- Custom scripts for all pages-->
         <script src="/js/sb-admin-2.min.js"></script>
-
+        <script src="/js/datatables.min.js"></script>
         <!-- Page level plugins -->
         <script src="/vendor/chart.js/Chart.min.js"></script>
 
