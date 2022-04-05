@@ -12,7 +12,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Dulce Encanto') }}</title>
     <link rel="icon" type="image/x-icon" href="/img/logo.png" />
     <!-- Custom fonts for this template-->
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -41,12 +41,12 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="d-flex align-items-center justify-content-center">
-                <div class="sidebar-brand-icon rotate-n-15">
+            <a class="d-flex align-items-center justify-content-center flex-wrap">
+                <div class="sidebar-brand-icon">
                     <!--<i class="fas fa-laugh-wink"></i>-->
-                    <img src="/img/logo.png">
+                    <img src="/../img/logo.png" width="50px" height="50px">
                 </div>
-                <div class="sidebar-brand-text mx-3 p-3"><font face="Harlekin" style="color: white;">Dulce Encanto</font></div>
+                <div class="sidebar-brand-text mx-3 p-3"><font face="Harlekin" style="color: white;" class="text-capitalize" >Dulce Encanto</font></div>
             </a>
 
             <!-- Divider -->
@@ -177,7 +177,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="/../img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
