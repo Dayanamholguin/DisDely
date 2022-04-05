@@ -12,13 +12,11 @@ class Categoria extends Model
     
     protected $fillable = [
         'nombre',
-        'imagen',
         'estado',
     ];
 
     public static $rules = [
-        'nombre' => 'required',
-        'imagen' => 'required',
+        'nombre' => 'required|min:3',
         'estado' => 'in:1,0'
     ];
 }

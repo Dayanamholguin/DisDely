@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         
-        $this->call(tipoDocumentos::class);
+        $this->call(etapaSeeder::class);
+        $this->call(generoSeeder::class);
     }
 }

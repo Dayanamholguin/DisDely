@@ -12,14 +12,12 @@ class SaborController extends Controller
 {
     public function index()
     {
-
         return view('sabor.index');
     }
 
     public function listar(Request $request)
     {
         $sabores = Sabor::all();
-
         return DataTables::of($sabores)
             ->editColumn("estado", function ($sabor) {
                 return $sabor->estado == 1 ? "Activo" : "Inactivo";
@@ -38,15 +36,13 @@ class SaborController extends Controller
             ->make(true);
     }
 
-    public function create()
+    public function crear()
     {
-
-        return view('sabor.create');
+        return view('sabor.crear');
     }
 
-    public function save(Request $request)
+    public function guardar(Request $request)
     {
-
         $request->validate(Sabor::$rules);
         $input = $request->all();
         $sabor = Sabor::select('*')->where('nombre', $request->nombre)->value('nombre');
@@ -59,31 +55,26 @@ class SaborController extends Controller
                 "nombre" => $input["nombre"],
                 "estado" => 1
             ]);
-
-            
+            Flash::success("Se ha creado éxitosamente");
             return redirect("/sabor");
-        } catch (\Exception $e) {
-          
+        } catch (\Exception $e) {  
+            Flash::error($e->getMessage());
             return redirect("/sabor/crear");
         }
     }
 
-    public function edit($id)
+    public function editar($id)
     {
-        
-        $sabor = Sabor::find($id);
-        
-        if ($sabor == null) {
-         
+        $sabor = Sabor::find($id);        
+        if ($sabor == null) {    
+            Flash::error("No se encontró el sabor");     
             return redirect("/sabor");
         }
-
-        return view("sabor.edit", compact("sabor"));
+        return view("sabor.editar", compact("sabor"));
     }
 
-    public function update(Request $request)
+    public function modificar(Request $request)
     {
-
         $request->validate(Sabor::$rules);
         $input = $request->all();
 
@@ -97,40 +88,30 @@ class SaborController extends Controller
 
         try {
             $sabor = Sabor::find($input["id"]);
-
-            if ($sabor == null) {
-            
+            if ($sabor == null) {            
                 return redirect("/sabor");
             }
-
             $sabor->update([
                 "nombre" => $input["nombre"]
             ]);
-
-          
+            Flash::success("Se ha modificado éxitosamente");
             return redirect("/sabor");
-        } catch (\Exception $e) {
-         
+        } catch (\Exception $e) {   
+            Flash::error($e->getMessage());      
             return redirect("/sabor");
         }
     }
 
-    public function updateState($id, $estado)
+    public function modificarEstado($id, $estado)
     {
-
         $sabor = Sabor::find($id);
-
-        if ($sabor == null) {
-        
+        if ($sabor == null) {        
             return redirect("/sabor");
         }
-
         try {
-            $sabor->update(["estado" => $estado]);
-         
+            $sabor->update(["estado" => $estado]);         
             return redirect("/sabor");
-        } catch (\Exception $e) {
-       
+        } catch (\Exception $e) {       
             return redirect("/sabor");
         }
     }

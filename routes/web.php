@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-
 //Sabor
 use App\Http\Controllers\SaborController;
+//categoria
+use App\Http\Controllers\CategoriaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,8 +17,17 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 //Sabor
 Route::get('/sabor', [SaborController::class, 'index']);
 Route::get('/sabor/listar', [SaborController::class, 'listar']);
-Route::get('/sabor/crear', [SaborController::class, 'create']);
-Route::post('/sabor/guardar', [SaborController::class, 'save']);
-Route::get('/sabor/editar/{id}', [SaborController::class, 'edit']);
-Route::post('/sabor/actualizar', [SaborController::class, 'update']);
-Route::get('/sabor/cambiar/estado/{id}/{estado}', [SaborController::class, 'updateState']);
+Route::get('/sabor/crear', [SaborController::class, 'crear']);
+Route::post('/sabor/guardar', [SaborController::class, 'guardar']);
+Route::get('/sabor/editar/{id}', [SaborController::class, 'editar']);
+Route::post('/sabor/actualizar', [SaborController::class, 'modificar']);
+Route::get('/sabor/cambiar/estado/{id}/{estado}', [SaborController::class, 'modificarEstado']);
+
+//categorias
+Route::get('/categoria', [CategoriaController::class, 'index']);
+Route::get('/categoria/listar', [CategoriaController::class, 'listar']);
+Route::get('/categoria/crear', [CategoriaController::class, 'crear']);
+Route::post('/categoria/guardar', [CategoriaController::class, 'guardar']);
+Route::get('/categoria/editar/{id}', [CategoriaController::class, 'editar']);
+Route::post('/categoria/actualizar', [CategoriaController::class, 'modificar']);
+Route::get('/categoria/cambiar/estado/{id}/{estado}', [CategoriaController::class, 'modificarEstado']);
