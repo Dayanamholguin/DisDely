@@ -29,7 +29,7 @@ return new class extends Migration
             $table->foreign('idEtapa')->references('id')->on('etapas');
 
             $table->String('nombre',80);
-            $table->String('descripcion',150);
+            $table->String('descripcion',500);
             $table->String('img',500);
             $table->String('img2',500)->nullable();
             $table->String('img3',500)->nullable();

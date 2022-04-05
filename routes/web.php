@@ -6,7 +6,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SaborController;
 //categoria
 use App\Http\Controllers\CategoriaController;
-
+//Producto
+use App\Http\Controllers\ProductoController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -31,3 +32,13 @@ Route::post('/categoria/guardar', [CategoriaController::class, 'guardar']);
 Route::get('/categoria/editar/{id}', [CategoriaController::class, 'editar']);
 Route::post('/categoria/actualizar', [CategoriaController::class, 'modificar']);
 Route::get('/categoria/cambiar/estado/{id}/{estado}', [CategoriaController::class, 'modificarEstado']);
+
+//productos
+Route::get('/producto', [ProductoController::class, 'index']);
+Route::get('/producto/listar', [ProductoController::class, 'listar']);
+Route::get('/producto/crear', [ProductoController::class, 'crear']);
+Route::post('/producto/guardar', [ProductoController::class, 'guardar']);
+Route::get('/producto/editar/{id}', [ProductoController::class, 'editar']);
+Route::get('/producto/ver/{id}', [ProductoController::class, 'ver']);
+Route::post('/producto/actualizar', [ProductoController::class, 'modificar']);
+Route::get('/producto/cambiar/estado/{id}/{estado}', [ProductoController::class, 'modificarEstado']);

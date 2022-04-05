@@ -80,7 +80,7 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                <i class="fa-solid fa-user"></i>
                     <span>Gestión de Usuarios</span></a>
             </li>
 
@@ -98,7 +98,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="/sabor">Sabores</a>
                         <a class="collapse-item" href="/categoria">Categorías</a>
-                        <a class="collapse-item" href="cards.html">Productos</a>
+                        <a class="collapse-item" href="/producto">Productos</a>
                     </div>
                 </div>
             </li>
