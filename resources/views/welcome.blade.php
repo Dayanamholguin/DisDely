@@ -46,11 +46,10 @@
 </head>
 
 <body>
-
     <header>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Dulce Encanto</a>
+        <nav class="navbar navbar-expand-md navbar-transparent fixed-top bg-transparent">
+            <div class="container">
+                <a class="navbar-brand " href="#" style="color:black;">Dulce Encanto</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -58,19 +57,23 @@
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <ul class="navbar-nav me-auto mb-2 mb-md-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                                <a class="nav-link active" aria-current="page" href="#" style="color:black;">Inicio</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">¿Quiénes Somos?</a>
+                                <a class="nav-link" href="#" style="color:black;">¿Quiénes Somos?</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Categorías</a>
+                                <a class="nav-link" href="#" style="color:black;">Categorías</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Galería</a>
+                                <a class="nav-link" href="#" style="color:black;">Galería</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Contacto</a>
+                                <a class="nav-link" href="#" style="color:black;">Contacto</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/login" class="btn boton my-2">Iniciar Sesión</a>
+                                <a href="/register" class="btn boton my-2">Registrarse</a>
                             </li>
                         </ul>
                     </div>
@@ -81,22 +84,21 @@
 
     <main>
         <div class="coloro">
-            <section class="py-4 text-center container">
+            <section class="py-5 text-center container">
                 <div class="row py-lg-5">
                     <div class="col-lg-6 col-md-8 mx-auto">
                         <h1 class="fw-light">Dulce Encanto</h1>
                         <p class="lead text-muted">Tortas temáticas, para todo tipo de ocasión <br> ¡Elaboramos tortas a tu gusto!</p>
-                        <p>
-                            <a href="/login" class="btn boton my-2">Iniciar Sesión</a>
-                            <a href="/register" class="btn boton my-2">Registrarse</a>
-                        </p>
                     </div>
                 </div>
             </section>
         </div>
-
-        <div class="album py-1 bg-light">
-            <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+        
+        <div class="container">
+        <hr class="featurette-divider">
+        <h4 class="text-center">Nuestros Productos</h4>
+        <div class="album py-1  d-flex justify-content-center">
+            <div id="myCarousel" class="carousel slide w-75 h-50" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -106,7 +108,7 @@
                     <div class="carousel-item active">
                         <img src="/img/cook.jpg" class="d-block w-100" alt="..." width="8000" height="400">
                         <div class="container">
-                            <div class="carousel-caption text-start">
+                            <div class="carousel-caption text-center">
                                 <h1>Torta de Chocolate.</h1>
                                 <p>Some representative placeholder content for the first slide of the carousel.</p>
                                 <p><a class="btn btn-lg btn-success" href="/login">Realiza tu Cotización</a></p>
@@ -116,7 +118,7 @@
                     <div class="carousel-item">
                         <img src="/img/pastel.jpg" class="d-block w-100" alt="..." width="8000" height="400">
                         <div class="container">
-                            <div class="carousel-caption">
+                            <div class="carousel-caption text-center">
                                 <h1>Torta de Fresa.</h1>
                                 <p>Some representative placeholder content for the second slide of the carousel.</p>
                                 <p><a class="btn btn-lg btn-success" href="/login">Realiza tu Cotización</a></p>
@@ -126,7 +128,7 @@
                     <div class="carousel-item">
                         <img src="/img/pasteles.jpg" class="d-block w-100" alt="..." width="8000" height="400">
                         <div class="container">
-                            <div class="carousel-caption text-end">
+                            <div class="carousel-caption  text-center">
                                 <h1>Torta de Arequipe.</h1>
                                 <p>Some representative placeholder content for the third slide of this carousel.</p>
                                 <p><a class="btn btn-lg btn-success" href="/login">Realiza tu Cotización</a></p>
@@ -143,6 +145,187 @@
                     <span class="visually-hidden">Siguiente</span>
                 </button>
             </div>
+        </div>
+            <!-- <div class="row">
+                <div class="col-md-12">
+                    <h2>Featured <b>Products</b></h2>
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
+
+
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+                        <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+                    </ol>   
+
+
+                    <div class="carousel-inner">
+                        <div class="item carousel-item active">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+                                        <div class="img-box">
+                                            <img src="/img/cook.jpg" class="img-fluid" alt="">									
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h1>Torta de Arequipe.</h1> 
+                                            <p>Some representative placeholder content for the third slide of this carousel.</p>
+                                            <p><a class="btn btn-lg btn-success" href="/login">Realiza tu Cotización</a></p>
+                                        </div>						
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+                                        <div class="img-box">
+                                            <img src="/img/cook.jpg" class="img-fluid" alt="">									
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h1>Torta de Arequipe.</h1> 
+                                            <p>Some representative placeholder content for the third slide of this carousel.</p>
+                                            <p><a class="btn btn-lg btn-success" href="/login">Realiza tu Cotización</a></p>
+                                        </div>						
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+                                        <div class="img-box">
+                                            <img src="/img/cook.jpg" class="img-fluid" alt="">									
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h1>Torta de Arequipe.</h1> 
+                                            <p>Some representative placeholder content for the third slide of this carousel.</p>
+                                            <p><a class="btn btn-lg btn-success" href="/login">Realiza tu Cotización</a></p>
+                                        </div>						
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+                                        <div class="img-box">
+                                            <img src="/img/cook.jpg" class="img-fluid" alt="">									
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h1>Torta de Arequipe.</h1> 
+                                            <p>Some representative placeholder content for the third slide of this carousel.</p>
+                                            <p><a class="btn btn-lg btn-success" href="/login">Realiza tu Cotización</a></p>
+                                        </div>						
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item carousel-item">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+                                        <div class="img-box">
+                                            <img src="/img/pasteles.jpg" class="img-fluid" alt="Play Station">
+                                        </div>
+                                        <div class="thumb-content">
+                                            
+                                        </div>						
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+                                        <div class="img-box">
+                                            <img src="/img/pasteles.jpg" class="img-fluid" alt="Play Station">
+                                        </div>
+                                        <div class="thumb-content">
+                                            
+                                        </div>						
+                                    </div>
+                                </div>	
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+                                        <div class="img-box">
+                                            <img src="/img/pasteles.jpg" class="img-fluid" alt="Play Station">
+                                        </div>
+                                        <div class="thumb-content">
+                                            
+                                        </div>						
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+                                        <div class="img-box">
+                                            <img src="/img/pasteles.jpg" class="img-fluid" alt="Play Station">
+                                        </div>
+                                        <div class="thumb-content">
+                                            
+                                        </div>						
+                                    </div>
+                                </div>						
+                            </div>
+                        </div>
+                        <div class="item carousel-item">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+                                        <div class="img-box">
+                                            <img src="/img/pastel.jpg" class="img-fluid" alt="Play Station">
+                                        </div>
+                                        <div class="thumb-content">
+                                            
+                                        </div>						
+                                    </div>
+                                </div>	
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+                                        <div class="img-box">
+                                            <img src="/img/pastel.jpg" class="img-fluid" alt="Play Station">
+                                        </div>
+                                        <div class="thumb-content">
+                                            
+                                        </div>						
+                                    </div>
+                                </div>	
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+                                        <div class="img-box">
+                                            <img src="/img/pastel.jpg" class="img-fluid" alt="Play Station">
+                                        </div>
+                                        <div class="thumb-content">
+                                            
+                                        </div>						
+                                    </div>
+                                </div>	
+                                <div class="col-sm-3">
+                                    <div class="thumb-wrapper">
+                                        <span class="wish-icon"><i class="fa fa-heart-o"></i></span>
+                                        <div class="img-box">
+                                            <img src="/img/pastel.jpg" class="img-fluid" alt="Play Station">
+                                        </div>
+                                        <div class="thumb-content">
+                                            
+                                        </div>						
+                                    </div>
+                                </div>					
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Siguiente</span>
+                    </button>
+                </div>
+                </div>
+            </div> -->
         </div>
 
     </main>
