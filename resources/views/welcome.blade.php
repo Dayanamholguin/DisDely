@@ -49,10 +49,15 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-transparent fixed-top bg-transparent">
             <div class="container">
-                <a class="navbar-brand " href="#" style="color:black;">Dulce Encanto</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <a class="d-flex align-items-center justify-content-center flex-wrap">
+                    <div class="sidebar-brand-icon">
+                        <img src="/../img/logo.png" width="50px" height="50px">
+                    </div>
+                    <div class="sidebar-brand-text mx-3 p-3">
+                        <font face="Harlekin" style="color: black;" class="text-capitalize">Dulce Encanto</font>
+                    </div>
+                </a>
+
                 <div>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <ul class="navbar-nav me-auto mb-2 mb-md-0">
@@ -87,66 +92,81 @@
             <section class="py-5 text-center container">
                 <div class="row py-lg-5">
                     <div class="col-lg-6 col-md-8 mx-auto">
-                        <h1 class="fw-light">Dulce Encanto</h1>
-                        <p class="lead text-muted">Tortas temáticas, para todo tipo de ocasión <br> ¡Elaboramos tortas a tu gusto!</p>
+                        <h3 class="fw-light">Dulce Encanto</h3>
+                        <p class="lead text-muted">Tortas temáticas, para todo tipo de ocasión <br> ¡Elaboramos tortas a tu gusto!</p>                      
                     </div>
                 </div>
             </section>
         </div>
-        
-        <div class="container">
-        <hr class="featurette-divider">
-        <h4 class="text-center">Nuestros Productos</h4>
-        <div class="album py-1  d-flex justify-content-center">
-            <div id="myCarousel" class="carousel slide w-75 h-50" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="/img/cook.jpg" class="d-block w-100" alt="..." width="8000" height="400">
-                        <div class="container">
-                            <div class="carousel-caption text-center">
-                                <h1>Torta de Chocolate.</h1>
-                                <p>Some representative placeholder content for the first slide of the carousel.</p>
-                                <p><a class="btn btn-lg btn-success" href="/login">Realiza tu Cotización</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="/img/pastel.jpg" class="d-block w-100" alt="..." width="8000" height="400">
-                        <div class="container">
-                            <div class="carousel-caption text-center">
-                                <h1>Torta de Fresa.</h1>
-                                <p>Some representative placeholder content for the second slide of the carousel.</p>
-                                <p><a class="btn btn-lg btn-success" href="/login">Realiza tu Cotización</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="/img/pasteles.jpg" class="d-block w-100" alt="..." width="8000" height="400">
-                        <div class="container">
-                            <div class="carousel-caption  text-center">
-                                <h1>Torta de Arequipe.</h1>
-                                <p>Some representative placeholder content for the third slide of this carousel.</p>
-                                <p><a class="btn btn-lg btn-success" href="/login">Realiza tu Cotización</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Anterior</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Siguiente</span>
-                </button>
+        <h2>Nuestros Productos</h2>
+        <div class="content-all">
+            <div class="content-carrousel">
+                <figure><img src="/img/pastel.png"></figure>
+                <figure><img src="/img/pastel.png"></figure>
+                <figure><img src="/img/pastel.png"></figure>
+                <figure><img src="/img/pastel.png"></figure>
+                <figure><img src="/img/pastel.png"></figure>
+                <figure><img src="/img/pastel.png"></figure>
+                <figure><img src="/img/pastel.png"></figure>
+                <figure><img src="/img/pastel.png"></figure>
+                <figure><img src="/img/pastel.png"></figure>
+                <figure><img src="/img/pastel.png"></figure>
             </div>
         </div>
-            <!-- <div class="row">
+
+        <!-- <div class="container">
+            <hr class="featurette-divider">
+            <h4 class="text-center">Nuestros Productos</h4>
+            <div class="album py-1  d-flex justify-content-center">
+                <div id="myCarousel" class="carousel slide w-75 h-50" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="/img/cook.jpg" class="d-block w-100" alt="..." width="8000" height="400">
+                            <div class="container">
+                                <div class="carousel-caption text-center">
+                                    <h1>Torta de Chocolate.</h1>
+                                    <p>Some representative placeholder content for the first slide of the carousel.</p>
+                                    <p><a class="btn btn-lg btn-success" href="/login">Realiza tu Cotización</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/img/pastel.jpg" class="d-block w-100" alt="..." width="8000" height="400">
+                            <div class="container">
+                                <div class="carousel-caption text-center">
+                                    <h1>Torta de Fresa.</h1>
+                                    <p>Some representative placeholder content for the second slide of the carousel.</p>
+                                    <p><a class="btn btn-lg btn-success" href="/login">Realiza tu Cotización</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/img/pasteles.jpg" class="d-block w-100" alt="..." width="8000" height="400">
+                            <div class="container">
+                                <div class="carousel-caption  text-center">
+                                    <h1>Torta de Arequipe.</h1>
+                                    <p>Some representative placeholder content for the third slide of this carousel.</p>
+                                    <p><a class="btn btn-lg btn-success" href="/login">Realiza tu Cotización</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Siguiente</span>
+                    </button>
+                </div>
+            </div> -->
+        <!-- <div class="row">
                 <div class="col-md-12">
                     <h2>Featured <b>Products</b></h2>
                     <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
@@ -335,4 +355,3 @@
 </body>
 
 </html>
-
