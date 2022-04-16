@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
 
@@ -12,7 +12,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Dulce Encanto') }}</title>
+    <!--<title>{{ config('app.name', 'Dulce Encanto') }}</title>-->
+    <title>Dulce Encanto</title>
     <link rel="icon" type="image/x-icon" href="/img/logo.png" />
     <!-- Custom fonts for this template-->
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -54,9 +55,9 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Inicio</span></a>
+                <a class="nav-link" href="#">
+                <i class="fas fa-home"></i>
+                    <span>Dashboard</span></a>
             </li>
 
             <!-- Divider -->
@@ -69,7 +70,7 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                <i class="fas fa-tools"></i>
                     <span> Gestión de Roles</span></a>
             </li>
 
@@ -80,7 +81,7 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                <i class="fa-solid fa-user"></i>
+                <i class="fas fa-user-alt"></i>
                     <span>Gestión de Usuarios</span></a>
             </li>
 
@@ -91,7 +92,7 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-paste"></i>
+                <i class="fas fa-birthday-cake"></i>
                     <span>Gestión de Productos</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -105,13 +106,13 @@
 
             <!--Ventas-->
             <div class="sidebar-heading">
-                Gestión de Ventas
+                Gestión de Abonos
             </div>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span> Gestión de Ventas</span>
+                <i class="fas fa-hand-holding-usd"></i>
+                    <span> Gestión de Abonos</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -211,7 +212,7 @@
                 <!-- End of Main Content -->
 
                 <!-- Footer -->
-                <footer class="sticky-footer bg-white">
+                <footer class="sticky-footer">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
                             <span>Copyright&copy; DisDely 2022</span>

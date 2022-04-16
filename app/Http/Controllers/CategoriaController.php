@@ -24,13 +24,13 @@ class CategoriaController extends Controller
                 return $categoria->estado == 1 ? "Activo" : "Inactivo";
             })
             ->addColumn('editar', function ($categoria) {
-                return '<a class="btn btn-primary btn-sm" href="/categoria/editar/' . $categoria->id . '">Editar</a>';
+                return '<a class="btn btn-primary btn-sm" href="/categoria/editar/' . $categoria->id . '"><i class="fas fa-edit"></i></a>';
             })
             ->addColumn('cambiar', function ($categoria) {
                 if ($categoria->estado == 1) {
-                    return '<a class="btn btn-danger btn-sm" href="/categoria/cambiar/estado/' . $categoria->id . '/0">Inactivar</a>';
+                    return '<a class="btn btn-danger btn-sm" href="/categoria/cambiar/estado/' . $categoria->id . '/0"><i class="far fa-eye-slash"></i> Inactivar</a>';
                 } else {
-                    return '<a class="btn btn-success btn-sm" href="/categoria/cambiar/estado/' . $categoria->id . '/1">Activar</a>';
+                    return '<a class="btn btn-success btn-sm" href="/categoria/cambiar/estado/' . $categoria->id . '/1"><i class="far fa-eye"></i> Activar</a>';
                 }
             })
             ->rawColumns(['editar', 'cambiar'])
