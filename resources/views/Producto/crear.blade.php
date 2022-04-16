@@ -20,10 +20,10 @@ Productos
         <form id="form" action="/producto/guardar" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
-                <div class="col-4">
+                <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="">Imagen</label>
-                        <input type="file" class="form-control @error('imagen') is-invalid @enderror" name="imagen" id="imagen">
+                        <input type="file" class="form-control-file @error('imagen') is-invalid @enderror" name="imagen" id="imagen" require>
                         @error('imagen')
                             <div class="alert alert-danger" role="alert">
                                 {{$message}}
@@ -31,7 +31,7 @@ Productos
                         @enderror
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="">Categoria</label>
                         <select class="form-control" name="categoria">
@@ -41,7 +41,7 @@ Productos
                         </select>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="">Sabor</label>
                         <select class="form-control" name="sabor">
@@ -51,7 +51,7 @@ Productos
                         </select>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="">Género</label>
                         <select class="form-control" name="genero">
@@ -61,7 +61,7 @@ Productos
                         </select>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="">Etapa</label>
                         <select class="form-control" name="etapa">
@@ -71,7 +71,7 @@ Productos
                         </select>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="">Nombre</label>
                         <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required>
@@ -82,7 +82,7 @@ Productos
                         @enderror
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="">Descripción</label>
                         <textarea type="text" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" required></textarea>
@@ -93,7 +93,7 @@ Productos
                         @enderror
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="">Número de personas</label>
                         <input type="number" class="form-control @error('numeroPersonas') is-invalid @enderror" id="numeroPersonas" name="numeroPersonas" required>
@@ -104,7 +104,7 @@ Productos
                         @enderror
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="">Pisos</label>
                         <input type="number" class="form-control @error('pisos') is-invalid @enderror" id="pisos" name="pisos" required>
@@ -115,7 +115,7 @@ Productos
                         @enderror
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3 col-sm-12">
                     <div class="form-check">
                         <label for="">¿Desea añadirlo al catálogo?</label>
                         <div class="form-check ">
