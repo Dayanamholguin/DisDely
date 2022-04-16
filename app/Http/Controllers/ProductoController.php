@@ -54,9 +54,10 @@ class ProductoController extends Controller
 
     public function crear()
     {
-        $categorias = Categoria::all()->where('estado',1);
-        $sabores = Sabor::all()->where('estado',1);
-        $generos = DB::table('generos')->get();
+        $categorias = Categoria::all()->where('id','>',1)->where('estado',1);
+        $sabores = Sabor::all()->where('id','>',1)->where('estado',1);
+        $generos = DB::table('generos')->get()->where('id','>',1);
+        //$generos = DB::table('generos')->get();
         $etapas = DB::table('etapas')->get();
         return view('producto.crear', compact("categorias","sabores","generos","etapas"));
     }
@@ -101,7 +102,7 @@ class ProductoController extends Controller
     {
         $producto = Producto::find($id);        
         if ($producto == null) {   
-            Flash::error("No se encontró la producto");      
+            Flash::error("No se encontró el producto");      
             return redirect("/producto");
         }
         return view("producto.editar", compact("producto"));

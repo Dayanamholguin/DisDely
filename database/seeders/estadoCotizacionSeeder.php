@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class generoSeeder extends Seeder
+class estadoCotizacionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,15 +15,14 @@ class generoSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('generos')->insert([
-            'nombre' => 'Personalizado',
+        DB::table('estado_cotizaciones')->insert([
+            'nombre' => 'Pendiente',
         ]);
-        DB::table('generos')->insert([
-            'nombre' => 'Masculino',
+        DB::table('estado_cotizaciones')->insert([
+            'nombre' => 'Rechazada',
         ]);
-        DB::table('generos')->insert([
-            'nombre' => 'Femenino',
+        DB::table('estado_cotizaciones')->insert([
+            'nombre' => 'Aprobada',
         ]);
-        
     }
 }
