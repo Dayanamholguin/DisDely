@@ -90,7 +90,7 @@ class CategoriaController extends Controller
         try {
             $categoria = Categoria::find($input["id"]);
             if ($categoria == null) {            
-                return redirect("/categori$categoria");
+                return redirect("/categoria");
             }
             $categoria->update([
                 "nombre" => $input["nombre"]

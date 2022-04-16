@@ -149,12 +149,12 @@ class ProductoController extends Controller
                 "idSabor" => $input["sabor"],
                 "idGenero" => $input["genero"],
                 "idEtapa" => $input["etapa"],
-                "img" => $input["imagen"],
                 "nombre" => $input["nombre"],
                 "descripcion" => $input["descripcion"],
                 "numeroPersonas" => $input["numeroPersonas"],
                 "pisos" => $input["pisos"],
-                "catalogo" => $input["catalogo"]
+                "catalogo" => $input["catalogo"],
+                "img" => $input["imagen"]
             ]);
             Flash::success("Se ha modificado éxitosamente");
             return redirect("/producto");

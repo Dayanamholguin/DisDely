@@ -96,7 +96,7 @@ Productos
                         @enderror
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-4">
                     <div class="form-group">
                         <label for="">Descripción</label>
                         <textarea value="{{$producto->descripcion}}" type="text" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" required></textarea>
@@ -107,7 +107,7 @@ Productos
                         @enderror
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-4">
                     <div class="form-group">
                         <label for="">Número de personas</label>
                         <input value="{{$producto->numeroPersonas}}" type="number" class="form-control @error('numeroPersonas') is-invalid @enderror" id="numeroPersonas" name="numeroPersonas" required>
@@ -118,7 +118,7 @@ Productos
                         @enderror
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-4">
                     <div class="form-group">
                         <label for="">Pisos</label>
                         <input value="{{$producto->pisos}}" type="number" class="form-control @error('pisos') is-invalid @enderror" id="pisos" name="pisos" required>
@@ -129,7 +129,7 @@ Productos
                         @enderror
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-4">
                     <div class="form-check">
                         <label for="">¿Desea añadirlo al catálogo?</label>
                         <div class="form-check ">

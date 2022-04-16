@@ -25,7 +25,7 @@ class Producto extends Model
         'estado',
     ];
 //acá con las tablas
-    public static $rules =[
+    public static $rules = [
         'idCategoria'=>'required|exists:categorias,id',
         'idSabor'=>'required|exists:sabores,id',
         'idGenero'=>'required|exists:generos,id',
