@@ -4,21 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Categoria;
-use Yajra\DataTables\DataTables;
+//use Yajra\DataTables\DataTables;
+use DataTables;
+use Flash;
+use PhpParser\Node\Stmt\Catch_;
 
 class CategoriaController extends Controller
 {
     public function index()
     {
-
         return view('categoria.index');
     }
 
     public function listar(Request $request)
     {
-        $categorias = Categoria::all();
-
-        return DataTables::of($categorias)
+        $categoria = Categoria::all()->where('id','>',1);;
+        return DataTables::of($categoria)
             ->editColumn("estado", function ($categoria) {
                 return $categoria->estado == 1 ? "Activo" : "Inactivo";
             })
@@ -36,82 +37,82 @@ class CategoriaController extends Controller
             ->make(true);
     }
 
-    public function create()
+    public function crear()
     {
-
-        return view('categoria.create');
+        return view('categoria.crear');
     }
 
-    public function save(Request $request)
+    public function guardar(Request $request)
     {
-
         $request->validate(Categoria::$rules);
         $input = $request->all();
-
+        $categoria = Categoria::select('*')->where('nombre', $request->nombre)->value('nombre');
+        if ($categoria!=null) {
+            Flash::error("La categoria ".$categoria." ya está creada");
+            return redirect("/categoria/crear");
+        }
         try {
             Categoria::create([
                 "nombre" => $input["nombre"],
-                "imagen" => $input["imagen"],
                 "estado" => 1
-            ]);            
+            ]);
+            Flash::success("Se ha creado éxitosamente");
             return redirect("/categoria");
-
-        } catch (\Exception $e) {          
+        } catch (\Exception $e) {  
+            Flash::error($e->getMessage());
             return redirect("/categoria/crear");
         }
     }
 
-    public function edit($id)
+    public function editar($id)
     {
-
-        $categoria = Categoria::find($id);
-
-        if ($categoria == null) {
-         
+        $categoria = Categoria::find($id);        
+        if ($categoria == null) {   
+            Flash::error("No se encontró la categoria");      
             return redirect("/categoria");
         }
-        return view("categoria.edit", compact("categoria"));
+        return view("categoria.editar", compact("categoria"));
     }
 
-    public function update(Request $request)
+    public function modificar(Request $request)
     {
-
         $request->validate(Categoria::$rules);
         $input = $request->all();
 
+        $id=$request->id;
+        $categoria = Categoria::select('*')->where('nombre',$request->nombre)->value('nombre');
+        
+        if ($categoria!=null) {
+            Flash::error("La categoria ".$categoria." ya está creada");
+            return redirect("/categoria/editar/$id");
+        }
+
         try {
             $categoria = Categoria::find($input["id"]);
-
             if ($categoria == null) {            
-                return redirect("/categoria");
+                return redirect("/categori$categoria");
             }
-
             $categoria->update([
-                "nombre" => $input["nombre"],
-                "imagen" => $input["imagen"]
-            ]);          
+                "nombre" => $input["nombre"]
+            ]);
+            Flash::success("Se ha modificado éxitosamente");
             return redirect("/categoria");
-
-        } catch (\Exception $e) {
-         
+        } catch (\Exception $e) {   
+            Flash::error($e->getMessage());      
             return redirect("/categoria");
         }
     }
 
-    public function updateState($id, $estado)
+    public function modificarEstado($id, $estado)
     {
-
         $categoria = Categoria::find($id);
-
         if ($categoria == null) {        
             return redirect("/categoria");
         }
-
         try {
             $categoria->update(["estado" => $estado]);         
             return redirect("/categoria");
-
-        } catch (\Exception $e) {
+        } catch (\Exception $e) {       
             return redirect("/categoria");
         }
     }

@@ -21,13 +21,14 @@ return new class extends Migration
 
             $table->unsignedBigInteger('idRol');  
             $table->foreign('idRol')->references('id')->on('roles');
-            $table->unsignedBigInteger('idCiudad');  
-            $table->foreign('idCiudad')->references('id')->on('ciudades');
-
+            
             $table->String('celular',13);
             $table->String('celularAlternativo',13)->nullable();
             $table->boolean('estado');
-
+            $table->date('fechaNacimiento');
+            $table->unsignedBigInteger('idGenero');  
+            $table->foreign('idGenero')->references('id')->on('generos');
+            $table->String('foto',500)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
 
