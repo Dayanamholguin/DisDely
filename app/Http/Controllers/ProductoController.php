@@ -86,7 +86,7 @@ class ProductoController extends Controller
                 "numeroPersonas" => $input["numeroPersonas"],
                 "pisos" => $input["pisos"],
                 "catalogo" => $input["catalogo"],
-                "img"=>$imagen,
+                "img" => $input["imagen"],
                 "estado" => 1
             ]);
             Flash::success("Se ha creado éxitosamente");
@@ -99,54 +99,67 @@ class ProductoController extends Controller
 
     public function editar($id)
     {
+        $categorias = Categoria::all();
+        $sabores = Sabor::all();
+        $generos = DB::table('generos')->get();
+        $etapas = DB::table('etapas')->get();
         $producto = Producto::find($id);        
         if ($producto == null) {   
-            Flash::error("No se encontró la producto");      
+            Flash::error("No se encontró el producto");      
             return redirect("/producto");
         }
-        return view("producto.editar", compact("producto"));
+        return view("producto.editar", compact("producto", "categorias", "sabores", "generos", "etapas"));
     }
 
     public function ver($id)
     {
         $producto = Producto::find($id);
         if ($producto == null) {   
-            Flash::error("No se encontró la producto");      
+            Flash::error("No se encontró el producto");      
             return redirect("/producto");
         }
-        $categoria = Producto::select('categorias.nombre')->join("categorias", "productos.idCategoria","categorias.id")->value('nombre');
-        $sabor = Producto::select('sabores.nombre')->join("sabores", "productos.idsabor","sabores.id")->value('nombre');
-        $genero = Producto::select('generos.nombre')->join("generos", "productos.idgenero","generos.id")->value('nombre');
-        $etapa = Producto::select('etapas.nombre')->join("etapas", "productos.idetapa","etapas.id")->value('nombre');
-        return view("producto.ver", compact("producto", "categoria", "sabor","genero","etapa"));
+        $categorias = Producto::select('categorias.nombre')->join("categorias", "productos.idCategoria","categorias.id")->value('nombre');
+        $sabores = Producto::select('sabores.nombre')->join("sabores", "productos.idsabor","sabores.id")->value('nombre');
+        $generos = Producto::select('generos.nombre')->join("generos", "productos.idgenero","generos.id")->value('nombre');
+        $etapas = Producto::select('etapas.nombre')->join("etapas", "productos.idetapa","etapas.id")->value('nombre');
+        return view("producto.ver", compact("producto", "categorias", "sabores","generos","etapas"));
     }
 
     public function modificar(Request $request)
     {
-        $request->validate(Categoria::$rules);
+        $request->validate(Producto::$rules);
         $input = $request->all();
 
         $id=$request->id;
-        $categoria = Categoria::select('*')->where('nombre',$request->nombre)->value('nombre');
+        $producto = Producto::select('*')->where('nombre',$request->nombre)->value('nombre');
         
-        if ($categoria!=null) {
-            Flash::error("La categoria ".$categoria." ya está creada");
-            return redirect("/categoria/editar/$id");
+        if ($producto!=null) {
+            Flash::error("El producto ".$producto." ya está creado");
+            return redirect("/producto/editar/$id");
         }
 
         try {
-            $categoria = Categoria::find($input["id"]);
-            if ($categoria == null) {            
-                return redirect("/categori$categoria");
+            $producto = Producto::find($input["id"]);
+            if ($producto == null) {            
+                return redirect("/producto");
             }
-            $categoria->update([
-                "nombre" => $input["nombre"]
+            $producto->update([
+                "idCategoria" => $input["categoria"],
+                "idSabor" => $input["sabor"],
+                "idGenero" => $input["genero"],
+                "idEtapa" => $input["etapa"],
+                "img" => $input["imagen"],
+                "nombre" => $input["nombre"],
+                "descripcion" => $input["descripcion"],
+                "numeroPersonas" => $input["numeroPersonas"],
+                "pisos" => $input["pisos"],
+                "catalogo" => $input["catalogo"]
             ]);
             Flash::success("Se ha modificado éxitosamente");
-            return redirect("/categoria");
+            return redirect("/producto");
         } catch (\Exception $e) {   
             Flash::error($e->getMessage());      
-            return redirect("/categoria");
+            return redirect("/producto");
         }
     }
 

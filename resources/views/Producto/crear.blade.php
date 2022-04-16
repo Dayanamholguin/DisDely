@@ -25,9 +25,9 @@ Productos
                         <label for="">Imagen</label>
                         <input type="file" class="form-control @error('imagen') is-invalid @enderror" name="imagen" id="imagen">
                         @error('imagen')
-                            <div class="alert alert-danger" role="alert">
-                                {{$message}}
-                            </div>
+                        <div class="alert alert-danger" role="alert">
+                            {{$message}}
+                        </div>
                         @enderror
                     </div>
                 </div>
@@ -35,9 +35,15 @@ Productos
                     <div class="form-group">
                         <label for="">Categoria</label>
                         <select class="form-control" name="categoria">
+                            <option value="">Seleccione</option>
                             @foreach($categorias as $key => $value)
-                                <option value="{{$value->id}}">{{$value->nombre}}</option>
+                            <option value="{{$value->id}}">{{$value->nombre}}</option>
                             @endforeach
+                            @error('categorias')
+                            <div class="alert alert-danger" role="alert">
+                                {{$message}}
+                            </div>
+                            @enderror
                         </select>
                     </div>
                 </div>
@@ -45,9 +51,15 @@ Productos
                     <div class="form-group">
                         <label for="">Sabor</label>
                         <select class="form-control" name="sabor">
+                            <option value="">Seleccione</option>
                             @foreach($sabores as $key => $value)
-                                <option value="{{$value->id}}">{{$value->nombre}}</option>
+                            <option value="{{$value->id}}">{{$value->nombre}}</option>
                             @endforeach
+                            @error('sabores')
+                            <div class="alert alert-danger" role="alert">
+                                {{$message}}
+                            </div>
+                            @enderror
                         </select>
                     </div>
                 </div>
@@ -55,9 +67,15 @@ Productos
                     <div class="form-group">
                         <label for="">Género</label>
                         <select class="form-control" name="genero">
+                            <option value="">Seleccione</option>
                             @foreach($generos as $key => $value)
-                                <option value="{{$value->id}}">{{$value->nombre}}</option>
+                            <option value="{{$value->id}}">{{$value->nombre}}</option>
                             @endforeach
+                            @error('generos')
+                            <div class="alert alert-danger" role="alert">
+                                {{$message}}
+                            </div>
+                            @enderror
                         </select>
                     </div>
                 </div>
@@ -65,9 +83,15 @@ Productos
                     <div class="form-group">
                         <label for="">Etapa</label>
                         <select class="form-control" name="etapa">
+                            <option value="">Seleccione</option>
                             @foreach($etapas as $key => $value)
-                                <option value="{{$value->id}}">{{$value->nombre}}</option>
+                            <option value="{{$value->id}}">{{$value->nombre}}</option>
                             @endforeach
+                            @error('etapas')
+                            <div class="alert alert-danger" role="alert">
+                                {{$message}}
+                            </div>
+                            @enderror
                         </select>
                     </div>
                 </div>
@@ -76,9 +100,9 @@ Productos
                         <label for="">Nombre</label>
                         <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required>
                         @error('nombre')
-                            <div class="alert alert-danger" role="alert">
-                                {{$message}}
-                            </div>
+                        <div class="alert alert-danger" role="alert">
+                            {{$message}}
+                        </div>
                         @enderror
                     </div>
                 </div>
@@ -87,9 +111,9 @@ Productos
                         <label for="">Descripción</label>
                         <textarea type="text" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" required></textarea>
                         @error('descripcion')
-                            <div class="alert alert-danger" role="alert">
-                                {{$message}}
-                            </div>
+                        <div class="alert alert-danger" role="alert">
+                            {{$message}}
+                        </div>
                         @enderror
                     </div>
                 </div>
@@ -98,9 +122,9 @@ Productos
                         <label for="">Número de personas</label>
                         <input type="number" class="form-control @error('numeroPersonas') is-invalid @enderror" id="numeroPersonas" name="numeroPersonas" required>
                         @error('numeroPersonas')
-                            <div class="alert alert-danger" role="alert">
-                                {{$message}}
-                            </div>
+                        <div class="alert alert-danger" role="alert">
+                            {{$message}}
+                        </div>
                         @enderror
                     </div>
                 </div>
@@ -109,9 +133,9 @@ Productos
                         <label for="">Pisos</label>
                         <input type="number" class="form-control @error('pisos') is-invalid @enderror" id="pisos" name="pisos" required>
                         @error('pisos')
-                            <div class="alert alert-danger" role="alert">
-                                {{$message}}
-                            </div>
+                        <div class="alert alert-danger" role="alert">
+                            {{$message}}
+                        </div>
                         @enderror
                     </div>
                 </div>
@@ -138,18 +162,15 @@ Productos
                             <div class="alert alert-danger" role="alert">
                                 {{$message}}
                             </div>
-                             @enderror
+                            @enderror
                         </div>
                     </div>
                 </div>
                 <div class="col-12 centrado">
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
-
-                </div>
             </div>
         </form>
     </div>
 </div>
 @endsection
- 

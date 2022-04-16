@@ -11,12 +11,12 @@ Gestión de Productos
     </div>
     <div class="card-body">
     @include('flash::message')
-        <table id="tbl_producto" class="table" style="width: 100%;">
+        <table id="productos" class="table" style="width: 100%;">
             <thead>
                 <tr>
                     <th>Imagen</th>
                     <th>Nombre</th>
-                    <th>Categoria</th>
+                    <th>Categoría</th>
                     <th>Sabor</th>
                     <th>Género</th>
                     <th>Etapa</th>
@@ -39,7 +39,7 @@ Gestión de Productos
 @section("scripts")
 <script>
     $(document).ready(function() {
-        $('#tbl_producto').DataTable({
+        $('#productos').DataTable({
             processing: true,
             serverSide: true,
             ajax: '/producto/listar',
