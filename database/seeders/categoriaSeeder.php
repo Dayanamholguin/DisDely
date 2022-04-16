@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class generoSeeder extends Seeder
+class categoriaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,15 +15,9 @@ class generoSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('generos')->insert([
+        DB::table('categorias')->insert([
             'nombre' => 'Personalizado',
+            'estado' => 1,
         ]);
-        DB::table('generos')->insert([
-            'nombre' => 'Masculino',
-        ]);
-        DB::table('generos')->insert([
-            'nombre' => 'Femenino',
-        ]);
-        
     }
 }
