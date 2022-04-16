@@ -36,16 +36,16 @@ class ProductoController extends Controller
                 return $producto->estado == 1 ? "Activo" : "Inactivo";
             })
             ->addColumn('editar', function ($producto) {
-                return '<a class="btn btn-primary btn-sm" href="/producto/editar/' . $producto->id . '">Editar</a>';
+                return '<a class="btn btn-primary btn-sm" href="/producto/editar/' . $producto->id . '"><i class="fas fa-edit"></i></a>';
             })
             ->addColumn('ver', function ($producto) {
-                return '<a class="btn btn-secondary btn-sm" href="/producto/ver/' . $producto->id . '">Ver</a>';
+                return '<a class="btn btn-secondary btn-sm" href="/producto/ver/' . $producto->id . '"><i class="fas fa-info-circle"></i></a>';
             })
             ->addColumn('cambiar', function ($producto) {
                 if ($producto->estado == 1) {
-                    return '<a class="btn btn-danger btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/0">Inactivar</a>';
+                    return '<a class="btn btn-danger btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/0"><i class="far fa-eye-slash"></i> Inactivar</a>';
                 } else {
-                    return '<a class="btn btn-success btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/1">Activar</a>';
+                    return '<a class="btn btn-success btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/1"><i class="far fa-eye"></i> Activar</a>';
                 }
             })
             ->rawColumns(['editar', 'cambiar', 'imagen', 'ver'])
@@ -58,13 +58,14 @@ class ProductoController extends Controller
         $sabores = Sabor::all()->where('id','>',1)->where('estado',1);
         $generos = DB::table('generos')->get()->where('id','>',1);
         //$generos = DB::table('generos')->get();
-        $etapas = DB::table('etapas')->get();
+        $etapas = DB::table('etapas')->get()->where('id','>',1);
         return view('producto.crear', compact("categorias","sabores","generos","etapas"));
     }
 
     public function guardar(Request $request)
     {
-        //$request->validate(Producto::$rules);
+        $request->validate(Producto::$rules);
+        
         $input = $request->all();
         $producto = Producto::select('*')->where('nombre', $request->nombre)->value('nombre');
         if ($producto!=null) {

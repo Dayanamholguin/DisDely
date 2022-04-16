@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -27,7 +27,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <label for="nombre"><b>Nombre</b></label>
-                                                        <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" required autocomplete="nombre" autofocus placeholder="Ingrese su nombre" />
+                                                        <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" required autocomplete="nombre" placeholder="Ingrese su nombre" />
                                                         
                                                             @error('nombre')
                                                             <span class="invalid-feedback" role="alert">
@@ -39,7 +39,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-floating">
                                                         <label for="apellido"><b>Apellido</b></label>
-                                                        <input id="apellido" type="text" class="form-control @error('apellido') is-invalid @enderror" name="apellido" required autocomplete="apellido" autofocus placeholder="Ingrese su apellido" />
+                                                        <input id="apellido" type="text" class="form-control @error('apellido') is-invalid @enderror" name="apellido" required autocomplete="apellido" placeholder="Ingrese su apellido" />
                                                         
                                                             @error('apellido')
                                                             <span class="invalid-feedback" role="alert">
@@ -52,10 +52,10 @@
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <label for="correo"><b>Correo</b></label>
-                                                        <input id="correo" type="email" class="form-control @error('correo') is-invalid @enderror" name="correo" required autocomplete="correo" autofocus placeholder="Ingrese su correo electrónico" />
+                                                        <label for="email"><b>Correo</b></label>
+                                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" required autocomplete="email" placeholder="Ingrese su correo electrónico" />
                                                         
-                                                            @error('correo')
+                                                            @error('email')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
@@ -64,10 +64,10 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <label for="correo"><b>Verificar correo</b></label>
-                                                        <input id="correo" type="email" class="form-control @error('correo') is-invalid @enderror" name="correo" required autocomplete="correo" autofocus placeholder="Ingrese su correo electrónico nuevamente" />
+                                                        <label for="celular"><b>Teléfono celular</b></label>
+                                                        <input id="celular" type="text" class="form-control @error('celular') is-invalid @enderror" name="celular" required autocomplete="celular" placeholder="Ingrese su teléfono o celular" />
                                                         
-                                                            @error('correo')
+                                                            @error('celular')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
@@ -77,11 +77,11 @@
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
-                                                    <div class="form-floating mb-3 mb-md-0">
-                                                        <label for="celular"><b>Teléfono celular</b></label>
-                                                        <input id="celular" type="text" class="form-control @error('celular') is-invalid @enderror" name="celular" required autocomplete="celular" autofocus placeholder="Ingrese su teléfono o celular" />
-                                                        
-                                                            @error('celular')
+                                                    <div class="form-floating">
+                                                        <label for="celularAlternativo"><b>Celular alternativo</b></label>
+                                                        <input id="celularAlternativo" type="text" class="form-control @error('celularAlternativo') is-invalid @enderror" name="celularAlternativo" required autocomplete="celularAlternativo" placeholder="Ingrese su teléfono alternativo" />
+                                                       
+                                                            @error('celularAlternativo')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
@@ -90,10 +90,10 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating">
-                                                        <label for="celularAlternativo"><b>Celular alternativo</b></label>
-                                                        <input id="celularAlternativo" type="text" class="form-control @error('celularAlternativo') is-invalid @enderror" name="celularAlternativo" required autocomplete="celularAlternativo" autofocus placeholder="Ingrese su teléfono alternativo" />
+                                                        <label for="fechaNacimiento"><b>Fecha nacimiento</b></label>
+                                                        <input id="fechaNacimiento" type="date" class="form-control @error('fechaNacimiento') is-invalid @enderror" name="fechaNacimiento" required autocomplete="fechaNacimiento"/>
                                                        
-                                                            @error('celularAlternativo')
+                                                            @error('fechaNacimiento')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
@@ -117,7 +117,7 @@
                                             <br>
                                             
                                             <div class="row mb-3">
-                                                <div class="col-md-6">
+                                                <div class="col-md-12">
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <label for="password"><b>Contraseña</b></label>
                                                         <input class="form-control @error('password') is-invalid @enderror" id="password" name="password" required autocomplete="new-password" type="password" placeholder="Ingrese su contraseña" />
@@ -129,26 +129,14 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-floating">
-                                                        <label for="ciudad"><b>Ciudad</b></label>
-                                                        <input id="ciudad" type="text" class="form-control @error('ciudad') is-invalid @enderror" name="ciudad" required autocomplete="ciudad" autofocus placeholder="Ingrese su ciudad" />
-                                                        
-                                                            @error('ciudad')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                            @enderror
-                                                    </div>
-                                                </div>
                                             </div>
                                             <div class="mt-4 mb-0">
-                                                <div class="d-grid"><a class="btn btn-primary btn-block" href="login.html" style="background-color: #BE8C71; border-color: #BE8C71">Crear Cuenta</a></div>
+                                                <div class="d-grid"><a class="btn btn-primary btn-block" href="/login" style="background-color: #BE8C71; border-color: #BE8C71">Crear Cuenta</a></div>
                                             </div>
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="login.html" style="color: #B0535E">¿Ya tienes una cuenta? Inicia sesión</a></div>
+                                        <div class="small"><a href="/login" style="color: #B0535E">¿Ya tienes una cuenta? Inicia sesión</a></div>
                                     </div>
                                 </div>
                             </div>

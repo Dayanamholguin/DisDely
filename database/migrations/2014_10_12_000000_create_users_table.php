@@ -18,10 +18,6 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('apellido');
             $table->string('email')->unique();
-
-            $table->unsignedBigInteger('idRol');  
-            $table->foreign('idRol')->references('id')->on('roles');
-            
             $table->String('celular',13);
             $table->String('celularAlternativo',13)->nullable();
             $table->boolean('estado');
