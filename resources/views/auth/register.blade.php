@@ -11,16 +11,25 @@
         <link href="/css/sb-admin-2.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
-    <body style="background-color: #B0535E">
+    <body>
+    <style>
+        body {
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(45deg, blue, pink, yellow, white);
+            background-size: 400% 400%;
+            position: relative;
+        }
+    </style>
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
-                <main >
+                <main>
                     <div class="container" >
                         <div class="row justify-content-center">
                             <div class="col-lg-7">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header" style="background: #F8EAEF"><h3 class="text-center font-weight-light my-4">Crear Cuenta</h3></div>
-                                    <div class="card-body" style="background: #F8EAEF">
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Crear Cuenta</h3></div>
+                                    <div class="card-body">
                                         <form method="POST" action="{{ route('register') }}">
                                             @csrf
                                             <div class="row mb-3">
@@ -127,7 +136,6 @@
                                             <button type="submit"  class="btn btn-primary btn-user btn-block">
                                                 {{ __('Registrar') }}
                                             </button>
-                                            <!--style="background-color: #BE8C71; border-color: #BE8C71"-->
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">

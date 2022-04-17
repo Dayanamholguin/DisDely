@@ -43,13 +43,8 @@
             .bd-placeholder-img-lg {
                 font-size: 3.5rem;
             }
-<<<<<<< HEAD
-    </style>
-=======
         }
     </style>
-
->>>>>>> 465d7e97aee6c95a7342dc84d87904048c62393f
 </head>
 
 <body>
