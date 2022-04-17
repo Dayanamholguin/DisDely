@@ -24,13 +24,13 @@ Productos
             <div class="card-body">
                 <h5 class="card-title">Producto {{$producto->nombre}}</h5>
                 <img src="/imagenes/{{$producto->img}}" width='auto' height='auto'>;
-                <p class="card-text">Categoria: {{$categoria}}</p>
-                <p class="card-text">Sabor: {{$sabor}}</p>
-                <p class="card-text">Género: {{$genero}}</p>
-                <p class="card-text">Etapa: {{$etapa}}</p>
-                <p class="card-text">{{$producto->descripcion}}</p>
-                <p class="card-text">{{$producto->numeroPersonas}}</p>
-                <p class="card-text">{{$producto->pisos}}</p>
+                <p class="card-text">Categoria: {{$categorias}}</p>
+                <p class="card-text">Sabor: {{$sabores}}</p>
+                <p class="card-text">Género: {{$generos}}</p>
+                <p class="card-text">Etapa: {{$etapas}}</p>
+                <p class="card-text">Descripción: {{$producto->descripcion}}</p>
+                <p class="card-text">Número de Personas: {{$producto->numeroPersonas}}</p>
+                <p class="card-text">Número de Pisos: {{$producto->pisos}}</p>
                 @if($producto->catalogo==1)
                 <p class="card-text">Está en el catálogo</p>
                 @elseif($producto->catalogo==0)

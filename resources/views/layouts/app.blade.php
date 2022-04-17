@@ -103,6 +103,17 @@
                 </div>
             </li>
 
+            <!--Catalogo-->
+            <div class="sidebar-heading">
+                Gestión de Catálogo
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                <i class="fa-solid fa-user"></i>
+                    <span>Gestión de Catálogo</span></a>
+            </li>
+
             <!--Ventas-->
             <div class="sidebar-heading">
                 Gestión de Abonos
