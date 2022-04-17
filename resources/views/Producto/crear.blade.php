@@ -23,7 +23,7 @@ Productos
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="">Imagen</label>
-                        <input type="file" class="form-control-file @error('imagen') is-invalid @enderror" name="imagen" id="imagen" require>
+                        <input type="file" class="form-control-file @error('imagen') is-invalid @enderror" name="imagen" id="imagen">
                         @error('imagen')
                             <div class="alert alert-danger" role="alert">
                                 {{$message}}
@@ -74,7 +74,7 @@ Productos
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="">Nombre</label>
-                        <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required>
+                        <input type="text" value="{{ old('nombre') }}" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required>
                         @error('nombre')
                             <div class="alert alert-danger" role="alert">
                                 {{$message}}
@@ -85,7 +85,7 @@ Productos
                 <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="">Descripción</label>
-                        <textarea type="text" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" required></textarea>
+                        <textarea type="text" value="{{ old('descripcion') }}" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" required></textarea>
                         @error('descripcion')
                             <div class="alert alert-danger" role="alert">
                                 {{$message}}
@@ -96,7 +96,7 @@ Productos
                 <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="">Número de personas</label>
-                        <input type="number" class="form-control @error('numeroPersonas') is-invalid @enderror" id="numeroPersonas" name="numeroPersonas" required>
+                        <input type="number" value="{{ old('numeroPersonas') }}" class="form-control @error('numeroPersonas') is-invalid @enderror" id="numeroPersonas" name="numeroPersonas" required>
                         @error('numeroPersonas')
                             <div class="alert alert-danger" role="alert">
                                 {{$message}}
@@ -107,7 +107,7 @@ Productos
                 <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="">Pisos</label>
-                        <input type="number" class="form-control @error('pisos') is-invalid @enderror" id="pisos" name="pisos" required>
+                        <input type="number" value="{{ old('pisos') }}" class="form-control @error('pisos') is-invalid @enderror" id="pisos" name="pisos" required>
                         @error('pisos')
                             <div class="alert alert-danger" role="alert">
                                 {{$message}}
@@ -116,30 +116,12 @@ Productos
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-12">
-                    <div class="form-check">
+                    <div class="form-group">
                         <label for="">¿Desea añadirlo al catálogo?</label>
-                        <div class="form-check ">
-                            <input class="form-check-input @error('catalogo') is-invalid @enderror" type="radio" value="1" name="catalogo" id="catalogo" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Sí
-                            </label>
-                            @error('catalogo')
-                            <div class="alert alert-danger" role="alert">
-                                {{$message}}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input @error('catalogo') is-invalid @enderror" type="radio" value="0" name="catalogo" id="catalogo">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                No
-                            </label>
-                            @error('catalogo')
-                            <div class="alert alert-danger" role="alert">
-                                {{$message}}
-                            </div>
-                             @enderror
-                        </div>
+                            <select class="form-control" name="catalogo">
+                                <option value="1">Sí</option>
+                                <option value="0">No</option>
+                            </select>
                     </div>
                 </div>
                 <div class="col-12 centrado">

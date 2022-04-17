@@ -17,8 +17,6 @@ class Producto extends Model
         'nombre',
         'descripcion',
         'img',
-        'img2',
-        'img3',
         'numeroPersonas',
         'pisos',
         'catalogo',
@@ -26,16 +24,15 @@ class Producto extends Model
     ];
 //acá con las tablas
     public static $rules =[
-        'idCategoria'=>'required|exists:categoria,id',
-        'idSabor'=>'required|exists:sabor,id',
-        'idGenero'=>'required|exists:generos,id',
-        'idEtapa'=>'required|exists:etapas,id',
+        'categoria'=>'required|exists:categorias,id',
+        'sabor'=>'required|exists:sabores,id',
+        'genero'=>'required|exists:generos,id',
+        'etapa'=>'required|exists:etapas,id',
         'nombre' => 'required|min:3',
         'descripcion' => 'required|max:500',
-        'img' => 'required',
+        'imagen' => 'required',
         'numeroPersonas' => 'required|numeric',
         'pisos' => 'required|numeric',
         'catalogo' => 'required|in:1,0',
-        'estado' => 'in:1,0'
     ];
 }

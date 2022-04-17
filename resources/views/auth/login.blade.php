@@ -58,16 +58,15 @@
                                                     <button type="submit" style="background-color:white; color:black; border-color:#B0535E" class=" col-md-12 btn btn-primary">
                                                         {{ __('Iniciar sesión') }}
                                                     </button>
-                    
-                                                    @if (Route::has('password.request'))
-                                                        <a class=" col-md-12 btn btn-link" style="color: #B0535E" href="{{ route('password.request') }}">
-                                                            {{ __('Olvidé mi contraseña') }}
-                                                        </a>
-                                                    @endif
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
+                                    @if (Route::has('password.request'))
+                                                        <a class=" col-md-12 btn btn-link" style="color: #B0535E" href="{{ route('password.request') }}">
+                                                            {{ __('Olvidé mi contraseña') }}
+                                                        </a>
+                                                    @endif
                                     <div class="card-footer text-center py-3">
                                         <div class="small"><a href="/register" style="color: #B0535E">¿No tienes una cuenta? Ingresa aquí</a></div>
                                     </div>
