@@ -12,12 +12,12 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/album/">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link href="/css/wel.css" rel="stylesheet">
+
     <!-- Bootstrap core CSS -->
     <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <!-- Favicons -->
-
+    <link href="/css/wel.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
 
     <link rel="icon" type="image/x-icon" href="/img/logo.png" />
@@ -47,7 +47,7 @@
     </style>
 </head>
 
-<body class="fondo">
+<body>
     <header>
         <nav class="navbar navbar-expand-md navbar-transparent fixed-top bg-transparent">
             <div class="container">
@@ -64,10 +64,10 @@
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <ul class="navbar-nav me-auto mb-2 mb-md-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#" style="color:black;">Inicio</a>
+                                <a class="nav-link" href="/welcome" style="color:black;">Inicio</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/quienes" style="color:black;">¿Quiénes Somos?</a>
+                                <a class="nav-link active" aria-current="page" href="/quienes" style="color:black;">¿Quiénes Somos?</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#" style="color:black;">Categorías</a>
@@ -93,26 +93,24 @@
         <div class="coloro">
             <section class="py-5 text-center container">
                 <div class="row py-lg-5">
-                    <div class="col-lg-6 col-md-8 mx-auto">
-                    <h1> <font face="Harlekin" style="color: black;" class="text-capitalize">Dulce Encanto</font></h1>
-                        <p class="lead text-muted">Tortas temáticas, para todo tipo de ocasión <br> ¡Elaboramos tortas a tu gusto!</p>                      
+                    <div class="col-lg-6 col-md-13 mx-auto">
+                        <h1>
+                            <font face="Harlekin" style="color: black;" class="text-capitalize">¿Quiénes Somos?</font>
+                        </h1>
                     </div>
                 </div>
             </section>
-        </div>
-        <h2> <font face="Harlekin" style="color: black;" class="text-capitalize">Nuestros Productos</font></h2>
-        <div class="content-all">
-            <div class="content-carrousel">
-                <figure><img src="/img/pastel.png"></figure>
-                <figure><img src="/img/pastel.png"></figure>
-                <figure><img src="/img/pastel.png"></figure>
-                <figure><img src="/img/pastel.png"></figure>
-                <figure><img src="/img/pastel.png"></figure>
-                <figure><img src="/img/pastel.png"></figure>
-                <figure><img src="/img/pastel.png"></figure>
-                <figure><img src="/img/pastel.png"></figure>
-                <figure><img src="/img/pastel.png"></figure>
-                <figure><img src="/img/pastel.png"></figure>
+            <div class="container text-center" style="color: #E6CAA5; width: 40%; border: 7px solid; padding: 20px;">
+                <h3>
+                    <font face="Harlekin" style="color: black;" class="text-capitalize">Dulce Encanto</font>
+                </h3>
+                <p style="color: black;"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
+                    quam nemo quod cumque harum ducimus provident modi magnam eos perspiciatis? Eligendi aspernatur
+                    incidunt id enim non quae a mollitia consequuntur. vident modi magnam eos perspiciatis? Eligendi
+                    aspernatur im non quae a mollitia consequuntur. vident modi magnam eos perspi Lorem ipsum dolor
+                    sit amet consectetur adipisicing elit. Fugit quam nemo quod cumque harum ducimus provident modi magn
+                    incidunt id enim non quae a mollitia consequuntur.
+                </p>
             </div>
         </div>
     </main>

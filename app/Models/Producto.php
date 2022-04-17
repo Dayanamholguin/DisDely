@@ -24,10 +24,10 @@ class Producto extends Model
     ];
 //acá con las tablas
     public static $rules = [
-        'categoria'=>'required|exists:categorias,id',
-        'sabor'=>'required|exists:sabores,id',
-        'genero'=>'required|exists:generos,id',
-        'etapa'=>'required|exists:etapas,id',
+        'IdCategoria'=>'required|exists:categorias,id',
+        'IdSabor'=>'required|exists:sabores,id',
+        'IdGenero'=>'required|exists:generos,id',
+        'IdEtapa'=>'required|exists:etapas,id',
         'nombre' => 'required|min:3',
         'descripcion' => 'required|max:500',
         'imagen' => 'required',

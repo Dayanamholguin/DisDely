@@ -8,12 +8,24 @@ use App\Http\Controllers\CategoriaController;
 //Producto
 use App\Http\Controllers\ProductoController;
 
+//Menu Galeria
+use App\Http\Controllers\GaleriaController;
+
+//Menu QuienesSomos
+use App\Http\Controllers\QuienesController;
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+//Galeria
+Route::get('/galeria', [GaleriaController::class, 'index'])->name('index');
+
+//QuienesSomos
+Route::get('/quienes', [QuienesController::class, 'index'])->name('index');
 
 //Sabor
 Route::get('/sabor', [SaborController::class, 'index']);
