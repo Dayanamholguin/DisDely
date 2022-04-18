@@ -118,12 +118,6 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-floating mb-3 mb-md-0">
-                                                        <label for="password-confirm"><b>Confirmar contraseña</b></label>
-                                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Ingrese nuevamente su contraseña">
-                                                    </div>
-                                                </div>
                                             </div>
                                             <label for=""><b>Contraseña</b></label>
                                             <div class="form-group row">

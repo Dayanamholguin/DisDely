@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="utf-8">
@@ -43,10 +43,7 @@
             .bd-placeholder-img-lg {
                 font-size: 3.5rem;
             }
-<<<<<<< HEAD
-=======
         }
->>>>>>> 74a2dcb14bf2e6a3875aa251e9908cf2d5b958d6
     </style>
 </head>
 
