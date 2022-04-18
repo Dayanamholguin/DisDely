@@ -57,7 +57,7 @@ class RegisterController extends Controller
             'celularAlternativo' => ['string', 'max:255'],
             'estado' => ['required'],
             'fechaNacimiento' => ['required'],
-            'genero' => ['required', 'exists:genero,id'],
+            'genero' => ['required', 'exists:generos,id'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }

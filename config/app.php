@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
     ],
 
@@ -234,7 +235,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Flash'=> Collective\Html\HtmlFacade::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
-
+        
     ],    
 
 ];

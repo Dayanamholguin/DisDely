@@ -20,9 +20,7 @@
                                             @csrf
                                             <div class="form-floating mb-3">
                                                 <div class="col-md-12">
-                                                    
                                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Correo electronico">
-                    
                                                     @error('email')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -33,11 +31,8 @@
                                             </div>
 
                                             <div class="form-floating mb-3">
-                                                
-                                                <div class="col-md-12">
-                                                    
+                                                <div class="col-md-12">                                                    
                                                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Contraseña">
-
                                                     @error('password')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>

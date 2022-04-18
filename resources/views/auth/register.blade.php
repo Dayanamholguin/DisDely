@@ -103,25 +103,24 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-floating">
-                                                    <label for="inputFirstName"><b>Género</b></label> <br>
+                                                    <label for="genero"><b>Género</b></label> <br>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Masculino">
-                                                        <label class="form-check-label" for="inlineRadio1">Masculino</label>
+                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Masculino" value="Masculino">
+                                                        <label class="form-check-label" for="Masculino">Masculino</label>
                                                       </div>
                                                       <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Femenino">
-                                                        <label class="form-check-label" for="inlineRadio2">Femenino</label>
+                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Femenino" value="Femenino">
+                                                        <label class="form-check-label" for="Femenino">Femenino</label>
                                                       </div>
                                                 </div>
                                             </div>
                                             <br>
                                             
                                             <div class="row mb-3">
-                                                <div class="col-md-12">
+                                                <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <label for="password"><b>Contraseña</b></label>
-                                                        <input class="form-control @error('password') is-invalid @enderror" id="password" name="password" required autocomplete="new-password" type="password" placeholder="Ingrese su contraseña" />
-                                                                                  
+                                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Ingrese su contraseña">                                                                                  
                                                         @error('password')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
@@ -129,9 +128,20 @@
                                                         @enderror
                                                     </div>
                                                 </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <label for="password-confirm"><b>Confirmar contraseña</b></label>
+                                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Ingrese nuevamente su contraseña">
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="mt-4 mb-0">
-                                                <div class="d-grid"><a class="btn btn-primary btn-block" href="/login" style="background-color: #BE8C71; border-color: #BE8C71">Crear Cuenta</a></div>
+                                            
+                                            <div class="row mb-3">
+                                                <div class="col-md-6 offset-md-5">
+                                                    <button type="submit" class="btn btn-primary">
+                                                        {{ __('Registrar') }}
+                                                    </button>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
