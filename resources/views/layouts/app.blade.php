@@ -2,7 +2,6 @@
 <html lang="es">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -47,21 +46,17 @@
                     <!--<i class="fas fa-laugh-wink"></i>-->
                     <img src="/../img/logo.png" width="50px" height="50px">
                 </div>
-                <div class="sidebar-brand-text mx-3 p-3"><font face="Harlekin" style="color: white;" class="text-capitalize" >Dulce Encanto</font></div>
+                <div class="sidebar-brand-text mx-3 p-3">
+                    <font face="Harlekin" style="color: white;" class="text-capitalize">Dulce Encanto</font>
+                </div>
             </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
                 <a class="nav-link" href="#">
-                <i class="fas fa-home"></i>
+                    <i class="fas fa-home"></i>
                     <span>Dashboard</span></a>
             </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
 
             <!--Roles-->
             <div class="sidebar-heading">
@@ -70,7 +65,7 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                <i class="fas fa-tools"></i>
+                    <i class="fas fa-tools"></i>
                     <span> Gestión de Roles</span></a>
             </li>
 
@@ -81,7 +76,7 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                <i class="fas fa-user-alt"></i>
+                    <i class="fas fa-user-alt"></i>
                     <span>Gestión de Usuarios</span></a>
             </li>
 
@@ -92,7 +87,7 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-birthday-cake"></i>
+                    <i class="fas fa-birthday-cake"></i>
                     <span>Gestión de Productos</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -104,6 +99,17 @@
                 </div>
             </li>
 
+            <!--Catalogo-->
+            <div class="sidebar-heading">
+                Gestión de Catálogo
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Gestión de Catálogo</span></a>
+            </li>
+
             <!--Ventas-->
             <div class="sidebar-heading">
                 Gestión de Abonos
@@ -111,7 +117,7 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                <i class="fas fa-hand-holding-usd"></i>
+                    <i class="fas fa-hand-holding-usd"></i>
                     <span> Gestión de Abonos</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
@@ -123,8 +129,8 @@
                     </div>
                 </div>
             </li>
-            
-           
+
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -177,7 +183,7 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->nombre}}</span>
                                 <img class="img-profile rounded-circle" src="/../img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -236,47 +242,54 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">¿Listo para salir?</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Cerrar sesión</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">X</span>
+                            <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div class="modal-body">Seleccione "Cerrar sesión" a continuación si está listo para finalizar su sesión actual.</div>
+                    <div class="modal-body">¿Está seguro que desea cerrar sesión?</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                        <a class="btn btn-primary" href="login.html">Cerrar sesión</a>
+
+                        <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            {{ __('Cerrar sesión') }}
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Bootstrap core JavaScript-->
-        <script src="/vendor/jquery/jquery.min.js"></script>
-        <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Core plugin JavaScript-->
-        <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-        <!-- Custom scripts for all pages-->
-        <script src="/js/sb-admin-2.min.js"></script>
-        <script src="/js/datatables.min.js"></script>
-        <!-- Page level plugins -->
-        <script src="/vendor/chart.js/Chart.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/js/sb-admin-2.min.js"></script>
+    <script src="/js/datatables.min.js"></script>
+    <!-- Page level plugins -->
+    <script src="/vendor/chart.js/Chart.min.js"></script>
 
-        <!-- Page level custom scripts -->
-        <script src="/js/demo/chart-area-demo.js"></script>
-        <script src="/js/demo/chart-pie-demo.js"></script>
+    <!-- Page level custom scripts -->
+    <script src="/js/demo/chart-area-demo.js"></script>
+    <script src="/js/demo/chart-pie-demo.js"></script>
 
-        <script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.6.0/dt-1.11.5/datatables.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                var contenedor = $('#contenedor_carga');
-                contenedor.css('visibility','hidden');
-                contenedor.css('opacity','0');
-            });
-        </script>
-        @yield('scripts')
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.6.0/dt-1.11.5/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var contenedor = $('#contenedor_carga');
+            contenedor.css('visibility', 'hidden');
+            contenedor.css('opacity', '0');
+        });
+    </script>
+    @yield('scripts')
 </body>
 
 </html>

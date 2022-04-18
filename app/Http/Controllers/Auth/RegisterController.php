@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Flash;
 
 class RegisterController extends Controller
 {
@@ -53,9 +54,8 @@ class RegisterController extends Controller
             'nombre' => ['required', 'string', 'max:255'],
             'apellido' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'celular' => ['required', 'string', 'max:255'],
-            'celularAlternativo' => ['string', 'max:255'],
-            'estado' => ['required'],
+            'celular' => ['required', 'string', 'max:25'],
+            'celularAlternativo' => ['string', 'max:25'],
             'fechaNacimiento' => ['required'],
             'genero' => ['required', 'exists:generos,id'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -76,9 +76,9 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'celular' => $data['celular'],
             'celularAlternativo' => $data['celularAlternativo'],
-            'estado' => 0,
+            'estado' => 1,
             'fechaNacimiento' => $data['fechaNacimiento'],
-            'genero' => $data['genero'],
+            'idGenero' => $data['genero'],
             'password' => Hash::make($data['password']),
         ]);
     }

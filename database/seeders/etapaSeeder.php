@@ -22,7 +22,7 @@ class etapaSeeder extends Seeder
             'nombre' => 'Bebé',
         ]);
         DB::table('etapas')->insert([
-            'nombre' => 'Niño',
+            'nombre' => 'Niño(a)',
         ]);
         DB::table('etapas')->insert([
             'nombre' => 'Adolescente',

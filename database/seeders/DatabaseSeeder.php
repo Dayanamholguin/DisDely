@@ -23,6 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(estadoCotizacionSeeder::class);
         $this->call(saborSeeder::class);
         $this->call(tipoCotizacionSeeder::class);
-
+        $this->call(usuarioSeeder::class);
     }
 }

@@ -29,7 +29,7 @@ class User extends Authenticatable
         'celularAlternativo',
         'estado',
         'fechaNacimiento',
-        'genero',
+        'idGenero',
         'password',
     ];
 
