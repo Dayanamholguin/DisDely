@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <!--<title>{{ config('app.name', 'Dulce Encanto') }}</title>-->
     <title>Dulce Encanto</title>
     <link rel="icon" type="image/x-icon" href="/img/logo.png" />
@@ -24,10 +21,8 @@
     <!--datatables-->
     <link href="/css/datatables.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
-
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.6.0/dt-1.11.5/datatables.min.css" />
-
 </head>
 
 <body id="page-top">
@@ -36,7 +31,6 @@
     </div>
     <!-- Page Wrapper -->
     <div id="wrapper">
-
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -49,8 +43,6 @@
                 <div class="sidebar-brand-text mx-3 p-3"><font face="Harlekin" style="color: white;" class="text-capitalize" >Dulce Encanto</font></div>
             </a>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
@@ -59,8 +51,6 @@
                     <span>Dashboard</span></a>
             </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
 
             <!--Roles-->
             <div class="sidebar-heading">
@@ -79,7 +69,7 @@
             </div>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/usuario">
                 <i class="fas fa-user-alt"></i>
                     <span>Gestión de Usuarios</span></a>
             </li>
@@ -101,17 +91,6 @@
                         <a class="collapse-item" href="/producto">Productos</a>
                     </div>
                 </div>
-            </li>
-
-            <!--Catalogo-->
-            <div class="sidebar-heading">
-                Gestión de Catálogo
-            </div>
-
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                <i class="fa-solid fa-user"></i>
-                    <span>Gestión de Catálogo</span></a>
             </li>
 
             <!--Ventas-->
@@ -192,18 +171,18 @@
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="/perfil">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
+                                    Perfil
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
+                                    Cambiar contraseña
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <!--<a class="dropdown-item" href="#">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Activity Log
-                                </a>
+                                </a>-->
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

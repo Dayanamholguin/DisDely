@@ -79,8 +79,7 @@ class SaborController extends Controller
         $input = $request->all();
 
         $id=$request->id;
-        $sabor = Sabor::select('*')->where('nombre',$request->nombre)->value('nombre');
-        
+        $sabor = Sabor::select('*')->where('nombre',$request->nombre)->where('id','<>',$id)->value('nombre');
         if ($sabor!=null) {
             Flash::error("El sabor ".$sabor." ya está creado");
             return redirect("/sabor/editar/$id");

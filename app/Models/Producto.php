@@ -23,22 +23,14 @@ class Producto extends Model
         'estado',
     ];
 //acá con las tablas
-<<<<<<< HEAD
     public static $rules =[
         'categoria'=>'required|exists:categorias,id',
         'sabor'=>'required|exists:sabores,id',
         'genero'=>'required|exists:generos,id',
         'etapa'=>'required|exists:etapas,id',
-=======
-    public static $rules = [
-        'idCategoria'=>'required|exists:categorias,id',
-        'idSabor'=>'required|exists:sabores,id',
-        'idGenero'=>'required|exists:generos,id',
-        'idEtapa'=>'required|exists:etapas,id',
->>>>>>> 465d7e97aee6c95a7342dc84d87904048c62393f
-        'nombre' => 'required|min:3',
+        'nombre' => 'required|min:3', //unique:productos'
         'descripcion' => 'required|max:500',
-        'imagen' => 'required',
+        //'imagen' => 'required',
         'numeroPersonas' => 'required|numeric',
         'pisos' => 'required|numeric',
         'catalogo' => 'required|in:1,0',

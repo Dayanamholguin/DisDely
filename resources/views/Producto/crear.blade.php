@@ -142,35 +142,10 @@ Productos
                 <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="">¿Desea añadirlo al catálogo?</label>
-<<<<<<< HEAD
                             <select class="form-control" name="catalogo">
                                 <option value="1">Sí</option>
                                 <option value="0">No</option>
                             </select>
-=======
-                        <div class="form-check ">
-                            <input class="form-check-input @error('catalogo') is-invalid @enderror" type="radio" value="1" name="catalogo" id="catalogo" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Sí
-                            </label>
-                            @error('catalogo')
-                            <div class="alert alert-danger" role="alert">
-                                {{$message}}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input @error('catalogo') is-invalid @enderror" type="radio" value="0" name="catalogo" id="catalogo">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                No
-                            </label>
-                            @error('catalogo')
-                            <div class="alert alert-danger" role="alert">
-                                {{$message}}
-                            </div>
-                            @enderror
-                        </div>
->>>>>>> 465d7e97aee6c95a7342dc84d87904048c62393f
                     </div>
                 </div>
                 <div class="col-12 centrado">

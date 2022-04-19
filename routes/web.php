@@ -7,6 +7,10 @@ use App\Http\Controllers\SaborController;
 use App\Http\Controllers\CategoriaController;
 //Producto
 use App\Http\Controllers\ProductoController;
+//usuarios
+use App\Http\Controllers\UsuarioController;
+//perfil
+use App\Http\Controllers\PerfilController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -42,3 +46,23 @@ Route::get('/producto/editar/{id}', [ProductoController::class, 'editar']);
 Route::get('/producto/ver/{id}', [ProductoController::class, 'ver']);
 Route::post('/producto/actualizar', [ProductoController::class, 'modificar']);
 Route::get('/producto/cambiar/estado/{id}/{estado}', [ProductoController::class, 'modificarEstado']);
+
+//usuarios
+Route::get('/usuario', [UsuarioController::class, 'index']);
+Route::get('/usuario/listar', [UsuarioController::class, 'listar']);
+Route::get('/usuario/crear', [UsuarioController::class, 'crear']);
+Route::post('/usuario/guardar', [UsuarioController::class, 'guardar']);
+Route::get('/usuario/editar/{id}', [UsuarioController::class, 'editar']);
+Route::get('/usuario/ver/{id}', [UsuarioController::class, 'ver']);
+Route::post('/usuario/actualizar', [UsuarioController::class, 'modificar']);
+Route::get('/usuario/cambiar/estado/{id}/{estado}', [UsuarioController::class, 'modificarEstado']);
+
+//perfil
+Route::get('/perfil', [PerfilController::class, 'index']);
+//para mostrar
+/*Route::get('/imagenes/{path}/{attachment}', function($path, $attachment){
+    $file = sprintf('storage/%s/%s', $path, $attachment);
+    if(File::exists($file)){
+        return \Intervention\Image\Facades\Image::mak($file)->response();
+    }
+});*/

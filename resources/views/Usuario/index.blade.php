@@ -1,23 +1,27 @@
 @extends('layouts.app')
 
 @section('title')
-Gestión de Categorías
+Gestión de Productos
 @endsection
 
 @section('content')
 <div class="card">
     <div class="card-header text-center">
-        <strong>Categorias</strong> / <a href="/categoria/crear" class="alert-link titulo">Crear categoria</a>
+        <strong>Usuarios</strong> / <a href="/usuario/crear" class="alert-link titulo">Crear usuario</a>
     </div>
     <div class="card-body">
     @include('flash::message')
-        <table id="categoria" class="table" style="width: 100%;">
+        <table id="usuario" class="table" style="width: 100%;">
             <thead>
                 <tr>
-                    <th>#</th>
                     <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th>Celular</th>
+                    <th>Género</th>
                     <th>Estado</th>
                     <th>Editar</th>
+                    <th>Ver</th>
                     <th>Cambiar Estado</th>
                 </tr>
             </thead>
@@ -33,16 +37,28 @@ Gestión de Categorías
 @section("scripts")
 <script>
     $(document).ready(function() {
-        $('#categoria').DataTable({
+        $('#usuario').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '/categoria/listar',
+            ajax: '/usuario/listar',
             columns: [{
-                    data: 'id',
-                    name: 'id'
+                    data: 'nombre',
+                    name: 'nombre',
                 },
                 {
-                    data: 'nombre',
+                    data: 'apellido',
+                    name: 'apellido'
+                },
+                {
+                    data: 'email',
+                    name: 'email'
+                },
+                {
+                    data: 'celular',
+                    name: 'celular'
+                },
+                {
+                    data: 'gnombre',
                     name: 'nombre'
                 },
                 {
@@ -52,6 +68,12 @@ Gestión de Categorías
                 {
                     data: 'editar',
                     name: 'editar',
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    data: 'ver',
+                    name: 'ver',
                     orderable: false,
                     searchable: false
                 },

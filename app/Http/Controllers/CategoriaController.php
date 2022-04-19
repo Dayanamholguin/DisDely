@@ -80,7 +80,7 @@ class CategoriaController extends Controller
         $input = $request->all();
 
         $id=$request->id;
-        $categoria = Categoria::select('*')->where('nombre',$request->nombre)->value('nombre');
+        $categoria = Categoria::select('*')->where('nombre',$request->nombre)->where('id','<>',$id)->value('nombre');
         
         if ($categoria!=null) {
             Flash::error("La categoria ".$categoria." ya está creada");

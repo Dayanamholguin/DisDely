@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -43,13 +42,9 @@
             .bd-placeholder-img-lg {
                 font-size: 3.5rem;
             }
-<<<<<<< HEAD
-    </style>
-=======
-        }
+
     </style>
 
->>>>>>> 465d7e97aee6c95a7342dc84d87904048c62393f
 </head>
 
 <body>
@@ -98,7 +93,7 @@
         <div class="coloro">
             <section class="py-5 text-center container">
                 <div class="row py-lg-5">
-                    <div class="col-lg-6 col-md-8 mx-auto">
+                    <div class="col-lg-6 col-md-8 mx-auto"><br>
                         <h3 class="fw-light">Dulce Encanto</h3>
                         <p class="lead text-muted">Tortas temáticas, para todo tipo de ocasión <br> ¡Elaboramos tortas a tu gusto!</p>                      
                     </div>
