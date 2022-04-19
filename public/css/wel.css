@@ -16,7 +16,7 @@
     box-sizing: border-box;
 }
 
-body{
+.fondo{
     background-image: url(../img/fondo.jpg);
     background-position: center;
     background-repeat: no-repeat;

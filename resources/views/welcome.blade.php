@@ -42,12 +42,17 @@
             .bd-placeholder-img-lg {
                 font-size: 3.5rem;
             }
+<<<<<<< HEAD
 
     </style>
 
+=======
+        }
+    </style>
+>>>>>>> ebc49c9df1ea5038cc51314a776c5b951ce1e061
 </head>
 
-<body>
+<body class="fondo">
     <header>
         <nav class="navbar navbar-expand-md navbar-transparent fixed-top bg-transparent">
             <div class="container">
@@ -67,16 +72,16 @@
                                 <a class="nav-link active" aria-current="page" href="#" style="color:black;">Inicio</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" style="color:black;">¿Quiénes Somos?</a>
+                                <a class="nav-link" href="/quienes" style="color:black;">¿Quiénes Somos?</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#" style="color:black;">Categorías</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" style="color:black;">Galería</a>
+                                <a class="nav-link" href="/galeria" style="color:black;">Galería</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" style="color:black;">Contacto</a>
+                                <a class="nav-link" href="/contacto" style="color:black;">Contacto</a>
                             </li>
                             <li class="nav-item">
                                 <a href="/login" class="btn boton my-2">Iniciar Sesión</a>
@@ -93,14 +98,19 @@
         <div class="coloro">
             <section class="py-5 text-center container">
                 <div class="row py-lg-5">
+<<<<<<< HEAD
                     <div class="col-lg-6 col-md-8 mx-auto"><br>
                         <h3 class="fw-light">Dulce Encanto</h3>
+=======
+                    <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1> <font face="Harlekin" style="color: black;" class="text-capitalize">Dulce Encanto</font></h1>
+>>>>>>> ebc49c9df1ea5038cc51314a776c5b951ce1e061
                         <p class="lead text-muted">Tortas temáticas, para todo tipo de ocasión <br> ¡Elaboramos tortas a tu gusto!</p>                      
                     </div>
                 </div>
             </section>
         </div>
-        <h2>Nuestros Productos</h2>
+        <h2> <font face="Harlekin" style="color: black;" class="text-capitalize">Nuestros Productos</font></h2>
         <div class="content-all">
             <div class="content-carrousel">
                 <figure><img src="/img/pastel.png"></figure>
