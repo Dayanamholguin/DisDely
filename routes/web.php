@@ -1,10 +1,16 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+
+//Rol
+use App\Http\Controllers\RoleController;
+
 //Sabor
 use App\Http\Controllers\SaborController;
+
 //categoria
 use App\Http\Controllers\CategoriaController;
+
 //Producto
 use App\Http\Controllers\ProductoController;
 
@@ -26,6 +32,9 @@ Route::get('/galeria', [GaleriaController::class, 'index'])->name('index');
 
 //QuienesSomos
 Route::get('/quienes', [QuienesController::class, 'index'])->name('index');
+
+//Rol
+Route::get('/rol', [RoleController::class, 'index']);
 
 //Sabor
 Route::get('/sabor', [SaborController::class, 'index']);

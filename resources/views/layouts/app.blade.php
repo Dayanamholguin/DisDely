@@ -64,7 +64,7 @@
             </div>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/rol">
                     <i class="fas fa-tools"></i>
                     <span> Gestión de Roles</span></a>
             </li>
