@@ -59,7 +59,7 @@ Gestión de Productos
                 },
                 {
                     data: 'gnombre',
-                    name: 'nombre'
+                    name: 'gnombre'
                 },
                 {
                     data: 'estado',

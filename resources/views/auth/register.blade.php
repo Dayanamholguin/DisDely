@@ -1,33 +1,15 @@
-
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Registrar - DisDely</title>
-        <link href="/css/sb-admin-2.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-    </head>
-    <body>
-    <style>
-        body {
-            width: 100%;
-            height: 100vh;
-            background: linear-gradient(45deg, blue, pink, yellow, white);
-            background-size: 400% 400%;
-            position: relative;
-        }
-    </style>
+@extends('layouts.auth')
+@section('titulo')
+Registrar - DisDely
+@endsection
+@section('content')
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
-                <main>
+                <main class="mb-3 mt-3">
                     <div class="container" >
                         <div class="row justify-content-center">
                             <div class="col-lg-7">
-                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                <div class="card shadow-lg border-0 rounded-lg ">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4" style="color: #B0535E">Crear Cuenta</h3></div>
                                     <div class="card-body">
                                         <form method="POST" action="{{ route('register') }}">
@@ -147,23 +129,5 @@
                     </div>
                 </main>
             </div>
-            <br><br>
-            <div id="layoutAuthentication_footer">
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; DisDely 2022</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-            </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="/js/sb-admin-2.js"></script>
-    </body>
-</html>
+@endsection

@@ -18,20 +18,9 @@ Usuarios
                 </div>
             </div>
         </div>
-        <form id="form" action="{{ route('register') }}" method="post" enctype="multipart/form-data">
+        <form id="form" action="/usuario/guardar" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
-                <div class="col-md-4 col-sm-12">
-                    <div class="form-group">
-                        <label for="">Imagen</label>
-                        <input type="file" class="form-control-file @error('foto') is-invalid @enderror" name="foto" id="foto">
-                        @error('foto')
-                        <div class="alert alert-danger" role="alert">
-                            {{$message}}
-                        </div>
-                        @enderror
-                    </div>
-                </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
