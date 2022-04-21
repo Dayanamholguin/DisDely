@@ -12,11 +12,8 @@ use App\Http\Controllers\UsuarioController;
 //perfil
 use App\Http\Controllers\PerfilController;
 
-//Menu Galeria
-use App\Http\Controllers\GaleriaController;
-
-//Menu QuienesSomos
-use App\Http\Controllers\QuienesController;
+//Menu 
+use App\Http\Controllers\MenuController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,11 +22,10 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-//Galeria
-Route::get('/galeria', [GaleriaController::class, 'index'])->name('index');
-
-//QuienesSomos
-Route::get('/quienes', [QuienesController::class, 'index'])->name('index');
+//menu
+Route::get('/galeria', [MenuController::class, 'galeria']);
+Route::get('/quienes', [MenuController::class, 'quienes']);
+Route::get('/contacto', [MenuController::class, 'contacto']);
 
 //Sabor
 Route::get('/sabor', [SaborController::class, 'index']);

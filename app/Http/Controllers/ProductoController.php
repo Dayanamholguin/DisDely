@@ -43,7 +43,13 @@ class ProductoController extends Controller
         ->get();
         return DataTables::of($producto)
             ->editColumn("imagen", function ($producto) {
-                return "<img src='/".($producto->img==null?"imagenes/defecto.jpg":"imagenes/".$producto->img)."' width='100px' height='100px'>";
+                $mi_imagen = public_path().'/imagenes/'.$producto->img;
+                if (@getimagesize($mi_imagen)) {
+                    return "<img src='/"."imagenes/".$producto->img."' width='100px' height='100px'>";
+                }else {
+                    return "<img src='/img/defecto.jpg' width='100px' height='100px'>";
+                }
+                //return "<img src='/".($producto->img==''?"imagenes/defecto.jpg":"imagenes/".$producto->img)."' width='100px' height='100px'>";
             })
             ->editColumn("estado", function ($producto) {
                 return $producto->estado == 1 ? "Activo" : "Inactivo";
@@ -112,6 +118,7 @@ class ProductoController extends Controller
 
     public function editar($id)
     {
+        
         $categorias = Categoria::all()->where('id','>',1)->where('estado',1);
         $sabores = Sabor::all()->where('id','>',1)->where('estado',1);
         $generos = DB::table('generos')->get()->where('id','>',1);
@@ -120,6 +127,14 @@ class ProductoController extends Controller
         if ($producto == null) {   
             Flash::error("No se encontró el producto");      
             return redirect("/producto");
+        }
+        $mi_imagen = public_path().'/imagenes/'.$producto->img;
+        if (@getimagesize($mi_imagen)) {
+            $producto->img=$producto->img;
+            //return "<img src='/"."imagenes/".$producto->img."' width='100px' height='100px'>";
+        }else {
+            $producto->img=public_path().'/img/defecto.jpg';
+            //return "<img src='/img/defecto.jpg' width='100px' height='100px'>";
         }
         return view("producto.editar", compact("producto","categorias","sabores","generos","etapas"));
     }
@@ -178,10 +193,13 @@ class ProductoController extends Controller
                 $nombreFoto=time().$archivoFoto->getClientOriginalName(); 
                 $archivoFoto->move(public_path().'/imagenes/', $nombreFoto);        
                 $producto->img=$nombreFoto; 
+                /*if($producto->img != ''){
+                    $image_path = public_path().'/imagenes/'. $producto->img;  
+                    unlink($image_path);
+                }*/
             }
-            
             $producto->update(['img'=>$nombreFoto]);
-              
+
             //$producto->update(['img'=>$nombreFoto]);
             /*if($request->hasFile('img'))
                 {
