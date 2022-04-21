@@ -17,16 +17,16 @@ Usuarios
                 </div>
             </div>
         </div>
-        <form id="form" action="/usuario/actualizar" method="post" enctype="multipart/form-data">
+        <form id="form" action="/usuario/actualizar/{{$usuario->id}}" method="post" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id" value="{{$usuario->id}}" />
             <div class="row">
-                <div class="col-md-4 col-sm-12">
+                {{-- <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <img src="/imagenes/{{$usuario->img}}" class="imagen" width='180px' height='150px'>
                     </div>
-                </div>
-                <div class="col-md-4 col-sm-12">
+                </div> --}}
+                {{-- <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="">Imagen</label>
                         <input type="file" class="form-control-file @error('imagen') is-invalid @enderror" name="img" id="imagen">
@@ -36,7 +36,7 @@ Usuarios
                         </div>
                         @enderror
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
@@ -95,7 +95,7 @@ Usuarios
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="fechaNacimiento">Fecha nacimiento</label>
-                        <input value="{{$usuario->fechaNacimiento}}" type="text" class="form-control @error('fechaNacimiento') is-invalid @enderror" id="fechaNacimiento" name="fechaNacimiento" required>
+                        <input value="{{$usuario->fechaNacimiento}}" type="date" class="form-control @error('fechaNacimiento') is-invalid @enderror" id="fechaNacimiento" name="fechaNacimiento" required>
                         @error('fechaNacimiento')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}

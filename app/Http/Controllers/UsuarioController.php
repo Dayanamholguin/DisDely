@@ -105,33 +105,45 @@ class UsuarioController extends Controller
         return view("usuario.ver", compact("usuario","genero"));
     }
 
-    public function modificar(Request $request)
+    public function modificar(Request $request, $id)
     {
-        $request->validate(Usuario::$rules);
-        $id=$request->id;
-        $input = $request->all();
-        $usuario = usuario::select('*')->where('nombre', $request->nombre)->where('id','<>',$id)->value('nombre');
-        if ($usuario!=null) {
-            Flash::error("El usuario ".$usuario." ya está creado");
-            return redirect("/usuario/editar/{$id}");
-        }
+
+        $usuario = Usuario::select("*")->where("email", $request->email)->first();
+
         
+
+        if($usuario != null){
+            $campos = [
+                'nombre' => ['required', 'string', 'max:255'],
+                'apellido' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$usuario->id ],
+                'celular' => ['required', 'string', 'max:25'],
+                'celularAlternativo' => ['string', 'max:25'],
+                'fechaNacimiento' => ['required'],
+                'genero' => ['required', 'exists:generos,id'],
+            ];
+
+            $this->validate($request, $campos);
+        }else{
+            $request->validate(Usuario::$rules);
+        }
+
+        // $input = request()->all();
         try {
-            $usuario = Usuario::find($input["id"]);
+            $usuario = Usuario::find($request["id"]);
             if ($usuario == null) {
                 Flash::error("No se encontró el usuario");       
                 return redirect("/usuario");
             }
             $usuario->update([
-                'nombre' => $input['nombre'],
-                'apellido' => $input['apellido'],
-                'email' => $input['email'],
-                'celular' => $input['celular'],
-                'celularAlternativo' => $input['celularAlternativo'],
-                'estado' => 1,
-                'fechaNacimiento' => $input['fechaNacimiento'],
-                'idGenero' => $input['genero'],
-                'password' => Hash::make($input['password']),
+                'nombre' => $request['nombre'],
+                'apellido' => $request['apellido'],
+                'email' => $request['email'],
+                'celular' => $request['celular'],
+                'celularAlternativo' => $request['celularAlternativo'],
+                'fechaNacimiento' => $request['fechaNacimiento'],
+                'idGenero' => $request['genero'],
+                
             ]);
             Flash::success("Se ha modificado éxitosamente");
             return redirect("/usuario");

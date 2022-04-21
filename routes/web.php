@@ -62,7 +62,7 @@ Route::get('/usuario/crear', [UsuarioController::class, 'crear']);
 Route::post('/usuario/guardar', [UsuarioController::class, 'guardar']);
 Route::get('/usuario/editar/{id}', [UsuarioController::class, 'editar']);
 Route::get('/usuario/ver/{id}', [UsuarioController::class, 'ver']);
-Route::post('/usuario/actualizar', [UsuarioController::class, 'modificar']);
+Route::post('/usuario/actualizar/{id}', [UsuarioController::class, 'modificar']);
 Route::get('/usuario/cambiar/estado/{id}/{estado}', [UsuarioController::class, 'modificarEstado']);
 
 //perfil
