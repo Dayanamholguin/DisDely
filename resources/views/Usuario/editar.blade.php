@@ -21,12 +21,12 @@ Usuarios
             @csrf
             <input type="hidden" name="id" value="{{$usuario->id}}" />
             <div class="row">
-                {{-- <div class="col-md-4 col-sm-12">
+                <!--<div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <img src="/imagenes/{{$usuario->img}}" class="imagen" width='180px' height='150px'>
                     </div>
-                </div> --}}
-                {{-- <div class="col-md-4 col-sm-12">
+                </div>
+                <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="">Imagen</label>
                         <input type="file" class="form-control-file @error('imagen') is-invalid @enderror" name="img" id="imagen">
@@ -36,8 +36,8 @@ Usuarios
                         </div>
                         @enderror
                     </div>
-                </div> --}}
-                <div class="col-md-4 col-sm-12">
+                </div> -->
+                <div class="col-md-6 col-sm-12">
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
                         <input value="{{$usuario->nombre}}" type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required>
@@ -48,7 +48,7 @@ Usuarios
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
+                <div class="col-md-6 col-sm-12">
                     <div class="form-group">
                         <label for="apellido">Apellido</label>
                         <input value="{{$usuario->apellido}}" type="text" class="form-control @error('apellido') is-invalid @enderror" id="apellido" name="apellido" required>
@@ -59,7 +59,7 @@ Usuarios
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
+                <div class="col-md-6 col-sm-12">
                     <div class="form-group">
                         <label for="email">Correo</label>
                         <input value="{{$usuario->email}}" type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required>
@@ -70,7 +70,7 @@ Usuarios
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
+                <div class="col-md-6 col-sm-12">
                     <div class="form-group">
                         <label for="celular">Teléfono celular</label>
                         <input value="{{$usuario->celular}}" type="text" class="form-control @error('celular') is-invalid @enderror" id="celular" name="celular" required>
@@ -103,7 +103,7 @@ Usuarios
                         @enderror
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="">Género</label>
                         <select class="form-control" name="genero">

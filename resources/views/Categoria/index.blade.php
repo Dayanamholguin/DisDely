@@ -11,7 +11,7 @@ Gestión de Categorías
     </div>
     <div class="card-body">
     @include('flash::message')
-        <table id="categoria" class="table" style="width: 100%;">
+        <table id="categoria" class="table table-bordered dataTable" style="width: 100%;">
             <thead>
                 <tr>
                     <th>#</th>

@@ -20,19 +20,6 @@ class ProductoController extends Controller
     {
         return view('producto.index');
     }
-
-    /*
-    ->editColumn("imagen", function ($producto) {
-                $file ='/imagenes/'.$this->producto->img;
-                if(is_file($file)){
-                    return "<img src='/".("imagenes/".$producto->img)."' width='100px' height='100px'>";
-                }else{
-                    return "<img src='/imagenes/defecto.jpg' width='100px' height='100px'>";
-                }
-                return "<img src='/".($producto->img==null?"imagenes/defecto.jpg":"imagenes/".$producto->img)."' width='100px' height='100px'>";
-            })
-    
-    */
     public function listar(Request $request)
     {
         $producto = Producto::select("productos.*", "categorias.nombre as cnombre", "sabores.nombre as snombre", "generos.nombre as gnombre", "etapas.nombre as enombre")
@@ -75,7 +62,6 @@ class ProductoController extends Controller
         $categorias = Categoria::all()->where('id','>',1)->where('estado',1);
         $sabores = Sabor::all()->where('id','>',1)->where('estado',1);
         $generos = DB::table('generos')->get()->where('id','>',1);
-        //$generos = DB::table('generos')->get();
         $etapas = DB::table('etapas')->get()->where('id','>',1);
         return view('producto.crear', compact("categorias","sabores","generos","etapas"));
     }
@@ -170,11 +156,6 @@ class ProductoController extends Controller
                 Flash::error("No se encontró el producto");       
                 return redirect("/producto");
             }
-            /*$imagen = null;
-            if($request->imagen != null){
-                $imagen =$input["nombre"].'.'.time().'.'.$request->imagen->extension();
-                $request->imagen->move(public_path('imagenes'), $imagen);
-            }*/
             $producto->update([
                 "idCategoria" => $input["categoria"],
                 "idSabor" => $input["sabor"],
@@ -192,21 +173,9 @@ class ProductoController extends Controller
                 $archivoFoto=$request->file('img');
                 $nombreFoto=time().$archivoFoto->getClientOriginalName(); 
                 $archivoFoto->move(public_path().'/imagenes/', $nombreFoto);        
-                $producto->img=$nombreFoto; 
-                /*if($producto->img != ''){
-                    $image_path = public_path().'/imagenes/'. $producto->img;  
-                    unlink($image_path);
-                }*/
+                $producto->img=$nombreFoto;
+                $producto->update(['img'=>$nombreFoto]);
             }
-            $producto->update(['img'=>$nombreFoto]);
-
-            //$producto->update(['img'=>$nombreFoto]);
-            /*if($request->hasFile('img'))
-                {
-                    $imagen=$request->file('img')->getClientOriginalName();
-                    $request->file('img')->storeAs('imagenes/'.$producto->img);
-                    $producto->update(['img'=>$imagen]);
-                }*/
             Flash::success("Se ha modificado éxitosamente");
             return redirect("/producto");
         } catch (\Exception $e) {  
