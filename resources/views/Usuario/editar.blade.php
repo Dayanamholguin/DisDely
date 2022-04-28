@@ -62,7 +62,7 @@ Usuarios
                 <div class="col-md-6 col-sm-12">
                     <div class="form-group">
                         <label for="email">Correo</label>
-                        <input value="{{$usuario->email}}" type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required>
+                        <input readonly="readonly" value="{{$usuario->email}}" type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required>
                         @error('email')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}

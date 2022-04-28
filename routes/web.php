@@ -23,7 +23,8 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 //menu
-Route::get('/galeria', [MenuController::class, 'galeria']);
+Route::get('/productos', [MenuController::class, 'productos']);
+Route::get('/detalleProducto/{id}', [MenuController::class, 'detalle']);
 Route::get('/quienes', [MenuController::class, 'quienes']);
 Route::get('/contacto', [MenuController::class, 'contacto']);
 

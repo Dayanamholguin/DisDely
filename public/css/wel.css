@@ -6,8 +6,18 @@
     background-color: #FBF5F6 !important;
 }
 
+.centrado {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .boton{
     background-color: #E6CAA5;
+}
+
+.boton:hover {
+    background-color: #d8b68a;
 }
 
 *{

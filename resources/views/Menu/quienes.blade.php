@@ -3,7 +3,7 @@
 ¿Quiénes Somos?
 @endsection
 @section('content')
-            <div class="container text-center mt-5 mb-5" style="color: #E6CAA5; width: 40%; border: 7px solid;">
+            <div class="container text-center mt-5 mb-5" style="color: white; width: 40%; border: 7px solid;">
                 <h3>
                     <font face="Harlekin" style="color: black;" class="text-capitalize">Dulce Encanto</font>
                 </h3>
