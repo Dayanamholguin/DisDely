@@ -70,7 +70,8 @@
             <li class="nav-item">
                 <a class="nav-link" href="/usuario">
                     <i class="fas fa-user-alt"></i>
-                    <span>Gestión de Usuarios</span></a>
+                    <span>Gestión de Usuarios</span>
+                </a>
             </li>
 
             <!--Productos-->
@@ -164,7 +165,7 @@
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="/perfil">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Perfil
+                                    Editar Perfil
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>

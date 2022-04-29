@@ -21,6 +21,7 @@
         <link rel="manifest" href="/docs/5.1/assets/img/favicons/manifest.json">
         <link rel="mask-icon" href="/docs/5.1/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
         <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
         <meta name="theme-color" content="#7952b3">
     </head>
     <body class="fondo">
@@ -45,7 +46,7 @@
                                     <a class="nav-link" href="/quienes" style="color:black;">¿Quiénes Somos?</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/galeria" style="color:black;">Galería</a>
+                                    <a class="nav-link" href="/productos" style="color:black;">Productos</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/contacto" style="color:black;">Contacto</a>
