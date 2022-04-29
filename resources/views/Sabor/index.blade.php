@@ -11,7 +11,7 @@ Gestión de Sabores
     </div>
     <div class="card-body">
     @include('flash::message')
-        <table id="sabores" class="table" style="width: 100%;">
+        <table id="sabores"  class="table table-bordered dataTable" style="width: 100%;">
             <thead>
                 <tr>
                     <th>#</th>

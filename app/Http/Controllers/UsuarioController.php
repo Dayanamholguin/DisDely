@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\File;
-use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Usuario;
 use Illuminate\Support\Facades\DB;
 //use Yajra\DataTables\DataTables;
 use Illuminate\Http\UploadedFile;
@@ -19,9 +20,10 @@ class UsuarioController extends Controller
     {
         return view('usuario.index');
     }
+
     public function listar(Request $request)
     {
-        $usuario = User::select("users.*", "genero.nombre as gnombre")
+        $usuario = Usuario::select("users.*", "generos.nombre as gnombre")
         ->join("generos", "users.idGenero", "generos.id")
         ->get();
         return DataTables::of($usuario)
@@ -45,6 +47,7 @@ class UsuarioController extends Controller
             ->rawColumns(['editar', 'ver', 'cambiar'])
             ->make(true);
     }
+
     public function crear()
     {
         $generos = DB::table('generos')->get()->where('id','>',1);
@@ -53,137 +56,115 @@ class UsuarioController extends Controller
 
     public function guardar(Request $request)
     {
-        $request->validate(User::$rules);
+        $request->validate(Usuario::$rules);
         $input = $request->all();
-        $producto = Producto::select('*')->where('nombre', $request->nombre)->value('nombre');
-        if ($producto!=null) {
-            Flash::error("El producto ".$producto." ya está creado");
-            return redirect("/producto/crear");
+        $usuario = Usuario::select('*')->where('nombre', $request->nombre)->value('nombre');
+        if ($usuario!=null) {
+            Flash::error("El usuario ".$usuario." ya está creado");
+            return redirect("/usuario/crear");
         }
         try {
-            $imagen = null;
-            if($request->imagen != null){
-                $imagen =$input["nombre"].'.'.time().'.'.$request->imagen->extension();
-                $request->imagen->move(public_path('imagenes'), $imagen);
-            }
-            Producto::create([
-                "idCategoria" => $input["categoria"],
-                "idSabor" => $input["sabor"],
-                "idGenero" => $input["genero"],
-                "idEtapa" => $input["etapa"],
-                "nombre" => $input["nombre"],
-                "descripcion" => $input["descripcion"],
-                "numeroPersonas" => $input["numeroPersonas"],
-                "pisos" => $input["pisos"],
-                "catalogo" => $input["catalogo"],
-                "img"=>$imagen,
-                "estado" => 1
+            Usuario::create([
+                'nombre' => $input['nombre'],
+                'apellido' => $input['apellido'],
+                'email' => $input['email'],
+                'celular' => $input['celular'],
+                'celularAlternativo' => $input['celularAlternativo'],
+                'estado' => 1,
+                'fechaNacimiento' => $input['fechaNacimiento'],
+                'idGenero' => $input['genero'],
+                'password' => Hash::make($input['password']),
             ]);
             Flash::success("Se ha creado éxitosamente");
-            return redirect("/producto");
+            return redirect("/usuario");
         } catch (\Exception $e) {  
             Flash::error($e->getMessage());
-            return redirect("/producto/crear");
+            return redirect("/usuario/crear");
         }
     }
 
     public function editar($id)
     {
-        $categorias = Categoria::all()->where('id','>',1)->where('estado',1);
-        $sabores = Sabor::all()->where('id','>',1)->where('estado',1);
         $generos = DB::table('generos')->get()->where('id','>',1);
-        $etapas = DB::table('etapas')->get()->where('id','>',1);
-        $producto = Producto::find($id);        
-        if ($producto == null) {   
-            Flash::error("No se encontró el producto");      
-            return redirect("/producto");
+        $usuario = Usuario::find($id);        
+        if ($usuario == null) {   
+            Flash::error("No se encontró el usuario");      
+            return redirect("/usuario");
         }
-        return view("producto.editar", compact("producto","categorias","sabores","generos","etapas"));
+        return view("usuario.editar", compact("usuario","generos"));
     }
 
     public function ver($id)
     {
-        $producto = Producto::find($id);
-        if ($producto == null) {   
-            Flash::error("No se encontró la producto");      
-            return redirect("/producto");
+        $usuario = Usuario::find($id);
+        if ($usuario == null) {   
+            Flash::error("No se encontró la usuario");      
+            return redirect("/usuario");
         }
-        $categoria = Producto::select('categorias.nombre')->join("categorias", "productos.idCategoria","categorias.id")->value('nombre');
-        $sabor = Producto::select('sabores.nombre')->join("sabores", "productos.idsabor","sabores.id")->value('nombre');
-        $genero = Producto::select('generos.nombre')->join("generos", "productos.idgenero","generos.id")->value('nombre');
-        $etapa = Producto::select('etapas.nombre')->join("etapas", "productos.idetapa","etapas.id")->value('nombre');
-        return view("producto.ver", compact("producto", "categoria", "sabor","genero","etapa"));
+        $genero = Usuario::select('generos.nombre')->join("generos", "users.idGenero","generos.id")->value('nombre');
+        return view("usuario.ver", compact("usuario","genero"));
     }
 
-    public function modificar(Request $request)
+    public function modificar(Request $request, $id)
     {
-        $request->validate(Producto::$rules);
-        $id=$request->id;
-        $input = $request->all();
-        $producto = Producto::select('*')->where('nombre', $request->nombre)->where('id','<>',$id)->value('nombre');
-        if ($producto!=null) {
-            Flash::error("El producto ".$producto." ya está creado");
-            return redirect("/producto/editar/{$id}");
-        }
+
+        $usuario = Usuario::select("*")->where("email", $request->email)->first();
+
         
+
+        if($usuario != null){
+            $campos = [
+                'nombre' => ['required', 'string', 'max:255'],
+                'apellido' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$usuario->id ],
+                'celular' => ['required', 'string', 'max:25'],
+                'celularAlternativo' => ['string', 'max:25'],
+                'fechaNacimiento' => ['required'],
+                'genero' => ['required', 'exists:generos,id'],
+            ];
+
+            $this->validate($request, $campos);
+        }else{
+            $request->validate(Usuario::$rules);
+        }
+
+        // $input = request()->all();
         try {
-            $producto = Producto::find($input["id"]);
-            if ($producto == null) {
-                Flash::error("No se encontró el producto");       
-                return redirect("/producto");
+            $usuario = Usuario::find($request["id"]);
+            if ($usuario == null) {
+                Flash::error("No se encontró el usuario");       
+                return redirect("/usuario");
             }
-            /*$imagen = null;
-            if($request->imagen != null){
-                $imagen =$input["nombre"].'.'.time().'.'.$request->imagen->extension();
-                $request->imagen->move(public_path('imagenes'), $imagen);
-            }*/
-            $producto->update([
-                "idCategoria" => $input["categoria"],
-                "idSabor" => $input["sabor"],
-                "idGenero" => $input["genero"],
-                "idEtapa" => $input["etapa"],
-                "nombre" => $input["nombre"],
-                "descripcion" => $input["descripcion"],
-                "numeroPersonas" => $input["numeroPersonas"],
-                "pisos" => $input["pisos"],
-                "catalogo" => $input["catalogo"],
-                //"img"=>$imagen,
-                "estado" => 1
+            $usuario->update([
+                'nombre' => $request['nombre'],
+                'apellido' => $request['apellido'],
+                'email' => $request['email'],
+                'celular' => $request['celular'],
+                'celularAlternativo' => $request['celularAlternativo'],
+                'fechaNacimiento' => $request['fechaNacimiento'],
+                'idGenero' => $request['genero'],
+                
             ]);
-            if ($request->hasFile('img')){
-                $archivoFoto=$request->file('img');
-                $nombreFoto=time().$archivoFoto->getClientOriginalName(); 
-                $archivoFoto->move(public_path().'/imagenes/', $nombreFoto);        
-                $producto->img=$nombreFoto; 
-            }
-            $producto->update(['img'=>$nombreFoto]);
-            //$producto->update(['img'=>$nombreFoto]);
-            /*if($request->hasFile('img'))
-                {
-                    $imagen=$request->file('img')->getClientOriginalName();
-                    $request->file('img')->storeAs('imagenes/'.$producto->img);
-                    $producto->update(['img'=>$imagen]);
-                }*/
             Flash::success("Se ha modificado éxitosamente");
-            return redirect("/producto");
+            return redirect("/usuario");
         } catch (\Exception $e) {  
             Flash::error($e->getMessage());
-            return redirect("/producto/editar/{$id}");
+            return redirect("/usuario/editar/{$id}");
         }
     }
 
     public function modificarEstado($id, $estado)
     {
-        $producto = Producto::find($id);
-        if ($producto == null) {        
-            return redirect("/producto");
+        $usuario = Usuario::find($id);
+        if ($usuario == null) {        
+            return redirect("/usuario");
         }
         try {
-            $producto->update(["estado" => $estado]);         
-            return redirect("/producto");
+            $usuario->update(["estado" => $estado]);         
+            return redirect("/usuario");
         } catch (\Exception $e) {
             Flash::error($e->getMessage());   
-            return redirect("/producto");
+            return redirect("/usuario");
         }
     }
 }

@@ -11,7 +11,7 @@ Gestión de Productos
     </div>
     <div class="card-body">
     @include('flash::message')
-        <table id="productos" class="table" style="width: 100%;">
+        <table id="productos" class="table table-bordered dataTable" style="width: 100%;">
             <thead>
                 <tr>
                     <th>Imagen</th>

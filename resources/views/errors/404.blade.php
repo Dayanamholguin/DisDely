@@ -26,6 +26,7 @@
         </div>
         <div class="vh-100 row m-0 text-center align-items-center justify-content-center">
             <div class="col-auto">
+            <img class="imagen" src="/img/logo.png" width="150px" height="150px" alt="Dulce Encanto">
                 <div class="error mx-auto" data-text="404">404</div>
                     <p class="lead text-gray-800 mb-5">Página no encontrada</p>
                     <p class="text-gray-500 mb-0">Parece que encontraste un error</p>

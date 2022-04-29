@@ -14,11 +14,8 @@ use App\Http\Controllers\UsuarioController;
 //perfil
 use App\Http\Controllers\PerfilController;
 
-//Menu Galeria
-use App\Http\Controllers\GaleriaController;
-
-//Menu QuienesSomos
-use App\Http\Controllers\QuienesController;
+//Menu 
+use App\Http\Controllers\MenuController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,14 +25,20 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-//Galeria
-Route::get('/galeria', [GaleriaController::class, 'index'])->name('index');
-
-//QuienesSomos
-Route::get('/quienes', [QuienesController::class, 'index'])->name('index');
+//menu
+Route::get('/galeria', [MenuController::class, 'galeria']);
+Route::get('/quienes', [MenuController::class, 'quienes']);
+Route::get('/contacto', [MenuController::class, 'contacto']);
 
 //Rol
 Route::get('/rol', [RoleController::class, 'index']);
+Route::get('/rol/listar', [RoleController::class, 'listar']);
+Route::get('/rol/crear', [RoleController::class, 'crear']);
+Route::post('/rol/guardar', [RoleController::class, 'guardar']);
+Route::get('/rol/editar/{id}', [RoleController::class, 'editar']);
+Route::post('/rol/actualizar', [RoleController::class, 'modificar']);
+Route::get('/rol/ver/{id}', [RoleController::class, 'ver']);
+Route::get('/rol/cambiar/estado/{id}/{estado}', [RoleController::class, 'modificarEstado']);
 
 //Sabor
 Route::get('/sabor', [SaborController::class, 'index']);
@@ -72,7 +75,7 @@ Route::get('/usuario/crear', [UsuarioController::class, 'crear']);
 Route::post('/usuario/guardar', [UsuarioController::class, 'guardar']);
 Route::get('/usuario/editar/{id}', [UsuarioController::class, 'editar']);
 Route::get('/usuario/ver/{id}', [UsuarioController::class, 'ver']);
-Route::post('/usuario/actualizar', [UsuarioController::class, 'modificar']);
+Route::post('/usuario/actualizar/{id}', [UsuarioController::class, 'modificar']);
 Route::get('/usuario/cambiar/estado/{id}/{estado}', [UsuarioController::class, 'modificarEstado']);
 
 //perfil

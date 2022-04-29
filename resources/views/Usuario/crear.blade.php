@@ -18,20 +18,9 @@ Usuarios
                 </div>
             </div>
         </div>
-        <form id="form" action="{{ route('register') }}" method="post" enctype="multipart/form-data">
+        <form id="form" action="/usuario/guardar" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
-                <div class="col-md-4 col-sm-12">
-                    <div class="form-group">
-                        <label for="">Imagen</label>
-                        <input type="file" class="form-control-file @error('foto') is-invalid @enderror" name="foto" id="foto">
-                        @error('foto')
-                        <div class="alert alert-danger" role="alert">
-                            {{$message}}
-                        </div>
-                        @enderror
-                    </div>
-                </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
@@ -45,7 +34,7 @@ Usuarios
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="apellido"><b>Apellido</b></label>
+                        <label for="apellido">Apellido</label>
                             <input id="apellido" type="text" name="apellido" value="{{ old('apellido') }}" class="form-control @error('apellido') is-invalid @enderror" name="apellido" required autocomplete="apellido" placeholder="Ingrese su apellido" />
                             @error('apellido')
                                 <span class="invalid-feedback" role="alert">
@@ -56,7 +45,7 @@ Usuarios
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="email"><b>Correo</b></label>
+                        <label for="email">Correo</label>
                             <input id="email" type="email"  value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" name="email" required autocomplete="email" placeholder="Ingrese su correo electrónico" />
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -89,7 +78,7 @@ Usuarios
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="fechaNacimiento"><b>Fecha nacimiento</b></label>
+                        <label for="fechaNacimiento">Fecha nacimiento</label>
                             <input id="fechaNacimiento" type="date" value="{{ old('fechaNacimiento') }}" class="form-control @error('fechaNacimiento') is-invalid @enderror" name="fechaNacimiento" required autocomplete="fechaNacimiento"/>
                             @error('fechaNacimiento')
                                 <span class="invalid-feedback" role="alert">
@@ -117,19 +106,18 @@ Usuarios
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="">Contraseña</label>
-                            <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="password" class="form-control form-control-user @error('password') is-invalid @enderror" id="exampleInputPassword" placeholder="Contraseña" name="password" required autocomplete="new-password">
-                                        @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                </div>
-                                <div class="col-sm-6">
-                                    <input id="password-confirm" type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repita la contraseña" name="password_confirmation" required autocomplete="new-password">
-                                </div>
-                            </div>
+                        <input type="password" class="form-control form-control-user @error('password') is-invalid @enderror" id="exampleInputPassword" placeholder="Contraseña" name="password" required autocomplete="new-password">
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="form-group">
+                        <label for="">Confirmar contraseña</label>
+                        <input id="password-confirm" type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repita la contraseña" name="password_confirmation" required autocomplete="new-password">
                     </div>
                 </div>
                 <div class="col-12 centrado">

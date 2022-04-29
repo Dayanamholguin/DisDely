@@ -1,23 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="utf-8" />
-    <title>Acceso - DisDely</title>
-    <link href="/css/sb-admin-2.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-</head>
-
-<body class="bg-primary">
-    <style>
-        body {
-            width: 100%;
-            height: 100vh;
-            background: linear-gradient(45deg, blue, pink, yellow, white);
-            background-size: 400% 400%;
-            position: relative;
-        }
-    </style>
+@extends('layouts.auth')
+@section('titulo')
+Acceso - DisDely
+@endsection
+@section('content')
     <div id="layoutAuthentication">
         <div id="layoutAuthentication_content">
             <main>
@@ -85,8 +70,4 @@
             </main>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="/js/sb-admin-2.js"></script>
-</body>
-
-</html>
+    @endsection

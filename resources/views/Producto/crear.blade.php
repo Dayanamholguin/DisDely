@@ -109,7 +109,7 @@ Productos
                 <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="">Descripción</label>
-                        <textarea type="text" value="{{ old('descripcion') }}" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" required></textarea>
+                        <textarea type="text" value="{{ old('descripcion') }}" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" required>{{ old('descripcion') }}</textarea>
                         @error('descripcion')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}

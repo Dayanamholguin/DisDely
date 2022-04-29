@@ -45,18 +45,20 @@
                 </div>
             </a>
 
+            <hr class="sidebar-divider my-0">
+
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
                 <a class="nav-link" href="#">
                     <i class="fas fa-home"></i>
                     <span>Dashboard</span></a>
             </li>
-
+            
+            <hr class="sidebar-divider">
             <!--Roles-->
             <div class="sidebar-heading">
-                Gestión de Roles
+                Módulos
             </div>
-
             <li class="nav-item">
                 <a class="nav-link" href="/rol">
                     <i class="fas fa-tools"></i>
@@ -64,21 +66,14 @@
             </li>
 
             <!--Usuarios-->
-            <div class="sidebar-heading">
-                Gestión de Usuarios
-            </div>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/usuario">
                     <i class="fas fa-user-alt"></i>
                     <span>Gestión de Usuarios</span></a>
             </li>
 
             <!--Productos-->
-            <div class="sidebar-heading">
-                Gestión de Productos
-            </div>
-
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-birthday-cake"></i>
@@ -94,10 +89,6 @@
             </li>
 
             <!--Ventas-->
-            <div class="sidebar-heading">
-                Gestión de Abonos
-            </div>
-
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-hand-holding-usd"></i>

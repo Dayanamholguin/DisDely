@@ -7,18 +7,17 @@ Gestión de Roles
 @section('content')
 <div class="card">
     <div class="card-header text-center">
-        <strong>Roles</strong> / <a href="/sabor/crear" class="alert-link titulo">Crear rol</a>
+        <strong>Roles</strong> / <a href="/rol/crear" class="alert-link titulo">Crear rol</a>
     </div>
     <div class="card-body">
     @include('flash::message')
-        <table id="sabores" class="table" style="width: 100%;">
+        <table id="roles" class="table" style="width: 100%;">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Nombre</th>
                     <th>Estado</th>
-                    <th>Editar</th>
-                    <th>Cambiar Estado</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,31 +32,25 @@ Gestión de Roles
 @section("scripts")
 <script>
     $(document).ready(function() {
-        $('#sabores').DataTable({
+        $('#roles').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '/roles/listar',
+            ajax: '/rol/listar',
             columns: [{
                     data: 'id',
                     name: 'id'
                 },
                 {
-                    data: 'nombre',
-                    name: 'nombre'
+                    data: 'name',
+                    name: 'name'
                 },
                 {
                     data: 'estado',
                     name: 'estado'
                 },
                 {
-                    data: 'editar',
-                    name: 'editar',
-                    orderable: false,
-                    searchable: false
-                },
-                {
-                    data: 'cambiar',
-                    name: 'cambiar',
+                    data: 'acciones',
+                    name: 'acciones',
                     orderable: false,
                     searchable: false
                 }
