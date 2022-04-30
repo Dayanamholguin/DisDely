@@ -26,20 +26,21 @@ Roles
                             <label for="">Nombre</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Ingrese nombre del rol" required>
                             @error('name')
-                                <div class="alert alert-danger" role="alert">
-                                    {{$message}}
-                                </div>
+                            <div class="alert alert-danger" role="alert">
+                                {{$message}}
+                            </div>
                             @enderror
                         </div>
+                        </br>
                         <div class="form-group ">
-                            <h2>Lista de permisos</h2>
+                            <h5>Lista de permisos</h5>
                             @foreach ($permissions as $permission)
-                                <div>
-                                    <label>
-                                        <input type="checkbox" name="permissions[]" value="{{$permission->id}}" class="mr-1">
-                                        {{$permission->description}}
-                                    </label>
-                                </div>
+                            <div>
+                                <label>
+                                    <input type="checkbox" name="permissions[]" value="{{$permission->id}}" class="mr-1">
+                                    {{$permission->description}}
+                                </label>
+                            </div>
                             @endforeach
                         </div>
                         <div class="col-12 centrado">
@@ -52,4 +53,3 @@ Roles
     </div>
 </div>
 @endsection
- 

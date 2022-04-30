@@ -8,7 +8,7 @@ Detalle Producto
     <div class="card text-center">
         <div class="card-body">
         <a href="/productos" class="alert-link titulo">Volver</a>
-            <img src="{{ $productos->imagen }}" width="350" height="300" style="margin: 15px;">
+            <img src="/imagenes/{{$productos->img}}" width="350" height="300" style="margin: 15px;">
             
             <div style="display:inline-block;vertical-align:top">
                 <strong>
