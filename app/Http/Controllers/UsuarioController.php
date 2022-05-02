@@ -81,17 +81,10 @@ class UsuarioController extends Controller
 
     public function editar($id)
     {
-<<<<<<< HEAD
-        $generos = DB::table('generos')->get()->where('id','>',1);
-        $usuario = Usuario::find($id);
-        if ($usuario == null) {   
-            Flash::error("No se encontró el usuario");      
-=======
         $generos = DB::table('generos')->get()->where('id', '>', 1);
         $usuario = Usuario::find($id);
         if ($usuario == null) {
             Flash::error("No se encontró el usuario");
->>>>>>> 0eba33d94c1282bc06c28460dbecf0ce18f5d529
             return redirect("/usuario");
         }
         return view("usuario.editar", compact("usuario", "generos"));
@@ -110,16 +103,8 @@ class UsuarioController extends Controller
 
     public function modificar(Request $request, $id)
     {
-
         $usuario = Usuario::select("*")->where("email", $request->email)->first();
-<<<<<<< HEAD
-        if($usuario != null){
-=======
-
-
-
         if ($usuario != null) {
->>>>>>> 0eba33d94c1282bc06c28460dbecf0ce18f5d529
             $campos = [
                 'nombre' => ['required', 'string', 'max:255'],
                 'apellido' => ['required', 'string', 'max:255'],

@@ -22,9 +22,6 @@ return new class extends Migration
             $table->unsignedBigInteger('idSabor');  
             $table->foreign('idSabor')->references('id')->on('sabores');
 
-            $table->unsignedBigInteger('idGenero');  
-            $table->foreign('idGenero')->references('id')->on('generos');
-
             $table->unsignedBigInteger('idEtapa');  
             $table->foreign('idEtapa')->references('id')->on('etapas');
 

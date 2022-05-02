@@ -74,23 +74,21 @@ class RoleController extends Controller
     {
         $permisos = Permission::all();
         $rol = Role::find($id);
-        $rolPermisos = DB::table('role_has_permissions')->where('role_id', $rol->id)->get();
-                
         // SELECT role_has_permissions.permission_id, roles.name FROM `role_has_permissions` 
         // join roles on role_has_permissions.role_id=roles.id 
-        // where roles.id=3 
-                
+        // where roles.id=3             
         if ($rol == null) {    
             Flash::error("No se encontró el rol");     
             return redirect("/rol");
-        }        
+        }
+        $rolPermisos = DB::table('role_has_permissions')->where('role_id', $rol->id)->get();
         return view("rol.editar", compact("rol", "permisos", "rolPermisos"));
     }
 
     public function modificar(Request $request)
     {
         
-        $request->validate(Role::$rules);
+        // $request->validate(Role::$rules);
         
         $input = $request->all();
 

@@ -22,10 +22,9 @@ class ProductoController extends Controller
     }
     public function listar(Request $request)
     {
-        $producto = Producto::select("productos.*", "categorias.nombre as cnombre", "sabores.nombre as snombre", "generos.nombre as gnombre", "etapas.nombre as enombre")
+        $producto = Producto::select("productos.*", "categorias.nombre as cnombre", "sabores.nombre as snombre", "etapas.nombre as enombre")
             ->join("categorias", "productos.idCategoria", "categorias.id")
             ->join("sabores", "productos.idSabor", "sabores.id")
-            ->join("generos", "productos.idGenero", "generos.id")
             ->join("etapas", "productos.idEtapa", "etapas.id")
             ->get();
         return DataTables::of($producto)
@@ -60,9 +59,8 @@ class ProductoController extends Controller
     {
         $categorias = Categoria::all()->where('id', '>', 1)->where('estado', 1);
         $sabores = Sabor::all()->where('id', '>', 1)->where('estado', 1);
-        $generos = DB::table('generos')->get()->where('id', '>', 1);
         $etapas = DB::table('etapas')->get()->where('id', '>', 1);
-        return view('producto.crear', compact("categorias", "sabores", "generos", "etapas"));
+        return view('producto.crear', compact("categorias", "sabores", "etapas"));
     }
 
     public function guardar(Request $request)
@@ -79,11 +77,13 @@ class ProductoController extends Controller
             if ($request->imagen != null) {
                 $imagen = $input["nombre"] . '.' . time() . '.' . $request->imagen->extension();
                 $request->imagen->move(public_path('imagenes'), $imagen);
+            }else {
+                Flash::error("La imagen es requerida, por favor, colóquela");
+                return back();
             }
             Producto::create([
                 "idCategoria" => $input["categoria"],
                 "idSabor" => $input["sabor"],
-                "idGenero" => $input["genero"],
                 "idEtapa" => $input["etapa"],
                 "nombre" => $input["nombre"],
                 "descripcion" => $input["descripcion"],
@@ -106,7 +106,6 @@ class ProductoController extends Controller
 
         $categorias = Categoria::all()->where('id', '>', 1)->where('estado', 1);
         $sabores = Sabor::all()->where('id', '>', 1)->where('estado', 1);
-        $generos = DB::table('generos')->get()->where('id', '>', 1);
         $etapas = DB::table('etapas')->get()->where('id', '>', 1);
         $producto = Producto::find($id);
         if ($producto == null) {
@@ -121,7 +120,7 @@ class ProductoController extends Controller
             $producto->img = public_path() . '/img/defecto.jpg';
             //return "<img src='/img/defecto.jpg' width='100px' height='100px'>";
         }
-        return view("producto.editar", compact("producto", "categorias", "sabores", "generos", "etapas"));
+        return view("producto.editar", compact("producto", "categorias", "sabores", "etapas"));
     }
 
     public function ver($id)
@@ -133,9 +132,8 @@ class ProductoController extends Controller
         }
         $categoria = Producto::select('categorias.nombre')->join("categorias", "productos.idCategoria", "categorias.id")->value('nombre');
         $sabor = Producto::select('sabores.nombre')->join("sabores", "productos.idsabor", "sabores.id")->value('nombre');
-        $genero = Producto::select('generos.nombre')->join("generos", "productos.idgenero", "generos.id")->value('nombre');
         $etapa = Producto::select('etapas.nombre')->join("etapas", "productos.idetapa", "etapas.id")->value('nombre');
-        return view("producto.ver", compact("producto", "categoria", "sabor", "genero", "etapa"));
+        return view("producto.ver", compact("producto", "categoria", "sabor", "etapa"));
     }
 
     public function modificar(Request $request)
@@ -158,7 +156,6 @@ class ProductoController extends Controller
             $producto->update([
                 "idCategoria" => $input["categoria"],
                 "idSabor" => $input["sabor"],
-                "idGenero" => $input["genero"],
                 "idEtapa" => $input["etapa"],
                 "nombre" => $input["nombre"],
                 "descripcion" => $input["descripcion"],

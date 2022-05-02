@@ -24,6 +24,8 @@ class usuarioSeeder extends Seeder
             'fechaNacimiento' => "1999/12/02",
             'idGenero' => 3,
             'password' => 123456789,
+            'created_at' => "2022/05/02",
+            'updated_at' => "2022/05/02",
         ]);
     }
 }

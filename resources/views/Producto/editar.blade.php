@@ -21,12 +21,12 @@ Productos
             @csrf
             <input type="hidden" name="id" value="{{$producto->id}}" />
             <div class="row">
-                <div class="col-md-4 col-sm-12">
+                <div class="col-md-6 col-sm-12">
                     <div class="form-group">
                     <img src="/imagenes/{{$producto->img}}" class="imagen" width='180px' height='150px'>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
+                <div class="col-md-6 col-sm-12">
                     <div class="form-group">
                         <label for="">Imagen</label>
                         <input type="file" class="form-control-file @error('imagen') is-invalid @enderror" name="img" id="imagen">
@@ -37,7 +37,7 @@ Productos
                         @enderror
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="">Categoría</label>
                         <select class="form-control" name="categoria">
@@ -53,7 +53,7 @@ Productos
                         </select>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="">Sabor</label>
                         <select class="form-control" name="sabor">
@@ -69,23 +69,7 @@ Productos
                         </select>
                     </div>
                 </div>
-                <div class="col-4">
-                    <div class="form-group">
-                        <label for="">Género</label>
-                        <select class="form-control" name="genero">
-                            <option value="">Seleccione</option>
-                            @foreach($generos as $key => $value)
-                            <option {{$value->id == $producto->idGenero ? 'selected' : ''}} {{old('genero' ) == $value->id ? 'selected' : ''}} value="{{$value->id}}">{{$value->nombre}}</option>
-                            @endforeach
-                            @error('generos')
-                            <div class="alert alert-danger" role="alert">
-                                {{$message}}
-                            </div>
-                            @enderror
-                        </select>
-                    </div>
-                </div>
-                <div class="col-4">
+                <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="">Etapa</label>
                         <select class="form-control" name="etapa">
@@ -101,7 +85,7 @@ Productos
                         </select>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="">Nombre</label>
                         <input value="{{$producto->nombre}}" type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required>
@@ -112,7 +96,7 @@ Productos
                         @enderror
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-12 col-sm-12">
                     <div class="form-group">
                         <label for="">Descripción</label>
                         <textarea value="{{$producto->descripcion}}" type="text" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" required>{{ucfirst($producto->descripcion) }}</textarea>
@@ -123,7 +107,7 @@ Productos
                         @enderror
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="">Número de personas</label>
                         <input value="{{$producto->numeroPersonas}}" type="number" class="form-control @error('numeroPersonas') is-invalid @enderror" id="numeroPersonas" name="numeroPersonas" required>
@@ -134,7 +118,7 @@ Productos
                         @enderror
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="">Pisos</label>
                         <input value="{{$producto->pisos}}" type="number" class="form-control @error('pisos') is-invalid @enderror" id="pisos" name="pisos" required>
@@ -145,31 +129,24 @@ Productos
                         @enderror
                     </div>
                 </div>
-                <div class="col-4">
-                    <div class="form-check">
+                <div class="col-md-4 col-sm-12">
+                    <div class="form-group">
                         <label for="">¿Desea añadirlo al catálogo?</label>
-                        <div class="form-check ">
-                            <input value="{{$producto->catalogo}}" type="radio" class="form-check-input @error('catalogo') is-invalid @enderror" id="catalogo" name="catalogo" value="1" checked required>
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Sí
-                            </label>
+                        <select class="form-control" name="catalogo">
+                            <option value="">Seleccione</option>
+                           @if($producto->catalogo==1)
+                                <option value="1" selected>Sí</option>
+                                <option value="0">No</option>
+                            @else
+                                <option value="0" selected>No</option>
+                                <option value="1">Sí</option>
+                            @endif
                             @error('catalogo')
                             <div class="alert alert-danger" role="alert">
                                 {{$message}}
                             </div>
                             @enderror
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input @error('catalogo') is-invalid @enderror" type="radio" value="0" name="catalogo" id="catalogo">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                No
-                            </label>
-                            @error('catalogo')
-                            <div class="alert alert-danger" role="alert">
-                                {{$message}}
-                            </div>
-                            @enderror
-                        </div>
+                        </select>
                     </div>
                 </div>
                 <div class="col-12 centrado">
