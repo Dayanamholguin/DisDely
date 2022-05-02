@@ -11,14 +11,13 @@ Gestión de Categorías
     </div>
     <div class="card-body">
     @include('flash::message')
-        <table id="categoria" class="table table-bordered dataTable" style="width: 100%;">
+        <table id="categoria" class="table table-bordered dataTable text-center" style="width: 100%;">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Nombre</th>
                     <th>Estado</th>
-                    <th>Editar</th>
-                    <th>Cambiar Estado</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,14 +49,8 @@ Gestión de Categorías
                     name: 'estado'
                 },
                 {
-                    data: 'editar',
-                    name: 'editar',
-                    orderable: false,
-                    searchable: false
-                },
-                {
-                    data: 'cambiar',
-                    name: 'cambiar',
+                    data: 'acciones',
+                    name: 'acciones',
                     orderable: false,
                     searchable: false
                 }

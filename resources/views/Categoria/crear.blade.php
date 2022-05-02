@@ -24,7 +24,7 @@ Categoria
                     <div class="col-auto">
                         <div class="form-group">
                             <label for="">Nombre</label>
-                            <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required>
+                            <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" placeholder="Ingrese la categoría" required>
                             @error('nombre')
                                 <div class="alert alert-danger" role="alert">
                                     {{$message}}

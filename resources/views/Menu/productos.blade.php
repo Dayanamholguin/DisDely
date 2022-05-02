@@ -10,7 +10,11 @@ Productos
                 <div class="card text-center shadow-sm">
                     <div class="card-body">
                         @foreach($productos as $productos)
+<<<<<<< HEAD
                         <img src="/imagenes/{{ $productos->img }}" width="300" height="300">
+=======
+                        <img src="/imagenes/{{$productos->img}}" width="300" height="300">
+>>>>>>> 0eba33d94c1282bc06c28460dbecf0ce18f5d529
                         <strong>
                             <p class="card-title">{{ $productos->nombre}}</p>
                         </strong>

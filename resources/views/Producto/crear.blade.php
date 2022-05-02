@@ -98,7 +98,7 @@ Productos
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="">Nombre</label>
-                        <input type="text" value="{{ old('nombre') }}" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required>
+                        <input type="text" value="{{ old('nombre') }}" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" placeholder="Ingrese el nombre" required>
                         @error('nombre')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}
@@ -109,7 +109,7 @@ Productos
                 <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="">Descripción</label>
-                        <textarea type="text" value="{{ old('descripcion') }}" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" required>{{ old('descripcion') }}</textarea>
+                        <textarea type="text" value="{{ old('descripcion') }}" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" placeholder="Ingrese la descripción" required>{{ old('descripcion') }}</textarea>
                         @error('descripcion')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}
@@ -120,7 +120,7 @@ Productos
                 <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="">Número de personas</label>
-                        <input type="number" value="{{ old('numeroPersonas') }}" class="form-control @error('numeroPersonas') is-invalid @enderror" id="numeroPersonas" name="numeroPersonas" required>
+                        <input type="number" value="{{ old('numeroPersonas') }}" class="form-control @error('numeroPersonas') is-invalid @enderror" id="numeroPersonas" name="numeroPersonas" placeholder="Ingrese número de personas" required>
                         @error('numeroPersonas')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}
@@ -131,7 +131,7 @@ Productos
                 <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="">Pisos</label>
-                        <input type="number" value="{{ old('pisos') }}" class="form-control @error('pisos') is-invalid @enderror" id="pisos" name="pisos" required>
+                        <input type="number" value="{{ old('pisos') }}" class="form-control @error('pisos') is-invalid @enderror" id="pisos" name="pisos" placeholder="Ingrese número de pisos" required>
                         @error('pisos')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}

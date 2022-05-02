@@ -11,7 +11,7 @@ Gestión de Productos
     </div>
     <div class="card-body">
     @include('flash::message')
-        <table id="usuario" class="table table-bordered dataTable" style="width: 100%;">
+        <table id="usuario" class="table table-bordered dataTable text-center" style="width: 100%;">
             <thead>
                 <tr>
                     <th>Nombre</th>
@@ -20,9 +20,7 @@ Gestión de Productos
                     <th>Celular</th>
                     <th>Género</th>
                     <th>Estado</th>
-                    <th>Editar</th>
-                    <th>Ver</th>
-                    <th>Cambiar Estado</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -66,20 +64,8 @@ Gestión de Productos
                     name: 'estado'
                 },
                 {
-                    data: 'editar',
-                    name: 'editar',
-                    orderable: false,
-                    searchable: false
-                },
-                {
-                    data: 'ver',
-                    name: 'ver',
-                    orderable: false,
-                    searchable: false
-                },
-                {
-                    data: 'cambiar',
-                    name: 'cambiar',
+                    data: 'acciones',
+                    name: 'acciones',
                     orderable: false,
                     searchable: false
                 }

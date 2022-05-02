@@ -23,17 +23,17 @@ class CategoriaController extends Controller
             ->editColumn("estado", function ($categoria) {
                 return $categoria->estado == 1 ? "Activo" : "Inactivo";
             })
-            ->addColumn('editar', function ($categoria) {
-                return '<a class="btn btn-primary btn-sm" href="/categoria/editar/' . $categoria->id . '"><i class="fas fa-edit"></i></a>';
-            })
-            ->addColumn('cambiar', function ($categoria) {
+            ->addColumn('acciones', function ($categoria) {
+                $acciones = '<a class="btn btn-primary btn-sm" href="/categoria/editar/' . $categoria->id . '"><i class="fas fa-edit"></i> Editar</a> ';
+            
                 if ($categoria->estado == 1) {
-                    return '<a class="btn btn-danger btn-sm" href="/categoria/cambiar/estado/' . $categoria->id . '/0"><i class="far fa-eye-slash"></i> Inactivar</a>';
+                    $acciones .= '<a class="btn btn-danger btn-sm" href="/categoria/cambiar/estado/' . $categoria->id . '/0"><i class="far fa-eye-slash"></i> Inactivar</a>';
                 } else {
-                    return '<a class="btn btn-success btn-sm" href="/categoria/cambiar/estado/' . $categoria->id . '/1"><i class="far fa-eye"></i> Activar</a>';
+                    $acciones .= '<a class="btn btn-success btn-sm" href="/categoria/cambiar/estado/' . $categoria->id . '/1"><i class="far fa-eye"></i> Activar</a>';
                 }
+                return $acciones;
             })
-            ->rawColumns(['editar', 'cambiar'])
+            ->rawColumns(['acciones'])
             ->make(true);
     }
 

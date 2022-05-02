@@ -11,20 +11,17 @@ Gestión de Productos
     </div>
     <div class="card-body">
     @include('flash::message')
-        <table id="productos" class="table table-bordered dataTable" style="width: 100%;">
+        <table id="productos" class="table table-bordered dataTable text-center" style="width: 100%;">
             <thead>
                 <tr>
                     <th>Imagen</th>
                     <th>Nombre</th>
                     <th>Categoría</th>
                     <th>Sabor</th>
-                    <th>Género</th>
                     <th>Etapa</th>
                     <th>Pisos</th>
                     <th>Estado</th>
-                    <th>Editar</th>
-                    <th>Ver</th>
-                    <th>Cambiar Estado</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,10 +59,6 @@ Gestión de Productos
                     name: 'nombre'
                 },
                 {
-                    data: 'gnombre',
-                    name: 'nombre'
-                },
-                {
                     data: 'enombre',
                     name: 'nombre'
                 },
@@ -78,20 +71,8 @@ Gestión de Productos
                     name: 'estado'
                 },
                 {
-                    data: 'editar',
-                    name: 'editar',
-                    orderable: false,
-                    searchable: false
-                },
-                {
-                    data: 'ver',
-                    name: 'ver',
-                    orderable: false,
-                    searchable: false
-                },
-                {
-                    data: 'cambiar',
-                    name: 'cambiar',
+                    data: 'acciones',
+                    name: 'acciones',
                     orderable: false,
                     searchable: false
                 }

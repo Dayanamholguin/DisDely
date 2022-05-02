@@ -11,7 +11,7 @@ Gestión de Roles
     </div>
     <div class="card-body">
     @include('flash::message')
-        <table id="roles" class="table" style="width: 100%;">
+        <table id="roles" class="table table-bordered dataTable text-center" style="width: 100%;">
             <thead>
                 <tr>
                     <th>#</th>

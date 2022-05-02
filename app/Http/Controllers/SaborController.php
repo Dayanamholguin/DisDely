@@ -22,17 +22,17 @@ class SaborController extends Controller
             ->editColumn("estado", function ($sabor) {
                 return $sabor->estado == 1 ? "Activo" : "Inactivo";
             })
-            ->addColumn('editar', function ($sabor) {
-                return '<a class="btn btn-primary btn-sm" href="/sabor/editar/' . $sabor->id . '"><i class="fas fa-edit"></i></a>';
-            })
-            ->addColumn('cambiar', function ($sabor) {
+            ->addColumn('acciones', function ($sabor) {
+                $acciones = '<a class="btn btn-primary btn-sm" href="/sabor/editar/' . $sabor->id . '"><i class="fas fa-edit"></i> Editar</a> ';
+           
                 if ($sabor->estado == 1) {
-                    return '<a class="btn btn-danger btn-sm" href="/sabor/cambiar/estado/' . $sabor->id . '/0"><i class="far fa-eye-slash"></i> Inactivar</a>';
+                    $acciones .= '<a class="btn btn-danger btn-sm" href="/sabor/cambiar/estado/' . $sabor->id . '/0"><i class="far fa-eye-slash"></i> Inactivar</a>';
                 } else {
-                    return '<a class="btn btn-success btn-sm" href="/sabor/cambiar/estado/' . $sabor->id . '/1"><i class="far fa-eye"></i> Activar</a>';
+                    $acciones .= '<a class="btn btn-success btn-sm" href="/sabor/cambiar/estado/' . $sabor->id . '/1"><i class="far fa-eye"></i> Activar</a>';
                 }
+                return $acciones;
             })
-            ->rawColumns(['editar', 'cambiar'])
+            ->rawColumns(['acciones'])
             ->make(true);
     }
 
