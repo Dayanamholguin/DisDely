@@ -11,7 +11,7 @@ class MenuController extends Controller
 {
     public function productos()
     {
-        $productos = Producto::all();
+        $productos = Producto::all()->where('catalogo',1);
         return view('menu.productos', compact('productos'));
     }
 

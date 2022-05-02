@@ -43,7 +43,7 @@ Productos
                         <select class="form-control" name="categoria">
                             <option value="">Seleccione</option>
                             @foreach($categorias as $key => $value)
-                            <option {{$value->id == $producto->idCategoria ? 'selected' : ''}} value="{{$value->id}}">{{$value->nombre}}</option>
+                            <option {{$value->id == $producto->idCategoria ? 'selected' : ''}} {{old('categoria' ) == $value->id ? 'selected' : ''}} value="{{$value->id}}">{{$value->nombre}}</option>
                             @endforeach
                             @error('categorias')
                             <div class="alert alert-danger" role="alert">
@@ -59,7 +59,7 @@ Productos
                         <select class="form-control" name="sabor">
                             <option value="">Seleccione</option>
                             @foreach($sabores as $key => $value)
-                            <option {{$value->id == $producto->idSabor ? 'selected' : ''}} value="{{$value->id}}">{{$value->nombre}}</option>
+                            <option {{$value->id == $producto->idSabor ? 'selected' : ''}} {{old('sabor' ) == $value->id ? 'selected' : ''}} value="{{$value->id}}">{{$value->nombre}}</option>
                             @endforeach
                             @error('sabores')
                             <div class="alert alert-danger" role="alert">
@@ -75,7 +75,7 @@ Productos
                         <select class="form-control" name="genero">
                             <option value="">Seleccione</option>
                             @foreach($generos as $key => $value)
-                            <option {{$value->id == $producto->idGenero ? 'selected' : ''}} value="{{$value->id}}">{{$value->nombre}}</option>
+                            <option {{$value->id == $producto->idGenero ? 'selected' : ''}} {{old('genero' ) == $value->id ? 'selected' : ''}} value="{{$value->id}}">{{$value->nombre}}</option>
                             @endforeach
                             @error('generos')
                             <div class="alert alert-danger" role="alert">
@@ -91,7 +91,7 @@ Productos
                         <select class="form-control" name="etapa">
                             <option value="">Seleccione</option>
                             @foreach($etapas as $key => $value)
-                            <option {{$value->id == $producto->idEtapa ? 'selected' : ''}} value="{{$value->id}}">{{$value->nombre}}</option>
+                            <option {{$value->id == $producto->idEtapa ? 'selected' : ''}} {{old('etapa' ) == $value->id ? 'selected' : ''}} value="{{$value->id}}">{{$value->nombre}}</option>
                             @endforeach
                             @error('etapas')
                             <div class="alert alert-danger" role="alert">

@@ -18,6 +18,7 @@ class Usuario extends Model
         'estado',
         'fechaNacimiento',
         'idGenero',
+        'foto',
         'password',
     ];
 

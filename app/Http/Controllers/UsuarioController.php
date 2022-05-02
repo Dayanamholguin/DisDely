@@ -86,7 +86,7 @@ class UsuarioController extends Controller
     public function editar($id)
     {
         $generos = DB::table('generos')->get()->where('id','>',1);
-        $usuario = Usuario::find($id);        
+        $usuario = Usuario::find($id);
         if ($usuario == null) {   
             Flash::error("No se encontró el usuario");      
             return redirect("/usuario");
@@ -109,9 +109,6 @@ class UsuarioController extends Controller
     {
 
         $usuario = Usuario::select("*")->where("email", $request->email)->first();
-
-        
-
         if($usuario != null){
             $campos = [
                 'nombre' => ['required', 'string', 'max:255'],
@@ -122,12 +119,10 @@ class UsuarioController extends Controller
                 'fechaNacimiento' => ['required'],
                 'genero' => ['required', 'exists:generos,id'],
             ];
-
             $this->validate($request, $campos);
         }else{
             $request->validate(Usuario::$rules);
         }
-
         // $input = request()->all();
         try {
             $usuario = Usuario::find($request["id"]);

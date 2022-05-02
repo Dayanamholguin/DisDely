@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Http;
 use App\Http\Controllers\HomeController;
 //Rol
 use App\Http\Controllers\RoleController;
@@ -20,7 +21,6 @@ use App\Http\Controllers\MenuController;
 Route::get('/', function () {
     return view('welcome');
 });
-
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -80,7 +80,13 @@ Route::post('/usuario/actualizar/{id}', [UsuarioController::class, 'modificar'])
 Route::get('/usuario/cambiar/estado/{id}/{estado}', [UsuarioController::class, 'modificarEstado']);
 
 //perfil
-Route::get('/perfil', [PerfilController::class, 'index']);
+Route::get('/perfil/{id}', [PerfilController::class, 'index']);
+Route::post('/perfil/actualizar/{id}', [PerfilController::class, 'modificar']);
+Route::get('/perfil/cambiar/{id}', [PerfilController::class, 'cambiar']);
+Route::post('/perfil/cambiarContrasena/{id}', [PerfilController::class, 'cambiarContrasena']);
+Route::get('/perfil/cambiarFoto/{id}', [PerfilController::class, 'cambiarFoto']);
+Route::post('/perfil/recibirFoto/{id}', [PerfilController::class, 'recibirFoto']);
+// Route::post('/perfil/actualizar/{id}', [PerfilController::class, 'modificar'])->middleware('password.confirm');
 //para mostrar
 /*Route::get('/imagenes/{path}/{attachment}', function($path, $attachment){
     $file = sprintf('storage/%s/%s', $path, $attachment);

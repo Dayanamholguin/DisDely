@@ -52,8 +52,20 @@
                                     <a class="nav-link" href="/contacto" style="color:black;">Contacto</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/login" class="btn boton my-2 my-sm-0">Iniciar Sesión</a>
-                                    <a href="/register" class="btn boton my-2 my-sm-0">Registrarse</a>
+                                    @if (Route::has('login'))
+                                            @auth
+                                                <a href="{{ url('/home') }}" class="btn boton my-2 my-sm-0">Ir a plataforma</a>
+                                            @else
+                                                <a href="{{ route('login') }}" class="btn boton my-2 my-sm-0">Iniciar Sesión</a>
+
+                                                @if (Route::has('register'))
+                                                    <a href="{{ route('register') }}" class="btn boton my-2 my-sm-0">Registrarse</a>
+                                                @endif
+                                            @endauth
+                                        </div>
+                                    @endif
+                                    {{-- <a href="/login" class="btn boton my-2 my-sm-0">Iniciar Sesión</a>
+                                    <a href="/register" class="btn boton my-2 my-sm-0">Registrarse</a> --}}
                                 </li>
                             </ul>
                         </div>
