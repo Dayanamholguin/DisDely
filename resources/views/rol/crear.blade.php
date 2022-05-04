@@ -24,7 +24,7 @@ Roles
                     <div class="col-auto">
                         <div class="form-group">
                             <label for="">Nombre</label><b style="color: red"> *</b>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Ingrese nombre del rol" required>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" value="{{old('name')}}" id="name" name="name" placeholder="Ingrese nombre del rol" required>
                             @error('name')
                             <div class="alert alert-danger" role="alert">
                                 {{$message}}

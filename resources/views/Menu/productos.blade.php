@@ -8,20 +8,16 @@ Productos
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             <div class="col">
                 <div class="card text-center shadow-sm">
-                    <div class="card-body">
+                   
                         @foreach($productos as $productos)
-<<<<<<< HEAD
-                        <img src="/imagenes/{{ $productos->img }}" width="300" height="300">
-=======
                         <img src="/imagenes/{{$productos->img}}" width="300" height="300">
->>>>>>> 0eba33d94c1282bc06c28460dbecf0ce18f5d529
                         <strong>
                             <p class="card-title">{{ $productos->nombre}}</p>
                         </strong>
                         <a href="{{ url('añadirCarrito/'.$productos->id) }}" class="btn boton my-2" role="button" aria-pressed="true"><i class="fas fa-shopping-cart"></i> Añadir al carrito</a>
                         <a href="{{ url('detalleProducto/'.$productos->id) }}" class="btn boton my-2" role="button" aria-pressed="true">Detalle</a>
                         @endforeach                   
-                    </div>
+                   
                 </div>
             </div>
             <!--<div class="col">

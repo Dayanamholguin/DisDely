@@ -47,26 +47,42 @@ class RoleController extends Controller
 
     public function guardar(Request $request)
     {
-        
-        $request->validate(Role::$rules);
         //dd($request);
         $input = $request->all();
         $rol = Role::select('*')->where('name', $request->name)->value('name');
         if ($rol!=null) {
             Flash::error("El rol ".$rol." ya está creado");
-            return redirect("/rol");
+            return back();
         }
-        try {
-            $rol = Role::create([
-                "name" => $input["name"],
-                "estado" => 1,
-            ]);
-            $rol->permissions()->sync($request->permissions);
-            Flash::success("Se ha creado éxitosamente");
-            return redirect("/rol");
-        } catch (\Exception $e) {  
-            Flash::error($e->getMessage());
-            return redirect("/rol");
+        $permisos= Permission::all();
+        if ($request->permissions==null) {
+            Flash::error("Debe seleccionar los permisos que quiera asociar al rol");
+            return back();
+        } elseif($request->name==null) {
+            Flash::error("Debe llenar el campo de nombre que desea ponerle al rol");
+            return back();
+        }else{
+            foreach ($permisos as $permiso) {
+                foreach ($request->permissions as $key => $value) {
+                    if($value[$key]==$permiso->id){
+                        try {
+                            $rol = Role::create([
+                                "name" => $input["name"],
+                                "estado" => 1,
+                            ]);
+                            $rol->permissions()->sync($request->permissions);
+                            Flash::success("Se ha creado éxitosamente");
+                            return redirect("/rol");
+                        } catch (\Exception $e) {  
+                            Flash::error($e->getMessage());
+                            return redirect("/rol");
+                        }
+                    }else {
+                        Flash::error("No se encuentra ese valor del rol");
+                        return back();
+                    }
+                }
+            }
         }
     }
 
@@ -87,34 +103,45 @@ class RoleController extends Controller
 
     public function modificar(Request $request)
     {
-        
         // $request->validate(Role::$rules);
-        
         $input = $request->all();
-
         $id=$request->id;
         $rol = Role::select('*')->where('name',$request->name)->where('id','<>',$id)->value('name');
         if ($rol!=null) {
             Flash::error("El rol ".$rol." ya está creado");
             return redirect("/rol/editar/$id");
+        }else if($request->name==null){
+            Flash::error("El campo nombre es requerido");
+            return redirect("/rol/editar/$id");
+        }else if ($request->permisos==null){
+            Flash::error("Debe seleccionar los permisos que quiera asociar al rol");
+            return redirect("/rol/editar/$id");
         }
-
-
-        try {
-            $rol = Role::find($input["id"]);
-            if ($rol == null) {            
-                return redirect("/rol");
+        $permisos= Permission::all();
+        foreach ($permisos as $permiso) {
+            foreach ($request->permisos as $key => $value) {
+                if($value[$key]==$permiso->id){
+                    try {
+                        $rol = Role::find($input["id"]);
+                        if ($rol == null) {            
+                            return redirect("/rol");
+                        }
+                        $rol->update([
+                            "name" => $input["name"]
+                        ]);
+                        $rol->permissions()->sync($request->permisos);
+                        Flash::success("Se ha modificado éxitosamente");
+                        return redirect("/rol");
+                    } catch (\Exception $e) {   
+                        Flash::error($e->getMessage());
+                        return redirect("/rol");
+                    }
+                }else {
+                    Flash::error("No se encuentra ese valor del rol");
+                    return redirect("/rol/editar/$id");
+                }
             }
-            $rol->update([
-                "name" => $input["name"]
-            ]);
-            $rol->permissions()->sync($request->permisos);
-            Flash::success("Se ha modificado éxitosamente");
-            return redirect("/rol");
-        } catch (\Exception $e) {   
-            Flash::error($e->getMessage());
-            return redirect("/rol");
-        }
+        }        
     }
 
     public function ver($id)
