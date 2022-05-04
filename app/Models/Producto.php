@@ -12,7 +12,6 @@ class Producto extends Model
     protected $fillable = [
         'idCategoria',
         'idSabor',
-        'idGenero',
         'idEtapa',
         'nombre',
         'descripcion',
@@ -26,7 +25,6 @@ class Producto extends Model
     public static $rules =[
         'categoria'=>'required|exists:categorias,id',
         'sabor'=>'required|exists:sabores,id',
-        'genero'=>'required|exists:generos,id',
         'etapa'=>'required|exists:etapas,id',
         'nombre' => 'required|min:3', //unique:productos'
         'descripcion' => 'required|max:500',

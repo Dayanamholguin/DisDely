@@ -103,11 +103,7 @@ class UsuarioController extends Controller
 
     public function modificar(Request $request, $id)
     {
-
         $usuario = Usuario::select("*")->where("email", $request->email)->first();
-
-
-
         if ($usuario != null) {
             $campos = [
                 'nombre' => ['required', 'string', 'max:255'],

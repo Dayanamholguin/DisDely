@@ -26,7 +26,6 @@ Productos
                 <img src="/imagenes/{{$producto->img}}" width='auto' height='auto'>;
                 <p class="card-text">Categoria: {{$categoria}}</p>
                 <p class="card-text">Sabor: {{$sabor}}</p>
-                <p class="card-text">Género: {{$genero}}</p>
                 <p class="card-text">Etapa: {{$etapa}}</p>
                 <p class="card-text">Descripción: {{$producto->descripcion}}</p>
                 <p class="card-text">Número de Personas: {{$producto->numeroPersonas}}</p>
