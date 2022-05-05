@@ -30,6 +30,7 @@ Gestión de Productos
 
     </div>
 </div>
+<a class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Tooltip on top</a>
 @endsection
 
 @section("scripts")
@@ -275,5 +276,6 @@ Gestión de Productos
             }
         });
     });
+      
 </script>
 @endsection

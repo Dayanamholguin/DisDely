@@ -132,6 +132,8 @@
     background-size: 400% 400%;
     position: relative;
 }
+<<<<<<< HEAD
+=======
 
 .linea{
     border-top: 5px solid #B0535E;
@@ -203,6 +205,7 @@
     }
 }
 
+<<<<<<< HEAD
 
 /* .containerm {
     min-height: 100vh;
@@ -274,3 +277,6 @@ i {
     transition-timing-function: ease
 }
  */
+=======
+>>>>>>> b619e56ab73a4daf2c24c0b0df9fefc02269fd62
+>>>>>>> acaaf630bfb968feb9c877adb74c93c50a6e6f0b
