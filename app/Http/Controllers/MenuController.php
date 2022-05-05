@@ -20,9 +20,8 @@ class MenuController extends Controller
         $productos = Producto::find($id);
         $categoria = Producto::select('categorias.nombre')->join("categorias", "productos.idCategoria", "categorias.id")->value('nombre');
         $sabor = Producto::select('sabores.nombre')->join("sabores", "productos.idsabor", "sabores.id")->value('nombre');
-        $genero = Producto::select('generos.nombre')->join("generos", "productos.idgenero", "generos.id")->value('nombre');
         $etapa = Producto::select('etapas.nombre')->join("etapas", "productos.idetapa", "etapas.id")->value('nombre');
-        return view("menu.detalleProducto", compact("productos", "categoria", "sabor", "genero", "etapa"));
+        return view("menu.detalleProducto", compact("productos", "categoria", "sabor", "etapa"));
     }
 
     public function carrito()

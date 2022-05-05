@@ -3,87 +3,23 @@
 Productos
 @endsection
 @section('content')
-<div class="album py-2 bg-light">
-    <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            <div class="col">
-                <div class="card text-center shadow-sm">
-                    <div class="card-body">
-                        @foreach($productos as $productos)
-<<<<<<< HEAD
-                        <img src="/imagenes/{{ $productos->img }}" width="300" height="300">
-=======
-                        <img src="/imagenes/{{$productos->img}}" width="300" height="300">
->>>>>>> 0eba33d94c1282bc06c28460dbecf0ce18f5d529
-                        <strong>
-                            <p class="card-title">{{ $productos->nombre}}</p>
-                        </strong>
-                        <a href="{{ url('añadirCarrito/'.$productos->id) }}" class="btn boton my-2" role="button" aria-pressed="true"><i class="fas fa-shopping-cart"></i> Añadir al carrito</a>
-                        <a href="{{ url('detalleProducto/'.$productos->id) }}" class="btn boton my-2" role="button" aria-pressed="true">Detalle</a>
-                        @endforeach                   
-                    </div>
-                </div>
+<div class="galeria" style="margin:0;
+    padding: 0;
+    box-sizing: border-box;">
+    <div class="linea"></div>
+    @foreach($productos as $productos)
+    <div class="contenedor-imagenes">
+        <div class="imagen">
+            <img src="/imagenes/{{$productos->img}}" class="responsive-img">
+            <div class="overlay text-center">
+                <strong>
+                    <p class="card-title">{{ $productos->nombre}}</p>
+                </strong>
+                <a href="{{ url('añadirCarrito/'.$productos->id) }}" class="btn boton my-2" role="button" aria-pressed="true"><i class="fas fa-shopping-cart"></i> Añadir al carrito</a>
+                <a href="{{ url('detalleProducto/'.$productos->id) }}" class="btn boton my-2" role="button" aria-pressed="true">Detalle</a>
             </div>
-            <!--<div class="col">
-                        <div class="card text-center shadow-sm">
-                        <img src="/img/pastel.png">
-                            <div class="card-body">
-                                <p class="card-title">Torta de Chocolate</p>
-                                <button class="btn boton my-2" type="submit" ><i class="fas fa-shopping-cart"></i> Añadir al carrito</button>
-                                <a href="#" class="btn boton my-2">Ver</a>
-                            </div>
-                        </div>
-                    </div><div class="col">
-                        <div class="card text-center shadow-sm">
-                        <img src="/img/pastel.png">
-                            <div class="card-body">
-                                <p class="card-title">Torta de Chocolate</p>
-                                <button class="btn boton my-2" type="submit" ><i class="fas fa-shopping-cart"></i> Añadir al carrito</button>
-                                <a href="#" class="btn boton my-2">Ver</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card text-center shadow-sm">
-                        <img src="/img/pastel.png">
-                            <div class="card-body">
-                                <p class="card-title">Torta de Chocolate</p>
-                                <button class="btn boton my-2" type="submit" ><i class="fas fa-shopping-cart"></i> Añadir al carrito</button>
-                                <a href="#" class="btn boton my-2">Ver</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card text-center shadow-sm">
-                        <img src="/img/pastel.png">
-                            <div class="card-body">
-                                <p class="card-title">Torta de Chocolate</p>
-                                <button class="btn boton my-2" type="submit" ><i class="fas fa-shopping-cart"></i> Añadir al carrito</button>
-                                <a href="#" class="btn boton my-2">Ver</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card text-center shadow-sm">
-                        <img src="/img/pastel.png">
-                            <div class="card-body">
-                                <p class="card-title">Torta de Chocolate</p>
-                                <button class="btn boton my-2" type="submit" ><i class="fas fa-shopping-cart"></i> Añadir al carrito</button>
-                                <a href="#" class="btn boton my-2">Ver</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card text-center shadow-sm">
-                        <img src="/img/pastel.png">
-                            <div class="card-body">
-                                <p class="card-title">Torta de Chocolate</p>
-                                <button class="btn boton my-2" type="submit" ><i class="fas fa-shopping-cart"></i> Añadir al carrito</button>
-                                <a href="#" class="btn boton my-2">Ver</a>
-                            </div>
-                        </div>
-                    </div>-->
         </div>
     </div>
+    @endforeach
 </div>
 @endsection

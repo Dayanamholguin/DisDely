@@ -41,15 +41,15 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="d-flex align-items-center justify-content-center flex-wrap">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center">
                 <div class="sidebar-brand-icon">
                     <!--<i class="fas fa-laugh-wink"></i>-->
                     <img src="/../img/logo.png" width="50px" height="50px">
+                </div>           
+                <div class="sidebar-brand-text mx-3">
+                    Dulce Encanto
                 </div>
-                <div class="sidebar-brand-text mx-3 p-3">
-                    <font face="Harlekin" style="color: white;" class="text-capitalize">Dulce Encanto</font>
-                </div>
-            </a>
+            </a>                   
 
             <hr class="sidebar-divider my-0">
 

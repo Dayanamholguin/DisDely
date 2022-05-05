@@ -17,7 +17,7 @@
                     @enderror
                 </div>
                 <div class="col-12 centrado">
-                    <button type="submit" class="btn btn-primary">Cambiar foto</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             </div>
         </div>
