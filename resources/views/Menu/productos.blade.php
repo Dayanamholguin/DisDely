@@ -3,18 +3,14 @@
 Productos
 @endsection
 @section('content')
-<div class="album py-2 bg-light">
+
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             <div class="col">
                 <div class="card text-center shadow-sm">
                     <div class="card-body">
                         @foreach($productos as $productos)
-<<<<<<< HEAD
-                        <img src="/imagenes/{{ $productos->img }}" width="300" height="300">
-=======
                         <img src="/imagenes/{{$productos->img}}" width="300" height="300">
->>>>>>> 0eba33d94c1282bc06c28460dbecf0ce18f5d529
                         <strong>
                             <p class="card-title">{{ $productos->nombre}}</p>
                         </strong>
@@ -85,5 +81,5 @@ Productos
                     </div>-->
         </div>
     </div>
-</div>
+
 @endsection

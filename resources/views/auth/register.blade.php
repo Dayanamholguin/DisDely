@@ -17,7 +17,7 @@ Registrar - DisDely
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <label for="nombre"><b>Nombre</b></label>
+                                                        <label for="nombre"><b>Nombre</b></label><b style="color: red"> *</b>
                                                         <input id="nombre" type="text" name="nombre" value="{{ old('nombre') }}" class="form-control @error('nombre') is-invalid @enderror" name="nombre" required autocomplete="nombre" placeholder="Ingrese su nombre" />
                                                         
                                                             @error('nombre')
@@ -29,7 +29,7 @@ Registrar - DisDely
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating">
-                                                        <label for="apellido"><b>Apellido</b></label>
+                                                        <label for="apellido"><b>Apellido</b></label><b style="color: red"> *</b>
                                                         <input id="apellido" type="text" name="apellido" value="{{ old('apellido') }}" class="form-control @error('apellido') is-invalid @enderror" name="apellido" required autocomplete="apellido" placeholder="Ingrese su apellido" />
                                                         
                                                             @error('apellido')
@@ -43,7 +43,7 @@ Registrar - DisDely
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <label for="email"><b>Correo</b></label>
+                                                        <label for="email"><b>Correo</b></label><b style="color: red"> *</b>
                                                         <input id="email" type="email"  value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" name="email" required autocomplete="email" placeholder="Ingrese su correo electrónico" />
                                                         
                                                             @error('email')
@@ -55,7 +55,7 @@ Registrar - DisDely
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <label for="celular"><b>Teléfono celular</b></label>
+                                                        <label for="celular"><b>Teléfono celular</b></label><b style="color: red"> *</b>
                                                         <input id="celular" type="text" name="celular" value="{{ old('celular') }}" class="form-control @error('celular') is-invalid @enderror" name="celular" required autocomplete="celular" placeholder="Ingrese su teléfono o celular" />
                                                         
                                                             @error('celular')
@@ -69,7 +69,7 @@ Registrar - DisDely
                                             <div class="row mb-3">
                                                 <div class="col-md-4">
                                                     <div class="form-floating">
-                                                        <label for="celularAlternativo"><b>Celular alternativo</b></label>
+                                                        <label for="celularAlternativo"><b>Celular alternativo</b></label><b style="color: red"> *</b>
                                                         <input id="celularAlternativo" type="text" name="celularAlternativo" value="{{ old('celularAlternativo') }}" class="form-control @error('celularAlternativo') is-invalid @enderror" name="celularAlternativo" required autocomplete="celularAlternativo" placeholder="Ingrese su teléfono alternativo" />
                                                        
                                                             @error('celularAlternativo')
@@ -81,7 +81,7 @@ Registrar - DisDely
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-floating">
-                                                        <label for="fechaNacimiento"><b>Fecha nacimiento</b></label>
+                                                        <label for="fechaNacimiento"><b>Fecha nacimiento</b></label><b style="color: red"> *</b>
                                                         <input id="fechaNacimiento" type="date" value="{{ old('fechaNacimiento') }}" class="form-control @error('fechaNacimiento') is-invalid @enderror" name="fechaNacimiento" required autocomplete="fechaNacimiento"/>
                                                        
                                                             @error('fechaNacimiento')
@@ -93,7 +93,7 @@ Registrar - DisDely
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for=""><b>Género</b></label>
+                                                        <label for=""><b>Género</b></label><b style="color: red"> *</b>
                                                         <select class="form-control" name="genero">
                                                             <option value="2">Masculino</option>
                                                             <option value="3">Femenino</option>
@@ -101,7 +101,7 @@ Registrar - DisDely
                                                     </div>
                                                 </div>
                                             </div>
-                                            <label for=""><b>Contraseña</b></label>
+                                            <label for=""><b>Contraseña</b></label><b style="color: red"> *</b>
                                             <div class="form-group row">
                                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                                     <input type="password" class="form-control form-control-user @error('password') is-invalid @enderror" id="exampleInputPassword" placeholder="Contraseña" name="password" required autocomplete="new-password">
