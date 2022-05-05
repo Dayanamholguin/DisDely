@@ -3,23 +3,25 @@
 Productos
 @endsection
 @section('content')
-<div class="galeria" style="margin:0;
-    padding: 0;
-    box-sizing: border-box;">
-    <div class="linea"></div>
-    @foreach($productos as $productos)
-    <div class="contenedor-imagenes">
+<div class="linea"></div>
+    <div class="contenedor-imagenes container-fluid">
+        @foreach($productos as $productos)
         <div class="imagen">
             <img src="/imagenes/{{$productos->img}}" class="responsive-img">
-            <div class="overlay text-center">
-                <strong>
-                    <p class="card-title">{{ $productos->nombre}}</p>
-                </strong>
-                <a href="{{ url('añadirCarrito/'.$productos->id) }}" class="btn boton my-2" role="button" aria-pressed="true"><i class="fas fa-shopping-cart"></i> Añadir al carrito</a>
-                <a href="{{ url('detalleProducto/'.$productos->id) }}" class="btn boton my-2" role="button" aria-pressed="true">Detalle</a>
+            <div class="overlay centrado">
+                <div class="row text-center centrado">
+                    <div class="col-12">
+                        <strong>
+                            <p class="card-title">{{ $productos->nombre}}</p>
+                        </strong>
+                    </div>
+                    <div class="col-6">
+                        <a href="{{ url('añadirCarrito/'.$productos->id) }}" class="btn boton " role="button" aria-pressed="true"><i class="fas fa-shopping-cart"></i></a>
+                        <a href="{{ url('detalleProducto/'.$productos->id) }}" class="btn boton" role="button" aria-pressed="true"><i class="fa fa-search"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
+        @endforeach
     </div>
-    @endforeach
-</div>
 @endsection
