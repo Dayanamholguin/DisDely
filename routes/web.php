@@ -81,7 +81,7 @@ Route::get('/usuario/cambiar/estado/{id}/{estado}', [UsuarioController::class, '
 
 //perfil
 Route::get('/perfil/{id}', [PerfilController::class, 'index']);
-Route::post('/perfil/actualizar/{id}', [PerfilController::class, 'modificar']);
+Route::post('/perfil/actualizar/{id}', [PerfilController::class, 'modificar'])->middleware('passwords.confirm');
 Route::get('/perfil/cambiar/{id}', [PerfilController::class, 'cambiar']);
 Route::post('/perfil/cambiarContrasena/{id}', [PerfilController::class, 'cambiarContrasena']);
 Route::get('/perfil/cambiarFoto/{id}', [PerfilController::class, 'cambiarFoto']);

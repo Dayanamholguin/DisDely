@@ -18,13 +18,13 @@ Usuarios
                 </div>
             </div>
         </div>
-        <form id="form" action="/usuario/guardar" method="post" enctype="multipart/form-data">
+        <form  action="/usuario/guardar" method="post" enctype="multipart/form-data" id="form">
             @csrf
             <div class="row">
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
-                            <input id="nombre" type="text" name="nombre" value="{{ old('nombre') }}" class="form-control @error('nombre') is-invalid @enderror" name="nombre" required autocomplete="nombre" placeholder="Ingrese su nombre" />
+                            <input id="nombre"  type="text" name="nombre" value="{{ old('nombre') }}" class="form-control @error('nombre') is-invalid @enderror" name="nombre" required autocomplete="nombre" placeholder="Ingrese su nombre" />
                             @error('nombre')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -127,4 +127,25 @@ Usuarios
         </form>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+
+<script>
+$(document).ready(function(){
+    $('#form').validate({
+        rules: {
+            nombre: {
+                required: true,
+            },
+            apellido: {
+                require: true,
+            },
+        },
+        errorElement: 'span'
+    });
+});
+</script>
+
+
 @endsection
