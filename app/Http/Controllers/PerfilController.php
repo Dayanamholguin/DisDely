@@ -51,7 +51,6 @@ class PerfilController extends Controller
             Flash::error("Perfil no encontrado");      
             return redirect("/perfil/{$request->id}");
         }
-        if ($usuario->foto==null) {
             $imagen = null;
             if($request->imagen != null){
                 $imagen =time().'.'.$request->imagen->extension();
@@ -62,10 +61,7 @@ class PerfilController extends Controller
             ]);
             Flash::success("Se ha modificado la foto de perfil correctamente");
             return redirect("/perfil/{$request->id}");
-            dd("no hay imagen");
-        }else {
-
-        }
+            
     }
 
     public function cambiarContrasena(Request $request, $id)

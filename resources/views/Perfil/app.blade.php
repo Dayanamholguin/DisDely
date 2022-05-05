@@ -13,7 +13,7 @@ Usuarios
         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
           {{-- <img src="/imagenes/{{Auth::user()->foto}}" alt="Admin" class="rounded-circle mt-5" width="90">
            --}}
-           <img src={{Auth::user()->foto==null? "https://bootdey.com/img/Content/avatar/avatar7.png" :Auth::user()->foto}} alt="Admin" class="rounded-circle mt-5" width="90">
+           <img src={{Auth::user()->foto==null?'https://bootdey.com/img/Content/avatar/avatar7.png':'/imagenes/'.Auth::user()->foto}} alt="Admin" class="rounded-circle mt-5" width="90">
             <div class="mt-3">
             <h4>{{ $usuario->nombre}}</h4>
             <!--<p class="text-secondary mb-1">Registrado(a) en nuestra plataforma {{$usuario->created_at->diffForHumans()}}</p>-->

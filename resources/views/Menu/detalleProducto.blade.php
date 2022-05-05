@@ -10,7 +10,6 @@ Detalle Producto
             <a href="/productos" class="alert-link titulo">Volver</a>
         </div>
         <div class="card-body">
-        <a href="/productos" class="alert-link titulo">Volver</a>
             <img src="/imagenes/{{$productos->img}}" width="350" height="300" style="margin: 15px;">
             
             <div style="display:inline-block;vertical-align:top">
