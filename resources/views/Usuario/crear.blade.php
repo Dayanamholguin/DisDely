@@ -139,10 +139,15 @@ $(document).ready(function(){
                 required: true,
             },
             apellido: {
-                require: true,
+                required: true,
             },
+            email: {
+                required: true,
+                email: true
+            }
+
         },
-        errorElement: 'span'
+       
     });
 });
 </script>

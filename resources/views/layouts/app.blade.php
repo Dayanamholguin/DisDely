@@ -45,11 +45,11 @@
                 <div class="sidebar-brand-icon">
                     <!--<i class="fas fa-laugh-wink"></i>-->
                     <img src="/../img/logo.png" width="50px" height="50px">
-                </div>           
+                </div>
                 <div class="sidebar-brand-text mx-3">
                     Dulce Encanto
                 </div>
-            </a>                   
+            </a>
 
             <hr class="sidebar-divider my-0">
 
@@ -94,13 +94,18 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" data-toggle="tooltip" data-placement="rigth"
+                        <a class="collapse-item" data-toggle="tooltip" data-placement="top"
                             title="Este módulo, se encarga de crear, visualizar, inhabilitar y editar los sabores que serán asignados al producto"
                             href="/sabor">Sabores</a>
-                        <a class="collapse-item" data-toggle="tooltip" data-placement="rigth" title=""
+                        <a class="collapse-item" data-toggle="tooltip" data-placement="top"
+                            title="Este módulo, se encarga de crear, visualizar, inhabilitar y editar las categorias que serán asignados al producto"
                             href="/categoria">Categorías</a>
-                        <a class="collapse-item" data-toggle="tooltip" data-placement="rigth" title=""
+                        <a class="collapse-item" data-toggle="tooltip" data-placement="top"
+                            title="Este módulo, se encarga de gestionar la información de los diferentes productos que se venden en el negocio"
                             href="/producto">Productos</a>
+                        <a class="collapse-item" data-toggle="tooltip" data-placement="top"
+                            title="Podrá visualizar todos los productos añadidos al catálogo"
+                            href="#">Catálogo</a>
                     </div>
                 </div>
             </li>
@@ -110,13 +115,19 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-hand-holding-usd"></i>
-                    <span> Gestión de Abonos</span>
+                    <span> Gestión de Ventas</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="login.html">Cotización</a>
-                        <a class="collapse-item" href="register.html">Pedidos</a>
-                        <a class="collapse-item" href="forgot-password.html">Abonos</a>
+                        <a class="collapse-item" data-toggle="tooltip" data-placement="top"
+                            title="Este módulo nos permite tener un registro de las cotizaciones, llevar un seguimiento, de acuerdo al estado en que se encuentre cada una: pendiente, rechazada o aprobada"
+                            href="#">Cotización</a>
+                        <a class="collapse-item" data-toggle="tooltip" data-placement="top"
+                            title="Este módulo nos permite hacer un seguimiento de los pedidos, teniendo así la posibilidad de hacer el registro de los pedidos que se hagan tanto en el aplicativo, como externamente"
+                            href="#">Pedidos</a>
+                        <a class="collapse-item" data-toggle="tooltip" data-placement="top"
+                            title="Este módulo nos permite hacer seguimiento de los abonos realizados a los pedidos"
+                            href="#">Abonos</a>
                         <div class="collapse-divider"></div>
                     </div>
                 </div>
@@ -271,10 +282,10 @@
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
     </script>
 
-  
+
     <!-- Bootstrap core JavaScript-->
     <script src="/vendor/jquery/jquery.min.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"
         integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg=="
@@ -282,7 +293,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js"
         integrity="sha512-XZEy8UQ9rngkxQVugAdOuBRDmJ5N4vCuNXCh8KlniZgDKTvf7zl75QBtaVG1lEhMFe2a2DuA22nZYY+qsI2/xA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/localization/messages_es.min.js" integrity="sha512-Ou4GV0BYVfilQlKiSHUNrsoL1nznkcZ0ljccGeWYSaK2CaVzof2XaZ5VEm5/yE/2hkzjxZngQHVwNUiIRE8yLw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/localization/messages_es.min.js"
+        integrity="sha512-Ou4GV0BYVfilQlKiSHUNrsoL1nznkcZ0ljccGeWYSaK2CaVzof2XaZ5VEm5/yE/2hkzjxZngQHVwNUiIRE8yLw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Core plugin JavaScript-->
     <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
 
