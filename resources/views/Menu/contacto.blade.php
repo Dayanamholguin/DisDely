@@ -3,6 +3,7 @@
 <img class="imagen" src="/img/logo.png" width="150px" height="150px" alt="Dulce Encanto">
 @endsection
 @section('content')
+<div class="linea"></div>
 <div class="container text-center mt-5 mb-5">
     <h3>
         <font face="Harlekin" style="color: black;" class="text-capitalize">Contáctenos</font>
