@@ -11,7 +11,7 @@ Gestión de Sabores
     </div>
     <div class="card-body">
     @include('flash::message')
-        <table id="sabores"  class="table table-bordered dataTable text-center" style="width: 100%;">
+        <table id="sabores"  class="table table-bordered dt-responsive dataTable text-left" style="width: 100%;">
             <thead>
                 <tr>
                     <th>#</th>
@@ -259,6 +259,7 @@ Gestión de Sabores
                 "info": "Mostrando _START_ a _END_ de _TOTAL_ registros"
             }
         });
+        new $.fn.dataTable.FixedHeader( table );
     });
 </script>
 @endsection
