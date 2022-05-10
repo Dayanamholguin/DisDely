@@ -32,17 +32,18 @@
 
         <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
 
+        @foreach($productos as $producto)
             <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                <div class="portfolio-img"><img src="/assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt=""></div>
+                <div class="portfolio-img"><img style="background-size: 100% 100%;" src="/imagenes/{{$producto->img}}"  class="img-fluid" alt=""></div>
                 <div class="portfolio-info">
-                    <h4>App 1</h4>
-                    <p>App</p>
+                    <h4>{{$producto->nombre}}</h4>
+                    <p>{{$producto->descripcion}}</p>
                     <a href="/assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
                     <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
                 </div>
             </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+        @endforeach 
+            <!-- <div class="col-lg-4 col-md-6 portfolio-item filter-web">
                 <div class="portfolio-img"><img src="/assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt=""></div>
                 <div class="portfolio-info">
                     <h4>Web 3</h4>
@@ -120,7 +121,7 @@
                     <a href="/assets/img/portfolio/portfolio-9.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
                     <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
                 </div>
-            </div>
+            </div> -->
             
 
         </div>

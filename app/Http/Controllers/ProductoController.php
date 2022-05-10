@@ -56,7 +56,8 @@ class ProductoController extends Controller
     }
     
     public function catalogo(){
-        return view('producto.catalogo');
+        $productos = Producto::all()->where('catalogo', 1);
+        return view('producto.catalogo', compact("productos"));
     }
 
     public function crear()
