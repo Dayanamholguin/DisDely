@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- CSRF Token -->
@@ -26,6 +26,8 @@
     <link href="/css/style.css" rel="stylesheet">
     @yield('css')
 
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.2.2/css/fixedHeader.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css">
 
 </head>
 
@@ -265,11 +267,8 @@
     <script src="/js/sb-admin-2.min.js"></script>
     <script src="/js/datatables.min.js"></script>
     <!-- Page level plugins -->
-    <script src="/vendor/chart.js/Chart.min.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="/js/demo/chart-area-demo.js"></script>
-    <script src="/js/demo/chart-pie-demo.js"></script>
+
 
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.6.0/dt-1.11.5/datatables.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
@@ -283,6 +282,13 @@
             $('[data-toggle="tooltip"]').tooltip()
         })
     </script>
+
+<script src="https://cdn.datatables.net/fixedheader/3.2.2/js/dataTables.fixedHeader.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap.min.js"></script>
+
+
+
 
     @yield('scripts')
 </body>

@@ -23,7 +23,7 @@ Productos
             </div>
             <div class="card-body">
                 <h5 class="card-title">Producto {{$producto->nombre}}</h5>
-                <img src="/imagenes/{{$producto->img}}" width='auto' height='auto'>;
+                <img src="/imagenes/{{$producto->img}}" width='200px' height='200px'>
                 <p class="card-text">Categoria: {{$categoria}}</p>
                 <p class="card-text">Sabor: {{$sabor}}</p>
                 <p class="card-text">Etapa: {{$etapa}}</p>
