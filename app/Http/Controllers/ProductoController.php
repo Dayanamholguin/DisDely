@@ -55,6 +55,10 @@ class ProductoController extends Controller
             ->make(true);
     }
     
+    public function catalogo(){
+        return view('producto.catalogo');
+    }
+
     public function crear()
     {
         $categorias = Categoria::all()->where('id', '>', 1)->where('estado', 1);
