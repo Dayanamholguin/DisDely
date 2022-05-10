@@ -20,7 +20,7 @@ class RoleController extends Controller
 
     public function listar(Request $request)
     {
-        $roles = Role::all()->where('id','>',0);
+        $roles = Role::all()->where('id', '>', 0);
         return DataTables::of($roles)
             ->editColumn("estado", function ($rol) {
                 return $rol->estado == 1 ? "Activo" : "Inactivo";
@@ -41,7 +41,7 @@ class RoleController extends Controller
 
     public function crear()
     {
-        $permissions = Permission::all()->where('id','>',0);
+        $permissions = Permission::all()->where('id', '>', 0);
         return view('rol.crear', compact('permissions'));
     }
 
@@ -50,21 +50,21 @@ class RoleController extends Controller
         //dd($request);
         $input = $request->all();
         $rol = Role::select('*')->where('name', $request->name)->value('name');
-        if ($rol!=null) {
-            Flash::error("El rol ".$rol." ya está creado");
+        if ($rol != null) {
+            Flash::error("El rol " . $rol . " ya está creado");
             return back();
         }
-        $permisos= Permission::all();
-        if ($request->permissions==null) {
+        $permisos = Permission::all();
+        if ($request->permissions == null) {
             Flash::error("Debe seleccionar los permisos que quiera asociar al rol");
             return back();
-        } elseif($request->name==null) {
+        } elseif ($request->name == null) {
             Flash::error("Debe llenar el campo de nombre que desea ponerle al rol");
             return back();
-        }else{
+        } else {
             foreach ($permisos as $permiso) {
                 foreach ($request->permissions as $key => $value) {
-                    if($value[$key]==$permiso->id){
+                    if ($value[$key] == $permiso->id) {
                         try {
                             $rol = Role::create([
                                 "name" => $input["name"],
@@ -73,11 +73,11 @@ class RoleController extends Controller
                             $rol->permissions()->sync($request->permissions);
                             Flash::success("Se ha creado éxitosamente");
                             return redirect("/rol");
-                        } catch (\Exception $e) {  
+                        } catch (\Exception $e) {
                             Flash::error($e->getMessage());
                             return redirect("/rol");
                         }
-                    }else {
+                    } else {
                         Flash::error("No se encuentra ese valor del rol");
                         return back();
                     }
@@ -93,8 +93,8 @@ class RoleController extends Controller
         // SELECT role_has_permissions.permission_id, roles.name FROM `role_has_permissions` 
         // join roles on role_has_permissions.role_id=roles.id 
         // where roles.id=3             
-        if ($rol == null) {    
-            Flash::error("No se encontró el rol");     
+        if ($rol == null) {
+            Flash::error("No se encontró el rol");
             return redirect("/rol");
         }
         $rolPermisos = DB::table('role_has_permissions')->where('role_id', $rol->id)->get();
@@ -105,25 +105,25 @@ class RoleController extends Controller
     {
         // $request->validate(Role::$rules);
         $input = $request->all();
-        $id=$request->id;
-        $rol = Role::select('*')->where('name',$request->name)->where('id','<>',$id)->value('name');
-        if ($rol!=null) {
-            Flash::error("El rol ".$rol." ya está creado");
+        $id = $request->id;
+        $rol = Role::select('*')->where('name', $request->name)->where('id', '<>', $id)->value('name');
+        if ($rol != null) {
+            Flash::error("El rol " . $rol . " ya está creado");
             return redirect("/rol/editar/$id");
-        }else if($request->name==null){
+        } else if ($request->name == null) {
             Flash::error("El campo nombre es requerido");
             return redirect("/rol/editar/$id");
-        }else if ($request->permisos==null){
+        } else if ($request->permisos == null) {
             Flash::error("Debe seleccionar los permisos que quiera asociar al rol");
             return redirect("/rol/editar/$id");
         }
-        $permisos= Permission::all();
+        $permisos = Permission::all();
         foreach ($permisos as $permiso) {
             foreach ($request->permisos as $key => $value) {
-                if($value[$key]==$permiso->id){
+                if ($value[$key] == $permiso->id) {
                     try {
                         $rol = Role::find($input["id"]);
-                        if ($rol == null) {            
+                        if ($rol == null) {
                             return redirect("/rol");
                         }
                         $rol->update([
@@ -132,23 +132,23 @@ class RoleController extends Controller
                         $rol->permissions()->sync($request->permisos);
                         Flash::success("Se ha modificado éxitosamente");
                         return redirect("/rol");
-                    } catch (\Exception $e) {   
+                    } catch (\Exception $e) {
                         Flash::error($e->getMessage());
                         return redirect("/rol");
                     }
-                }else {
+                } else {
                     Flash::error("No se encuentra ese valor del rol");
                     return redirect("/rol/editar/$id");
                 }
             }
-        }        
+        }
     }
 
     public function ver($id)
     {
         $roles = Role::find($id);
-        if ($roles == null) {   
-            Flash::error("No se encontró el rol");      
+        if ($roles == null) {
+            Flash::error("No se encontró el rol");
             return redirect("/rol");
         }
         // SELECT permissions.description FROM permissions JOIN role_has_permissions 
@@ -156,10 +156,10 @@ class RoleController extends Controller
         // on role_has_permissions.role_id=roles.id WHERE roles.id=3;
 
         $rolPermisos = Permission::select('permissions.description')
-        ->join("role_has_permissions", "permissions.id", "role_has_permissions.permission_id")
-        ->join("roles", "role_has_permissions.role_id", "roles.id")
-        ->where("roles.id", $id)
-        ->get();
+            ->join("role_has_permissions", "permissions.id", "role_has_permissions.permission_id")
+            ->join("roles", "role_has_permissions.role_id", "roles.id")
+            ->where("roles.id", $id)
+            ->get();
         //dd($rolPermisos);
         return view("rol.ver", compact("rolPermisos", "roles"));
     }
@@ -167,15 +167,14 @@ class RoleController extends Controller
     public function modificarEstado($id, $estado)
     {
         $rol = Role::find($id);
-        if ($rol == null) {        
+        if ($rol == null) {
             return redirect("/rol");
         }
         try {
-            $rol->update(["estado" => $estado]);         
+            $rol->update(["estado" => $estado]);
             return redirect("/rol");
-        } catch (\Exception $e) {       
+        } catch (\Exception $e) {
             return redirect("/rol");
         }
     }
 }
-

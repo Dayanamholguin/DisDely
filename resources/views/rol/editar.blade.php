@@ -24,7 +24,7 @@ Roles
                 <div class="row ">
                     <div class="col-auto">
                         <div class="form-group">
-                            <label for="">Nombre</label>
+                            <label for="">Nombre<b style="color: red"> *</b></label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{$rol->name}}" required>
                             
                             @error('name')
@@ -34,7 +34,7 @@ Roles
                             @enderror
                         </div>
                         <div class="form-group ">
-                            <h2>Lista de permisos</h2>
+                            <h5>Lista de permisos<b style="color: red"> *</b></h5>
                             @foreach ($permisos as $value)
                                 <div>
                                     <label>
@@ -51,7 +51,7 @@ Roles
                             @endforeach
                         </div>
                         <div class="col-12 centrado">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="submit" class="btn btn-primary">Modificar</button>
                         </div>
                     </div>
                 </div>

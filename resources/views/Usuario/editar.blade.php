@@ -39,7 +39,7 @@ Usuarios
                 </div> -->
                 <div class="col-md-6 col-sm-12">
                     <div class="form-group">
-                        <label for="nombre">Nombre</label>
+                        <label for="nombre">Nombre<b style="color: red"> *</b></label>
                         <input value="{{$usuario->nombre}}" type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required>
                         @error('nombre')
                         <div class="alert alert-danger" role="alert">
@@ -50,7 +50,7 @@ Usuarios
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <div class="form-group">
-                        <label for="apellido">Apellido</label>
+                        <label for="apellido">Apellido<b style="color: red"> *</b></label>
                         <input value="{{$usuario->apellido}}" type="text" class="form-control @error('apellido') is-invalid @enderror" id="apellido" name="apellido" required>
                         @error('apellido')
                         <div class="alert alert-danger" role="alert">
@@ -61,7 +61,7 @@ Usuarios
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <div class="form-group">
-                        <label for="email">Correo</label>
+                        <label for="email">Correo<b style="color: red"> *</b></label>
                         <input readonly="readonly" value="{{$usuario->email}}" type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required>
                         @error('email')
                         <div class="alert alert-danger" role="alert">
@@ -72,7 +72,7 @@ Usuarios
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <div class="form-group">
-                        <label for="celular">Teléfono celular</label>
+                        <label for="celular">Teléfono celular<b style="color: red"> *</b></label>
                         <input value="{{$usuario->celular}}" type="text" class="form-control @error('celular') is-invalid @enderror" id="celular" name="celular" required>
                         @error('celular')
                         <div class="alert alert-danger" role="alert">
@@ -83,7 +83,7 @@ Usuarios
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="celularAlternativo">Celular alternativo</label>
+                        <label for="celularAlternativo">Celular alternativo<b style="color: red"> *</b></label>
                         <input value="{{$usuario->celularAlternativo}}" type="text" class="form-control @error('celularAlternativo') is-invalid @enderror" id="celularAlternativo" name="celularAlternativo" required>
                         @error('celularAlternativo')
                         <div class="alert alert-danger" role="alert">
@@ -94,7 +94,7 @@ Usuarios
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="fechaNacimiento">Fecha nacimiento</label>
+                        <label for="fechaNacimiento">Fecha nacimiento<b style="color: red"> *</b></label>
                         <input value="{{$usuario->fechaNacimiento}}" type="date" class="form-control @error('fechaNacimiento') is-invalid @enderror" id="fechaNacimiento" name="fechaNacimiento" required>
                         @error('fechaNacimiento')
                         <div class="alert alert-danger" role="alert">
@@ -105,7 +105,7 @@ Usuarios
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">Género</label>
+                        <label for="">Género<b style="color: red"> *</b></label>
                         <select class="form-control" name="genero">
                             <option value="">Seleccione</option>
                             @foreach($generos as $key => $value)

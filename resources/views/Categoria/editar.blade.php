@@ -7,7 +7,7 @@ Categorias
 @section('content')
 <div class="card">
     <div class="card-header text-center">
-        <strong>Modificar categoria</strong> / <a href="/categoria" class="alert-link titulo">Volver</a>
+        <strong>Modificar categoría</strong> / <a href="/categoria" class="alert-link titulo">Volver</a>
     </div>
     <div class="card-body">
     <div class="container mt-1">
@@ -24,7 +24,7 @@ Categorias
                 <div class="row justify-content-center">
                     <div class="col-auto">
                         <div class="form-group">
-                            <label for="">Nombre</label>
+                            <label for="">Nombre<b style="color: red"> *</b></label>
                             <input value="{{$categoria->nombre}}" type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required>
                             @error('nombre')
                                 <div class="alert alert-danger" role="alert">
