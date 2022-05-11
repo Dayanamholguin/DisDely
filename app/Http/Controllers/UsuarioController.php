@@ -36,7 +36,7 @@ class UsuarioController extends Controller
                 if ($usuario->estado == 1) {
                     $acciones .= '<a class="btn btn-danger btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/0" data-toggle="tooltip" data-placement="top" title="Inactivar"><i class="far fa-eye-slash"></i></a>';
                 } else {
-                    $acciones .= '<a class="btn btn-success btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/1" data-toggle="tooltip" data-placement="top" title="Activar"><i class="far fa-eye"></i></a>';
+                    $acciones .= '<a class="btn btn-success btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/1" data-toggle="tooltip" data-placement="top" title="Activar"><i class="fas fa-fw fa-eye"></i></a>';
                 }
                 return $acciones;
             })

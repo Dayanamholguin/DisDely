@@ -77,7 +77,7 @@
              <!--Roles-->
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tooltip" data-placement="right" title="En este módulo aquí podrás consultar y crear los roles del aplicativo, así como también asignar permisos a los roles existentes en el módulo" href="/rol">
-                    <i class="fas fa-tools"></i>
+                    <i class="fas fa-fw fa-cog"></i>
                     <span> Gestión de Roles</span>
                 </a>
             </li>
@@ -115,10 +115,12 @@
                 </div>
             </li>
 
+            <!-- fas fa-fw fa-cog -->
+
             <!--Ventas-->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-hand-holding-usd"></i>
+                    <i class="fas fa-fw fa-folder"></i>
                     <span> Gestión de Ventas</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
@@ -270,10 +272,10 @@
     <!-- </script> -->
 
 <!-- Para borrar porque no da el menú -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+<!--     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>
-
+ -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
     </script>

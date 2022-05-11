@@ -28,7 +28,7 @@ class SaborController extends Controller
                 if ($sabor->estado == 1) {
                     $acciones .= '<a class="btn btn-danger btn-sm mb-1" href="/sabor/cambiar/estado/' . $sabor->id . '/0"><i class="far fa-eye-slash"></i>Inactivar</a>';
                 } else {
-                    $acciones .= '<a class="btn btn-success btn-sm mb-1" href="/sabor/cambiar/estado/' . $sabor->id . '/1"><i class="far fa-eye"></i> Activar</a>';
+                    $acciones .= '<a class="btn btn-success btn-sm mb-1" href="/sabor/cambiar/estado/' . $sabor->id . '/1"><i class="fas fa-fw fa-eye"></i> Activar</a>';
                 }
                 return $acciones;
             })
