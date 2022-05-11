@@ -14,9 +14,10 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\UsuarioController;
 //perfil
 use App\Http\Controllers\PerfilController;
-
 //Menu 
 use App\Http\Controllers\MenuController;
+//Menu 
+use App\Http\Controllers\CotizacionController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -66,6 +67,7 @@ Route::get('/producto/crear', [ProductoController::class, 'crear']);
 Route::post('/producto/guardar', [ProductoController::class, 'guardar']);
 Route::get('/producto/editar/{id}', [ProductoController::class, 'editar']);
 Route::get('/producto/ver/{id}', [ProductoController::class, 'ver']);
+Route::get('/producto/catalogo', [ProductoController::class, 'catalogo']);
 Route::post('/producto/actualizar', [ProductoController::class, 'modificar']);
 Route::get('/producto/cambiar/estado/{id}/{estado}', [ProductoController::class, 'modificarEstado']);
 
@@ -86,6 +88,18 @@ Route::get('/perfil/cambiar/{id}', [PerfilController::class, 'cambiar']);
 Route::post('/perfil/cambiarContrasena/{id}', [PerfilController::class, 'cambiarContrasena']);
 Route::get('/perfil/cambiarFoto/{id}', [PerfilController::class, 'cambiarFoto']);
 Route::post('/perfil/recibirFoto/{id}', [PerfilController::class, 'recibirFoto']);
+
+//cotización
+Route::get('/cotizacion', [CotizacionController::class, 'index']);
+Route::get('/cotizacion/listar', [CotizacionController::class, 'listar']);
+Route::get('/cotizacion/crear/{producto}', [CotizacionController::class, 'crear']);
+Route::post('/cotizacion/guardar', [CotizacionController::class, 'guardar']);
+Route::get('/cotizacion/editar/{id}', [CotizacionController::class, 'editar']);
+Route::get('/cotizacion/ver/{id}', [CotizacionController::class, 'ver']);
+Route::get('/cotizacion/catalogo', [CotizacionController::class, 'catalogo']);
+Route::post('/cotizacion/actualizar', [CotizacionController::class, 'modificar']);
+Route::get('/cotizacion/cambiar/estado/{id}/{estado}', [CotizacionController::class, 'modificarEstado']);
+
 // Route::post('/perfil/actualizar/{id}', [PerfilController::class, 'modificar'])->middleware('password.confirm');
 //para mostrar
 /*Route::get('/imagenes/{path}/{attachment}', function($path, $attachment){

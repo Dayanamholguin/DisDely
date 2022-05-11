@@ -14,7 +14,7 @@ use DataTables;
 use Flash;
 use PhpParser\Node\Stmt\Catch_;
 
-class ProductoController extends Controller
+class CotizacionController extends Controller
 {
     public function index()
     {
@@ -60,12 +60,14 @@ class ProductoController extends Controller
         return view('producto.catalogo', compact("productos"));
     }
 
-    public function crear()
+    public function crear($id)
     {
-        $categorias = Categoria::all()->where('id', '>', 1)->where('estado', 1);
-        $sabores = Sabor::all()->where('id', '>', 1)->where('estado', 1);
-        $etapas = DB::table('etapas')->get()->where('id', '>', 1);
-        return view('producto.crear', compact("categorias", "sabores", "etapas"));
+        $producto = Producto::find($id);
+        if ($producto == null) {
+            Flash::error("No se encontró el producto");
+            return redirect("/producto/catalogo");
+        }
+        return view('cotizacion.crear', compact("producto"));
     }
 
     public function guardar(Request $request)
