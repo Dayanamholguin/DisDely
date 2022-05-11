@@ -11,7 +11,7 @@ Gestión de Productos
     </div>
     <div class="card-body">
     @include('flash::message')
-        <table id="productos" class="table table-bordered dataTable text-center" style="width: 100%;">
+        <table id="productos" class="table table-bordered dt-responsive dataTable text-left" style="width: 100%;">
             <thead>
                 <tr>
                     <th>Imagen</th>
@@ -281,6 +281,9 @@ Gestión de Productos
                 "info": "Mostrando _START_ a _END_ de _TOTAL_ registros"
             }
         });
+
+        new $.fn.dataTable.FixedHeader( productos );
     });
 </script>
 @endsection
+

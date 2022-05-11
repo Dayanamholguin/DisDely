@@ -4,8 +4,8 @@ Productos
 @endsection
 @section('content')
 <div class="linea"></div>
-    <div class="contenedor-imagenes container-fluid">
-        @foreach($productos as $productos)
+<div class="contenedor-imagenes container-fluid">
+        <!-- @foreach($productos as $productos)
         <div class="imagen">
             <img src="/imagenes/{{$productos->img}}" class="responsive-img">
             <div class="overlay centrado">
@@ -23,5 +23,24 @@ Productos
             </div>
         </div>
         @endforeach
-    </div>
+    </div> -->
+
+        <div class="row">
+            <div class="col-md-12">
+                @foreach($productos as $productos)
+                    <div class="row text-center centrado">
+                        <div class="col-12">
+                            <strong>
+                               <p class="card-title">{{ $productos->nombre}}</p>
+                            </strong>
+                        </div>
+                        <div class="imagen"> 
+                            <img class="prueba" src="/imagenes/{{$productos->img}}" > 
+                            <a href="{{ url('detalleProducto/'.$productos->id) }}"><i class="fa fa-search fa-3x"></i></a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+</div>
 @endsection

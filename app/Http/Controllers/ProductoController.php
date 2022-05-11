@@ -31,9 +31,9 @@ class ProductoController extends Controller
             ->editColumn("imagen", function ($producto) {
                 $mi_imagen = public_path() . '/imagenes/' . $producto->img;
                 if (@getimagesize($mi_imagen)) {
-                    return "<img src='/" . "imagenes/" . $producto->img . "' width='100px' height='100px'>";
+                    return "<img src='/" . "imagenes/" . $producto->img . "' width='60px' height='60px'>";
                 } else {
-                    return "<img src='/img/defecto.jpg' width='100px' height='100px'>";
+                    return "<img src='/img/defecto.jpg' width='60px' height='60px'>";
                 }
                 //return "<img src='/".($producto->img==''?"imagenes/defecto.jpg":"imagenes/".$producto->img)."' width='100px' height='100px'>";
             })
