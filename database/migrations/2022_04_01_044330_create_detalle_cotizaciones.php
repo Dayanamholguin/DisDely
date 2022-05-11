@@ -24,7 +24,7 @@ return new class extends Migration
 
             $table->String('numeroPersonas');
             $table->String('saborDeseado', 50);
-            $table->String('frase', 50);
+            $table->String('frase', 50)->nullable();
             $table->String('pisos');
             $table->String('descripcionProducto', 500);
             $table->String('img',500)->nullable();

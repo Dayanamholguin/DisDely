@@ -47,7 +47,6 @@ class RoleController extends Controller
 
     public function guardar(Request $request)
     {
-        //dd($request);
         $input = $request->all();
         $rol = Role::select('*')->where('name', $request->name)->value('name');
         if ($rol != null) {
