@@ -84,7 +84,7 @@ class ProductoController extends Controller
                 $request->imagen->move(public_path('imagenes'), $imagen);
             }else {
                 Flash::error("La imagen es requerida, por favor, colóquela");
-                return back();
+                return redirect("/producto/crear");
             }
             Producto::create([
                 "idCategoria" => $input["categoria"],
