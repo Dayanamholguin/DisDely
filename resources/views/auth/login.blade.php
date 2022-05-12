@@ -64,6 +64,7 @@ Acceso - DisDely
                             </div>
                             <div class="card-footer text-center py-3">
                                 <div class="small"><a href="/register" style="color: #B0535E">¿No tienes una cuenta? Ingresa aquí</a></div>
+                                <div class="small"><a aria-current="page" href="/" style="color: #B0535E">Volver a la página</a></div>
                             </div>
                         </div>
                     </div>
