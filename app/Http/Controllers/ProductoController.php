@@ -31,7 +31,7 @@ class ProductoController extends Controller
             ->editColumn("imagen", function ($producto) {
                 $mi_imagen = public_path() . '/imagenes/' . $producto->img;
                 if (@getimagesize($mi_imagen)) {
-                    return "<img src='/" . "imagenes/" . $producto->img . "' width='60px' height='60px'>";
+                    return "<img src='/" . "imagenes/" . $producto->img . "'width='60px' height='60px'>";
                 } else {
                     return "<img src='/img/defecto.jpg' width='60px' height='60px'>";
                 }
@@ -47,7 +47,7 @@ class ProductoController extends Controller
                 if ($producto->estado == 1) {
                     $acciones .= '<a class="btn btn-danger btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/0" data-toggle="tooltip" data-placement="top" title="Inactivar"><i class="far fa-eye-slash"></i></a>';
                 } else {
-                    $acciones .= '<a class="btn btn-success btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/1" data-toggle="tooltip" data-placement="top" title="Activar"><i class="far fa-eye"></i></a>';
+                    $acciones .= '<a class="btn btn-success btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/1" data-toggle="tooltip" data-placement="top" title="Activar"><i class="fas fa-eye"></i></a>';
                 }
                 return $acciones;
             })
