@@ -6,9 +6,9 @@ Usuarios
 
 @section('content')
 
-<div class="container rounded bg-white ">
+<div class="container rounded bg-white  ">
   <div class="row">
-    <div class="col-md-4 mb-3 border-right">
+    <div class="col-md-4 border-right">
       <div class="card-body">
         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
           {{-- <img src="/imagenes/{{Auth::user()->foto}}" alt="Admin" class="rounded-circle mt-5" width="90">
@@ -24,8 +24,7 @@ Usuarios
         </div>
       </div>
     </div>
-
-    <div class="col-md-8">
+    <div class="col-md-8 mb-3">
       <hr>
       <div class="centrado">
         <strong>Perfil</strong>

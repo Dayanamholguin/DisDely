@@ -31,7 +31,11 @@ class RoleController extends Controller
                 if ($rol->estado == 1) {
                     $acciones .= '<a class="btn btn-danger btn-sm"  href="/rol/cambiar/estado/' . $rol->id . '/0" data-toggle="tooltip" data-placement="top" title="Inactivar"><i class="far fa-eye-slash"></i></a>';
                 } else {
+<<<<<<< HEAD
                     $acciones .= '<a class="btn btn-success btn-sm"  href="/rol/cambiar/estado/' . $rol->id . '/1" data-toggle="tooltip" data-placement="top" title="Activar"><i class="far fa-eye"></i></a>';
+=======
+                    $acciones .= '<a class="btn btn-success btn-sm" href="/rol/cambiar/estado/' . $rol->id . '/1" data-toggle="tooltip" data-placement="top" title="Activar"><i class="fas fa-fw fa-eye"></i></a>';
+>>>>>>> 6c7dae7a4b8feedf9e2ed3d4e7224b6403863222
                 }
                 return $acciones;
             })
@@ -47,7 +51,6 @@ class RoleController extends Controller
 
     public function guardar(Request $request)
     {
-        //dd($request);
         $input = $request->all();
         $rol = Role::select('*')->where('name', $request->name)->value('name');
         if ($rol != null) {

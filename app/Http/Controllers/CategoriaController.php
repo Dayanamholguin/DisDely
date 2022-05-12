@@ -29,7 +29,7 @@ class CategoriaController extends Controller
                 if ($categoria->estado == 1) {
                     $acciones .= '<a class="btn btn-danger btn-sm" href="/categoria/cambiar/estado/' . $categoria->id . '/0"><i class="far fa-eye-slash"></i> Inactivar</a>';
                 } else {
-                    $acciones .= '<a class="btn btn-success btn-sm" href="/categoria/cambiar/estado/' . $categoria->id . '/1"><i class="far fa-eye"></i> Activar</a>';
+                    $acciones .= '<a class="btn btn-success btn-sm" href="/categoria/cambiar/estado/' . $categoria->id . '/1"><i class="fas fa-fw fa-eye"></i> Activar</a>';
                 }
                 return $acciones;
             })

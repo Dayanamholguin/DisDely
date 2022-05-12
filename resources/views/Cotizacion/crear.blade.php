@@ -23,8 +23,10 @@ Cotización
             <div class="row">
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">Producto</label>
-                        <input type="text" readonly value="{{$producto->nombre}}" class="form-control @error('producto') is-invalid @enderror" id="producto" name="producto" required>
+                        <label for="">Producto<b style="color: red"> *</b></label>
+                        <input type="text" readonly value="{{$producto->nombre}}"
+                            class="form-control @error('producto') is-invalid @enderror" id="producto" name="producto"
+                            required>
                         @error('producto')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}
@@ -34,9 +36,11 @@ Cotización
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">Descripción</label>
-                        <textarea type="text" value="{{ old('descripcion') }}" class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion" placeholder="Ingrese la descripción" required>{{ old('descripcion') }}</textarea>
-                        @error('descripcion')
+                        <label for="">Sabor deseado<b style="color: red"> *</b></label>
+                        <input type="text" value="{{ old('saborDeseado') }}"
+                            class="form-control @error('saborDeseado') is-invalid @enderror" id="saborDeseado"
+                            name="saborDeseado" placeholder="Ingrese el sabor deseado" required>
+                        @error('saborDeseado')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}
                         </div>
@@ -45,8 +49,10 @@ Cotización
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">¿Para cuantas personas</label>
-                        <input type="number" value="{{ old('numeroPersonas') }}" class="form-control @error('numeroPersonas') is-invalid @enderror" id="numeroPersonas" name="numeroPersonas" placeholder="Ingrese número de personas" required>
+                        <label for="">¿Para cuántas personas?<b style="color: red"> *</b></label>
+                        <input type="number" value="{{ old('numeroPersonas') }}"
+                            class="form-control @error('numeroPersonas') is-invalid @enderror" id="numeroPersonas"
+                            name="numeroPersonas" placeholder="Ingrese número de personas" required>
                         @error('numeroPersonas')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}
@@ -56,8 +62,23 @@ Cotización
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">Pisos</label>
-                        <input type="number" value="{{ old('pisos') }}" class="form-control @error('pisos') is-invalid @enderror" id="pisos" name="pisos" placeholder="Ingrese número de pisos" required>
+                        <label for="">Frase si desea</label>
+                        <input type="TEXT" value="{{ old('frase') }}"
+                            class="form-control @error('frase') is-invalid @enderror" id="frase" name="frase"
+                            placeholder="Ingrese frase que desea en el pastel" required>
+                        @error('frase')
+                        <div class="alert alert-danger" role="alert">
+                            {{$message}}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="form-group">
+                        <label for="">Pisos<b style="color: red"> *</b></label>
+                        <input type="number" value="{{ old('pisos') }}"
+                            class="form-control @error('pisos') is-invalid @enderror" id="pisos" name="pisos"
+                            placeholder="Ingrese número de pisos" required>
                         @error('pisos')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}
@@ -67,11 +88,16 @@ Cotización
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">¿Desea añadirlo al catálogo?</label>
-                            <select class="form-control" name="catalogo">
-                                <option value="1">Sí</option>
-                                <option value="0">No</option>
-                            </select>
+                        <label for="">Descripción<b style="color: red"> *</b></label>
+                        <textarea type="text" value="{{ old('descripcionProducto') }}"
+                            class="form-control @error('descripcionProducto') is-invalid @enderror" id="descripcionProducto"
+                            name="descripcionProducto" placeholder="Ingrese la descripción"
+                            required>{{ old('descripcionProducto') }}</textarea>
+                        @error('descripcionProducto')
+                        <div class="alert alert-danger" role="alert">
+                            {{$message}}
+                        </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-12 centrado">

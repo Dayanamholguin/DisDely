@@ -3,9 +3,8 @@
 Productos
 @endsection
 @section('content')
-<div class="linea"></div>
-<div class="contenedor-imagenes container-fluid">
- @foreach($productos as $productos)
+<div class="container contenedor-imagenes container-fluid mt-4 mb-4">
+         @foreach($productos as $productos)
         <div class="imagen">
             <img src="/imagenes/{{$productos->img}}" class="responsive-img">
             <div class="overlay centrado">
@@ -24,5 +23,7 @@ Productos
         </div>
         @endforeach
     </div> 
+
+        
 </div>
 @endsection
