@@ -3,7 +3,6 @@
 Detalle Producto
 @endsection
 @section('content')
-
 <div class="card-body">
     <div class="card text-center">
         <div class="card-header text-center">
@@ -27,7 +26,5 @@ Detalle Producto
             </div>
         </div>
     </div>
-</div>
-</div>
 </div>
 @endsection

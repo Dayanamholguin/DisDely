@@ -15,6 +15,5 @@
     <body class="body_register">
     @yield('content')
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="/js/sb-admin-2.js"></script>
     </body>
 </html>
