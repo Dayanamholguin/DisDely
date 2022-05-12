@@ -39,13 +39,10 @@
     from {
         transform: rotate(0deg);
     }
-
     to {
         transform: rotate(360deg);
     }
 }
-
-
 
 .centrado {
     display: flex;
@@ -67,12 +64,14 @@
     margin-right: auto;
 }
 
+
 /*body{
     margin-top:20px;
     color: #1a202c;
     text-align: left;
     background-color: #e2e8f0;    
 }*/
+
 .main-body {
     padding: 15px;
 }
@@ -141,7 +140,9 @@
     }
 }
 
+
 /*Login*/
+
 .body_register {
     /* max-width: 1000px;
     width: 80%;
@@ -159,12 +160,23 @@
     }
 }
 
+<<<<<<< HEAD
+=======
+
+/*Menu*/
+
+.nav-link:hover {
+    background-color: #FBF5F6;
+    padding: 5px;
+}
+
+>>>>>>> e1bd9d4359a4bf91dbf18cde154ba74809133630
 .linea {
     border-top: 5px solid #B0535E;
 }
 
- .contenedor-imagenes{
-    display:flex;
+.contenedor-imagenes {
+    display: flex;
     width: 85%;
     margin: auto;
     justify-content: space-around;
@@ -172,11 +184,11 @@
     border-radius: 3px;
 }
 
-.contenedor-imagenes .imagen{
+.contenedor-imagenes .imagen {
     width: 32%;
     position: relative;
-    height:250px;
-    margin-bottom:5px;
+    height: 250px;
+    margin-bottom: 5px;
     box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, .75);
 }
 
@@ -212,7 +224,6 @@
     .contenedor-imagenes {
         width: 90%;
     }
-
     .contenedor-imagenes .imagen {
         width: 48%;
     }
@@ -222,12 +233,36 @@
     h1 {
         font-size: 22px;
     }
-
     .contenedor-imagenes {
         width: 98%;
     }
-
     .contenedor-imagenes .imagen {
         width: 80%;
     }
-} 
+}
+
+textarea {
+    resize: none;
+}
+
+textarea.form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.error {
+    width: 100%;
+    border-color: #e74a3b;
+    padding-right: calc(1.5em + 0.75rem);
+}
