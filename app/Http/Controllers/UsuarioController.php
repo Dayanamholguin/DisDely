@@ -14,6 +14,8 @@ use DataTables;
 use Flash;
 use PhpParser\Node\Stmt\Catch_;
 
+use Spatie\Permission\Models\Role;
+
 class UsuarioController extends Controller
 {
     public function index()
@@ -94,11 +96,12 @@ class UsuarioController extends Controller
     {
         $usuario = Usuario::find($id);
         if ($usuario == null) {
-            Flash::error("No se encontró la usuario");
+            Flash::error("No se encontró el usuario");
             return redirect("/usuario");
         }
         $genero = Usuario::select('generos.nombre')->join("generos", "users.idGenero", "generos.id")->value('nombre');
-        return view("usuario.ver", compact("usuario", "genero"));
+        $rol = Role::select('name')->join("model_has_roles", "roles.id", "model_has_roles.role_id")->value('name');
+        return view("usuario.ver", compact("usuario", "genero", "rol"));
     }
 
     public function modificar(Request $request, $id)

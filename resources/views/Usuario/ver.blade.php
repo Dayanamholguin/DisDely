@@ -30,6 +30,7 @@ Usuarios
                 <p class="card-text">Celular Alternativo: {{$usuario->celularAlternativo}}</p>
                 <p class="card-text">Fecha de Nacimiento: {{$usuario->fechaNacimiento}}</p>
                 <p class="card-text">Género: {{$genero}}</p>
+                <p class="card-text">Rol: {{$rol}}</p>
             </div>
             <div class="card-footer text-muted">
                 <!--{{substr($usuario->created_at,0,10)}}-->

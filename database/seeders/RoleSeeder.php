@@ -25,44 +25,44 @@ class RoleSeeder extends Seeder
                             'description' => 'Ver dashboard'])->syncRoles($admin, $cliente);
 
         Permission::create(['name' => 'sabor/listar',
-                            'description' => 'Ver listado de sabores'])->assignRole($admin);
+                            'description' => 'Ver listado de sabores'])->syncRoles($admin);
 
         Permission::create(['name' => 'sabor/crear', 
-                            'description' => 'Crear sabor'])->assignRole($admin);
+                            'description' => 'Crear sabor'])->syncRoles($admin);
                             
         Permission::create(['name' => 'sabor/editar', 
-                            'description' => 'Editar sabor'])->assignRole($admin);
+                            'description' => 'Editar sabor'])->syncRoles($admin);
 
         Permission::create(['name' => 'sabor/cambiar/estado', 
-                            'description' => 'Cambiar estado de sabor'])->assignRole($admin);
+                            'description' => 'Cambiar estado de sabor'])->syncRoles($admin);
 
         //-----------------------------------------------------------------------------------
         Permission::create(['name' => 'categoria/listar', 
-                            'description' => 'Ver listado de categorías'])->assignRole($admin);
+                            'description' => 'Ver listado de categorías'])->syncRoles($admin);
 
         Permission::create(['name' => 'categoria/crear', 
-                            'description' => 'Crear categoría'])->assignRole($admin);
+                            'description' => 'Crear categoría'])->syncRoles($admin);
 
         Permission::create(['name' => 'categoria/editar', 
-                            'description' => 'Editar categoría'])->assignRole($admin);
+                            'description' => 'Editar categoría'])->syncRoles($admin);
 
         Permission::create(['name' => 'categoria/cambiar/estado', 
-                            'description' => 'Cambiar estado de categoría'])->assignRole($admin);
+                            'description' => 'Cambiar estado de categoría'])->syncRoles($admin);
 
         //-----------------------------------------------------------------------------------
         Permission::create(['name' => 'producto/listar', 
-                            'description' => 'Ver listado de producto'])->assignRole($admin);
+                            'description' => 'Ver listado de producto'])->syncRoles($admin);
 
         Permission::create(['name' => 'producto/crear', 
-                            'description' => 'Crear producto'])->assignRole($admin);
+                            'description' => 'Crear producto'])->syncRoles($admin);
 
         Permission::create(['name' => 'producto/editar', 
-                            'description' => 'Editar Producto'])->assignRole($admin);
+                            'description' => 'Editar Producto'])->syncRoles($admin);
 
         Permission::create(['name' => 'producto/ver', 
-                            'description' => 'Ver información del producto'])->assignRole($admin);
+                            'description' => 'Ver información del producto'])->syncRoles($admin);
 
         Permission::create(['name' => 'producto/cambiar/estado', 
-                            'description' => 'Cambiar estado producto'])->assignRole($admin);
+                            'description' => 'Cambiar estado producto'])->syncRoles($admin);
     }
 }
