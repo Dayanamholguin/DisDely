@@ -11,7 +11,7 @@
     <title>Dulce Encanto</title>
 
   <!-- Favicons -->
-  <link href="/assets/img/favicon.png" rel="icon">
+  <link rel="icon" type="image/x-icon" href="/img/logo.png" />
   <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -56,7 +56,7 @@
           <li><a class="nav-link scrollto" aria-current="page" href="/">Inicio</a>
           <li><a class="nav-link scrollto" href="#about">¿Quiénes Somos?</a></li>
           <li><a class="nav-link scrollto" href="#services">Productos</a></li>
-          <li><a class="nav-link" href="#contact">Contacto</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Contacto</a></li>
 
           <li class="nav-item scrollto">
             @if (Route::has('login'))
@@ -188,32 +188,30 @@
           </div>
       </div>
 
-      <div class="container">
-          <div class="row gy-5">
-              <div class="col-12">
-                  <div class="info">
-                      <div class="info-item d-flex">
-                          <div>
-                              <h4 style="text-align: center;"><i class="bi bi-geo-alt flex-shrink-0"></i> Ubicación:</h4>
-                              <p>Av 67 #67 - 78 <br> Bello, Las Vegas</p>
-                          </div>
-                          <div>
-                              <h4 style="text-align: center;"><i class="bi bi-envelope flex-shrink-0"></i> Email:</h4>
-                              <p>DulceEncanto@gmail.com</p>
-                          </div>
-                          <div>
-                              <h4 style="text-align: center;"><i class="bi bi-phone flex-shrink-0"></i> Celular:</h4>
-                              <p>+57 312 7018618 / +57 310 6368657</p>
-                          </div>
-                      </div><!-- End Info Item -->
+        <div class="container">
+            <div class="row gy-5 gx-lg-5">
+                <div class="col-lg-8">
+                    <div class="map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7930.966710796359!2d-75.54442!3d6.331366!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x17d044d434229684!2sBarrio%20Las%20Vegas%20De%20Bello!5e0!3m2!1ses-419!2sco!4v1652471377078!5m2!1ses-419!2sco" width="2000" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div><!-- End Google Maps -->
+                </div>
+                <div class="col-lg-4 text-center">
+                    <div class="info">
+                        <div>
+                            <h4><i class="bi bi-geo-alt flex-shrink-0"></i> Ubicación:</h4>
+                            <p>Av 67 #67 - 78 <br> Bello, Las Vegas</p>
+                        </div>
+                        <div>
+                            <h4><i class="bi bi-envelope flex-shrink-0"></i> Email:</h4>
+                            <p>DulceEncanto@gmail.com</p>
+                        </div>
+                        <div>
+                            <h4><i class="bi bi-phone flex-shrink-0"></i> Celular:</h4>
+                            <p>+57 312 7018618 / +57 310 6368657</p>
+                        </div><!-- End Info Item -->
                     </div>
-                  </div>
-              </div>
-          </div>
-          <br>
-          <div class="map">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3621.2112100564523!2d-75.54699051084644!3d6.331700836341043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e442f9defc2a227%3A0x17d044d434229684!2sBarrio%20Las%20Vegas%20De%20Bello!5e0!3m2!1ses-419!2sco!4v1652416129562!5m2!1ses-419!2sco" width="2000" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          </div><!-- End Google Maps -->
+                </div>
+            </div>
       </section><!-- End Team Section -->
   </main><!-- End #main -->
 
