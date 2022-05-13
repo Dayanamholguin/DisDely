@@ -32,7 +32,7 @@ Sabores
                             @enderror
                         </div>
                         <div class="col-12 centrado">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="submit" class="btn btn-primary">Crear</button>
                         </div>
                     </div>
                 </div>

@@ -26,10 +26,10 @@ class RoleController extends Controller
                 return $rol->estado == 1 ? "Activo" : "Inactivo";
             })
             ->addColumn('acciones', function ($rol) {
-                $acciones = '<a class="btn btn-primary btn-sm" href="/rol/editar/' . $rol->id . '" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit"></i></a> ';
-                $acciones .= '<a class="btn btn-secondary btn-sm" href="/rol/ver/' . $rol->id . '" data-toggle="tooltip" data-placement="top" title="Ver"><i class="fas fa-info-circle"></i></a> ';
+                $acciones = '<a class="btn btn-primary btn-sm"  href="/rol/editar/' . $rol->id . '" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit"></i></a> ';
+                $acciones .= '<a class="btn btn-secondary btn-sm"  href="/rol/ver/' . $rol->id . '" data-toggle="tooltip" data-placement="top" title="Ver"><i class="fas fa-info-circle"></i></a> ';
                 if ($rol->estado == 1) {
-                    $acciones .= '<a class="btn btn-danger btn-sm" href="/rol/cambiar/estado/' . $rol->id . '/0" data-toggle="tooltip" data-placement="top" title="Inactivar"><i class="far fa-eye-slash"></i></a>';
+                    $acciones .= '<a class="btn btn-danger btn-sm"  href="/rol/cambiar/estado/' . $rol->id . '/0" data-toggle="tooltip" data-placement="top" title="Inactivar"><i class="far fa-eye-slash"></i></a>';
                 } else {
                     $acciones .= '<a class="btn btn-success btn-sm" href="/rol/cambiar/estado/' . $rol->id . '/1" data-toggle="tooltip" data-placement="top" title="Activar"><i class="fas fa-fw fa-eye"></i></a>';
                 }

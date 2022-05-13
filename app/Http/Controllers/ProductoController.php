@@ -31,7 +31,7 @@ class ProductoController extends Controller
             ->editColumn("imagen", function ($producto) {
                 $mi_imagen = public_path() . '/imagenes/' . $producto->img;
                 if (@getimagesize($mi_imagen)) {
-                    return "<img src='/" . "imagenes/" . $producto->img . "' width='60px' height='60px'>";
+                    return "<img src='/" . "imagenes/" . $producto->img . "'width='60px' height='60px'>";
                 } else {
                     return "<img src='/img/defecto.jpg' width='60px' height='60px'>";
                 }
@@ -84,7 +84,7 @@ class ProductoController extends Controller
                 $request->imagen->move(public_path('imagenes'), $imagen);
             }else {
                 Flash::error("La imagen es requerida, por favor, colóquela");
-                return back();
+                return redirect("/producto/crear");
             }
             Producto::create([
                 "idCategoria" => $input["categoria"],
