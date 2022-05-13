@@ -39,13 +39,6 @@ Acceso - DisDely
                                                 @enderror
                                             </div>
                                         </div>
-
-                                        <div class="form-check mb-3">
-                                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="remember">
-                                                {{ __('Recuerdame') }}
-                                            </label>
-                                        </div>
                                         <div>
                                             <div class="form-floating mb-3">
                                                 <button type="submit" style="background-color:white; color:black;" class="col-md-12 btn btn-primary">
