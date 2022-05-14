@@ -19,18 +19,19 @@ use App\Http\Controllers\MenuController;
 //Menu 
 use App\Http\Controllers\CotizacionController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+Route::get('/', [MenuController::class, 'welcome']);
 //menu
-Route::get('/productos', [MenuController::class, 'productos']);
-Route::get('/detalleProducto/{id}', [MenuController::class, 'detalle']);
-Route::get('/quienes', [MenuController::class, 'quienes']);
-Route::get('/contacto', [MenuController::class, 'contacto']);
+// Route::get('/productos', [MenuController::class, 'productos']);
+// Route::get('/detalleProducto/{id}', [MenuController::class, 'detalle']);
+// Route::get('/quienes', [MenuController::class, 'quienes']);
+// Route::get('/contacto', [MenuController::class, 'contacto']);
 
 //Rol
 Route::get('/rol', [RoleController::class, 'index']);
