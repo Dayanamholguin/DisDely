@@ -57,19 +57,7 @@ class ProductoController extends Controller
     }
     
     public function catalogo(){
-        $productos = Producto::all()->where('catalogo', 1);
-        // foreach ($productos as $producto) {
-        //     $producto = public_path() . '/imagenes/' . $producto->img;
-        //         if (file_exists($producto)) {
-        //             $imagen = 'defecto.jpg';
-        //             $producto->img->move(public_path('img'), $imagen);
-        //         }
-        //     // if (@getimagesize($producto)) {
-        //     //     $producto->img->move(public_path('/img/defecto.jpg'));
-        //     //     // $producto->img->move(public_path('/img/defecto.jpg'));
-        //     // }
-        // }
-        
+        $productos = Producto::all()->where('catalogo', 1)->where('id','>',1);
         return view('producto.catalogo', compact("productos"));
     }
 

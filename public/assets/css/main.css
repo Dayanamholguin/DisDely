@@ -2436,3 +2436,11 @@ section {
   background: var(--color-primary);
   text-decoration: none;
 }
+.img-fluid {
+  width: 350px;
+  height: 300px;
+}
+/* .stretched-link h3{
+  font-weight: 600;
+  font-size: 55px;
+} */

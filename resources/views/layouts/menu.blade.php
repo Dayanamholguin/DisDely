@@ -80,7 +80,7 @@
 
     <section id="hero-animated" class="hero-animated d-flex align-items-center">
         <div class="container d-flex flex-column justify-content-center align-items-center text-center position-relative aos-init aos-animate" data-aos="zoom-out">
-            <img src="img/logo.png" class="img-fluid animated" width="300px" height="300px">
+            <img src="img/logo.png" class="img-fluid animated">
             <h2>
                 <font face="Harlekin" style="color: black;"> Bienvenido(a) <span style="color: #B0535E;">Dulce Encanto</span></font>
             </h2>
@@ -125,56 +125,29 @@
                 </div>
 
                 <div class="row gy-5">
+                    @if(count($productos) == 0)
+                    <p class="d-flex justify-content-center">No hay productos registrados</p>
+                    @else
+                    @foreach($productos as $producto)
                     <div class="col-xl-4 col-md-6 aos-init aos-animate" data-aos="zoom-in" data-aos-delay="200">
                         <div class="service-item">
                             <div class="img">
-                                <img src="imagenes/PastelChocolate.jpg" class="img-fluid" width="500px" height="400px">
+                                <img src="/imagenes/{{$producto->img}}" class="img-fluid" width="400px" height="300px">
                             </div>
                             <div class="details position-relative">
                                 <div class="icon">
                                     <i class="bi bi-activity"></i>
                                 </div>
                                 <a href="#" class="stretched-link">
-                                    <h3>Pastel de Chocolate</h3>
+                                    <h3>{{$producto->nombre}}</h3>
                                 </a>
-                                <p>Este irresistible pastel está hecho a base de chocolate y café, decorado con una deliciosa crema mascarpone.</p>
+                                <!-- <p>{{$producto->descripcion}}</p> -->
                             </div>
                         </div>
                     </div>
+                    @endforeach
+                    @endif
 
-                    <div class="col-xl-4 col-md-6 aos-init aos-animate" data-aos="zoom-in" data-aos-delay="300">
-                        <div class="service-item">
-                            <div class="img">
-                                <img src="imagenes/PastelChocolate.jpg" class="img-fluid" width="500px" height="400px">
-                            </div>
-                            <div class="details position-relative">
-                                <div class="icon">
-                                    <i class="bi bi-activity"></i>
-                                </div>
-                                <a href="#" class="stretched-link">
-                                    <h3>Pastel de Chocolate</h3>
-                                </a>
-                                <p>Este irresistible pastel está hecho a base de chocolate y café, decorado con una deliciosa crema mascarpone.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-4 col-md-6 aos-init aos-animate" data-aos="zoom-in" data-aos-delay="400">
-                        <div class="service-item">
-                            <div class="img">
-                                <img src="imagenes/PastelChocolate.jpg" class="img-fluid" width="500px" height="400px">
-                            </div>
-                            <div class="details position-relative">
-                                <div class="icon">
-                                    <i class="bi bi-activity"></i>
-                                </div>
-                                <a href="#" class="stretched-link">
-                                    <h3>Pastel de Chocolate</h3>
-                                </a>
-                                <p>Este irresistible pastel está hecho a base de chocolate y café, decorado con una deliciosa crema mascarpone.</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section><!-- End Section -->
