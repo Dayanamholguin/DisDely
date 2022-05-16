@@ -82,7 +82,7 @@
     <div class="container d-flex flex-column justify-content-center align-items-center text-center position-relative aos-init aos-animate" data-aos="zoom-out">
         <img src="img/pastelprincipal.jpg" class="img-fluid animated">
         <h2>
-            <font face="Harlekin" class="text-capitalize"> Bienvenid@ <span style="color: #B0535E;">Dulce Encanto</span></font>
+            <font face="Harlekin" class=""> Bienvenidos(a) <span style="color: #B0535E;">Dulce Encanto</span></font>
         </h2>
         <p style="color: black;">Tortas temáticas, para todo tipo de ocasión <br> ¡Elaboramos tortas a tu gusto!</p>
     </div>
