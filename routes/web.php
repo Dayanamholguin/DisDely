@@ -16,9 +16,10 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PerfilController;
 //Menu 
 use App\Http\Controllers\MenuController;
-//Menu 
+//cotización 
 use App\Http\Controllers\CotizacionController;
-
+//carrito 
+use App\Http\Controllers\CartController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -89,6 +90,13 @@ Route::get('/perfil/cambiar/{id}', [PerfilController::class, 'cambiar']);
 Route::post('/perfil/cambiarContrasena/{id}', [PerfilController::class, 'cambiarContrasena']);
 Route::get('/perfil/cambiarFoto/{id}', [PerfilController::class, 'cambiarFoto']);
 Route::post('/perfil/recibirFoto/{id}', [PerfilController::class, 'recibirFoto']);
+//carrito
+Route::get('/carrito', [CartController::class, 'carrito']);
+Route::post('/agregarCarrito', [CartController::class, 'agregarCarrito']);
+Route::post('/actualizarCarrito', [CartController::class, 'actualizarCarrito']);
+Route::post('/quitarProducto', [CartController::class, 'quitarProducto']);
+Route::post('/limpiarCarrito', [CartController::class, 'limpiarCarrito']);
+
 
 //cotización
 Route::get('/cotizacion', [CotizacionController::class, 'index']);
