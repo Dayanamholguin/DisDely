@@ -10,13 +10,9 @@ Detalle Producto
             <a href="/productos" class="alert-link titulo">Volver</a>
         </div>
         <div class="card-body">
-<<<<<<< HEAD
-            <img src="/imagenes/{{ $productos->img }}" width="350" height="300" style="margin: 15px;">
-=======
         <a href="/productos" class="alert-link titulo">Volver</a>
             <img src="/imagenes/{{$productos->img}}" width="350" height="300" style="margin: 15px;">
             
->>>>>>> 0eba33d94c1282bc06c28460dbecf0ce18f5d529
             <div style="display:inline-block;vertical-align:top">
                 <strong>
                     <p class="card-title">{{$productos->nombre}}</p>

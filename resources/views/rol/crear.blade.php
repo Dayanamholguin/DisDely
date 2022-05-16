@@ -31,7 +31,6 @@ Roles
                             </div>
                             @enderror
                         </div>
-                        </br>
                         <div class="form-group ">
                             <h5>Lista de permisos</h5>
                             @foreach ($permissions as $permission)

@@ -87,19 +87,32 @@ class RoleController extends Controller
 
     public function modificar(Request $request)
     {
-        
+        //dd($request->permisos);
         // $request->validate(Role::$rules);
-        
         $input = $request->all();
-
         $id=$request->id;
         $rol = Role::select('*')->where('name',$request->name)->where('id','<>',$id)->value('name');
         if ($rol!=null) {
             Flash::error("El rol ".$rol." ya está creado");
             return redirect("/rol/editar/$id");
         }
-
-
+        $per=$request->permisos;
+        $todosPermisos=Permission::all();
+        $bool=false;
+        
+// dd(gettype($todosPermisos));
+        foreach ($per as $key=>$permiso) {
+            // dd($permiso[$key]);
+            foreach ($todosPermisos as $permisos) {
+                if($permisos->id!=$permiso[$key]){
+                    $bool=true;
+                }
+            }
+        }
+        if ($bool==true) {
+            Flash::error("No existe ese valor en los permisos");
+            return redirect("/rol/editar/$id");
+        }
         try {
             $rol = Role::find($input["id"]);
             if ($rol == null) {            
@@ -127,7 +140,6 @@ class RoleController extends Controller
         // SELECT permissions.description FROM permissions JOIN role_has_permissions 
         // on permissions.id=role_has_permissions.permission_id JOIN roles 
         // on role_has_permissions.role_id=roles.id WHERE roles.id=3;
-
         $rolPermisos = Permission::select('permissions.description')
         ->join("role_has_permissions", "permissions.id", "role_has_permissions.permission_id")
         ->join("roles", "role_has_permissions.role_id", "roles.id")
