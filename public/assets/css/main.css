@@ -173,7 +173,7 @@ section {
   right: 15px;
   bottom: 15px;
   z-index: 995;
-  background: var(--color-primary);
+  background: #B0535E;
   width: 40px;
   height: 40px;
   border-radius: 4px;
@@ -185,7 +185,7 @@ section {
   line-height: 0;
 }
 .scroll-top:hover {
-  background: rgba(var(--color-primary-rgb), 0.85);
+  background: #E6CAA5;
   color: var(--color-white);
 }
 .scroll-top.active {
@@ -292,7 +292,7 @@ section {
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: var(--color-primary);
+    background-color: black;
     visibility: hidden;
     transition: all 0.3s ease-in-out 0s;
     transform: scaleX(0);
@@ -303,7 +303,7 @@ section {
     transform: scaleX(0.7);
   }
   .navbar a:hover, .navbar .active, .navbar .active:focus, .navbar li:hover > a {
-    color: var(--color-primary);
+    color: black;
   }
   .navbar .dropdown a:hover:before, .navbar .dropdown:hover > a:before, .navbar .dropdown .active:before {
     visibility: hidden;
@@ -1087,7 +1087,7 @@ section {
   margin: 0;
   width: 72px;
   height: 72px;
-  background: var(--color-primary);
+  background: #B0535E;
   border-radius: 50px;
   display: flex;
   align-items: center;
@@ -1114,14 +1114,14 @@ section {
   margin-bottom: 0;
 }
 .services .service-item:hover .details h3 {
-  color: var(--color-primary);
+  color: #B0535E;
 }
 .services .service-item:hover .details .icon {
   background: var(--color-white);
-  border: 2px solid var(--color-primary);
+  border: 2px solid #B0535E;
 }
 .services .service-item:hover .details .icon i {
-  color: var(--color-primary);
+  color: #B0535E;
 }
 .services .service-item:hover .img img {
   transform: scale(1.2);
@@ -2436,3 +2436,11 @@ section {
   background: var(--color-primary);
   text-decoration: none;
 }
+.img-fluid {
+  width: 350px;
+  height: 300px;
+}
+/* .stretched-link h3{
+  font-weight: 600;
+  font-size: 55px;
+} */

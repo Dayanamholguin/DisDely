@@ -179,7 +179,7 @@ return [
 
         Yajra\DataTables\DataTablesServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-
+        Darryldecode\Cart\CartServiceProvider::class,
     ],
 
     /*
@@ -235,7 +235,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Flash'=> Collective\Html\HtmlFacade::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
-        
+        'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
     ],    
 
 ];

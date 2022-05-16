@@ -15,8 +15,12 @@ class etapaSeeder extends Seeder
      */
     public function run()
     {
+        
         DB::table('etapas')->insert([
             'nombre' => 'Personalizado',
+        ]);
+        DB::table('etapas')->insert([
+            'nombre' => 'Para todos',
         ]);
         DB::table('etapas')->insert([
             'nombre' => 'Bebé',
@@ -35,6 +39,6 @@ class etapaSeeder extends Seeder
         ]);
         DB::table('etapas')->insert([
             'nombre' => 'Adulto mayor',
-        ]);        
+        ]);
     }
 }

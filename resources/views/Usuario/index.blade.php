@@ -7,7 +7,7 @@ Gestión de Productos
 @section('content')
 <div class="card">
     <div class="card-header text-center">
-        <strong>Usuarios</strong> / <a href="/usuario/crear" class="alert-link titulo">Crear usuario</a>
+        <a href="/usuario/crear" class="alert-link btn btn-primary tipoletra">Crear Usuario</a>
     </div>
     <div class="card-body">
     @include('flash::message')

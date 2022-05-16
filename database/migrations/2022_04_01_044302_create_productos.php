@@ -27,7 +27,7 @@ return new class extends Migration
 
             $table->String('nombre',80);
             $table->text('descripcion');
-            $table->String('img',500);
+            $table->String('img',500)->nullable();
             $table->String('numeroPersonas');
             $table->String('pisos');
             $table->boolean('catalogo');
