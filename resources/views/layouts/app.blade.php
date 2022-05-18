@@ -34,7 +34,6 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.2.2/css/fixedHeader.bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css">
-    @livewireStyles
 </head>
 
 <body id="page-top">
@@ -71,6 +70,7 @@
             <div class="sidebar-heading tipoletra">
                 Módulos
             </div>
+            
             <!--Roles-->
             <li class="nav-item">
                 <a class="nav-link tipoletra" data-toggle="tooltip" data-placement="right" title="En este módulo aquí podrás consultar y crear los roles del aplicativo, así como también asignar permisos a los roles existentes en el módulo" href="/rol">
@@ -80,7 +80,6 @@
             </li>
 
             <!--Usuarios-->
-
             <li class="nav-item">
                 <a class="nav-link tipoletra" data-toggle="tooltip" data-placement="right" title="Este módulo, se encarga de gestionar la información personal y de contacto de cada cliente, registrado en el sistema" href="/usuario">
                     <i class="fas fa-user"></i>
@@ -103,8 +102,6 @@
                     </div>
                 </div>
             </li>
-
-            <!-- fas fa-fw fa-cog -->
 
             <!--Ventas-->
             <li class="nav-item">
@@ -206,20 +203,18 @@
                 <div class="container-fluid">
                     @yield('content')
                 </div>
-                <!-- End of Main Content -->
-
-                <!-- Footer -->
-                <footer class="sticky-footer">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright&copy; DisDely 2022</span>
-                        </div>
-                    </div>
-                </footer>
-
+                <!-- End of Main Content -->             
             </div>
             <!-- End of Content Wrapper -->
 
+            <!-- Footer -->
+            <footer class="sticky-footer">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright&copy; DisDely 2022</span>
+                    </div>
+                </div>
+            </footer>
         </div>
         <!-- End of Page Wrapper -->
 
@@ -267,9 +262,6 @@
     </script>
 
     <!-- Bootstrap core JavaScript-->
-    
-
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js" integrity="sha512-XZEy8UQ9rngkxQVugAdOuBRDmJ5N4vCuNXCh8KlniZgDKTvf7zl75QBtaVG1lEhMFe2a2DuA22nZYY+qsI2/xA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/localization/messages_es.min.js" integrity="sha512-Ou4GV0BYVfilQlKiSHUNrsoL1nznkcZ0ljccGeWYSaK2CaVzof2XaZ5VEm5/yE/2hkzjxZngQHVwNUiIRE8yLw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -300,12 +292,7 @@
             $('[data-toggle="tooltip"]').tooltip()
         })
     </script>
-
-    
-
-
     @yield('scripts')
-    @livewireScripts
 </body>
 
 </html>
