@@ -7,7 +7,7 @@ Gestión de Categorías
 @section('content')
 <div class="card">
     <div class="card-header text-center">
-        <strong>Categorias</strong> / <a href="/categoria/crear" class="alert-link titulo">Crear categoría</a>
+        <a href="/categoria/crear" class="alert-link btn btn-primary tipoletra">Crear Categoría</a>
     </div>
     <div class="card-body">
     @include('flash::message')

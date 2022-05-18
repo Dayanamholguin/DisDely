@@ -1,4 +1,5 @@
 .tipoletra{
+<<<<<<< HEAD
     font-family: 'Montserrat', sans-serif !important;
 }
 .container{
@@ -12,6 +13,9 @@
 }
 .dropdown-list.dropdown-menu.dropdown-menu-right.shadow.animated--grow-in.show{
     font-family: 'Montserrat', sans-serif !important;
+=======
+    font-family: 'Poppins', sans-serif;
+>>>>>>> 8372ecfb103c92152e81f6c39aaacf823718ec17
 }
 * {
     padding: 0;

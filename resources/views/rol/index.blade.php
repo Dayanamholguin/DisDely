@@ -7,7 +7,7 @@ Gestión de Roles
 @section('content')
 <div class="card">
     <div class="card-header text-center">
-        <strong>Roles</strong> / <a href="/rol/crear" class="alert-link titulo">Crear rol</a>
+        <a href="/rol/crear" class="alert-link btn btn-primary tipoletra">Crear Rol</a>
     </div>
     <div class="card-body">
     @include('flash::message')
