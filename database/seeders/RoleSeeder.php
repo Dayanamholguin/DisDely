@@ -23,6 +23,40 @@ class RoleSeeder extends Seeder
         //-----------------------------------------------------------------------------------
         Permission::create(['name' => 'home',
                             'description' => 'Ver dashboard'])->syncRoles($admin, $cliente);
+    
+        //-----------------------------------------------------------------------------------
+        
+        Permission::create(['name' => 'rol/listar',
+                            'description' => 'Ver roles'])->syncRoles($admin);
+                            
+        Permission::create(['name' => 'rol/crear',
+                            'description' => 'Crear rol'])->syncRoles($admin);
+                            
+        Permission::create(['name' => 'rol/editar',
+                            'description' => 'Editar rol'])->syncRoles($admin);
+                            
+        Permission::create(['name' => 'rol/ver',
+                            'description' => 'Ver rol'])->syncRoles($admin);
+                            
+        Permission::create(['name' => 'rol/cambiar/estado',
+                            'description' => 'Cambiar estado de rol'])->syncRoles($admin);
+        //-----------------------------------------------------------------------------------
+
+        Permission::create(['name' => 'usuario/listar',
+                            'description' => 'Ver usuarios'])->syncRoles($admin);
+
+        Permission::create(['name' => 'usuario/crear',
+                            'description' => 'Crear usuario'])->syncRoles($admin);
+
+        Permission::create(['name' => 'usuario/editar',
+                            'description' => 'Editar usuario'])->syncRoles($admin);
+
+        Permission::create(['name' => 'usuario/ver',
+                            'description' => 'Ver usuario'])->syncRoles($admin);        
+                           
+        Permission::create(['name' => 'usuario/cambiar/estado',
+                            'description' => 'Camiar estado de usuario'])->syncRoles($admin);
+        //-----------------------------------------------------------------------------------
 
         Permission::create(['name' => 'sabor/listar',
                             'description' => 'Ver listado de sabores'])->syncRoles($admin);
