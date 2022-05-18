@@ -27,13 +27,15 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::group(['middleware' => 'auth'], function(){
-        
-    //menu
-    Route::get('/productos', [MenuController::class, 'productos']);
-    Route::get('/detalleProducto/{id}', [MenuController::class, 'detalle']);
-    Route::get('/quienes', [MenuController::class, 'quienes']);
-    Route::get('/contacto', [MenuController::class, 'contacto']);
+Route::get('/', [MenuController::class, 'welcome']);
+
+//menu
+Route::get('/productos', [MenuController::class, 'productos']);
+Route::get('/detalleProducto/{id}', [MenuController::class, 'detalle']);
+Route::get('/quienes', [MenuController::class, 'quienes']);
+Route::get('/contacto', [MenuController::class, 'contacto']);
+
+//Route::group(['middleware' => 'auth'], function(){
 
     //Rol
     Route::get('/rol', [RoleController::class, 'index']);
@@ -120,4 +122,4 @@ Route::group(['middleware' => 'auth'], function(){
     });*/
 
 
-});
+;
