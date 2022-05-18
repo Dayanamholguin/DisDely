@@ -13,79 +13,8 @@
 <link href="/assetsGallery/css/style.css" rel="stylesheet">
 @endsection
 @section('car')
-<li class="nav-item dropdown no-arrow mx-1">
-    <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAU9JREFUSEvN1U1WgzAQB/B/2u71AoaybwjcQE9gb2Dd6kK9gZ5AN7oVT6DeQE9AQ3FdG92Le2H66PODVkrTUnyynWR+GYYMDDU/rOb8+DtADTR9VhOD4EuHn6yjuu8KcsAkbwq244mth6rIr1ekotExiJ2D4V52eHftQBAMNxut5tukio/E9jz7uQpS2GQVah8Me6snpr4UlpftLwSCp1e3kaZBBWAkhdWeC2SB/kD3GSBXQ+hMCuu0FAhD3SOG61WAfO9KL5oKdQyGjSWRRyn49teecmDwcgHQ0TIAI+w7DveNgCAYthut5tAYILynSdL2PDs2ArJFKtJ3IOwaIYQb6fBefu3CYReGuksMtyZA0XhZCJh+sgQoV3B39iBGgMnp560xAlSkL0E4AMOV7PDDfLKyWOlFm0ry86+AFHzqUPkxPxszB+quoPYe/GtgDP3pghm+phzYAAAAAElFTkSuQmCC" />
-        <!-- Counter - Messages -->
-        <span class="badge badge-danger badge-counter">{{count(Cart::getContent())>0?count(Cart::getContent()):0}}</span>
-    </a>
-    <!-- Dropdown - Messages -->
-    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
-        <h6 class="dropdown-header">
-            {{count(\Cart::getContent()) > 0? 'Productos añadidos' : 'Carrito vacío'}}
-            <div style="float: right;" style="margin-top: 1px;">
-                <form action="/limpiarCarrito" class="form-inline" method="POST">
-                    {{ csrf_field() }}
-                    <button class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Limpiar carrito"><i class="fa fa-trash"></i></button>
-                </form>
-            </div>
-        </h6>
-        @if(count(\Cart::getContent()) > 0)
-            @foreach(\Cart::getContent() as $item)
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="/imagenes/{{$item->attributes->img}}" alt="...">
-                        <div class="status-indicator bg-success"></div>
-                    </div>
-                    <div class="font-weight-bold">
-                        <!--· {{$item->attributes->tiempo->diffForHumans()}}-->
-                        <div class="text-truncate">{{$item->name}}</div>
-                        <div class="small text-gray-500">{{$item->attributes->cliente}}</div>
-                    </div>
-                </a>
-            @endforeach
-            
-            <a class="dropdown-item text-center small text-gray-500" href="/carrito" data-toggle="tooltip" data-placement="bottom" title="Ver carrito">Ver carrito</a>
-        @endif
+    @include('carrito.icono')
 
-        <!-- <a class="dropdown-item d-flex align-items-center" href="#">
-            <div class="dropdown-list-image mr-3">
-                <img class="rounded-circle" src="img/undraw_profile_2.svg" alt="...">
-                <div class="status-indicator"></div>
-            </div>
-            <div>
-                <div class="text-truncate">I have the photos that you ordered last month, how
-                    would you like them sent to you?</div>
-                <div class="small text-gray-500">Jae Chun · 1d</div>
-            </div>
-        </a>
-        <a class="dropdown-item d-flex align-items-center" href="#">
-            <div class="dropdown-list-image mr-3">
-                <img class="rounded-circle" src="img/undraw_profile_3.svg" alt="...">
-                <div class="status-indicator bg-warning"></div>
-            </div>
-            <div>
-                <div class="text-truncate">Last month's report looks great, I am very happy with
-                    the progress so far, keep up the good work!</div>
-                <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-            </div>
-        </a>
-        <a class="dropdown-item d-flex align-items-center" href="#">
-            <div class="dropdown-list-image mr-3">
-                <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="...">
-                <div class="status-indicator bg-success"></div>
-            </div>
-            <div>
-                <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                    told me that people say this to all dogs, even if they aren't good...</div>
-                <div class="small text-gray-500">Chicken the Dog · 2w</div>
-            </div>
-        </a> -->
-        <!-- @if(count(Cart::getContent())>4)
-        <a class="dropdown-item text-center small text-gray-500" href="#">Ver más</a>
-        @endif -->
-    </div>
-</li>
 @endsection
 @section('content')
 <!-- ======= Portfolio Section ======= -->
@@ -135,77 +64,7 @@
                         <a href="/assets/img/portfolio/portfolio-2.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
                         <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
                     </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                    <div class="portfolio-img"><img src="/assets/img/portfolio/portfolio-3.jpg" class="img-fluid" alt=""></div>
-                    <div class="portfolio-info">
-                        <h4>App 2</h4>
-                        <p>App</p>
-                        <a href="/assets/img/portfolio/portfolio-3.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="App 2"><i class="bx bx-plus"></i></a>
-                        <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                    <div class="portfolio-img"><img src="/assets/img/portfolio/portfolio-4.jpg" class="img-fluid" alt=""></div>
-                    <div class="portfolio-info">
-                        <h4>Card 2</h4>
-                        <p>Card</p>
-                        <a href="/assets/img/portfolio/portfolio-4.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
-                        <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                    <div class="portfolio-img"><img src="/assets/img/portfolio/portfolio-5.jpg" class="img-fluid" alt=""></div>
-                    <div class="portfolio-info">
-                        <h4>Web 2</h4>
-                        <p>Web</p>
-                        <a href="/assets/img/portfolio/portfolio-5.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="Web 2"><i class="bx bx-plus"></i></a>
-                        <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                    <div class="portfolio-img"><img src="/assets/img/portfolio/portfolio-6.jpg" class="img-fluid" alt=""></div>
-                    <div class="portfolio-info">
-                        <h4>App 3</h4>
-                        <p>App</p>
-                        <a href="/assets/img/portfolio/portfolio-6.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="App 3"><i class="bx bx-plus"></i></a>
-                        <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                    <div class="portfolio-img"><img src="/assets/img/portfolio/portfolio-7.jpg" class="img-fluid" alt=""></div>
-                    <div class="portfolio-info">
-                        <h4>Card 1</h4>
-                        <p>Card</p>
-                        <a href="/assets/img/portfolio/portfolio-7.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="Card 1"><i class="bx bx-plus"></i></a>
-                        <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-                    <div class="portfolio-img"><img src="/assets/img/portfolio/portfolio-8.jpg" class="img-fluid" alt=""></div>
-                    <div class="portfolio-info">
-                        <h4>Card 3</h4>
-                        <p>Card</p>
-                        <a href="/assets/img/portfolio/portfolio-8.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="Card 3"><i class="bx bx-plus"></i></a>
-                        <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                    <div class="portfolio-img"><img src="/assets/img/portfolio/portfolio-9.jpg" class="img-fluid" alt=""></div>
-                    <div class="portfolio-info">
-                        <h4>Web 3</h4>
-                        <p>Web</p>
-                        <a href="/assets/img/portfolio/portfolio-9.jpg" data-gall="portfolioGallery" class="venobox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-                        <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                    </div>
-                </div> -->
+                </div>-->
         </div>
         @endif
     </div>
@@ -213,7 +72,6 @@
 @endsection
 
 @section('scripts')
-<script src="/assetsGallery/vendor/jquery/jquery.min.js"></script>
 <script src="/assetsGallery/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/assetsGallery/vendor/jquery.easing/jquery.easing.min.js"></script>
 <script src="/assetsGallery/vendor/php-email-form/validate.js"></script>

@@ -1,7 +1,18 @@
 .tipoletra{
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif !important;
 }
-
+.container{
+    font-family: 'Montserrat', sans-serif !important;
+}
+.card {
+    font-family: 'Montserrat', sans-serif !important;
+}
+.modal-content{
+    font-family: 'Montserrat', sans-serif !important;
+}
+.dropdown-list.dropdown-menu.dropdown-menu-right.shadow.animated--grow-in.show{
+    font-family: 'Montserrat', sans-serif !important;
+}
 * {
     padding: 0;
     margin: 0;
