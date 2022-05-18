@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreign('idCotizacion')->references('id')->on('cotizaciones');
 
             $table->date('fechaEntrega');
-            $table->String('descripcionGeneral',500);
+            $table->text('descripcionGeneral');
             
             $table->unsignedBigInteger('estado');  
             $table->foreign('estado')->references('id')->on('estado_pedidos');

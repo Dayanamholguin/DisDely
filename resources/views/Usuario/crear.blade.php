@@ -7,7 +7,7 @@ Usuarios
 @section('content')
 <div class="card">
     <div class="card-header text-center">
-        <strong>Crear Usuario</strong> / <a href="/usuario" class="alert-link titulo">Volver</a>
+        <strong>Crear Usuario</strong> 
     </div>
     <div class="card-body">
         <div class="container mt-1">
@@ -120,7 +120,8 @@ Usuarios
                     </div>
                 </div>
                 <div class="col-12 centrado">
-                    <button type="submit" class="btn btn-primary">Crear</button>
+                    <button type="submit" class="btn btn-primary tipoletra">Crear</button>
+                    <a href="/usuario" class="btn btn-primary tipoletra">Volver</a>
                 </div>
             </div>
         </form>

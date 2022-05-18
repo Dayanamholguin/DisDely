@@ -26,12 +26,13 @@ class ProductoController extends Controller
             ->join("categorias", "productos.idCategoria", "categorias.id")
             ->join("sabores", "productos.idSabor", "sabores.id")
             ->join("etapas", "productos.idEtapa", "etapas.id")
+            ->where("productos.id", ">", 1)
             ->get();
         return DataTables::of($producto)
             ->editColumn("imagen", function ($producto) {
                 $mi_imagen = public_path() . '/imagenes/' . $producto->img;
                 if (@getimagesize($mi_imagen)) {
-                    return "<img src='/" . "imagenes/" . $producto->img . "'width='60px' height='60px'>";
+                    return "<img src='/" . "imagenes/" . $producto->img . "' width='60px' height='60px'>";
                 } else {
                     return "<img src='/img/defecto.jpg' width='60px' height='60px'>";
                 }
@@ -42,12 +43,12 @@ class ProductoController extends Controller
             })
 
             ->editColumn("acciones", function ($producto) {
-                $acciones = '<a class="btn btn-primary btn-sm" href="/producto/editar/' . $producto->id . '" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit"></i></a> ';
-                $acciones .= '<a class="btn btn-secondary btn-sm" href="/producto/ver/' . $producto->id . '" data-toggle="tooltip" data-placement="top" title="Ver"><i class="fas fa-info-circle"></i></a> ';
+                $acciones = '<a class="btn btn-info btn-sm" href="/producto/editar/' . $producto->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
+                $acciones .= '<a class="btn btn-secondary btn-sm" href="/producto/ver/' . $producto->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-info-circle"></i> Ver</a> ';
                 if ($producto->estado == 1) {
-                    $acciones .= '<a class="btn btn-danger btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/0" data-toggle="tooltip" data-placement="top" title="Inactivar"><i class="far fa-eye-slash"></i></a>';
+                    $acciones .= '<a class="btn btn-danger btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
                 } else {
-                    $acciones .= '<a class="btn btn-success btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/1" data-toggle="tooltip" data-placement="top" title="Activar"><i class="fas fa-eye"></i></a>';
+                    $acciones .= '<a class="btn btn-success btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check2"></i> Activar</a>';
                 }
                 return $acciones;
             })
@@ -56,7 +57,7 @@ class ProductoController extends Controller
     }
     
     public function catalogo(){
-        $productos = Producto::all()->where('catalogo', 1);
+        $productos = Producto::all()->where('catalogo', 1)->where('id','>',1);
         return view('producto.catalogo', compact("productos"));
     }
 
@@ -112,11 +113,21 @@ class ProductoController extends Controller
         $categorias = Categoria::all()->where('id', '>', 1)->where('estado', 1);
         $sabores = Sabor::all()->where('id', '>', 1)->where('estado', 1);
         $etapas = DB::table('etapas')->get()->where('id', '>', 1);
-        $producto = Producto::find($id);
+
+        
+        if ($id==1) {
+            Flash::error("No se puede editar el producto personalizado");
+            return redirect("/producto");
+        }
+
+        $producto = Producto::find($id);        
         if ($producto == null) {
             Flash::error("No se encontró el producto");
             return redirect("/producto");
         }
+
+        
+
         $mi_imagen = public_path() . '/imagenes/' . $producto->img;
         if (@getimagesize($mi_imagen)) {
             $producto->img = $producto->img;
@@ -130,6 +141,10 @@ class ProductoController extends Controller
 
     public function ver($id)
     {
+        if ($id==1) {
+            Flash::error("No se puede ver el producto personalizado");
+            return redirect("/producto");
+        }
         $producto = Producto::find($id);
         if ($producto == null) {
             Flash::error("No se encontró la producto");
@@ -143,6 +158,10 @@ class ProductoController extends Controller
 
     public function modificar(Request $request)
     {
+        if ($request->id==1) {
+            Flash::error("No se puede editar el producto personalizado");
+            return redirect("/producto");
+        }
         $request->validate(Producto::$rules);
         $id = $request->id;
         $input = $request->all();
@@ -187,6 +206,10 @@ class ProductoController extends Controller
 
     public function modificarEstado($id, $estado)
     {
+        if ($id==1) {
+            Flash::error("No se puede modificar el estado el producto personalizado");
+            return redirect("/producto");
+        }
         $producto = Producto::find($id);
         if ($producto == null) {
             return redirect("/producto");

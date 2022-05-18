@@ -7,7 +7,7 @@ Categoria
 @section('content')
 <div class="card">
     <div class="card-header text-center">
-        <strong>Crear categoría</strong> / <a href="/categoria" class="alert-link titulo">Volver</a>
+        <strong>Crear categoría</strong> 
     </div>
     <div class="card-body">
         <div class="container mt-1">
@@ -32,7 +32,8 @@ Categoria
                             @enderror
                         </div>
                         <div class="col-12 centrado">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="submit" class="btn btn-primary tipoletra">Crear</button>
+                            <a href="/categoria" class="btn btn-primary tipoletra">Volver</a>
                         </div>
                     </div>
                 </div>

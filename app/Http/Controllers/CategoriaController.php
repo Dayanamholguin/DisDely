@@ -24,12 +24,12 @@ class CategoriaController extends Controller
                 return $categoria->estado == 1 ? "Activo" : "Inactivo";
             })
             ->addColumn('acciones', function ($categoria) {
-                $acciones = '<a class="btn btn-primary btn-sm" href="/categoria/editar/' . $categoria->id . '"><i class="fas fa-edit"></i> Editar</a> ';
+                $acciones = '<a class="btn btn-info btn-sm" href="/categoria/editar/' . $categoria->id . '"><i class="fas fa-edit"></i> Editar</a> ';
             
                 if ($categoria->estado == 1) {
-                    $acciones .= '<a class="btn btn-danger btn-sm" href="/categoria/cambiar/estado/' . $categoria->id . '/0"><i class="far fa-eye-slash"></i> Inactivar</a>';
+                    $acciones .= '<a class="btn btn-danger btn-sm" href="/categoria/cambiar/estado/' . $categoria->id . '/0"><i class="bi bi-x-circle"></i> Inactivar</a>';
                 } else {
-                    $acciones .= '<a class="btn btn-success btn-sm" href="/categoria/cambiar/estado/' . $categoria->id . '/1"><i class="fas fa-fw fa-eye"></i> Activar</a>';
+                    $acciones .= '<a class="btn btn-success btn-sm" href="/categoria/cambiar/estado/' . $categoria->id . '/1"><i class="bi bi-check-circle"></i> Activar</a>';
                 }
                 return $acciones;
             })

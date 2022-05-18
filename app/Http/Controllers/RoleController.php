@@ -26,12 +26,11 @@ class RoleController extends Controller
                 return $rol->estado == 1 ? "Activo" : "Inactivo";
             })
             ->addColumn('acciones', function ($rol) {
-                $acciones = '<a class="btn btn-primary btn-sm"  href="/rol/editar/' . $rol->id . '" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit"></i></a> ';
-                $acciones .= '<a class="btn btn-secondary btn-sm"  href="/rol/ver/' . $rol->id . '" data-toggle="tooltip" data-placement="top" title="Ver"><i class="fas fa-info-circle"></i></a> ';
+                $acciones = '<a class="btn btn-info btn-sm"  href="/rol/editar/' . $rol->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
                 if ($rol->estado == 1) {
-                    $acciones .= '<a class="btn btn-danger btn-sm"  href="/rol/cambiar/estado/' . $rol->id . '/0" data-toggle="tooltip" data-placement="top" title="Inactivar"><i class="far fa-eye-slash"></i></a>';
+                    $acciones .= '<a class="btn btn-danger btn-sm"  href="/rol/cambiar/estado/' . $rol->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
                 } else {
-                    $acciones .= '<a class="btn btn-success btn-sm" href="/rol/cambiar/estado/' . $rol->id . '/1" data-toggle="tooltip" data-placement="top" title="Activar"><i class="fas fa-fw fa-eye"></i></a>';
+                    $acciones .= '<a class="btn btn-success btn-sm" href="/rol/cambiar/estado/' . $rol->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check-circle"></i> Activar</a>';
                 }
                 return $acciones;
             })
@@ -141,26 +140,6 @@ class RoleController extends Controller
                 }
             }
         }
-    }
-
-    public function ver($id)
-    {
-        $roles = Role::find($id);
-        if ($roles == null) {
-            Flash::error("No se encontró el rol");
-            return redirect("/rol");
-        }
-        // SELECT permissions.description FROM permissions JOIN role_has_permissions 
-        // on permissions.id=role_has_permissions.permission_id JOIN roles 
-        // on role_has_permissions.role_id=roles.id WHERE roles.id=3;
-
-        $rolPermisos = Permission::select('permissions.description')
-            ->join("role_has_permissions", "permissions.id", "role_has_permissions.permission_id")
-            ->join("roles", "role_has_permissions.role_id", "roles.id")
-            ->where("roles.id", $id)
-            ->get();
-        //dd($rolPermisos);
-        return view("rol.ver", compact("rolPermisos", "roles"));
     }
 
     public function modificarEstado($id, $estado)

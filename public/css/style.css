@@ -1,3 +1,26 @@
+.tipoletra{
+<<<<<<< HEAD
+    font-family: 'Open Sans', sans-serif;
+=======
+<<<<<<< HEAD
+    font-family: 'Montserrat', sans-serif !important;
+}
+.container{
+    font-family: 'Montserrat', sans-serif !important;
+}
+.card {
+    font-family: 'Montserrat', sans-serif !important;
+}
+.modal-content{
+    font-family: 'Montserrat', sans-serif !important;
+}
+.dropdown-list.dropdown-menu.dropdown-menu-right.shadow.animated--grow-in.show{
+    font-family: 'Montserrat', sans-serif !important;
+=======
+    font-family: 'Poppins', sans-serif;
+>>>>>>> 8372ecfb103c92152e81f6c39aaacf823718ec17
+>>>>>>> 37b66a563cbeaa47cc700a9db6ea8affd89d0efc
+}
 * {
     padding: 0;
     margin: 0;
@@ -63,14 +86,6 @@
     margin-left: auto;
     margin-right: auto;
 }
-
-
-/*body{
-    margin-top:20px;
-    color: #1a202c;
-    text-align: left;
-    background-color: #e2e8f0;    
-}*/
 
 .main-body {
     padding: 15px;
@@ -160,10 +175,6 @@
     }
 }
 
-.nav-link:hover {
-    background-color: #FBF5F6;
-    padding: 5px;
-}
 
 .linea {
     border-top: 5px solid #B0535E;

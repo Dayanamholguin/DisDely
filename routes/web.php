@@ -16,13 +16,13 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PerfilController;
 //Menu 
 use App\Http\Controllers\MenuController;
-//Menu 
+//cotización 
 use App\Http\Controllers\CotizacionController;
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
+//carrito 
+use App\Http\Controllers\CartController;
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -91,6 +91,13 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/perfil/cambiarContrasena/{id}', [PerfilController::class, 'cambiarContrasena']);
     Route::get('/perfil/cambiarFoto/{id}', [PerfilController::class, 'cambiarFoto']);
     Route::post('/perfil/recibirFoto/{id}', [PerfilController::class, 'recibirFoto']);
+
+    //carrito
+    Route::get('/carrito', [CartController::class, 'carrito']);
+    Route::post('/agregarCarrito', [CartController::class, 'agregarCarrito']);
+    Route::post('/actualizarCarrito', [CartController::class, 'actualizarCarrito']);
+    Route::post('/quitarProducto', [CartController::class, 'quitarProducto']);
+    Route::post('/limpiarCarrito', [CartController::class, 'limpiarCarrito']);
 
     //cotización
     Route::get('/cotizacion', [CotizacionController::class, 'index']);

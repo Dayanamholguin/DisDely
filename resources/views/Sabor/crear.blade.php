@@ -7,7 +7,7 @@ Sabores
 @section('content')
 <div class="card">
     <div class="card-header text-center">
-        <strong>Crear sabor</strong> / <a href="/sabor" class="alert-link titulo">Volver</a>
+        <strong>Crear sabor</strong> 
     </div>
     <div class="card-body">
         <div class="container mt-1">
@@ -32,7 +32,8 @@ Sabores
                             @enderror
                         </div>
                         <div class="col-12 centrado">
-                            <button type="submit" class="btn btn-primary">Crear</button>
+                            <button type="submit" class="btn btn-primary tipoletra">Crear</button>
+                            <a href="/sabor" class="btn btn-primary tipoletra">Volver</a>
                         </div>
                     </div>
                 </div>

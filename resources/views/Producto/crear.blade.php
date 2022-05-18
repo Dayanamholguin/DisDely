@@ -7,7 +7,7 @@ Productos
 @section('content')
 <div class="card">
     <div class="card-header text-center">
-        <strong>Crear producto</strong> / <a href="/producto" class="alert-link titulo">Volver</a>
+        <strong>Crear producto</strong>
     </div>
     <div class="card-body">
         <div class="container mt-1">
@@ -133,7 +133,8 @@ Productos
                     </div>
                 </div>
                 <div class="col-12 centrado">
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="submit" class="btn btn-primary tipoletra">Crear</button>
+                    <a href="/producto" class="btn btn-primary tipoletra">Volver</a>
                 </div>
             </div>
         </form>
