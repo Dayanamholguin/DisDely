@@ -43,12 +43,12 @@ class ProductoController extends Controller
             })
 
             ->editColumn("acciones", function ($producto) {
-                $acciones = '<a class="btn btn-primary btn-sm" href="/producto/editar/' . $producto->id . '" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit"></i></a> ';
-                $acciones .= '<a class="btn btn-secondary btn-sm" href="/producto/ver/' . $producto->id . '" data-toggle="tooltip" data-placement="top" title="Ver"><i class="fas fa-info-circle"></i></a> ';
+                $acciones = '<a class="btn btn-info btn-sm" href="/producto/editar/' . $producto->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
+                $acciones .= '<a class="btn btn-secondary btn-sm" href="/producto/ver/' . $producto->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-info-circle"></i> Ver</a> ';
                 if ($producto->estado == 1) {
-                    $acciones .= '<a class="btn btn-danger btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/0" data-toggle="tooltip" data-placement="top" title="Inactivar"><i class="far fa-eye-slash"></i></a>';
+                    $acciones .= '<a class="btn btn-danger btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
                 } else {
-                    $acciones .= '<a class="btn btn-success btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/1" data-toggle="tooltip" data-placement="top" title="Activar"><i class="fas fa-eye"></i></a>';
+                    $acciones .= '<a class="btn btn-success btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check2"></i> Activar</a>';
                 }
                 return $acciones;
             })

@@ -34,7 +34,7 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.2.2/css/fixedHeader.bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css">
-
+    @livewireStyles
 </head>
 
 <body id="page-top">
@@ -52,7 +52,7 @@
                     <img src="/../img/logo.png" width="50px" height="50px">
                 </div>
                 <div class="sidebar-brand-text mx-3 tipoletra" style="color: white;">
-                   <h6><strong>Dulce Encanto</strong></h6>
+                    <h6><strong>Dulce Encanto</strong></h6>
                 </div>
             </a>
 
@@ -301,9 +301,8 @@
     <!--Iconos-->
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
 
-
-
     @yield('scripts')
+    @livewireScripts
 </body>
 
 </html>

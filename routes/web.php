@@ -41,7 +41,6 @@ Route::get('/rol/crear', [RoleController::class, 'crear']);
 Route::post('/rol/guardar', [RoleController::class, 'guardar']);
 Route::get('/rol/editar/{id}', [RoleController::class, 'editar']);
 Route::post('/rol/actualizar', [RoleController::class, 'modificar']);
-Route::get('/rol/ver/{id}', [RoleController::class, 'ver']);
 Route::get('/rol/cambiar/estado/{id}/{estado}', [RoleController::class, 'modificarEstado']);
 
 //Sabor
@@ -90,6 +89,7 @@ Route::get('/perfil/cambiar/{id}', [PerfilController::class, 'cambiar']);
 Route::post('/perfil/cambiarContrasena/{id}', [PerfilController::class, 'cambiarContrasena']);
 Route::get('/perfil/cambiarFoto/{id}', [PerfilController::class, 'cambiarFoto']);
 Route::post('/perfil/recibirFoto/{id}', [PerfilController::class, 'recibirFoto']);
+
 //carrito
 Route::get('/carrito', [CartController::class, 'carrito']);
 Route::post('/agregarCarrito', [CartController::class, 'agregarCarrito']);

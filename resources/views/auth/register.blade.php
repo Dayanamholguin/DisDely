@@ -97,7 +97,7 @@ Registrar - DisDely
                                             <div class="form-group">
                                                 <label for=""><b>Género</b><b style="color: red"> *</b></label>
                                                 <select class="form-control" name="genero">
-                                                    
+                                                    <option value="">Seleccione</option>
                                                     <option value="2">Masculino</option>
                                                     <option value="3">Femenino</option>
                                                 </select>

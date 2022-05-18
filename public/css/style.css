@@ -1,5 +1,5 @@
 .tipoletra{
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 * {
@@ -67,14 +67,6 @@
     margin-left: auto;
     margin-right: auto;
 }
-
-
-/*body{
-    margin-top:20px;
-    color: #1a202c;
-    text-align: left;
-    background-color: #e2e8f0;    
-}*/
 
 .main-body {
     padding: 15px;

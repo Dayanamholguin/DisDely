@@ -7,7 +7,7 @@ Roles
 @section('content')
 <div class="card">
     <div class="card-header text-center">
-        <strong>Crear Rol</strong> / <a href="/rol" class="alert-link titulo">Volver</a>
+        <strong>Crear Rol</strong> 
     </div>
     <div class="card-body">
         <div class="container mt-1">
@@ -47,7 +47,8 @@ Roles
                             @endforeach
                         </div>
                         <div class="col-12 centrado">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="submit" class="btn btn-primary tipoletra">Crear</button>
+                            <a href="/rol" class="btn btn-primary tipoletra">Volver</a>
                         </div>
                     </div>
                 </div>
