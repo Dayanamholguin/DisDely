@@ -11,7 +11,7 @@
         @if(\Cart::getTotalQuantity()>0)
         <div class="card">
             <div class="card-header text-center">
-                <strong>Carrito para hacer cotización</strong> / <a href="/producto/catalogo" class="alert-link titulo">Volver</a>
+                <strong>Carrito para hacer cotización</strong> / <a href="/producto/catalogo" class="alert-link titulo">Seguir viendo el catálogo</a>
             </div>
             <div class="card-body">
                 <div class="container mt-1">
@@ -80,7 +80,7 @@
                 <div class="col-lg-3 col-sm-12">
                     <img src="/imagenes/{{ $item->attributes->img }}" class="img-thumbnail" width="200" height="200">
                 </div>
-                <div class="col-lg-5">
+                <div class="col-lg-5 col-sm-12">
                     <p>
                     <!-- onclick="mostrar({{$item->id}})" -->
                         <!-- /shop/{{ $item->attributes->slug }} -->
@@ -91,14 +91,14 @@
                         {{-- <b>With Discount: </b>${{ \Cart::get($item->id)->getPriceSumWithConditions() }}--}}
                     </p>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4 col-sm-12">
                     <div class="row">
                         <form action="/actualizarCarrito" method="POST">
                             {{ csrf_field() }}
-                            <div class="form-group row">
-                                <input type="hidden" value="{{ $item->id}}" id="id" name="id">
-                                <input type="number" class="form-control form-control-sm" value="{{ $item->quantity }}" id="quantity" name="quantity" style="width: 70px; margin-right: 10px;">
-                                <button class="btn btn-secondary btn-sm" style="margin-right: 25px;"><i class="fa fa-edit"></i></button>
+                            <div class="form-group row ml-3">
+                                    <input type="hidden" value="{{ $item->id}}" id="id" name="id">
+                                    <input type="number" class="form-control form-control-sm" value="{{ $item->quantity }}" id="quantity" name="quantity" style="width: 70px; margin-right: 10px;">
+                                    <button class="btn btn-secondary btn-sm" style="margin-right: 25px;"><i class="fa fa-edit"></i></button>
                             </div>
                         </form>
                         <form action="/quitarProducto" method="POST">
