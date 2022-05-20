@@ -102,8 +102,8 @@ class PerfilController extends Controller
     
     public function modificar(Request $request, $id)
     {
-        $usuario = Usuario::select("*")->where("email", $request->email)->first();
 
+        $usuario = Usuario::select("*")->where("email", $request->email)->first();
         if($usuario != null){
             $campos = [
                 'nombre' => ['required', 'string', 'max:255'],
@@ -116,7 +116,22 @@ class PerfilController extends Controller
             ];
             $this->validate($request, $campos);
         }else{
-            $request->validate(Usuario::$rules);
+            $e = Usuario::find($request->email);
+            if ($e) {
+                Flash::error("Ese correo ya está en uso");       
+                return back();
+            }
+            $campos = [
+                'nombre' => ['required', 'string', 'max:255'],
+                'apellido' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'],
+                'celular' => ['required', 'numeric'],
+                'celularAlternativo' => ['numeric'],
+                'fechaNacimiento' => ['required'],
+                'genero' => ['required', 'exists:generos,id'],
+            ];
+            $this->validate($request, $campos);
+            // $request->validate(Usuario::$rules);
         }
         // $input = request()->all();
         try {

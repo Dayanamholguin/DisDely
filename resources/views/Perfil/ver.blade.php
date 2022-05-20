@@ -30,7 +30,7 @@
               <h6 class="mb-0">Correo Electrónico<b style="color:red;">*</b></h6>
             </div>
             <div class="col-md-12 col-sm-12 ">
-              <input type="text" readonly="readonly" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required value="{{$usuario->email }}" placeholder="Ingrese su email">
+              <input type="text"  class="form-control @error('email') is-invalid @enderror" id="email" name="email" required value="{{$usuario->email }}" placeholder="Ingrese su email">
               @error('email')
                 <div class="alert alert-danger" role="alert">
                   {{$message}}

@@ -1,41 +1,56 @@
-.tipoletra{
+/* .tipoletra {
     font-family: 'Montserrat', sans-serif !important;
 }
-.container{
+
+.btn-link {
+    color: #B0535E !important;
+}
+
+.container {
     font-family: 'Montserrat', sans-serif !important;
 }
+
 .card {
     font-family: 'Montserrat', sans-serif !important;
 }
-.modal-content{
+
+.modal-content {
     font-family: 'Montserrat', sans-serif !important;
 }
-.dropdown-list.dropdown-menu.dropdown-menu-right.shadow.animated--grow-in.show{
+
+.dropdown-list.dropdown-menu.dropdown-menu-right.shadow.animated--grow-in.show {
     font-family: 'Montserrat', sans-serif !important;
 }
+
 .navbar-nav {
     font-family: 'Montserrat', sans-serif !important;
 }
-.portfolio .portfolio-item .portfolio-info h4{
+
+.portfolio .portfolio-item .portfolio-info h4 {
     font-family: 'Montserrat', sans-serif !important;
-}
-.page-item.active .page-link{
-    background-color: #B0535E !important;
-    border-color: #B0535E !important;
-    color: white !important;
-}
-.page-link:hover {
-   color: #B0535E !important;
-}
-.page-link {
-    color: #aa646c !important;
- }
+} */
+
 * {
     padding: 0;
     margin: 0;
     text-decoration: none;
     list-style: none;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.page-item.active .page-link {
+    background-color: #B0535E !important;
+    border-color: #B0535E !important;
+    color: white !important;
+}
+
+.page-link:hover {
+    color: #B0535E !important;
+}
+
+.page-link {
+    color: #aa646c !important;
 }
 
 #contenedor_carga {
@@ -191,7 +206,6 @@
         background: linear-gradient(45deg, rgb(255, 177, 114), pink, rgb(255, 177, 114));
     }
 }
-
 
 .linea {
     border-top: 5px solid #B0535E;

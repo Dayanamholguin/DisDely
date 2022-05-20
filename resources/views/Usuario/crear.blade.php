@@ -56,7 +56,7 @@ Usuarios
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="celular">Teléfono celular<b style="color: red"> *</b></label>
-                        <input id="celular" type="text" name="celular" value="{{ old('celular') }}" class="form-control @error('celular') is-invalid @enderror" name="celular" required autocomplete="celular" placeholder="Ingrese su teléfono o celular" />
+                        <input id="celular" type="number" name="celular" value="{{ old('celular') }}" class="form-control @error('celular') is-invalid @enderror" name="celular" required autocomplete="celular" placeholder="Ingrese su teléfono o celular" />
                         @error('celular')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -67,19 +67,8 @@ Usuarios
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="celularAlternativo">Celular alternativo<b style="color: red"> *</b></label>
-                        <input id="celularAlternativo" type="text" name="celularAlternativo" value="{{ old('celularAlternativo') }}" class="form-control @error('celularAlternativo') is-invalid @enderror" name="celularAlternativo" required autocomplete="celularAlternativo" placeholder="Ingrese su teléfono alternativo" />
+                        <input id="celularAlternativo" type="number" name="celularAlternativo" value="{{ old('celularAlternativo') }}" class="form-control @error('celularAlternativo') is-invalid @enderror" name="celularAlternativo" required autocomplete="celularAlternativo" placeholder="Ingrese su teléfono alternativo" />
                         @error('celularAlternativo')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-12">
-                    <div class="form-group">
-                        <label for="fechaNacimiento">Fecha nacimiento<b style="color: red"> *</b></label>
-                        <input id="fechaNacimiento" type="date" value="{{ old('fechaNacimiento') }}" class="form-control @error('fechaNacimiento') is-invalid @enderror" name="fechaNacimiento" required autocomplete="fechaNacimiento" />
-                        @error('fechaNacimiento')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -102,7 +91,7 @@ Usuarios
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
+                <!-- <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="">Contraseña<b style="color: red"> *</b></label>
                         <input type="password" class="form-control form-control-user @error('password') is-invalid @enderror" id="exampleInputPassword" placeholder="Contraseña" name="password" required autocomplete="new-password">
@@ -118,7 +107,7 @@ Usuarios
                         <label for="">Confirmar contraseña<b style="color: red"> *</b></label>
                         <input id="password-confirm" type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repita la contraseña" name="password_confirmation" required autocomplete="new-password">
                     </div>
-                </div>
+                </div> -->
                 <div class="col-12 centrado">
                     <button type="submit" class="btn btn-primary tipoletra">Crear</button>
                     <a href="/usuario" class="btn btn-primary tipoletra">Volver</a>

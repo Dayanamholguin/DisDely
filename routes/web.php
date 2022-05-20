@@ -77,7 +77,7 @@ Route::get('/contacto', [MenuController::class, 'contacto']);
     Route::get('/producto/cambiar/estado/{id}/{estado}', [ProductoController::class, 'modificarEstado']);
 
     //usuarios
-    Route::get('/usuario', [UsuarioController::class, 'index'])->middleware('auth', 'can:usuarios');
+    Route::get('/usuario', [UsuarioController::class, 'index']); //->middleware('auth', 'can:usuarios');
     Route::get('/usuario/listar', [UsuarioController::class, 'listar']);
     Route::get('/usuario/crear', [UsuarioController::class, 'crear']);
     Route::post('/usuario/guardar', [UsuarioController::class, 'guardar']);
