@@ -13,6 +13,17 @@ class CartController extends Controller
         $carritoCollection = \Cart::getContent();
         return view('carrito.carrito', compact("carritoCollection"));
     }
+    public function ver($id)  {
+        $producto = \Cart::get($id);
+        return $producto;
+    }
+    public function verImagen($id)
+    {
+        $producto = Producto::where('id', $id)->firstOrFail();
+        $mi_imagen = public_path() . '/imagenes/' . $producto->img;
+        // $imagen=storage_path("/imagenes/" . $producto->img);
+        return response()->file($mi_imagen);
+    }
     public function quitarProducto(Request $request){
         \Cart::remove($request->id);
         Flash::success("Se removió correctamente el producto del carrito");
@@ -46,7 +57,9 @@ class CartController extends Controller
                 'descripcionProducto' => $request->descripcionProducto,
                 'tiempo'=> now(),
                 'clienteId'=>$userId,
-                'cliente'=>$userName
+                'cliente'=>$userName,
+                'imagen1'=> $request->imagen1,
+                'imagen2'=> $request->imagen2,
             )
         ));
         Flash::success("Se agregó correctamente el producto al carrito");

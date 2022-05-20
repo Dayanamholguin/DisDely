@@ -5,7 +5,11 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+
+use Spatie\Permission\Models\Role;
+
 class usuarioSeeder extends Seeder
 {
     /**
@@ -15,7 +19,7 @@ class usuarioSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
+        User::create([
             'nombre' => 'Ibet',
             'apellido' => 'Arévalo',
             'email' => 'Ibet@gmail.com',
@@ -26,6 +30,8 @@ class usuarioSeeder extends Seeder
             'password' => Hash::make("123456789"),
             'created_at' => "2022/05/02",
             'updated_at' => "2022/05/02",
-        ]);
+        ])->assignRole('admin');
+
+
     }
 }

@@ -20,6 +20,7 @@ class ProductoController extends Controller
     {
         return view('producto.index');
     }
+    
     public function listar(Request $request)
     {
         $producto = Producto::select("productos.*", "categorias.nombre as cnombre", "sabores.nombre as snombre", "etapas.nombre as enombre")
@@ -55,9 +56,10 @@ class ProductoController extends Controller
             ->rawColumns(['acciones', 'imagen'])
             ->make(true);
     }
-    
-    public function catalogo(){
-        $productos = Producto::all()->where('catalogo', 1)->where('id','>',1);
+
+    public function catalogo()
+    {
+        $productos = Producto::all()->where('catalogo', 1)->where('id', '>', 1);
         return view('producto.catalogo', compact("productos"));
     }
 
@@ -83,7 +85,7 @@ class ProductoController extends Controller
             if ($request->imagen != null) {
                 $imagen = $input["nombre"] . '.' . time() . '.' . $request->imagen->extension();
                 $request->imagen->move(public_path('imagenes'), $imagen);
-            }else {
+            } else {
                 Flash::error("La imagen es requerida, por favor, colóquela");
                 return redirect("/producto/crear");
             }
@@ -114,19 +116,19 @@ class ProductoController extends Controller
         $sabores = Sabor::all()->where('id', '>', 1)->where('estado', 1);
         $etapas = DB::table('etapas')->get()->where('id', '>', 1);
 
-        
-        if ($id==1) {
+
+        if ($id == 1) {
             Flash::error("No se puede editar el producto personalizado");
             return redirect("/producto");
         }
 
-        $producto = Producto::find($id);        
+        $producto = Producto::find($id);
         if ($producto == null) {
             Flash::error("No se encontró el producto");
             return redirect("/producto");
         }
 
-        
+
 
         $mi_imagen = public_path() . '/imagenes/' . $producto->img;
         if (@getimagesize($mi_imagen)) {
@@ -141,7 +143,7 @@ class ProductoController extends Controller
 
     public function ver($id)
     {
-        if ($id==1) {
+        if ($id == 1) {
             Flash::error("No se puede ver el producto personalizado");
             return redirect("/producto");
         }
@@ -158,7 +160,7 @@ class ProductoController extends Controller
 
     public function modificar(Request $request)
     {
-        if ($request->id==1) {
+        if ($request->id == 1) {
             Flash::error("No se puede editar el producto personalizado");
             return redirect("/producto");
         }
@@ -206,7 +208,7 @@ class ProductoController extends Controller
 
     public function modificarEstado($id, $estado)
     {
-        if ($id==1) {
+        if ($id == 1) {
             Flash::error("No se puede modificar el estado el producto personalizado");
             return redirect("/producto");
         }
