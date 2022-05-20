@@ -22,7 +22,6 @@
     <link href="/css/sb-admin-2.css" rel="stylesheet">
 
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-
     <!--datatables-->
     <link href="/css/datatables.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
@@ -34,7 +33,7 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.2.2/css/fixedHeader.bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css">
-    @livewireStyles
+    <!-- @livewireStyles -->
 </head>
 
 <body id="page-top">
@@ -307,7 +306,7 @@
 
 
     @yield('scripts')
-    @livewireScripts
+    <!-- @livewireScripts -->
 </body>
 
 </html>

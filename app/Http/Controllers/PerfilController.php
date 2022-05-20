@@ -103,6 +103,7 @@ class PerfilController extends Controller
     public function modificar(Request $request, $id)
     {
         $usuario = Usuario::select("*")->where("email", $request->email)->first();
+
         if($usuario != null){
             $campos = [
                 'nombre' => ['required', 'string', 'max:255'],
@@ -123,6 +124,10 @@ class PerfilController extends Controller
             // dd($usuario);
             if ($usuario == null) {
                 Flash::error("No se encontró el usuario");       
+                return redirect("/perfil/{$request->id}");
+            }
+            if($request->celular==$request->celularAlternativo){
+                Flash::error("No se puede colocar los celulares iguales, ingrese uno diferente, por favor.");       
                 return redirect("/perfil/{$request->id}");
             }
             
