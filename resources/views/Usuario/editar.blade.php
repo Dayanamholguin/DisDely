@@ -37,7 +37,7 @@ Usuarios
                         @enderror
                     </div>
                 </div> -->
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="nombre">Nombre<b style="color: red"> *</b></label>
                         <input value="{{$usuario->nombre}}" type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required>
@@ -48,7 +48,7 @@ Usuarios
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="apellido">Apellido<b style="color: red"> *</b></label>
                         <input value="{{$usuario->apellido}}" type="text" class="form-control @error('apellido') is-invalid @enderror" id="apellido" name="apellido" required>
@@ -59,7 +59,7 @@ Usuarios
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="email">Correo<b style="color: red"> *</b></label>
                         <input value="{{$usuario->email}}" type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required>
@@ -70,7 +70,7 @@ Usuarios
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="celular">Teléfono celular<b style="color: red"> *</b></label>
                         <input value="{{$usuario->celular}}" type="number" class="form-control @error('celular') is-invalid @enderror" id="celular" name="celular" required>

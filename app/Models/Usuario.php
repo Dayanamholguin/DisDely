@@ -29,8 +29,8 @@ class Usuario extends Model
         'nombre' => ['required', 'string', 'max:255'],
         'apellido' => ['required', 'string', 'max:255'],
         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        'celular' => ['required', 'numeric', 'max:25'],
-        'celularAlternativo' => ['numeric', 'max:25'],
+        'celular' => ['required', 'numeric'],
+        'celularAlternativo' => ['required','numeric'],
         'genero' => ['required', 'exists:generos,id'],
     ];
 }

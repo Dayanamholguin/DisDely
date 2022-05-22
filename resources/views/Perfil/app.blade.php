@@ -29,7 +29,7 @@ Usuarios
       <div class="centrado">
         <strong>Perfil</strong>
       </div>
-      <div class="container mt-1 mb-1">
+      <div class="container mt-1 mb-1 text-center">
         <div class="row justify-content-center">
             <div class="col-auto">
                 @include('flash::message')

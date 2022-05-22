@@ -2,9 +2,7 @@
     font-family: 'Montserrat', sans-serif !important;
 }
 
-.btn-link {
-    color: #B0535E !important;
-}
+
 
 .container {
     font-family: 'Montserrat', sans-serif !important;
@@ -38,7 +36,9 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif !important;
 }
-
+.btn-link {
+    color: #B0535E !important;
+}
 .page-item.active .page-link {
     background-color: #B0535E !important;
     border-color: #B0535E !important;

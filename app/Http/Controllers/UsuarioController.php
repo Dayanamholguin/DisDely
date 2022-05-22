@@ -109,6 +109,11 @@ class UsuarioController extends Controller
 
     public function modificar(Request $request, $id)
     {
+        $correo = Usuario::select('*')->where('email',$request->email)->where('id','<>',$id)->value('email');
+        if ($correo!=null) {
+            Flash::error("El correo ".$correo." ya está creado, intente con otro correo nuevamente.");
+            return redirect("/usuario/editar/{$id}");
+        }
         $usuario = Usuario::select("*")->where("email", $request->email)->first();
         if ($usuario != null) {
             $campos = [
@@ -116,7 +121,7 @@ class UsuarioController extends Controller
                 'apellido' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $usuario->id],
                 'celular' => ['required', 'numeric'],
-                'celularAlternativo' => ['numeric'],
+                'celularAlternativo' => ['required', 'numeric'],
                 'genero' => ['required', 'exists:generos,id'],
             ];
             $this->validate($request, $campos);
@@ -124,9 +129,9 @@ class UsuarioController extends Controller
             $campos = [
                 'nombre' => ['required', 'string', 'max:255'],
                 'apellido' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'],
-                'celular' => ['required', 'string', 'max:25'],
-                'celularAlternativo' => ['string', 'max:25'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'celular' => ['required', 'numeric'],
+                'celularAlternativo' => ['required', 'numeric'],
                 'genero' => ['required', 'exists:generos,id'],
             ];
             $this->validate($request, $campos);

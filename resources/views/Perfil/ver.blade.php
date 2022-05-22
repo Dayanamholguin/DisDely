@@ -60,15 +60,15 @@
             <div class="col-md-12 col-sm-12 mt-3" >
               <h6 class="mb-0">Fecha de nacimiento y Género<b style="color:red;">*</b></h6>
             </div>
-            <div class="col-md-6 col-sm-12 mt-3">
+            {{-- <div class="col-md-6 col-sm-12 mt-3">
               <input id="fechaNacimiento" type="date" value="{{$usuario->fechaNacimiento}}" class="form-control @error('fechaNacimiento') is-invalid @enderror" name="fechaNacimiento" required autocomplete="fechaNacimiento"/>
               @error('fechaNacimiento')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>
               @enderror
-            </div>
-            <div class="col-md-6 col-sm-12 mt-3">
+            </div> --}}
+            <div class="col-md-12 col-sm-12 mt-3">
               <select class="form-control" name="genero">
                 <option value="">Seleccione</option>
                 @if ($usuario->idGenero==2)

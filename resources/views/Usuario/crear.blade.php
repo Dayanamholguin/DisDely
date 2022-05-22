@@ -79,7 +79,6 @@ Usuarios
                     <div class="form-group">
                         <label for="">Género<b style="color: red"> *</b></label>
                         <select class="form-control" name="genero">
-                            <option value="">Seleccione</option>
                             @foreach($generos as $key => $value)
                             <option value="{{$value->id}}">{{$value->nombre}}</option>
                             @endforeach

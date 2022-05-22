@@ -102,7 +102,11 @@ class PerfilController extends Controller
     
     public function modificar(Request $request, $id)
     {
-
+        $correo = Usuario::select('*')->where('email',$request->email)->where('id','<>',$id)->value('email');
+        if ($correo!=null) {
+            Flash::error("El correo ".$correo." ya está creado, intente con otro correo nuevamente.");
+            return redirect("/perfil/{$request->id}");
+        }
         $usuario = Usuario::select("*")->where("email", $request->email)->first();
         if($usuario != null){
             $campos = [
@@ -111,7 +115,6 @@ class PerfilController extends Controller
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$usuario->id ],
                 'celular' => ['required', 'numeric'],
                 'celularAlternativo' => ['numeric'],
-                'fechaNacimiento' => ['required'],
                 'genero' => ['required', 'exists:generos,id'],
             ];
             $this->validate($request, $campos);
@@ -127,7 +130,6 @@ class PerfilController extends Controller
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'],
                 'celular' => ['required', 'numeric'],
                 'celularAlternativo' => ['numeric'],
-                'fechaNacimiento' => ['required'],
                 'genero' => ['required', 'exists:generos,id'],
             ];
             $this->validate($request, $campos);
@@ -152,7 +154,6 @@ class PerfilController extends Controller
                 'email' => $request['email'],
                 'celular' => $request['celular'],
                 'celularAlternativo' => $request['celularAlternativo'],
-                'fechaNacimiento' => $request['fechaNacimiento'],
                 'idGenero' => $request['genero'],
                 
             ]);
