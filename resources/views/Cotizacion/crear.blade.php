@@ -52,7 +52,7 @@ Cotización
                 <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="">Frase si desea</label>
-                        <input type="TEXT" value="{{ old('frase') }}" class="form-control @error('frase') is-invalid @enderror" id="frase" name="frase" placeholder="Ingrese frase que desea en el pastel" required>
+                        <input type="TEXT" value="{{ old('frase') }}" class="form-control @error('frase') is-invalid @enderror" id="frase" name="frase" placeholder="Ingrese frase que desea en el pastel">
                         @error('frase')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}
@@ -112,6 +112,9 @@ Cotización
                 </div>
             </div>
         </form>
+        <div class="text-center col-md-12 mt-3">
+            <a href="/producto/catalogo" class="titulo">Volver</a>
+        </div>
     </div>
 </div>
 @endsection

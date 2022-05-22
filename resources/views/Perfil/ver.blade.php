@@ -30,7 +30,7 @@
               <h6 class="mb-0">Correo Electrónico<b style="color:red;">*</b></h6>
             </div>
             <div class="col-md-12 col-sm-12 ">
-              <input type="text" readonly="readonly" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required value="{{$usuario->email }}" placeholder="Ingrese su email">
+              <input type="text"  class="form-control @error('email') is-invalid @enderror" id="email" name="email" required value="{{$usuario->email }}" placeholder="Ingrese su email">
               @error('email')
                 <div class="alert alert-danger" role="alert">
                   {{$message}}
@@ -60,15 +60,15 @@
             <div class="col-md-12 col-sm-12 mt-3" >
               <h6 class="mb-0">Fecha de nacimiento y Género<b style="color:red;">*</b></h6>
             </div>
-            <div class="col-md-6 col-sm-12 mt-3">
+            {{-- <div class="col-md-6 col-sm-12 mt-3">
               <input id="fechaNacimiento" type="date" value="{{$usuario->fechaNacimiento}}" class="form-control @error('fechaNacimiento') is-invalid @enderror" name="fechaNacimiento" required autocomplete="fechaNacimiento"/>
               @error('fechaNacimiento')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>
               @enderror
-            </div>
-            <div class="col-md-6 col-sm-12 mt-3">
+            </div> --}}
+            <div class="col-md-12 col-sm-12 mt-3">
               <select class="form-control" name="genero">
                 <option value="">Seleccione</option>
                 @if ($usuario->idGenero==2)

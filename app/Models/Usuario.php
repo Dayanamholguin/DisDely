@@ -16,9 +16,7 @@ class Usuario extends Model
         'celular',
         'celularAlternativo',
         'estado',
-        'fechaNacimiento',
         'idGenero',
-        'foto',
         'password',
     ];
 
@@ -31,10 +29,8 @@ class Usuario extends Model
         'nombre' => ['required', 'string', 'max:255'],
         'apellido' => ['required', 'string', 'max:255'],
         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        'celular' => ['required', 'string', 'max:25'],
-        'celularAlternativo' => ['string', 'max:25'],
-        'fechaNacimiento' => ['required'],
+        'celular' => ['required', 'numeric'],
+        'celularAlternativo' => ['required','numeric'],
         'genero' => ['required', 'exists:generos,id'],
-        'password' => ['required', 'string', 'min:8', 'confirmed'],
     ];
 }

@@ -17,7 +17,7 @@
         </h6>
         @if(count(\Cart::getContent()) > 0)
             @foreach(\Cart::getContent() as $item)
-                <a class="dropdown-item d-flex align-items-center" href="#">
+                <a class="dropdown-item d-flex align-items-center" href="/carrito">
                     <div class="dropdown-list-image mr-3">
                         <img class="rounded-circle" src="/imagenes/{{$item->attributes->img}}" alt="...">
                         <div class="status-indicator bg-success"></div>
@@ -27,7 +27,7 @@
                         <div class="text-truncate">{{$item->name}}</div>
                         <div class="small text-gray-500">{{$item->attributes->cliente}}</div>
                     </div>
-                </a>
+                </a>    
             @endforeach
             <a class="dropdown-item text-center small text-gray-500" href="/carrito" data-toggle="tooltip" data-placement="bottom" title="Ver carrito">Ver carrito</a>
         @endif
