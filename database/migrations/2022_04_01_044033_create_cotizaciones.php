@@ -19,9 +19,6 @@ return new class extends Migration
             $table->unsignedBigInteger('idUser');  
             $table->foreign('idUser')->references('id')->on('users');
 
-            $table->unsignedBigInteger('idTipoCotizacion');  
-            $table->foreign('idTipoCotizacion')->references('id')->on('tipo_cotizaciones');
-
             $table->date('fechaEntrega');
             $table->text('descripcionGeneral');
             

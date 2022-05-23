@@ -23,7 +23,7 @@
                 </div>
                 <form id="form" action="/cotizacion/guardar" method="post" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="idUser" value="Auth()->user()->id" />
+                    <input type="hidden" name="idUser" value="{{Auth()->user()->id}}" />
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">

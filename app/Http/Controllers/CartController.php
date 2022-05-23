@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use App\Models\detalle_cotizaciones;
 use Flash;
 // use Cart;
 
@@ -38,7 +39,9 @@ class CartController extends Controller
 
     public function agregarCarrito(Request $request)
     {
-        $producto = Producto::find($request->id);
+        // $request->validate(reportes::$rules);
+        $request->validate(detalle_cotizaciones::$rules);
+        $producto = Producto::find($request->idProducto);
         if ($producto == null) {
             Flash::error("No se encontró el producto");
             return back();
@@ -47,10 +50,10 @@ class CartController extends Controller
             Flash::error("El nombre del producto no coincide");
             return back();
         }
-        $imagen1 = null;
-        if ($request->imagen1 != null) {
-            $imagen1 = $producto->nombre . '.' . time() . '.' . $request->imagen1->extension();
-            $request->imagen1->move(public_path('imagenesCotizar'), $imagen1);
+        $img = null;
+        if ($request->img != null) {
+            $img = $producto->nombre . '.' . time() . '.' . $request->img->extension();
+            $request->img->move(public_path('imagenesCotizar'), $img);
         }
         $userId = auth()->user()->id;
         $userName = auth()->user()->nombre . " " . auth()->user()->apellido;
@@ -69,7 +72,7 @@ class CartController extends Controller
                 'tiempo' => now(),
                 'clienteId' => $userId,
                 'cliente' => $userName,
-                'imagen1' => $imagen1,
+                'imagen1' => $img,
             )
         ));
         Flash::success("Se agregó correctamente el producto al carrito");

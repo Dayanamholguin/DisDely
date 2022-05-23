@@ -19,7 +19,7 @@ Cotización
         </div>
         <form id="form" action="/agregarCarrito" method="post" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="id" value="{{$producto->id}}" />
+            <input type="hidden" name="idProducto" value="{{$producto->id}}" />
             <div class="row">
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
@@ -94,7 +94,7 @@ Cotización
                 <div class="col-md-12 col-sm-12 centrado"  id="imagen" style="display: none;">
                     <div class="form-group">
                         <label for="">Inserte imagen de referencia acá</label>
-                        <input type="file" class="form-control-file" name="imagen1" id="imagen1">
+                        <input type="file" class="form-control-file" name="img" id="img">
                     </div>
                 </div>
                 <div class="col-12 centrado">
