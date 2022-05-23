@@ -63,6 +63,7 @@
             <div class="sidebar-heading tipoletra">
                 Módulos
             </div>
+            
             <!--Roles-->
             <li class="nav-item">
                 <a class="nav-link tipoletra" data-toggle="tooltip" data-placement="right" title="En este módulo aquí podrás consultar y crear los roles del aplicativo, así como también asignar permisos a los roles existentes en el módulo" href="/rol">
@@ -72,7 +73,6 @@
             </li>
 
             <!--Usuarios-->
-
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tooltip" data-placement="right" title="Este módulo, se encarga de gestionar la información personal y de contacto de cada cliente, registrado en el sistema" href="/usuario">
                     <i class="fas fa-user"></i>
@@ -95,8 +95,6 @@
                     </div>
                 </div>
             </li>
-
-            <!-- fas fa-fw fa-cog -->
 
             <!--Ventas-->
             <li class="nav-item">
@@ -208,8 +206,6 @@
                     </div>
                 </div>
             </footer>
-            <!-- End of Content Wrapper -->
-
         </div>
         <!-- End of Page Wrapper -->
 

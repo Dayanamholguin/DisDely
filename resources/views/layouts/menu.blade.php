@@ -26,6 +26,8 @@
     <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
     <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&family=Courgette&family=Dancing+Script:wght@500&family=Gloria+Hallelujah&family=Kalam&family=Kaushan+Script&family=Lobster+Two:ital@0;1&family=Macondo&family=Montserrat:wght@300&family=Mulish:wght@200&family=Open+Sans:wght@300&family=Poppins:wght@200&family=Roboto+Flex:opsz,wght@8..144,200;8..144,300&family=Satisfy&family=Spectral:ital,wght@1,200&family=Tapestry&family=Water+Brush&display=swap" rel="stylesheet">
+
     <!-- Variables CSS Files. Uncomment your preferred color scheme -->
     <link href="/assets/css/variables.css" rel="stylesheet">
     <!-- <link href="/assets/css/variables-blue.css" rel="stylesheet"> -->
@@ -82,7 +84,7 @@
         <div class="container d-flex flex-column justify-content-center align-items-center text-center position-relative aos-init aos-animate" data-aos="zoom-out">
             <img src="img/logo.png" class="img-fluid animated">
             <h2>
-                <font face="Harlekin" style="color: black;"> Bienvenido(a) <span style="color: #B0535E;">Dulce Encanto</span></font>
+                <font face="Harlekin" style="color: black; font-family: 'Kaushan Script', cursive !important;"> Bienvenidos a <span style="color: #B0535E;">Dulce Encanto</span></font>
             </h2>
             <p style="color: black;">Tortas temáticas, para todo tipo de ocasión <br> ¡Elaboramos tortas a tu gusto!</p>
         </div>

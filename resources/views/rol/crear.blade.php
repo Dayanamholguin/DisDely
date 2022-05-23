@@ -33,7 +33,7 @@ Roles
                             </div>
                             @enderror
                         </div>
-                        </br>
+                        <br>
                         <div class="form-group ">
                             <h5>Lista de permisos<b style="color: red"> *</b></h5>
                             @foreach ($permissions as $permission)
@@ -64,7 +64,7 @@ $(document).ready(function() {
     $("#name").focusout(function(event) {
         console.log();
         if($(this).val().length > 0){
-            $(this).addClass("is-valid").removeClass("is-invalid");
+            // $(this).addClass("is-valid").removeClass("is-invalid");
             $(this).rules('remove');
         } 
         else {

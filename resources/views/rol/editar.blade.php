@@ -68,7 +68,7 @@ $(document).ready(function() {
     $("#name").focusout(function(event) {
         console.log();
         if($(this).val().length > 0){
-            $(this).addClass("is-valid").removeClass("is-invalid");
+            // $(this).addClass("is-valid").removeClass("is-invalid");
             $(this).rules('remove');
         } 
         else {

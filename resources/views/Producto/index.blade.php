@@ -18,8 +18,6 @@ Gestión de Productos
                     <th>Nombre</th>
                     <th>Categoría</th>
                     <th>Sabor</th>
-                    <th>Etapa</th>
-                    <th>Pisos</th>
                     <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
@@ -57,14 +55,6 @@ Gestión de Productos
                 {
                     data: 'snombre',
                     name: 'nombre'
-                },
-                {
-                    data: 'enombre',
-                    name: 'nombre'
-                },
-                {
-                    data: 'pisos',
-                    name: 'pisos'
                 },
                 {
                     data: 'estado',
