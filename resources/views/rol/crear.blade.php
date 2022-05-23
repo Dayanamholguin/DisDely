@@ -26,7 +26,7 @@ Roles
                             <label for="">Nombre<b style="color: red"> *</b></label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror"
                                 value="{{old('name')}}" id="name" name="name" placeholder="Ingrese nombre del rol"
-                                required>
+                                required pattern="[a-zA-Z]+">
                             @error('name')
                             <div class="alert alert-danger" role="alert">
                                 {{$message}}

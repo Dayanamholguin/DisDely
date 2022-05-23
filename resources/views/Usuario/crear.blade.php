@@ -7,7 +7,7 @@ Usuarios
 @section('content')
 <div class="card">
     <div class="card-header text-center">
-        <strong>Crear Usuario</strong> 
+        <strong>Crear Usuario</strong>
     </div>
     <div class="card-body">
         <div class="container mt-1">
@@ -23,7 +23,8 @@ Usuarios
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="nombre">Nombre<b style="color: red"> *</b></label>
-                        <input id="nombre" type="text" name="nombre" value="{{ old('nombre') }}" class="form-control @error('nombre') is-invalid @enderror" name="nombre" required autocomplete="nombre" placeholder="Ingrese su nombre" />
+                        <input id="nombre" type="text" name="nombre" value="{{ old('nombre') }}" class="form-control @error('nombre') is-invalid @enderror" name="nombre" required 
+                        autocomplete="nombre" placeholder="Ingrese su nombre" pattern="[a-zA-Z]+" />
                         @error('nombre')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -34,7 +35,8 @@ Usuarios
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="apellido">Apellido<b style="color: red"> *</b></label>
-                        <input id="apellido" type="text" name="apellido" value="{{ old('apellido') }}" class="form-control @error('apellido') is-invalid @enderror" name="apellido" required autocomplete="apellido" placeholder="Ingrese su apellido" />
+                        <input id="apellido" type="text" name="apellido" value="{{ old('apellido') }}" class="form-control @error('apellido') is-invalid @enderror" name="apellido" 
+                        required autocomplete="apellido" placeholder="Ingrese su apellido" pattern="[a-zA-Z]+" />
                         @error('apellido')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -56,7 +58,8 @@ Usuarios
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="celular">Teléfono celular<b style="color: red"> *</b></label>
-                        <input id="celular" type="number" name="celular" value="{{ old('celular') }}" class="form-control @error('celular') is-invalid @enderror" name="celular" required autocomplete="celular" placeholder="Ingrese su teléfono o celular" />
+                        <input id="celular" type="number" name="celular" value="{{ old('celular') }}" class="form-control @error('celular') is-invalid @enderror" name="celular" 
+                        required autocomplete="celular" placeholder="Ingrese su teléfono o celular" minlength="7" maxlength="10"/>
                         @error('celular')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -67,7 +70,8 @@ Usuarios
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="celularAlternativo">Celular alternativo<b style="color: red"> *</b></label>
-                        <input id="celularAlternativo" type="number" name="celularAlternativo" value="{{ old('celularAlternativo') }}" class="form-control @error('celularAlternativo') is-invalid @enderror" name="celularAlternativo" required autocomplete="celularAlternativo" placeholder="Ingrese su teléfono alternativo" />
+                        <input id="celularAlternativo" type="number" name="celularAlternativo" value="{{ old('celularAlternativo') }}" class="form-control @error('celularAlternativo') is-invalid @enderror" name="celularAlternativo" 
+                        required autocomplete="celularAlternativo" placeholder="Ingrese su teléfono alternativo" minlength="7" maxlength="10"/>
                         @error('celularAlternativo')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -79,6 +83,7 @@ Usuarios
                     <div class="form-group">
                         <label for="">Género<b style="color: red"> *</b></label>
                         <select class="form-control" name="genero">
+                            <option value="">Seleccione</option>
                             @foreach($generos as $key => $value)
                             <option value="{{$value->id}}">{{$value->nombre}}</option>
                             @endforeach
@@ -118,9 +123,18 @@ Usuarios
 @endsection
 
 @section('scripts')
-
 <script>
     $(document).ready(function() {
+        $("#nombre, #apellido, #celular, #celularAlternativo").focusout(function(event) {
+            console.log();
+            if ($(this).val().length > 0) {
+                $(this).addClass("is-valid").removeClass("is-invalid");
+                $(this).rules('remove');
+            } else {
+                $(this).valid();
+                $(this).addClass("is-invalid").removeClass("is-valid");
+            }
+        });
         $('#form').validate({
             rules: {
                 nombre: {
@@ -133,12 +147,9 @@ Usuarios
                     required: true,
                     email: true
                 }
-
             },
-
         });
     });
 </script>
-
 
 @endsection

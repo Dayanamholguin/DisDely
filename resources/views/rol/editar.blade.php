@@ -25,7 +25,7 @@ Roles
                     <div class="col-auto">
                         <div class="form-group">
                             <label for="">Nombre<b style="color: red"> *</b></label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{$rol->name}}" required>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{$rol->name}}" required pattern="[a-zA-Z]+">
                             
                             @error('name')
                                 <div class="alert alert-danger" role="alert">
@@ -61,4 +61,29 @@ Roles
     </div>
 </div>
 @endsection
- 
+@section('scripts')
+
+<script>
+$(document).ready(function() {
+    $("#name").focusout(function(event) {
+        console.log();
+        if($(this).val().length > 0){
+            $(this).addClass("is-valid").removeClass("is-invalid");
+            $(this).rules('remove');
+        } 
+        else {
+            $(this).valid();
+            $(this).addClass("is-invalid").removeClass("is-valid");
+        }
+    });
+    $('#form').validate({
+        rules: {
+            name: {
+                mouseout: true,
+                required: true,
+            }
+        },
+    });
+});
+</script>
+@endsection
