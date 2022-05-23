@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
 use DataTables;
 use Flash;
+use Laracasts\Flash\Flash as FlashFlash;
 use PhpParser\Node\Stmt\Catch_;
 
 use Spatie\Permission\Models\Role;
@@ -54,6 +55,7 @@ class UsuarioController extends Controller
 
     public function guardar(Request $request)
     {
+        // $pattern="[a-zA-Z]+";
         $request->validate(Usuario::$rules);
         $input = $request->all();
         $correo = Usuario::find($request->email);
@@ -65,6 +67,10 @@ class UsuarioController extends Controller
             Flash::error("No se puede colocar los celulares iguales, ingrese uno diferente, por favor.");       
             return redirect("/usuario/crear");
         }
+        // else if ($request->nombre || $request->apellido) {
+        //     Flash::error("El campo solo admite letras");
+        //     return back();
+        // }
         try {
             Usuario::create([
                 'nombre' => $input['nombre'],
