@@ -104,6 +104,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/ver/imagen/{id}', [CartController::class, 'verImagen']);
 
     
+    
 
     //cotización
     // Route::get('/cotizacion', [CotizacionController::class, 'index']);

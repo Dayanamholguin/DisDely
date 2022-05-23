@@ -16,6 +16,7 @@ use Laracasts\Flash\Flash as FlashFlash;
 use PhpParser\Node\Stmt\Catch_;
 
 use Spatie\Permission\Models\Role;
+use App\Models\User;
 
 class UsuarioController extends Controller
 {
@@ -92,13 +93,14 @@ class UsuarioController extends Controller
 
     public function editar($id)
     {
+        $roles = DB::table('roles')->get()->where('name', '<>', 'Admin');
         $generos = DB::table('generos')->get()->where('id', '>', 1);
         $usuario = Usuario::find($id);
         if ($usuario == null) {
             Flash::error("No se encontró el usuario");
             return redirect("/usuario");
         }
-        return view("usuario.editar", compact("usuario", "generos"));
+        return view("usuario.editar", compact("usuario", "generos", "roles"));
     }
 
     public function ver($id)
@@ -113,7 +115,7 @@ class UsuarioController extends Controller
         return view("usuario.ver", compact("usuario", "genero", "rol"));
     }
 
-    public function modificar(Request $request, $id)
+    public function modificar(Request $request, User $usuario,$id)
     {
         $correo = Usuario::select('*')->where('email',$request->email)->where('id','<>',$id)->value('email');
         if ($correo!=null) {
@@ -160,8 +162,8 @@ class UsuarioController extends Controller
                 'celular' => $request['celular'],
                 'celularAlternativo' => $request['celularAlternativo'],
                 'idGenero' => $request['genero'],
-
             ]);
+
             Flash::success("Se ha modificado éxitosamente");
             return redirect("/usuario");
         } catch (\Exception $e) {

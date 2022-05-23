@@ -9,7 +9,6 @@ use Flash;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models;
 use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\role_has_permissions;
 
 class RoleController extends Controller
 {
@@ -64,9 +63,10 @@ class RoleController extends Controller
             Flash::error("Para el campo nombre, solo se admiten letras");
             return back();
         } else {
+
             foreach ($permisos as $permiso) {
                 foreach ($request->permissions as $key => $value) {
-                    if ($value[$key] == $permiso->id) {
+                    if(in_array($value[$key],$request->permissions)){
                         try {
                             $rol = Role::create([
                                 "name" => $input["name"],
