@@ -126,4 +126,3 @@ Route::get('/contacto', [MenuController::class, 'contacto']);
     });*/
 
 
-;
