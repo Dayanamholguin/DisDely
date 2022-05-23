@@ -38,7 +38,7 @@ Roles
                             <h5>Lista de permisos<b style="color: red"> *</b></h5>
                             @foreach ($permissions as $permission)
                             <div>
-                                <label>
+                                <label> 
                                     <input type="checkbox" name="permissions[]" value="{{$permission->id}}"
                                         class="mr-1">
                                     {{$permission->description}}

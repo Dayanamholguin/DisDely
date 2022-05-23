@@ -9,7 +9,6 @@ use Flash;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models;
 use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\role_has_permissions;
 
 class RoleController extends Controller
 {
