@@ -21,9 +21,9 @@
                         </div>
                     </div>
                 </div>
-                <form id="form" action="#" method="post">
+                <form id="form" action="/cotizacion/guardar" method="post" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="id" value="Auth()->user()->id" />
+                    <input type="hidden" name="idUser" value="Auth()->user()->id" />
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
@@ -57,7 +57,7 @@
                             <button type="submit" class="btn btn-primary"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAUxJREFUSEvNlN0xBEEUhb8TAZsBEbARKBGQAV55YCMgAzzwakWADGRgRUAGNoOjempazU/PTFfNrtr7ONN9v3vOvbfFmkNrzs//AWy7VLME5pJmq1D3p6ACiHkPJb2PhbQssn0F3AJvko5TgFiMpEGLU4Bt4KdMvCvpuwkZBQjJbM+BE+BeUlBUi1UA9oEPYClpUkLjECTb0mVXp4e2F8AecCZpnhiCGigAUsr7AKfAE7CQNK1m67LIdhjxLWAqKRTYv2ipC1W7qrbYjgV9SgoWF9E7ZrbvgEvgWVJIUERKge2wMwfR0lzADvBVHp5ICha0wnbnucFFsf0KHAEzSUFRCnADXDeVDlpU2hG2+SU5m+2PredlUEEJiSPbx6k1N6sHmVX3HstV8ACcA4+SLho70fkvqwfVsSwuNF7Q6oannovNUDCmF1kKNhrwC7rGoRm2ijZeAAAAAElFTkSuQmCC" /> Añadir producto a cotización</button>
                         </div>
                     </div>
-                </form>
+                
             </div>
         </div>
         <div class="col-lg-7 col-sm-12 mt-3">
@@ -82,15 +82,12 @@
                 </div>
                 <div class="col-lg-5 col-sm-12">
                     <p>
-                    <!-- onclick="mostrar({{$item->id}})" -->
-                        <!-- /shop/{{ $item->attributes->slug }} -->
+                        <input type="hidden" name="id[]" value="{{$item->id}}">
                         <b><a href="#"  role="button" class="titulo"  onclick="mostrar({{$item->id}})" data-toggle="tooltip" data-placement="right" title="Clic para ver descripción del producto">{{ $item->name }}</a></b><br>
-                        <!-- <b>Price: </b>${{ $item->price }}<br> -->
                         <b>Sabor: </b>{{ $item->attributes->saborDeseado }}
-                        {{-- <b>Sub Total: </b>${{ \Cart::get($item->id)->getPriceSum() }}<br> --}}
-                        {{-- <b>With Discount: </b>${{ \Cart::get($item->id)->getPriceSumWithConditions() }}--}}
                     </p>
                 </div>
+            </form>
                 <div class="col-lg-4 col-sm-12">
                     <div class="row">
                         <form action="/actualizarCarrito" method="POST">
@@ -137,7 +134,10 @@
                         <b>Descripción: </b>
                         <p id="descripcionProducto"></p>
                         <b>Fotos referencia: </b>
-                        <p id=""></p>
+                        <p id="foto"></p>
+                        <p>
+                            <img src="" id="imagen1">
+                        </p>
                     </div>
                 </div>
             </div>
@@ -182,21 +182,16 @@
                         $('#frase').html(res.attributes.frase);
                     }
                     $('#descripcionProducto').html(res.attributes.descripcionProducto);
-
+                    if (res.attributes.imagen1==null) {
+                        $('#imagen1').attr("src","");
+                        $('#foto').html("No tiene imágenes");
+                    }else {
+                        $('#foto').html("");
+                        let imagen= "/imagenesCotizar/"+res.attributes.imagen1;
+                        $('#imagen1').attr("src",imagen);
+                    }
                 },
             });
-
-
-        // $.get('/ver/carrito/'+id, function(producto){
-        //     console.log(producto);
-        //     // $('#nombre').val(producto[0].name);
-        // });
-        // var array = JSON.parse($.get('/ver/carrito/'+id));
-        // console.log(array.name);
-        // $.get('/ver/carrito/'+id, function(producto){
-        //     console.log(producto);
-        //     $('#nombre').val(producto[0].name);
-        // })
     }
 </script>
 

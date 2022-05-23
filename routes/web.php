@@ -109,7 +109,7 @@ Route::get('/contacto', [MenuController::class, 'contacto']);
     // Route::get('/cotizacion', [CotizacionController::class, 'index']);
     // Route::get('/cotizacion/listar', [CotizacionController::class, 'listar']);
     Route::get('/cotizacion/crear/{producto}', [CotizacionController::class, 'crear']);
-    // Route::post('/cotizacion/guardar', [CotizacionController::class, 'guardar']);
+    Route::post('/cotizacion/guardar', [CotizacionController::class, 'guardar']);
     // Route::get('/cotizacion/editar/{id}', [CotizacionController::class, 'editar']);
     // Route::get('/cotizacion/ver/{id}', [CotizacionController::class, 'ver']);
     // Route::get('/cotizacion/catalogo', [CotizacionController::class, 'catalogo']);
