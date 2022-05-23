@@ -39,7 +39,7 @@ Productos
                                 <select class="form-control" name="categoria">
                                     <option value="">Seleccione</option>
                                     @foreach($categorias as $key => $value)
-                                        <option value="{{ $value->id }}" {{old('categorias' ) == $value->id ? 'selected' : ''}}>{{ $value->nombre }}</option>
+                                    <option value="{{ $value->id }}" {{old('categorias' ) == $value->id ? 'selected' : ''}}>{{ $value->nombre }}</option>
                                     @endforeach
                                     @error('categorias')
                                     <div class="alert alert-danger" role="alert">
@@ -51,28 +51,37 @@ Productos
                         </div>
                         <div class="col-md-3 col-sm-3">
                             <div class="centrado">
-                                <a style="margin-top: 31px;" href="/categoria/crear" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Crear categoría" >+</a>
+                                <a style="margin-top: 31px;" href="/categoria/crear" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Crear categoría">+</a>
                             </div>
-                            
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
-                    <div class="form-group">
-                        <label for="">Sabor<b style="color: red"> *</b></label>
-                        <select class="form-control" name="sabor">
-                            <option value="">Seleccione</option>
-                            @foreach($sabores as $key => $value)
-                            <option value="{{$value->id}}" {{old('sabores' ) == $value->id ? 'selected' : ''}}>{{$value->nombre}}</option>
-                            @endforeach
-                            @error('sabores')
-                            <div class="alert alert-danger" role="alert">
-                                {{$message}}
+                    <div class="row">
+                        <div class="col-md-9 col-sm-9">
+                            <div class="form-group">
+                                <label for="">Sabor<b style="color: red"> *</b></label>
+                                <select class="form-control" name="sabor">
+                                    <option value="">Seleccione</option>
+                                    @foreach($sabores as $key => $value)
+                                    <option value="{{$value->id}}" {{old('sabores' ) == $value->id ? 'selected' : ''}}>{{$value->nombre}}</option>
+                                    @endforeach
+                                    @error('sabores')
+                                    <div class="alert alert-danger" role="alert">
+                                        {{$message}}
+                                    </div>
+                                    @enderror
+                                </select>
                             </div>
-                            @enderror
-                        </select>
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <div class="centrado">
+                                <a style="margin-top: 31px;" href="/sabor/crear" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Crear categoría">+</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="">Etapa<b style="color: red"> *</b></label>
@@ -136,10 +145,10 @@ Productos
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="">¿Desea añadirlo al catálogo?<b style="color: red"> *</b></label>
-                            <select class="form-control" name="catalogo">
-                                <option value="1">Sí</option>
-                                <option value="0">No</option>
-                            </select>
+                        <select class="form-control" name="catalogo">
+                            <option value="1">Sí</option>
+                            <option value="0">No</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-12 centrado">
