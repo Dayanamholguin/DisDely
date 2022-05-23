@@ -12,9 +12,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
 use DataTables;
 use Flash;
+use Laracasts\Flash\Flash as FlashFlash;
 use PhpParser\Node\Stmt\Catch_;
 
 use Spatie\Permission\Models\Role;
+use App\Models\User;
 
 class UsuarioController extends Controller
 {
@@ -38,7 +40,7 @@ class UsuarioController extends Controller
                 if ($usuario->estado == 1) {
                     $acciones .= '<a class="btn btn-danger btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
                 } else {
-                    $acciones .= '<a class="btn btn-success btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check2"></i> Activar</a>';
+                    $acciones .= '<a class="btn btn-success btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check-circle"></i> Activar</a>';
                 }
                 return $acciones;
             })
@@ -54,6 +56,7 @@ class UsuarioController extends Controller
 
     public function guardar(Request $request)
     {
+        // $pattern="[a-zA-Z]+";
         $request->validate(Usuario::$rules);
         $input = $request->all();
         $correo = Usuario::find($request->email);
@@ -65,6 +68,10 @@ class UsuarioController extends Controller
             Flash::error("No se puede colocar los celulares iguales, ingrese uno diferente, por favor.");       
             return redirect("/usuario/crear");
         }
+        // else if ($request->nombre || $request->apellido != $pattern) {
+        //     Flash::error("El campo nombre y apellido solo admiten letras");
+        //     return back();
+        // }
         try {
             Usuario::create([
                 'nombre' => $input['nombre'],
@@ -86,13 +93,14 @@ class UsuarioController extends Controller
 
     public function editar($id)
     {
+        $roles = DB::table('roles')->get()->where('name', '<>', 'Admin');
         $generos = DB::table('generos')->get()->where('id', '>', 1);
         $usuario = Usuario::find($id);
         if ($usuario == null) {
             Flash::error("No se encontró el usuario");
             return redirect("/usuario");
         }
-        return view("usuario.editar", compact("usuario", "generos"));
+        return view("usuario.editar", compact("usuario", "generos", "roles"));
     }
 
     public function ver($id)
@@ -107,7 +115,7 @@ class UsuarioController extends Controller
         return view("usuario.ver", compact("usuario", "genero", "rol"));
     }
 
-    public function modificar(Request $request, $id)
+    public function modificar(Request $request, User $usuario,$id)
     {
         $correo = Usuario::select('*')->where('email',$request->email)->where('id','<>',$id)->value('email');
         if ($correo!=null) {
@@ -117,8 +125,8 @@ class UsuarioController extends Controller
         $usuario = Usuario::select("*")->where("email", $request->email)->first();
         if ($usuario != null) {
             $campos = [
-                'nombre' => ['required', 'string', 'max:255'],
-                'apellido' => ['required', 'string', 'max:255'],
+                'nombre' => ['required', 'string', 'max:255', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+                'apellido' => ['required', 'string', 'max:255', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $usuario->id],
                 'celular' => ['required', 'numeric'],
                 'celularAlternativo' => ['required', 'numeric'],
@@ -127,8 +135,8 @@ class UsuarioController extends Controller
             $this->validate($request, $campos);
         } else {
             $campos = [
-                'nombre' => ['required', 'string', 'max:255'],
-                'apellido' => ['required', 'string', 'max:255'],
+                'nombre' => ['required', 'string', 'max:255', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+                'apellido' => ['required', 'string', 'max:255', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'celular' => ['required', 'numeric'],
                 'celularAlternativo' => ['required', 'numeric'],
@@ -154,8 +162,8 @@ class UsuarioController extends Controller
                 'celular' => $request['celular'],
                 'celularAlternativo' => $request['celularAlternativo'],
                 'idGenero' => $request['genero'],
-
             ]);
+
             Flash::success("Se ha modificado éxitosamente");
             return redirect("/usuario");
         } catch (\Exception $e) {

@@ -23,7 +23,7 @@ Roles
                 <div class="row ">
                     <div class="col-auto">
                         <div class="form-group">
-                            <label for="">Nombre<b style="color: red"> *</b></label>
+                            <label for="name">Nombre<b style="color: red"> *</b></label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror"
                                 value="{{old('name')}}" id="name" name="name" placeholder="Ingrese nombre del rol"
                                 required pattern="[a-zA-Z]+">
@@ -33,12 +33,12 @@ Roles
                             </div>
                             @enderror
                         </div>
-                        </br>
+                        <br>
                         <div class="form-group ">
                             <h5>Lista de permisos<b style="color: red"> *</b></h5>
                             @foreach ($permissions as $permission)
                             <div>
-                                <label>
+                                <label> 
                                     <input type="checkbox" name="permissions[]" value="{{$permission->id}}"
                                         class="mr-1">
                                     {{$permission->description}}
@@ -64,7 +64,7 @@ $(document).ready(function() {
     $("#name").focusout(function(event) {
         console.log();
         if($(this).val().length > 0){
-            $(this).addClass("is-valid").removeClass("is-invalid");
+            // $(this).addClass("is-valid").removeClass("is-invalid");
             $(this).rules('remove');
         } 
         else {

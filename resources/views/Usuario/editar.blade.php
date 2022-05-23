@@ -98,7 +98,7 @@ Usuarios
                         <select class="form-control" name="genero">
                             <option value="">Seleccione</option>
                             @foreach($generos as $key => $value)
-                            <option {{$value->id == $usuario->idGenero ? 'selected' : ''}} value="{{$value->id}}">{{$value->nombre}}</option>
+                                <option {{$value->id == $usuario->idGenero ? 'selected' : ''}} value="{{$value->id}}">{{$value->nombre}}</option>
                             @endforeach
                             @error('generos')
                             <div class="alert alert-danger" role="alert">
@@ -107,6 +107,21 @@ Usuarios
                             @enderror
                         </select>
                     </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <label for="">Rol<b style="color: red"> *</b></label>
+                    <select class="form-control" name="roles">
+                        <option value="">Seleccione</option>
+                    @foreach ($roles as $role)
+                        <option name="roles[]" value="{{$role->id}}" class="">
+                                {{$role->name}}</option>
+                    @endforeach
+                    @error('roles')
+                        <div class="alert alert-danger" role="alert">
+                            {{$message}}
+                        </div>
+                    @enderror
+                    </select>
                 </div>
                 <div class="col-12 centrado">
                     <button type="submit" class="btn btn-primary tipoletra">Editar</button>
@@ -123,7 +138,7 @@ Usuarios
         $("#nombre, #apellido, #email, #celular, #celularAlternativo").focusout(function(event) {
             console.log();
             if ($(this).val().length > 0) {
-                $(this).addClass("is-valid").removeClass("is-invalid");
+                // $(this).addClass("is-valid").removeClass("is-invalid");
                 $(this).rules('remove');
             } else {
                 $(this).valid();

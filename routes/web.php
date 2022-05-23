@@ -104,6 +104,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/ver/imagen/{id}', [CartController::class, 'verImagen']);
 
     
+    
 
     //cotización
     // Route::get('/cotizacion', [CotizacionController::class, 'index']);
@@ -124,6 +125,5 @@ Route::group(['middleware' => 'auth'], function(){
             return \Intervention\Image\Facades\Image::mak($file)->response();
         }
     });*/
-
 
 });
