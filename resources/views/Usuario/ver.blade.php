@@ -24,7 +24,6 @@ Usuarios
             <p class="card-text">Correo: {{$usuario->email}}</p>
             <p class="card-text">Teléfono: {{$usuario->celular}}</p>
             <p class="card-text">Celular Alternativo: {{$usuario->celularAlternativo}}</p>
-            <p class="card-text">Fecha de Nacimiento: {{$usuario->fechaNacimiento}}</p>
             <p class="card-text">Género: {{$genero}}</p>
             <p class="card-text"><a href="/usuario" class="btn btn-primary tipoletra">Volver</a></p>
             <div class="card-footer text-muted">

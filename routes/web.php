@@ -30,12 +30,12 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', [MenuController::class, 'welcome']);
 
 //menu
-Route::get('/productos', [MenuController::class, 'productos']);
-Route::get('/detalleProducto/{id}', [MenuController::class, 'detalle']);
-Route::get('/quienes', [MenuController::class, 'quienes']);
-Route::get('/contacto', [MenuController::class, 'contacto']);
+// Route::get('/productos', [MenuController::class, 'productos']);
+// Route::get('/detalleProducto/{id}', [MenuController::class, 'detalle']);
+// Route::get('/quienes', [MenuController::class, 'quienes']);
+// Route::get('/contacto', [MenuController::class, 'contacto']);
 
-//Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => 'auth'], function(){
 
     //Rol
     Route::get('/rol', [RoleController::class, 'index']);
@@ -77,7 +77,7 @@ Route::get('/contacto', [MenuController::class, 'contacto']);
     Route::get('/producto/cambiar/estado/{id}/{estado}', [ProductoController::class, 'modificarEstado']);
 
     //usuarios
-    Route::get('/usuario', [UsuarioController::class, 'index'])->middleware('auth', 'can:usuarios');
+    Route::get('/usuario', [UsuarioController::class, 'index']); //->middleware('auth', 'can:usuarios');
     Route::get('/usuario/listar', [UsuarioController::class, 'listar']);
     Route::get('/usuario/crear', [UsuarioController::class, 'crear']);
     Route::post('/usuario/guardar', [UsuarioController::class, 'guardar']);
@@ -109,7 +109,7 @@ Route::get('/contacto', [MenuController::class, 'contacto']);
     // Route::get('/cotizacion', [CotizacionController::class, 'index']);
     // Route::get('/cotizacion/listar', [CotizacionController::class, 'listar']);
     Route::get('/cotizacion/crear/{producto}', [CotizacionController::class, 'crear']);
-    // Route::post('/cotizacion/guardar', [CotizacionController::class, 'guardar']);
+    Route::post('/cotizacion/guardar', [CotizacionController::class, 'guardar']);
     // Route::get('/cotizacion/editar/{id}', [CotizacionController::class, 'editar']);
     // Route::get('/cotizacion/ver/{id}', [CotizacionController::class, 'ver']);
     // Route::get('/cotizacion/catalogo', [CotizacionController::class, 'catalogo']);
@@ -125,4 +125,4 @@ Route::get('/contacto', [MenuController::class, 'contacto']);
         }
     });*/
 
-
+});

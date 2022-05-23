@@ -21,7 +21,6 @@ return new class extends Migration
             $table->String('celular',13);
             $table->String('celularAlternativo',13)->nullable();
             $table->boolean('estado');
-            $table->date('fechaNacimiento');
             $table->unsignedBigInteger('idGenero');  
             $table->foreign('idGenero')->references('id')->on('generos');
             $table->String('foto',500)->nullable();

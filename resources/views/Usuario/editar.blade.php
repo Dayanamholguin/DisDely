@@ -37,10 +37,10 @@ Usuarios
                         @enderror
                     </div>
                 </div> -->
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="nombre">Nombre<b style="color: red"> *</b></label>
-                        <input value="{{$usuario->nombre}}" type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required>
+                        <input value="{{$usuario->nombre}}" type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required pattern="[a-zA-Z]+">
                         @error('nombre')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}
@@ -48,10 +48,10 @@ Usuarios
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="apellido">Apellido<b style="color: red"> *</b></label>
-                        <input value="{{$usuario->apellido}}" type="text" class="form-control @error('apellido') is-invalid @enderror" id="apellido" name="apellido" required>
+                        <input value="{{$usuario->apellido}}" type="text" class="form-control @error('apellido') is-invalid @enderror" id="apellido" name="apellido" required pattern="[a-zA-Z]+">
                         @error('apellido')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}
@@ -59,10 +59,10 @@ Usuarios
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="email">Correo<b style="color: red"> *</b></label>
-                        <input readonly="readonly" value="{{$usuario->email}}" type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required>
+                        <input value="{{$usuario->email}}" type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required>
                         @error('email')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}
@@ -70,10 +70,10 @@ Usuarios
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="celular">Teléfono celular<b style="color: red"> *</b></label>
-                        <input value="{{$usuario->celular}}" type="text" class="form-control @error('celular') is-invalid @enderror" id="celular" name="celular" required>
+                        <input value="{{$usuario->celular}}" type="number" class="form-control @error('celular') is-invalid @enderror" id="celular" name="celular" required minlength="7" maxlength="10">
                         @error('celular')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}
@@ -84,19 +84,8 @@ Usuarios
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="celularAlternativo">Celular alternativo<b style="color: red"> *</b></label>
-                        <input value="{{$usuario->celularAlternativo}}" type="text" class="form-control @error('celularAlternativo') is-invalid @enderror" id="celularAlternativo" name="celularAlternativo" required>
+                        <input value="{{$usuario->celularAlternativo}}" type="number" class="form-control @error('celularAlternativo') is-invalid @enderror" id="celularAlternativo" name="celularAlternativo" required minlength="7" maxlength="10">
                         @error('celularAlternativo')
-                        <div class="alert alert-danger" role="alert">
-                            {{$message}}
-                        </div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-12">
-                    <div class="form-group">
-                        <label for="fechaNacimiento">Fecha nacimiento<b style="color: red"> *</b></label>
-                        <input value="{{$usuario->fechaNacimiento}}" type="date" class="form-control @error('fechaNacimiento') is-invalid @enderror" id="fechaNacimiento" name="fechaNacimiento" required>
-                        @error('fechaNacimiento')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}
                         </div>
@@ -127,4 +116,35 @@ Usuarios
         </form>
     </div>
 </div>
+@endsection
+@section('scripts')
+<script>
+    $(document).ready(function() {
+        $("#nombre, #apellido, #email, #celular, #celularAlternativo").focusout(function(event) {
+            console.log();
+            if ($(this).val().length > 0) {
+                $(this).addClass("is-valid").removeClass("is-invalid");
+                $(this).rules('remove');
+            } else {
+                $(this).valid();
+                $(this).addClass("is-invalid").removeClass("is-valid");
+            }
+        });
+        $('#form').validate({
+            rules: {
+                nombre: {
+                    required: true,
+                },
+                apellido: {
+                    required: true,
+                },
+                email: {
+                    required: true,
+                    email: true
+                }
+            },
+        });
+    });
+</script>
+
 @endsection
