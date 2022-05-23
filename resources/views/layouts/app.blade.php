@@ -74,12 +74,10 @@
 
             <!--Usuarios-->
             <li class="nav-item">
-                @can('usuarios')
                 <a class="nav-link" data-toggle="tooltip" data-placement="right" title="Este módulo, se encarga de gestionar la información personal y de contacto de cada cliente, registrado en el sistema" href="/usuario">
                     <i class="fas fa-user"></i>
                     <span>Gestión de Usuarios</span>
                 </a>
-                @endcan
             </li>
 
             <!--Productos-->

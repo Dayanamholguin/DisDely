@@ -23,7 +23,7 @@ Roles
                 <div class="row ">
                     <div class="col-auto">
                         <div class="form-group">
-                            <label for="">Nombre<b style="color: red"> *</b></label>
+                            <label for="name">Nombre<b style="color: red"> *</b></label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror"
                                 value="{{old('name')}}" id="name" name="name" placeholder="Ingrese nombre del rol"
                                 required pattern="[a-zA-Z]+">

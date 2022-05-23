@@ -81,7 +81,7 @@ Usuarios
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">Género<b style="color: red"> *</b></label>
+                        <label for="genero">Género<b style="color: red"> *</b></label>
                         <select class="form-control" name="genero">
                             <option value="">Seleccione</option>
                             @foreach($generos as $key => $value)
@@ -128,7 +128,7 @@ Usuarios
         $("#nombre, #apellido, #celular, #celularAlternativo").focusout(function(event) {
             console.log();
             if ($(this).val().length > 0) {
-                $(this).addClass("is-valid").removeClass("is-invalid");
+                // $(this).addClass("is-valid").removeClass("is-invalid");
                 $(this).rules('remove');
             } else {
                 $(this).valid();

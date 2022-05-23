@@ -123,7 +123,6 @@ class RoleController extends Controller
             Flash::error("Para el campo nombre, solo se admiten letras");
             return redirect("/rol/editar/$id");
         } 
-        
         $permisos = Permission::all();
         foreach ($permisos as $permiso) {
             foreach ($request->permisos as $key => $value) {
