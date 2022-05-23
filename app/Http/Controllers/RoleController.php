@@ -59,9 +59,10 @@ class RoleController extends Controller
             Flash::error("Debe llenar el campo de nombre que desea ponerle al rol");
             return back();
         } else {
+
             foreach ($permisos as $permiso) {
                 foreach ($request->permissions as $key => $value) {
-                    if ($value[$key] == $permiso->id) {
+                    if(in_array($value[$key],$request->permissions)){
                         try {
                             $rol = Role::create([
                                 "name" => $input["name"],

@@ -7,31 +7,53 @@ use App\Models\Producto;
 use Flash;
 // use Cart;
 
+use App\Http\Controllers\File;
+
 class CartController extends Controller
 {
-    public function carrito()  {
+    public function carrito()
+    {
         $carritoCollection = \Cart::getContent();
         return view('carrito.carrito', compact("carritoCollection"));
     }
-    public function quitarProducto(Request $request){
+    public function ver($id)
+    {
+        $producto = \Cart::get($id);
+        return $producto;
+    }
+    public function verImagen($id)
+    {
+        $producto = Producto::where('id', $id)->firstOrFail();
+        $mi_imagen = public_path() . '/imagenes/' . $producto->img;
+        // $imagen=storage_path("/imagenes/" . $producto->img);
+        return response()->file($mi_imagen);
+    }
+    public function quitarProducto(Request $request)
+    {
         \Cart::remove($request->id);
         Flash::success("Se removió correctamente el producto del carrito");
         $carritoCollection = \Cart::getContent();
         return view('carrito.carrito', compact("carritoCollection"));
     }
 
-    public function agregarCarrito(Request $request){
+    public function agregarCarrito(Request $request)
+    {
         $producto = Producto::find($request->id);
-        if ($producto==null) {
+        if ($producto == null) {
             Flash::error("No se encontró el producto");
             return back();
         }
-        if ($producto->nombre!=$request->productoNombre) {
+        if ($producto->nombre != $request->productoNombre) {
             Flash::error("El nombre del producto no coincide");
             return back();
         }
+        $imagen1 = null;
+        if ($request->imagen1 != null) {
+            $imagen1 = $producto->nombre . '.' . time() . '.' . $request->imagen1->extension();
+            $request->imagen1->move(public_path('imagenesCotizar'), $imagen1);
+        }
         $userId = auth()->user()->id;
-        $userName = auth()->user()->nombre ." ". auth()->user()->apellido;
+        $userName = auth()->user()->nombre . " " . auth()->user()->apellido;
         \Cart::add(array(
             'id' => $producto->id,
             'name' => $producto->nombre,
@@ -44,42 +66,43 @@ class CartController extends Controller
                 'frase' => $request->frase,
                 'pisos' => $request->pisos,
                 'descripcionProducto' => $request->descripcionProducto,
-                'tiempo'=> now(),
-                'clienteId'=>$userId,
-                'cliente'=>$userName
+                'tiempo' => now(),
+                'clienteId' => $userId,
+                'cliente' => $userName,
+                'imagen1' => $imagen1,
             )
         ));
         Flash::success("Se agregó correctamente el producto al carrito");
-        $productos = Producto::all()->where('catalogo', 1)->where('id','>',1);
+        $productos = Producto::all()->where('catalogo', 1)->where('id', '>', 1);
         return view('producto.catalogo', compact("productos"));
     }
 
-    public function actualizarCarrito(Request $request){
-        if ($request->quantity<0 || $request->quantity==0) {
+    public function actualizarCarrito(Request $request)
+    {
+        if ($request->quantity < 0 || $request->quantity == 0) {
             Flash::error("No se puede poner números negativosno diferente de cero");
             $carritoCollection = \Cart::getContent();
             return view('carrito.carrito', compact("carritoCollection"));
         }
-        \Cart::update($request->id,
+        \Cart::update(
+            $request->id,
             array(
                 'quantity' => array(
                     'relative' => false,
                     'value' => $request->quantity
                 ),
-        ));
+            )
+        );
         Flash::success("Carrito actualizado");
         $carritoCollection = \Cart::getContent();
         return view('carrito.carrito', compact("carritoCollection"));
-       
     }
 
-    public function limpiarCarrito(){
+    public function limpiarCarrito()
+    {
         \Cart::clear();
         Flash::success("Se limpió el carrito");
-        $productos = Producto::all()->where('catalogo', 1)->where('id','>',1);
+        $productos = Producto::all()->where('catalogo', 1)->where('id', '>', 1);
         return view('producto.catalogo', compact("productos"));
     }
-
- 
-
 }

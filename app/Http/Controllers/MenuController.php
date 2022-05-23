@@ -14,6 +14,7 @@ class MenuController extends Controller
         $productos = Producto::select('*')
         ->orderByDesc('id')
         ->limit(3)
+        ->where('id', '<>', 1)
         ->get();
         
         return view('layouts.menu', compact('productos'));

@@ -30,10 +30,10 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', [MenuController::class, 'welcome']);
 
 //menu
-Route::get('/productos', [MenuController::class, 'productos']);
-Route::get('/detalleProducto/{id}', [MenuController::class, 'detalle']);
-Route::get('/quienes', [MenuController::class, 'quienes']);
-Route::get('/contacto', [MenuController::class, 'contacto']);
+// Route::get('/productos', [MenuController::class, 'productos']);
+// Route::get('/detalleProducto/{id}', [MenuController::class, 'detalle']);
+// Route::get('/quienes', [MenuController::class, 'quienes']);
+// Route::get('/contacto', [MenuController::class, 'contacto']);
 
 Route::group(['middleware' => 'auth'], function(){
 
@@ -77,7 +77,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/producto/cambiar/estado/{id}/{estado}', [ProductoController::class, 'modificarEstado']);
 
     //usuarios
-    Route::get('/usuario', [UsuarioController::class, 'index'])->middleware('can:usuarios');
+    Route::get('/usuario', [UsuarioController::class, 'index']); //->middleware('auth', 'can:usuarios');
     Route::get('/usuario/listar', [UsuarioController::class, 'listar']);
     Route::get('/usuario/crear', [UsuarioController::class, 'crear']);
     Route::post('/usuario/guardar', [UsuarioController::class, 'guardar']);
@@ -88,7 +88,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     //perfil
     Route::get('/perfil/{id}', [PerfilController::class, 'index']);
-    Route::post('/perfil/actualizar/{id}', [PerfilController::class, 'modificar'])->middleware('passwords.confirm');
+    Route::post('/perfil/actualizar/{id}', [PerfilController::class, 'modificar']); //->middleware('passwords.confirm');
     Route::get('/perfil/cambiar/{id}', [PerfilController::class, 'cambiar']);
     Route::post('/perfil/cambiarContrasena/{id}', [PerfilController::class, 'cambiarContrasena']);
     Route::get('/perfil/cambiarFoto/{id}', [PerfilController::class, 'cambiarFoto']);
@@ -100,17 +100,22 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/actualizarCarrito', [CartController::class, 'actualizarCarrito']);
     Route::post('/quitarProducto', [CartController::class, 'quitarProducto']);
     Route::post('/limpiarCarrito', [CartController::class, 'limpiarCarrito']);
+    Route::get('/ver/carrito/{id}', [CartController::class, 'ver']);
+    Route::get('/ver/imagen/{id}', [CartController::class, 'verImagen']);
+
+    
+    
 
     //cotización
-    Route::get('/cotizacion', [CotizacionController::class, 'index']);
-    Route::get('/cotizacion/listar', [CotizacionController::class, 'listar']);
+    // Route::get('/cotizacion', [CotizacionController::class, 'index']);
+    // Route::get('/cotizacion/listar', [CotizacionController::class, 'listar']);
     Route::get('/cotizacion/crear/{producto}', [CotizacionController::class, 'crear']);
     Route::post('/cotizacion/guardar', [CotizacionController::class, 'guardar']);
-    Route::get('/cotizacion/editar/{id}', [CotizacionController::class, 'editar']);
-    Route::post('/cotizacion/actualizar', [CotizacionController::class, 'modificar']);
-    Route::get('/cotizacion/ver/{id}', [CotizacionController::class, 'ver']);
-    Route::get('/cotizacion/catalogo', [CotizacionController::class, 'catalogo']);
-    Route::get('/cotizacion/cambiar/estado/{id}/{estado}', [CotizacionController::class, 'modificarEstado']);
+    // Route::get('/cotizacion/editar/{id}', [CotizacionController::class, 'editar']);
+    // Route::get('/cotizacion/ver/{id}', [CotizacionController::class, 'ver']);
+    // Route::get('/cotizacion/catalogo', [CotizacionController::class, 'catalogo']);
+    // Route::post('/cotizacion/actualizar', [CotizacionController::class, 'modificar']);
+    // Route::get('/cotizacion/cambiar/estado/{id}/{estado}', [CotizacionController::class, 'modificarEstado']);
 
     // Route::post('/perfil/actualizar/{id}', [PerfilController::class, 'modificar'])->middleware('password.confirm');
     //para mostrar

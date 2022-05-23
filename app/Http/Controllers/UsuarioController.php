@@ -15,6 +15,7 @@ use Flash;
 use PhpParser\Node\Stmt\Catch_;
 
 use Spatie\Permission\Models\Role;
+use App\Models\User;
 
 class UsuarioController extends Controller
 {
@@ -56,9 +57,13 @@ class UsuarioController extends Controller
     {
         $request->validate(Usuario::$rules);
         $input = $request->all();
-        $usuario = Usuario::select('*')->where('nombre', $request->nombre)->value('nombre');
-        if ($usuario != null) {
-            Flash::error("El usuario " . $usuario . " ya está creado");
+        $correo = Usuario::find($request->email);
+        if ($correo != null) {
+            Flash::error("El correo " . $correo . " ya está en uso");
+            return redirect("/usuario/crear");
+        }
+        if($request->celular==$request->celularAlternativo){
+            Flash::error("No se puede colocar los celulares iguales, ingrese uno diferente, por favor.");       
             return redirect("/usuario/crear");
         }
         try {
@@ -69,9 +74,8 @@ class UsuarioController extends Controller
                 'celular' => $input['celular'],
                 'celularAlternativo' => $input['celularAlternativo'],
                 'estado' => 1,
-                'fechaNacimiento' => $input['fechaNacimiento'],
                 'idGenero' => $input['genero'],
-                'password' => Hash::make($input['password']),
+                'password' => Hash::make("dulce_ncan4*:"),
             ]);
             Flash::success("Se ha creado éxitosamente");
             return redirect("/usuario");
@@ -83,13 +87,14 @@ class UsuarioController extends Controller
 
     public function editar($id)
     {
+        $roles = DB::table('roles')->get()->where('name', '<>', 'Admin');
         $generos = DB::table('generos')->get()->where('id', '>', 1);
         $usuario = Usuario::find($id);
         if ($usuario == null) {
             Flash::error("No se encontró el usuario");
             return redirect("/usuario");
         }
-        return view("usuario.editar", compact("usuario", "generos"));
+        return view("usuario.editar", compact("usuario", "generos", "roles"));
     }
 
     public function ver($id)
@@ -104,22 +109,34 @@ class UsuarioController extends Controller
         return view("usuario.ver", compact("usuario", "genero", "rol"));
     }
 
-    public function modificar(Request $request, $id)
+    public function modificar(Request $request, User $usuario,$id)
     {
+        $correo = Usuario::select('*')->where('email',$request->email)->where('id','<>',$id)->value('email');
+        if ($correo!=null) {
+            Flash::error("El correo ".$correo." ya está creado, intente con otro correo nuevamente.");
+            return redirect("/usuario/editar/{$id}");
+        }
         $usuario = Usuario::select("*")->where("email", $request->email)->first();
         if ($usuario != null) {
             $campos = [
                 'nombre' => ['required', 'string', 'max:255'],
                 'apellido' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $usuario->id],
-                'celular' => ['required', 'string', 'max:25'],
-                'celularAlternativo' => ['string', 'max:25'],
-                'fechaNacimiento' => ['required'],
+                'celular' => ['required', 'numeric'],
+                'celularAlternativo' => ['required', 'numeric'],
                 'genero' => ['required', 'exists:generos,id'],
             ];
             $this->validate($request, $campos);
         } else {
-            $request->validate(Usuario::$rules);
+            $campos = [
+                'nombre' => ['required', 'string', 'max:255'],
+                'apellido' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'celular' => ['required', 'numeric'],
+                'celularAlternativo' => ['required', 'numeric'],
+                'genero' => ['required', 'exists:generos,id'],
+            ];
+            $this->validate($request, $campos);
         }
         // $input = request()->all();
         try {
@@ -128,16 +145,19 @@ class UsuarioController extends Controller
                 Flash::error("No se encontró el usuario");
                 return redirect("/usuario");
             }
+            if($request->celular==$request->celularAlternativo){
+                Flash::error("No se puede colocar los celulares iguales, ingrese uno diferente, por favor.");       
+                return redirect("/usuario/editar/{$id}");
+            }
             $usuario->update([
                 'nombre' => $request['nombre'],
                 'apellido' => $request['apellido'],
                 'email' => $request['email'],
                 'celular' => $request['celular'],
                 'celularAlternativo' => $request['celularAlternativo'],
-                'fechaNacimiento' => $request['fechaNacimiento'],
                 'idGenero' => $request['genero'],
-
             ]);
+
             Flash::success("Se ha modificado éxitosamente");
             return redirect("/usuario");
         } catch (\Exception $e) {
