@@ -24,7 +24,7 @@ Sabores
                 <div class="row justify-content-center">
                     <div class="col-auto">
                         <div class="form-group">
-                            <label for="">Nombre</label>
+                            <label for="">Nombre<b style="color: red"> *</b></label>
                             <input value="{{$sabor->nombre}}" type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required>
                             @error('nombre')
                                 <div class="alert alert-danger" role="alert">

@@ -7,11 +7,11 @@ Gestión de Categorías
 @section('content')
 <div class="card">
     <div class="card-header text-center">
-        <strong>Categorias</strong> / <a href="/categoria/crear" class="alert-link titulo">Crear categoria</a>
+        <strong>Categorias</strong> / <a href="/categoria/crear" class="alert-link titulo">Crear categoría</a>
     </div>
     <div class="card-body">
     @include('flash::message')
-        <table id="categoria" class="table table-bordered dataTable text-center" style="width: 100%;">
+        <table id="categoria" class="table table-bordered dt-responsive dataTable text-left" style="width: 100%;">
             <thead>
                 <tr>
                     <th>#</th>
@@ -259,6 +259,7 @@ Gestión de Categorías
                 "info": "Mostrando _START_ a _END_ de _TOTAL_ registros"
             }
         });
+        new $.fn.dataTable.FixedHeader( categoria );
     });
 </script>
 @endsection

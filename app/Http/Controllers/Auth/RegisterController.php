@@ -87,6 +87,6 @@ class RegisterController extends Controller
             'fechaNacimiento' => $data['fechaNacimiento'],
             'idGenero' => $data['genero'],
             'password' => Hash::make($data['password']),
-        ]);
+        ])->assognRole('cliente');
     }
 }

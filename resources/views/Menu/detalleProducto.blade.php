@@ -3,14 +3,12 @@
 Detalle Producto
 @endsection
 @section('content')
-
 <div class="card-body">
     <div class="card text-center">
         <div class="card-header text-center">
             <a href="/productos" class="alert-link titulo">Volver</a>
         </div>
         <div class="card-body">
-        <a href="/productos" class="alert-link titulo">Volver</a>
             <img src="/imagenes/{{$productos->img}}" width="350" height="300" style="margin: 15px;">
             
             <div style="display:inline-block;vertical-align:top">
@@ -19,7 +17,6 @@ Detalle Producto
                 </strong>
                 <p class="card-text">Categoria: {{$categoria}}</p>
                 <p class="card-text">Sabor: {{$sabor}}</p>
-                <p class="card-text">Género: {{$genero}}</p>
                 <p class="card-text">Etapa: {{$etapa}}</p>
                 <p class="card-text">Descripción: {{$productos->descripcion}}</p>
                 <p class="card-text">Número de Personas: {{$productos->numeroPersonas}}</p>
@@ -29,7 +26,5 @@ Detalle Producto
             </div>
         </div>
     </div>
-</div>
-</div>
 </div>
 @endsection
