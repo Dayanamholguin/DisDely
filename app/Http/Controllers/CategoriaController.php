@@ -18,7 +18,7 @@ class CategoriaController extends Controller
 
     public function listar(Request $request)
     {
-        $categoria = Categoria::all()->where('id','>',1);;
+        $categoria = Categoria::all()->where('id','>',1);
         return DataTables::of($categoria)
             ->editColumn("estado", function ($categoria) {
                 return $categoria->estado == 1 ? "Activo" : "Inactivo";

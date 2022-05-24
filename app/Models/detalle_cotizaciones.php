@@ -12,7 +12,7 @@ class detalle_cotizaciones extends Model
     public $timestamps = false;
     
     protected $fillable = [
-        // 'idCotizacion',
+        'idCotizacion',
         'idProducto',
         'numeroPersonas',
         'saborDeseado',
@@ -26,9 +26,9 @@ class detalle_cotizaciones extends Model
         // 'idCotizacion' => 'required|exists:cotizaciones,id',
         'idProducto' => 'required|exists:productos,id',
         'numeroPersonas' => 'required|numeric',
-        'saborDeseado' => 'required|regex:/(^([a-zA-z]+)(\d+)?$)/u',
+        'saborDeseado' => 'required|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/',
         // 'frase' => 'required',
-        'pisos' => 'required',
+        'pisos' => 'required|numeric',
         'descripcionProducto' => 'required',
         'img' => 'image'
     ];

@@ -107,12 +107,14 @@ Route::group(['middleware' => 'auth'], function(){
     
 
     //cotización
-    // Route::get('/cotizacion', [CotizacionController::class, 'index']);
-    // Route::get('/cotizacion/listar', [CotizacionController::class, 'listar']);
+    Route::get('/cotizacion', [CotizacionController::class, 'index']);
+    Route::get('/cotizacion/listar', [CotizacionController::class, 'listar']);
     Route::get('/cotizacion/crear/{producto}', [CotizacionController::class, 'crear']);
+    Route::get('/cotizacion/personalizada', [CotizacionController::class, 'Personalizada']);
     Route::post('/cotizacion/guardar', [CotizacionController::class, 'guardar']);
     // Route::get('/cotizacion/editar/{id}', [CotizacionController::class, 'editar']);
-    // Route::get('/cotizacion/ver/{id}', [CotizacionController::class, 'ver']);
+    Route::get('/cotizacion/ver/{id}', [CotizacionController::class, 'verDetalle']);
+    Route::get('/cotizacion/verListado/{id}', [CotizacionController::class, 'verListar']);
     // Route::get('/cotizacion/catalogo', [CotizacionController::class, 'catalogo']);
     // Route::post('/cotizacion/actualizar', [CotizacionController::class, 'modificar']);
     // Route::get('/cotizacion/cambiar/estado/{id}/{estado}', [CotizacionController::class, 'modificarEstado']);
