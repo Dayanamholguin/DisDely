@@ -19,7 +19,7 @@ Usuarios
         </div>
         <div class="card-body text-center">
             <h5 class="card-title">Usuario {{$usuario->nombre}}</h5>
-            <img src="/imagenes/{{$usuario->img}}" width='auto' height='auto'>;
+            <img src="/img/{{$usuario->img==''?"avatar.jpg":"imagenes/".$producto->img}}" width='80px' height='80px'>
             <p class="card-text">Apellido: {{$usuario->apellido}}</p>
             <p class="card-text">Correo: {{$usuario->email}}</p>
             <p class="card-text">Teléfono: {{$usuario->celular}}</p>

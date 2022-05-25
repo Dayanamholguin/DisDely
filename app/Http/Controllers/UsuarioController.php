@@ -56,7 +56,6 @@ class UsuarioController extends Controller
 
     public function guardar(Request $request)
     {
-        // $pattern="[a-zA-Z]+";
         $request->validate(Usuario::$rules);
         $input = $request->all();
         $correo = Usuario::find($request->email);
@@ -73,6 +72,12 @@ class UsuarioController extends Controller
         //     return back();
         // }
         try {
+            if ($input['genero']==3) {
+                $foto = public_path() . '/img/undraw_profile_3.svg';
+            }else{
+                $foto = public_path() . '/img/undraw_profile_2.svg';
+            }
+            dd($foto);
             Usuario::create([
                 'nombre' => $input['nombre'],
                 'apellido' => $input['apellido'],
@@ -82,6 +87,7 @@ class UsuarioController extends Controller
                 'estado' => 1,
                 'idGenero' => $input['genero'],
                 'password' => Hash::make("dulce_ncan4*:"),
+                'foto' => $foto,
             ]);
             Flash::success("Se ha creado éxitosamente");
             return redirect("/usuario");
