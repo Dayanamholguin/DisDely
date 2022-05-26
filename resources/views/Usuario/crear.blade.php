@@ -24,7 +24,7 @@ Usuarios
                     <div class="form-group">
                         <label for="nombre">Nombre<b style="color: red"> *</b></label>
                         <input id="nombre" type="text" name="nombre" value="{{ old('nombre') }}" class="form-control @error('nombre') is-invalid @enderror" name="nombre" required 
-                        autocomplete="nombre" placeholder="Ingrese su nombre" pattern="[a-zA-Z]+" />
+                        autocomplete="nombre" placeholder="Ingrese su nombre" />
                         @error('nombre')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

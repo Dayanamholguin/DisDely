@@ -42,6 +42,11 @@
             <li data-filter=".filter-web">Web</li>
         </ul>
 
+<div class="box">
+    <input type="text" name="search" placeholder="Buscar" class="src" autocomplete="off">
+</div>
+<br>
+
         <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
             @foreach($productos as $producto)
             <div class="col-lg-4 col-md-6 portfolio-item filter-app">

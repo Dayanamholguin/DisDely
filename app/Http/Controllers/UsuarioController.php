@@ -131,8 +131,8 @@ class UsuarioController extends Controller
         $usuario = Usuario::select("*")->where("email", $request->email)->first();
         if ($usuario != null) {
             $campos = [
-                'nombre' => ['required', 'string', 'max:255', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
-                'apellido' => ['required', 'string', 'max:255', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+                'nombre' => ['required', 'string', 'max:255'],
+                'apellido' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $usuario->id],
                 'celular' => ['required', 'numeric'],
                 'celularAlternativo' => ['required', 'numeric'],
@@ -141,8 +141,8 @@ class UsuarioController extends Controller
             $this->validate($request, $campos);
         } else {
             $campos = [
-                'nombre' => ['required', 'string', 'max:255', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
-                'apellido' => ['required', 'string', 'max:255', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+                'nombre' => ['required', 'string', 'max:255'],
+                'apellido' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'celular' => ['required', 'numeric'],
                 'celularAlternativo' => ['required', 'numeric'],

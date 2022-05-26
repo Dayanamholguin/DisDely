@@ -55,7 +55,7 @@ class PerfilController extends Controller
             $imagen = null;
             if($request->imagen != null){
                 $imagen =$usuario->nombre.'.'.time().'.'.$request->imagen->extension();
-                $request->imagen->move(public_path('imagenes'), $imagen);
+                $request->imagen->move(public_path('img'), $imagen);
             }
             // dd($imagen);
             $usuario->update([

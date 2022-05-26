@@ -18,7 +18,6 @@ Gestión de Productos
                     <th>Apellido</th>
                     <th>Email</th>
                     <th>Celular</th>
-                    <th>Género</th>
                     <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
@@ -54,10 +53,6 @@ Gestión de Productos
                 {
                     data: 'celular',
                     name: 'celular'
-                },
-                {
-                    data: 'gnombre',
-                    name: 'gnombre'
                 },
                 {
                     data: 'estado',

@@ -45,7 +45,7 @@ class RoleController extends Controller
 
     public function guardar(Request $request)
     {
-        $pattern="[a-zA-Z]+";
+        // $pattern="[a-zA-Z]+";
         $input = $request->all();
         $rol = Role::select('*')->where('name', $request->name)->value('name');
         if ($rol != null) {
@@ -59,10 +59,12 @@ class RoleController extends Controller
         } elseif ($request->name == null) {
             Flash::error("Debe llenar el campo de nombre que desea ponerle al rol");
             return back();
-        } elseif ($request->name != $pattern) {
-            Flash::error("Para el campo nombre, solo se admiten letras");
-            return back();
-        } else {
+        } 
+        // elseif ($request->name != $pattern) {
+        //     Flash::error("Para el campo nombre, solo se admiten letras");
+        //     return back();
+        // } 
+        else {
 
             foreach ($permisos as $permiso) {
                 foreach ($request->permissions as $key => $value) {
