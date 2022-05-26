@@ -105,8 +105,8 @@ class RoleController extends Controller
 
     public function modificar(Request $request)
     {
-        $pattern="[a-zA-Z]+";
-        // $request->validate(Role::$rules);
+        //$pattern="[a-zA-Z]+";
+        //$request->validate(Role::$rules);
         $input = $request->all();
         $id = $request->id;
         $rol = Role::select('*')->where('name', $request->name)->where('id', '<>', $id)->value('name');
@@ -119,14 +119,15 @@ class RoleController extends Controller
         }else if ($request->permisos == null) {
             Flash::error("Debe seleccionar los permisos que quiera asociar al rol");
             return redirect("/rol/editar/$id");
-        } else if ($request->name != $pattern) {
-            Flash::error("Para el campo nombre, solo se admiten letras");
-            return redirect("/rol/editar/$id");
-        } 
+        }
+        // } else if ($request->name != $pattern) {
+        //     Flash::error("Para el campo nombre, solo se admiten letras");
+        //     return redirect("/rol/editar/$id");
+        // } 
         $permisos = Permission::all();
         foreach ($permisos as $permiso) {
             foreach ($request->permisos as $key => $value) {
-                if ($value[$key] == $permiso->id) {
+                if (in_array($value[$key], $request->permisos)) {
                     try {
                         $rol = Role::find($input["id"]);
                         if ($rol == null) {
