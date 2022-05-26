@@ -36,15 +36,17 @@ Roles
                         <br>
                         <div class="form-group ">
                             <h5>Lista de permisos<b style="color: red"> *</b></h5>
-                            @foreach ($permissions as $permission)
-                            <div>
-                                <label> 
-                                    <input type="checkbox" name="permissions[]" value="{{$permission->id}}"
-                                        class="mr-1">
-                                    {{$permission->description}}
-                                </label>
+                            <div class="row">
+                                @foreach ($permissions as $permission)
+                                    <div class="col-4">
+                                        <label> 
+                                            <input type="checkbox" name="permissions[]" value="{{$permission->id}}"
+                                                class="mr-1">
+                                            {{$permission->description}}
+                                        </label>
+                                    </div>
+                                @endforeach
                             </div>
-                            @endforeach
                         </div>
                         <div class="col-12 centrado">
                             <button type="submit" class="btn btn-primary tipoletra">Crear</button>

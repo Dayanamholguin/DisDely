@@ -37,7 +37,7 @@ Productos
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-12">
+                <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="">Categoría<b style="color: red"> *</b></label>
                         <select class="form-control" name="categoria">
@@ -53,7 +53,7 @@ Productos
                         </select>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-12">
+                <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="">Sabor<b style="color: red"> *</b></label>
                         <select class="form-control" name="sabor">
@@ -68,24 +68,8 @@ Productos
                             @enderror
                         </select>
                     </div>
-                </div>
-                <div class="col-md-3 col-sm-12">
-                    <div class="form-group">
-                        <label for="">Etapa<b style="color: red"> *</b></label>
-                        <select class="form-control" name="etapa">
-                            <option value="">Seleccione</option>
-                            @foreach($etapas as $key => $value)
-                            <option {{$value->id == $producto->idEtapa ? 'selected' : ''}} {{old('etapa' ) == $value->id ? 'selected' : ''}} value="{{$value->id}}">{{$value->nombre}}</option>
-                            @endforeach
-                            @error('etapas')
-                            <div class="alert alert-danger" role="alert">
-                                {{$message}}
-                            </div>
-                            @enderror
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-12">
+                </div> 
+                <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="">Nombre<b style="color: red"> *</b></label>
                         <input value="{{$producto->nombre}}" type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required>
@@ -109,6 +93,22 @@ Productos
                 </div>
                 <div class="col-md-3 col-sm-12">
                     <div class="form-group">
+                        <label for="">Etapa<b style="color: red"> *</b></label>
+                        <select class="form-control" name="etapa">
+                            <option value="">Seleccione</option>
+                            @foreach($etapas as $key => $value)
+                            <option {{$value->id == $producto->idEtapa ? 'selected' : ''}} {{old('etapa' ) == $value->id ? 'selected' : ''}} value="{{$value->id}}">{{$value->nombre}}</option>
+                            @endforeach
+                            @error('etapas')
+                            <div class="alert alert-danger" role="alert">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <div class="form-group">
                         <label for="">Número de personas<b style="color: red"> *</b></label>
                         <input value="{{$producto->numeroPersonas}}" type="number" class="form-control @error('numeroPersonas') is-invalid @enderror" id="numeroPersonas" name="numeroPersonas" required>
                         @error('numeroPersonas')
@@ -118,7 +118,7 @@ Productos
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
+                <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="">Pisos<b style="color: red"> *</b></label>
                         <input value="{{$producto->pisos}}" type="number" class="form-control @error('pisos') is-invalid @enderror" id="pisos" name="pisos" required>
@@ -129,9 +129,9 @@ Productos
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
+                <div class="col-md-3 col-sm-12">
                     <div class="form-group">
-                        <label for="">¿Desea añadirlo al catálogo?<b style="color: red"> *</b></label>
+                        <label for="">Añadirlo al catálogo<b style="color: red"> *</b></label>
                         <select class="form-control" name="catalogo">
                             <option value="">Seleccione</option>
                            @if($producto->catalogo==1)
