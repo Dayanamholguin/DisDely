@@ -35,20 +35,22 @@ Roles
                         </div>
                         <div class="form-group">
                             <h5>Lista de permisos<b style="color: red"> *</b></h5>
-                            @foreach ($permisos as $value)
-                                <div>
-                                    <label>
-                                        <input type="checkbox"
-                                        @foreach($rolPermisos as $rolPermiso)
-                                            @if ($value->id == $rolPermiso->permission_id)
-                                                {{'checked'}}
-                                            @endif 
-                                        @endforeach
-                                         name="permisos[]" value="{{$value->id}}" id=""  class="mr-1 ">
-                                            {{$value->description}}
-                                    </label>
-                                </div>
-                            @endforeach
+                            <div class="row">
+                                @foreach ($permisos as $value)
+                                    <div class="col-4">
+                                        <label>
+                                            <input type="checkbox"
+                                            @foreach($rolPermisos as $rolPermiso)
+                                                @if ($value->id == $rolPermiso->permission_id)
+                                                    {{'checked'}}
+                                                @endif 
+                                            @endforeach
+                                            name="permisos[]" value="{{$value->id}}" id=""  class="mr-1 ">
+                                                {{$value->description}}
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                         <div class="col-12 centrado">
                             <button type="submit" class="btn btn-primary tipoletra">Editar</button>
