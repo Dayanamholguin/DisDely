@@ -16,6 +16,7 @@ class Usuario extends Model
         'celular',
         'celularAlternativo',
         'estado',
+        'foto',
         'idGenero',
         'password',
     ];

@@ -73,11 +73,11 @@ class UsuarioController extends Controller
         // }
         try {
             if ($input['genero']==3) {
-                $foto = public_path() . '/img/undraw_profile_3.svg';
+                $foto = 'undraw_profile_3.svg';
             }else{
-                $foto = public_path() . '/img/undraw_profile_2.svg';
+                $foto = 'undraw_profile_2.svg';
             }
-            dd($foto);
+            // dd($foto);
             Usuario::create([
                 'nombre' => $input['nombre'],
                 'apellido' => $input['apellido'],
