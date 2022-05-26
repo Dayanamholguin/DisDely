@@ -72,6 +72,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/producto/guardar', [ProductoController::class, 'guardar']);
     Route::get('/producto/editar/{id}', [ProductoController::class, 'editar']);
     Route::get('/producto/ver/{id}', [ProductoController::class, 'ver']);
+    Route::get('/producto/verProductoCatalogo/{id}', [ProductoController::class, 'verProductoCatalogo']);
     Route::get('/producto/catalogo', [ProductoController::class, 'catalogo']);
     Route::post('/producto/actualizar', [ProductoController::class, 'modificar']);
     Route::get('/producto/cambiar/estado/{id}/{estado}', [ProductoController::class, 'modificarEstado']);

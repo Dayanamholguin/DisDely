@@ -27,7 +27,7 @@ class detalle_cotizaciones extends Model
         'idProducto' => 'required|exists:productos,id',
         'numeroPersonas' => 'required|numeric',
         'saborDeseado' => 'required|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/',
-        // 'frase' => 'required',
+        // 'frase' => 'alpha',
         'pisos' => 'required|numeric',
         'descripcionProducto' => 'required',
         'img' => 'image'

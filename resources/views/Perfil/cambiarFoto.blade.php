@@ -5,7 +5,7 @@
     <div class="container mt-1 text-center">
         <div class="row justify-content-center">
             <div class="col-auto">
-                <div>
+                <!-- <div>
                     <h5>Imagen</h5>
                     <img src="" id="img-foto" class="rounded-circle mt-5" width="150">
                 </div>
@@ -18,10 +18,22 @@
                         {{$message}}
                     </div>
                     @enderror
-                </div>
-                <div class="col-12 centrado">
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                </div>
+                </div> -->
+
+                @for($i=0;$i<=3;$i++) <label>
+                    <img src="/../img/undraw_profile_{{$i}}.svg" alt="Admin" class="rounded-circle mt-5" width="90">
+                    <input type="checkbox" name="imagen" 
+                    {{$usuario->foto == "undraw_profile_{{$i}}.svg"{{'checked'}}
+                    value="undraw_profile_{{$i}}.svg" class="mr-1">
+                    </label>
+                @endfor
+
+
+
+
+                    <div class="col-12 centrado">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
             </div>
         </div>
     </div>
