@@ -45,7 +45,7 @@ class RoleController extends Controller
 
     public function guardar(Request $request)
     {
-        $pattern="[a-zA-Z]+";
+        $pattern = "[a-zA-Z]+";
         $input = $request->all();
         $rol = Role::select('*')->where('name', $request->name)->value('name');
         if ($rol != null) {
@@ -59,14 +59,15 @@ class RoleController extends Controller
         } elseif ($request->name == null) {
             Flash::error("Debe llenar el campo de nombre que desea ponerle al rol");
             return back();
-        } elseif ($request->name != $pattern) {
-            Flash::error("Para el campo nombre, solo se admiten letras");
-            return back();
-        } else {
-
+        } 
+        // elseif ($request->name != $pattern) {
+        //     Flash::error("Para el campo nombre, solo se admiten letras");
+        //     return back();
+        // } 
+        else {
             foreach ($permisos as $permiso) {
                 foreach ($request->permissions as $key => $value) {
-                    if(in_array($value[$key],$request->permissions)){
+                    if (in_array($value[$key], $request->permissions)) {
                         try {
                             $rol = Role::create([
                                 "name" => $input["name"],
@@ -85,7 +86,7 @@ class RoleController extends Controller
                     }
                 }
             }
-        }
+        } 
     }
 
     public function editar($id)
@@ -105,7 +106,7 @@ class RoleController extends Controller
 
     public function modificar(Request $request)
     {
-        $pattern="[a-zA-Z]+";
+        $pattern = "[a-zA-Z]+";
         // $request->validate(Role::$rules);
         $input = $request->all();
         $id = $request->id;
@@ -116,13 +117,13 @@ class RoleController extends Controller
         } else if ($request->name == null) {
             Flash::error("El campo nombre es requerido");
             return redirect("/rol/editar/$id");
-        }else if ($request->permisos == null) {
+        } else if ($request->permisos == null) {
             Flash::error("Debe seleccionar los permisos que quiera asociar al rol");
             return redirect("/rol/editar/$id");
         } else if ($request->name != $pattern) {
             Flash::error("Para el campo nombre, solo se admiten letras");
             return redirect("/rol/editar/$id");
-        } 
+        }
         $permisos = Permission::all();
         foreach ($permisos as $permiso) {
             foreach ($request->permisos as $key => $value) {

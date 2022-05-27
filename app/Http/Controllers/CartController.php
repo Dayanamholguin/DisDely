@@ -83,7 +83,7 @@ class CartController extends Controller
     public function actualizarCarrito(Request $request)
     {
         if ($request->quantity < 0 || $request->quantity == 0) {
-            Flash::error("No se puede poner números negativosno diferente de cero");
+            Flash::error("No se puede poner números negativos");
             $carritoCollection = \Cart::getContent();
             return view('carrito.carrito', compact("carritoCollection"));
         }
