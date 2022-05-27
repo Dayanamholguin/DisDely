@@ -46,18 +46,18 @@ class PerfilController extends Controller
 
     public function recibirFoto(Request $request, $id)
     {    
+        // dd($request->imagen);
         $usuario = Usuario::find($id);
         if ($usuario == null) {   
             Flash::error("Perfil no encontrado");      
             return redirect("/perfil/{$request->id}");
-        }
-        
-            $imagen = null;
-            if($request->imagen != null){
-                $imagen =$usuario->nombre.'.'.time().'.'.$request->imagen->extension();
-                $request->imagen->move(public_path('img'), $imagen);
+        }        
+            $imagen = $request->imagen;
+            $mi_imagen = public_path() . '/img/' . $imagen;
+            if (is_file($mi_imagen)==false) {
+                Flash::error("Imagen no encontrada");      
+                return redirect("/perfil/cambiarFoto/{$request->id}");
             }
-            // dd($imagen);
             $usuario->update([
                 "foto"=>$imagen,
             ]);

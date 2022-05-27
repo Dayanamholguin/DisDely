@@ -110,11 +110,9 @@ Usuarios
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <label for="">Rol<b style="color: red"> *</b></label>
-                    <select class="form-control" name="roles">
-                        <option value="">Seleccione</option>
-                    @foreach ($roles as $role)
-                        <option name="roles[]" value="{{$role->id}}" class="">
-                                {{$role->name}}</option>
+                    <select class="form-control" name="roles[]">
+                    @foreach ($roles as $key => $value)
+                        <option {{$value->id == $consulta?'selected':''}} value="{{$value->id}}">{{$value->name}}</option>
                     @endforeach
                     @error('roles')
                         <div class="alert alert-danger" role="alert">

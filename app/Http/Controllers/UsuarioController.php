@@ -12,12 +12,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
 use DataTables;
 use Flash;
-use Laracasts\Flash\Flash as FlashFlash;
+//use Laracasts\Flash\Flash as Flash;
 use PhpParser\Node\Stmt\Catch_;
-
-use Spatie\Permission\Models\Role;
 use App\Models\User;
-
+use Spatie\Permission\Models\Role;
 class UsuarioController extends Controller
 {
     public function index()
@@ -99,14 +97,24 @@ class UsuarioController extends Controller
 
     public function editar($id)
     {
-        $roles = DB::table('roles')->get()->where('name', '<>', 'Admin');
+        $roles = Role::all()->where('name', '<>', 'Admin');
         $generos = DB::table('generos')->get()->where('id', '>', 1);
         $usuario = Usuario::find($id);
         if ($usuario == null) {
             Flash::error("No se encontró el usuario");
             return redirect("/usuario");
         }
-        return view("usuario.editar", compact("usuario", "generos", "roles"));
+        // SELECT roles.name FROM `model_has_roles`
+        // join roles on roles.id=model_has_roles.role_id
+        // JOIN users on users.id=model_has_roles.model_id
+        // where users.id=3;
+        $consulta = Role::select('roles.id')
+        ->join("model_has_roles", "roles.id", "model_has_roles.role_id")
+        ->join("users", "users.id", "model_has_roles.model_id")
+        ->where("users.id", $id)
+        ->value("id");
+        // dd($consulta);
+        return view("usuario.editar", compact("usuario", "generos", "roles", "consulta"));
     }
 
     public function ver($id)
@@ -121,7 +129,7 @@ class UsuarioController extends Controller
         return view("usuario.ver", compact("usuario", "genero", "rol"));
     }
 
-    public function modificar(Request $request, User $usuario,$id)
+    public function modificar(Request $request, $id)
     {
         $correo = Usuario::select('*')->where('email',$request->email)->where('id','<>',$id)->value('email');
         if ($correo!=null) {
@@ -168,8 +176,9 @@ class UsuarioController extends Controller
                 'celular' => $request['celular'],
                 'celularAlternativo' => $request['celularAlternativo'],
                 'idGenero' => $request['genero'],
-            ]);
-
+            ]); 
+            $usuarioRol = User::find($id);
+            $usuarioRol->roles()->sync($request->roles);        
             Flash::success("Se ha modificado éxitosamente");
             return redirect("/usuario");
         } catch (\Exception $e) {
