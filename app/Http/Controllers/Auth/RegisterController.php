@@ -85,6 +85,6 @@ class RegisterController extends Controller
             'estado' => 1,
             'idGenero' => $data['genero'],
             'password' => Hash::make($data['password']),
-        ])->assignRole('cliente');
+        ])->syncRoles('cliente');
     }
 }
