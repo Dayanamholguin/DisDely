@@ -9,7 +9,6 @@ use Flash;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models;
 use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\role_has_permissions;
 
 class RoleController extends Controller
 {
@@ -26,12 +25,11 @@ class RoleController extends Controller
                 return $rol->estado == 1 ? "Activo" : "Inactivo";
             })
             ->addColumn('acciones', function ($rol) {
-                $acciones = '<a class="btn btn-primary btn-sm"  href="/rol/editar/' . $rol->id . '" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit"></i></a> ';
-                $acciones .= '<a class="btn btn-secondary btn-sm"  href="/rol/ver/' . $rol->id . '" data-toggle="tooltip" data-placement="top" title="Ver"><i class="fas fa-info-circle"></i></a> ';
+                $acciones = '<a class="btn btn-info btn-sm"  href="/rol/editar/' . $rol->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
                 if ($rol->estado == 1) {
-                    $acciones .= '<a class="btn btn-danger btn-sm"  href="/rol/cambiar/estado/' . $rol->id . '/0" data-toggle="tooltip" data-placement="top" title="Inactivar"><i class="far fa-eye-slash"></i></a>';
+                    $acciones .= '<a class="btn btn-danger btn-sm"  href="/rol/cambiar/estado/' . $rol->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
                 } else {
-                    $acciones .= '<a class="btn btn-success btn-sm" href="/rol/cambiar/estado/' . $rol->id . '/1" data-toggle="tooltip" data-placement="top" title="Activar"><i class="fas fa-fw fa-eye"></i></a>';
+                    $acciones .= '<a class="btn btn-success btn-sm" href="/rol/cambiar/estado/' . $rol->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check-circle"></i> Activar</a>';
                 }
                 return $acciones;
             })
@@ -47,6 +45,7 @@ class RoleController extends Controller
 
     public function guardar(Request $request)
     {
+        //$pattern="[a-zA-Z]+";
         $input = $request->all();
         $rol = Role::select('*')->where('name', $request->name)->value('name');
         if ($rol != null) {
@@ -60,10 +59,14 @@ class RoleController extends Controller
         } elseif ($request->name == null) {
             Flash::error("Debe llenar el campo de nombre que desea ponerle al rol");
             return back();
+        //} elseif ($request->name != $pattern) {
+        //    Flash::error("Para el campo nombre, solo se admiten letras");
+        //    return back();
         } else {
+
             foreach ($permisos as $permiso) {
                 foreach ($request->permissions as $key => $value) {
-                    if ($value[$key] == $permiso->id) {
+                    if(in_array($value[$key],$request->permissions)){
                         try {
                             $rol = Role::create([
                                 "name" => $input["name"],
@@ -102,6 +105,7 @@ class RoleController extends Controller
 
     public function modificar(Request $request)
     {
+        $pattern="[a-zA-Z]+";
         // $request->validate(Role::$rules);
         $input = $request->all();
         $id = $request->id;
@@ -112,10 +116,13 @@ class RoleController extends Controller
         } else if ($request->name == null) {
             Flash::error("El campo nombre es requerido");
             return redirect("/rol/editar/$id");
-        } else if ($request->permisos == null) {
+        }else if ($request->permisos == null) {
             Flash::error("Debe seleccionar los permisos que quiera asociar al rol");
             return redirect("/rol/editar/$id");
-        }
+        } else if ($request->name != $pattern) {
+            Flash::error("Para el campo nombre, solo se admiten letras");
+            return redirect("/rol/editar/$id");
+        } 
         $permisos = Permission::all();
         foreach ($permisos as $permiso) {
             foreach ($request->permisos as $key => $value) {
@@ -141,25 +148,6 @@ class RoleController extends Controller
                 }
             }
         }
-    }
-
-    public function ver($id)
-    {
-        $roles = Role::find($id);
-        if ($roles == null) {
-            Flash::error("No se encontró el rol");
-            return redirect("/rol");
-        }
-        // SELECT permissions.description FROM permissions JOIN role_has_permissions 
-        // on permissions.id=role_has_permissions.permission_id JOIN roles 
-        // on role_has_permissions.role_id=roles.id WHERE roles.id=3;
-        $rolPermisos = Permission::select('permissions.description')
-            ->join("role_has_permissions", "permissions.id", "role_has_permissions.permission_id")
-            ->join("roles", "role_has_permissions.role_id", "roles.id")
-            ->where("roles.id", $id)
-            ->get();
-        //dd($rolPermisos);
-        return view("rol.ver", compact("rolPermisos", "roles"));
     }
 
     public function modificarEstado($id, $estado)

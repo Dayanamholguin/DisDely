@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Models\Categoria;
 use App\Models\Sabor;
+use App\Models\cotizacion;
 use App\Http\Controllers\File;
 use Illuminate\Support\Facades\DB;
 //use Yajra\DataTables\DataTables;
@@ -54,11 +55,6 @@ class CotizacionController extends Controller
             ->rawColumns(['acciones', 'imagen'])
             ->make(true);
     }
-    
-    public function catalogo(){
-        $productos = Producto::all()->where('catalogo', 1);
-        return view('producto.catalogo', compact("productos"));
-    }
 
     public function crear($id)
     {
@@ -72,40 +68,76 @@ class CotizacionController extends Controller
 
     public function guardar(Request $request)
     {
-        $request->validate(Producto::$rules);
         $input = $request->all();
-        $producto = Producto::select('*')->where('nombre', $request->nombre)->value('nombre');
-        if ($producto != null) {
-            Flash::error("El producto " . $producto . " ya está creado");
-            return redirect("/producto/crear");
-        }
-        try {
-            $imagen = null;
-            if ($request->imagen != null) {
-                $imagen = $input["nombre"] . '.' . time() . '.' . $request->imagen->extension();
-                $request->imagen->move(public_path('imagenes'), $imagen);
-            }else {
-                Flash::error("La imagen es requerida, por favor, colóquela");
-                return back();
-            }
-            Producto::create([
-                "idCategoria" => $input["categoria"],
-                "idSabor" => $input["sabor"],
-                "idEtapa" => $input["etapa"],
-                "nombre" => $input["nombre"],
-                "descripcion" => $input["descripcion"],
-                "numeroPersonas" => $input["numeroPersonas"],
-                "pisos" => $input["pisos"],
-                "catalogo" => $input["catalogo"],
-                "img" => $imagen,
-                "estado" => 1
+        try{
+            DB::beginTransaction();
+            $cotizacion = cotizacion::create([
+                "idUser"=> $input["idUser"],
+                "fechaEntrega"=> $input["fechaEntrega"],
+                "descripcionGeneral"=> $input["descripcionGeneral"],
+                "estado"=> 1,
+
             ]);
+            
+            foreach ($input["id"] as $key => $value) {
+                $producto = \Cart::get($value);
+                detalle_cotizaciones::create([
+                    "idCotizacion"=>$cotizacion->id,
+                    "idProducto"=>$value,
+                    // "numeroPersonas"=>$input["descripcion"
+                    "numeroPersonas"=>$producto.attributes.numeroPersonas,
+                    "saborDeseado"=>$producto.attributes.saborDeseado,
+                    "frase"=>$producto.attributes.frase,
+                    "pisos"=>$producto.attributes.pisos,
+                    "pisos"=>$producto.attributes.pisos,
+                    "descripcionProducto"=>$producto.attributes.descripcionProducto,
+                    "img"=>$producto.attributes.img,
+                    // "descripcion"=>$input["descripcion"][$key]
+                ]);
+                
+            }
+            DB::commit();
             Flash::success("Se ha creado éxitosamente");
-            return redirect("/producto");
-        } catch (\Exception $e) {
+            return redirect("/producto/catalogo");
+        }catch(\Exception $e){
+            DB::rollBack();
             Flash::error($e->getMessage());
-            return redirect("/producto/crear");
+            return redirect("/carrito");
         }
+        // $request->validate(Producto::$rules);
+        // $input = $request->all();
+        // $producto = Producto::select('*')->where('nombre', $request->nombre)->value('nombre');
+        // if ($producto != null) {
+        //     Flash::error("El producto " . $producto . " ya está creado");
+        //     return redirect("/producto/crear");
+        // }
+        // try {
+        //     $imagen = null;
+        //     if ($request->imagen != null) {
+        //         $imagen = $input["nombre"] . '.' . time() . '.' . $request->imagen->extension();
+        //         $request->imagen->move(public_path('imagenes'), $imagen);
+        //     }else {
+        //         Flash::error("La imagen es requerida, por favor, colóquela");
+        //         return back();
+        //     }
+        //     Producto::create([
+        //         "idCategoria" => $input["categoria"],
+        //         "idSabor" => $input["sabor"],
+        //         "idEtapa" => $input["etapa"],
+        //         "nombre" => $input["nombre"],
+        //         "descripcion" => $input["descripcion"],
+        //         "numeroPersonas" => $input["numeroPersonas"],
+        //         "pisos" => $input["pisos"],
+        //         "catalogo" => $input["catalogo"],
+        //         "img" => $imagen,
+        //         "estado" => 1
+        //     ]);
+        //     Flash::success("Se ha creado éxitosamente");
+        //     return redirect("/producto");
+        // } catch (\Exception $e) {
+        //     Flash::error($e->getMessage());
+        //     return redirect("/producto/crear");
+        // }
     }
 
     public function editar($id)

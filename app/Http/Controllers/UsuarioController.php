@@ -12,7 +12,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
 use DataTables;
 use Flash;
+use Laracasts\Flash\Flash as FlashFlash;
 use PhpParser\Node\Stmt\Catch_;
+
+use Spatie\Permission\Models\Role;
+use App\Models\User;
 
 class UsuarioController extends Controller
 {
@@ -31,12 +35,12 @@ class UsuarioController extends Controller
                 return $usuario->estado == 1 ? "Activo" : "Inactivo";
             })
             ->addColumn('acciones', function ($usuario) {
-                $acciones = '<a class="btn btn-primary btn-sm" href="/usuario/editar/' . $usuario->id . '" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit"></i></a> ';
-                $acciones .= '<a class="btn btn-secondary btn-sm" href="/usuario/ver/' . $usuario->id . '" data-toggle="tooltip" data-placement="top" title="Ver"><i class="fas fa-info-circle"></i></a> ';
+                $acciones = '<a class="btn btn-info btn-sm" href="/usuario/editar/' . $usuario->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
+                $acciones .= '<a class="btn btn-secondary btn-sm" href="/usuario/ver/' . $usuario->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-info-circle"></i> Ver</a> ';
                 if ($usuario->estado == 1) {
-                    $acciones .= '<a class="btn btn-danger btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/0" data-toggle="tooltip" data-placement="top" title="Inactivar"><i class="far fa-eye-slash"></i></a>';
+                    $acciones .= '<a class="btn btn-danger btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
                 } else {
-                    $acciones .= '<a class="btn btn-success btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/1" data-toggle="tooltip" data-placement="top" title="Activar"><i class="fas fa-fw fa-eye"></i></a>';
+                    $acciones .= '<a class="btn btn-success btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check-circle"></i> Activar</a>';
                 }
                 return $acciones;
             })
@@ -52,13 +56,22 @@ class UsuarioController extends Controller
 
     public function guardar(Request $request)
     {
+        // $pattern="[a-zA-Z]+";
         $request->validate(Usuario::$rules);
         $input = $request->all();
-        $usuario = Usuario::select('*')->where('nombre', $request->nombre)->value('nombre');
-        if ($usuario != null) {
-            Flash::error("El usuario " . $usuario . " ya está creado");
+        $correo = Usuario::find($request->email);
+        if ($correo != null) {
+            Flash::error("El correo " . $correo . " ya está en uso");
             return redirect("/usuario/crear");
         }
+        if($request->celular==$request->celularAlternativo){
+            Flash::error("No se puede colocar los celulares iguales, ingrese uno diferente, por favor.");       
+            return redirect("/usuario/crear");
+        }
+        // else if ($request->nombre || $request->apellido != $pattern) {
+        //     Flash::error("El campo nombre y apellido solo admiten letras");
+        //     return back();
+        // }
         try {
             Usuario::create([
                 'nombre' => $input['nombre'],
@@ -67,9 +80,8 @@ class UsuarioController extends Controller
                 'celular' => $input['celular'],
                 'celularAlternativo' => $input['celularAlternativo'],
                 'estado' => 1,
-                'fechaNacimiento' => $input['fechaNacimiento'],
                 'idGenero' => $input['genero'],
-                'password' => Hash::make($input['password']),
+                'password' => Hash::make("dulce_ncan4*:"),
             ]);
             Flash::success("Se ha creado éxitosamente");
             return redirect("/usuario");
@@ -81,42 +93,56 @@ class UsuarioController extends Controller
 
     public function editar($id)
     {
+        $roles = Role::all()->where('name', '<>', 'Admin');
         $generos = DB::table('generos')->get()->where('id', '>', 1);
         $usuario = Usuario::find($id);
         if ($usuario == null) {
             Flash::error("No se encontró el usuario");
             return redirect("/usuario");
         }
-        return view("usuario.editar", compact("usuario", "generos"));
+        return view("usuario.editar", compact("usuario", "generos", "roles"));
     }
 
     public function ver($id)
     {
         $usuario = Usuario::find($id);
         if ($usuario == null) {
-            Flash::error("No se encontró la usuario");
+            Flash::error("No se encontró el usuario");
             return redirect("/usuario");
         }
         $genero = Usuario::select('generos.nombre')->join("generos", "users.idGenero", "generos.id")->value('nombre');
-        return view("usuario.ver", compact("usuario", "genero"));
+        $rol = Role::select('name')->join("model_has_roles", "roles.id", "model_has_roles.role_id")->value('name');
+        return view("usuario.ver", compact("usuario", "genero", "rol"));
     }
 
-    public function modificar(Request $request, $id)
+    public function modificar(Request $request, User $usuario, $id)
     {
+        $correo = Usuario::select('*')->where('email',$request->email)->where('id','<>',$id)->value('email');
+        if ($correo!=null) {
+            Flash::error("El correo ".$correo." ya está creado, intente con otro correo nuevamente.");
+            return redirect("/usuario/editar/{$id}");
+        }
         $usuario = Usuario::select("*")->where("email", $request->email)->first();
         if ($usuario != null) {
             $campos = [
-                'nombre' => ['required', 'string', 'max:255'],
-                'apellido' => ['required', 'string', 'max:255'],
+                'nombre' => ['required', 'string', 'max:255', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+                'apellido' => ['required', 'string', 'max:255', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $usuario->id],
-                'celular' => ['required', 'string', 'max:25'],
-                'celularAlternativo' => ['string', 'max:25'],
-                'fechaNacimiento' => ['required'],
+                'celular' => ['required', 'numeric'],
+                'celularAlternativo' => ['required', 'numeric'],
                 'genero' => ['required', 'exists:generos,id'],
             ];
             $this->validate($request, $campos);
         } else {
-            $request->validate(Usuario::$rules);
+            $campos = [
+                'nombre' => ['required', 'string', 'max:255', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+                'apellido' => ['required', 'string', 'max:255', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'celular' => ['required', 'numeric'],
+                'celularAlternativo' => ['required', 'numeric'],
+                'genero' => ['required', 'exists:generos,id'],
+            ];
+            $this->validate($request, $campos);
         }
         // $input = request()->all();
         try {
@@ -125,16 +151,19 @@ class UsuarioController extends Controller
                 Flash::error("No se encontró el usuario");
                 return redirect("/usuario");
             }
+            if($request->celular==$request->celularAlternativo){
+                Flash::error("No se puede colocar los celulares iguales, ingrese uno diferente, por favor.");       
+                return redirect("/usuario/editar/{$id}");
+            }
             $usuario->update([
                 'nombre' => $request['nombre'],
                 'apellido' => $request['apellido'],
                 'email' => $request['email'],
                 'celular' => $request['celular'],
                 'celularAlternativo' => $request['celularAlternativo'],
-                'fechaNacimiento' => $request['fechaNacimiento'],
                 'idGenero' => $request['genero'],
-
             ]);
+            $usuario->roles()->syncRoles($request->roles);    
             Flash::success("Se ha modificado éxitosamente");
             return redirect("/usuario");
         } catch (\Exception $e) {

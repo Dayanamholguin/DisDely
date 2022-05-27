@@ -57,7 +57,6 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'celular' => ['required', 'string', 'max:25'],
             'celularAlternativo' => ['string', 'max:25'],
-            'fechaNacimiento' => ['required'],
             'genero' => ['required', 'exists:generos,id'],
             'password' => ['required', 'string', 'confirmed', Password::min(8)
             ->letters()
@@ -84,9 +83,8 @@ class RegisterController extends Controller
             'celular' => $data['celular'],
             'celularAlternativo' => $data['celularAlternativo'],
             'estado' => 1,
-            'fechaNacimiento' => $data['fechaNacimiento'],
             'idGenero' => $data['genero'],
             'password' => Hash::make($data['password']),
-        ])->assognRole('cliente');
+        ])->syncRoles('cliente');
     }
 }

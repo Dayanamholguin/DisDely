@@ -82,22 +82,10 @@ Registrar - DisDely
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="form-floating">
-                                                <label for="fechaNacimiento"><b>Fecha nacimiento</b><b style="color: red"> *</b></label>
-                                                <input id="fechaNacimiento" type="date" value="{{ old('fechaNacimiento') }}" class="form-control @error('fechaNacimiento') is-invalid @enderror" name="fechaNacimiento" required autocomplete="fechaNacimiento" />
-
-                                                @error('fechaNacimiento')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for=""><b>Género</b><b style="color: red"> *</b></label>
                                                 <select class="form-control" name="genero">
-                                                    
+                                                    <option value="">Seleccione</option>
                                                     <option value="2">Masculino</option>
                                                     <option value="3">Femenino</option>
                                                 </select>

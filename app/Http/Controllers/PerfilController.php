@@ -102,6 +102,11 @@ class PerfilController extends Controller
     
     public function modificar(Request $request, $id)
     {
+        $correo = Usuario::select('*')->where('email',$request->email)->where('id','<>',$id)->value('email');
+        if ($correo!=null) {
+            Flash::error("El correo ".$correo." ya está creado, intente con otro correo nuevamente.");
+            return redirect("/perfil/{$request->id}");
+        }
         $usuario = Usuario::select("*")->where("email", $request->email)->first();
         if($usuario != null){
             $campos = [
@@ -110,12 +115,25 @@ class PerfilController extends Controller
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$usuario->id ],
                 'celular' => ['required', 'numeric'],
                 'celularAlternativo' => ['numeric'],
-                'fechaNacimiento' => ['required'],
                 'genero' => ['required', 'exists:generos,id'],
             ];
             $this->validate($request, $campos);
         }else{
-            $request->validate(Usuario::$rules);
+            $e = Usuario::find($request->email);
+            if ($e) {
+                Flash::error("Ese correo ya está en uso");       
+                return back();
+            }
+            $campos = [
+                'nombre' => ['required', 'string', 'max:255'],
+                'apellido' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'],
+                'celular' => ['required', 'numeric'],
+                'celularAlternativo' => ['numeric'],
+                'genero' => ['required', 'exists:generos,id'],
+            ];
+            $this->validate($request, $campos);
+            // $request->validate(Usuario::$rules);
         }
         // $input = request()->all();
         try {
@@ -125,6 +143,10 @@ class PerfilController extends Controller
                 Flash::error("No se encontró el usuario");       
                 return redirect("/perfil/{$request->id}");
             }
+            if($request->celular==$request->celularAlternativo){
+                Flash::error("No se puede colocar los celulares iguales, ingrese uno diferente, por favor.");       
+                return redirect("/perfil/{$request->id}");
+            }
             
             $usuario->update([
                 'nombre' => $request['nombre'],
@@ -132,7 +154,6 @@ class PerfilController extends Controller
                 'email' => $request['email'],
                 'celular' => $request['celular'],
                 'celularAlternativo' => $request['celularAlternativo'],
-                'fechaNacimiento' => $request['fechaNacimiento'],
                 'idGenero' => $request['genero'],
                 
             ]);

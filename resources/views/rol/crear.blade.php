@@ -7,7 +7,7 @@ Roles
 @section('content')
 <div class="card">
     <div class="card-header text-center">
-        <strong>Crear Rol</strong> / <a href="/rol" class="alert-link titulo">Volver</a>
+        <strong>Crear Rol</strong> 
     </div>
     <div class="card-body">
         <div class="container mt-1">
@@ -23,21 +23,22 @@ Roles
                 <div class="row ">
                     <div class="col-auto">
                         <div class="form-group">
-                            <label for="">Nombre<b style="color: red"> *</b></label>
+                            <label for="name">Nombre<b style="color: red"> *</b></label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror"
                                 value="{{old('name')}}" id="name" name="name" placeholder="Ingrese nombre del rol"
-                                required>
+                                required pattern="[a-zA-Z]+">
                             @error('name')
                             <div class="alert alert-danger" role="alert">
                                 {{$message}}
                             </div>
                             @enderror
                         </div>
+                        <br>
                         <div class="form-group ">
                             <h5>Lista de permisos<b style="color: red"> *</b></h5>
                             @foreach ($permissions as $permission)
                             <div>
-                                <label>
+                                <label> 
                                     <input type="checkbox" name="permissions[]" value="{{$permission->id}}"
                                         class="mr-1">
                                     {{$permission->description}}
@@ -46,7 +47,8 @@ Roles
                             @endforeach
                         </div>
                         <div class="col-12 centrado">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="submit" class="btn btn-primary tipoletra">Crear</button>
+                            <a href="/rol" class="btn btn-primary tipoletra">Volver</a>
                         </div>
                     </div>
                 </div>
@@ -62,7 +64,7 @@ $(document).ready(function() {
     $("#name").focusout(function(event) {
         console.log();
         if($(this).val().length > 0){
-            $(this).addClass("is-valid").removeClass("is-invalid");
+            // $(this).addClass("is-valid").removeClass("is-invalid");
             $(this).rules('remove');
         } 
         else {

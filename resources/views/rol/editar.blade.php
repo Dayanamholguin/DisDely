@@ -7,7 +7,7 @@ Roles
 @section('content')
 <div class="card">      
     <div class="card-header text-center">
-        <strong>Editar Rol</strong> / <a href="/rol" class="alert-link titulo">Volver</a>
+        <strong>Editar Rol</strong>
     </div>
     <div class="card-body">
         <div class="container mt-1">
@@ -25,7 +25,7 @@ Roles
                     <div class="col-auto">
                         <div class="form-group">
                             <label for="">Nombre<b style="color: red"> *</b></label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{$rol->name}}" required>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{$rol->name}}" required pattern="[a-zA-Z]+">
                             
                             @error('name')
                                 <div class="alert alert-danger" role="alert">
@@ -33,7 +33,7 @@ Roles
                                 </div>
                             @enderror
                         </div>
-                        <div class="form-group ">
+                        <div class="form-group">
                             <h5>Lista de permisos<b style="color: red"> *</b></h5>
                             @foreach ($permisos as $value)
                                 <div>
@@ -51,7 +51,8 @@ Roles
                             @endforeach
                         </div>
                         <div class="col-12 centrado">
-                            <button type="submit" class="btn btn-primary">Modificar</button>
+                            <button type="submit" class="btn btn-primary tipoletra">Editar</button>
+                            <a href="/rol" class="btn btn-primary tipoletra">Volver</a>
                         </div>
                     </div>
                 </div>
@@ -60,4 +61,29 @@ Roles
     </div>
 </div>
 @endsection
- 
+@section('scripts')
+
+<script>
+$(document).ready(function() {
+    $("#name").focusout(function(event) {
+        console.log();
+        if($(this).val().length > 0){
+            // $(this).addClass("is-valid").removeClass("is-invalid");
+            $(this).rules('remove');
+        } 
+        else {
+            $(this).valid();
+            $(this).addClass("is-invalid").removeClass("is-valid");
+        }
+    });
+    $('#form').validate({
+        rules: {
+            name: {
+                mouseout: true,
+                required: true,
+            }
+        },
+    });
+});
+</script>
+@endsection

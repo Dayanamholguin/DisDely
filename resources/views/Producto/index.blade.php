@@ -6,8 +6,8 @@ Gestión de Productos
 
 @section('content')
 <div class="card">
-    <div class="card-header text-center">
-        <strong>Productos</strong> / <a href="/producto/crear" class="alert-link titulo">Crear producto</a>
+    <div class="card-header">
+        <a href="/producto/crear" class="alert-link btn btn-primary tipoletra"><i class="bi bi-plus-circle"></i> Crear Producto</a>
     </div>
     <div class="card-body">
     @include('flash::message')
@@ -18,8 +18,6 @@ Gestión de Productos
                     <th>Nombre</th>
                     <th>Categoría</th>
                     <th>Sabor</th>
-                    <th>Etapa</th>
-                    <th>Pisos</th>
                     <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
@@ -57,14 +55,6 @@ Gestión de Productos
                 {
                     data: 'snombre',
                     name: 'nombre'
-                },
-                {
-                    data: 'enombre',
-                    name: 'nombre'
-                },
-                {
-                    data: 'pisos',
-                    name: 'pisos'
                 },
                 {
                     data: 'estado',
