@@ -43,7 +43,7 @@
         </ul>
 
         <div class="container mt-5">
-            <input type="text" id="formulario" class="form-control my-2">
+            <input type="text" id="formulario" class="form-control my-2" placeholder="Buscar el producto">
             <button class="btn btn-info mb-2" id="boton">Buscar</button>
             <ul id="resultado">
 
@@ -81,6 +81,19 @@
 
 @section('scripts')
 
+
+
+<script src="/assetsGallery/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assetsGallery/vendor/jquery.easing/jquery.easing.min.js"></script>
+<script src="/assetsGallery/vendor/php-email-form/validate.js"></script>
+<script src="/assetsGallery/vendor/waypoints/jquery.waypoints.min.js"></script>
+<script src="/assetsGallery/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="/assetsGallery/vendor/venobox/venobox.min.js"></script>
+<script src="/assetsGallery/vendor/owl.carousel/owl.carousel.min.js"></script>
+<script src="/assetsGallery/vendor/aos/aos.js"></script>
+
+<!-- Template Main JS File -->
+<script src="/assetsGallery/js/main.js"></script>
 <script>
     const productos = [{
             nombre: 'Platanos'
@@ -127,18 +140,5 @@
     formulario.addEventListener('keyup', filtrar)
     filtrar();
 </script>
-
-
-<script src="/assetsGallery/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/assetsGallery/vendor/jquery.easing/jquery.easing.min.js"></script>
-<script src="/assetsGallery/vendor/php-email-form/validate.js"></script>
-<script src="/assetsGallery/vendor/waypoints/jquery.waypoints.min.js"></script>
-<script src="/assetsGallery/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-<script src="/assetsGallery/vendor/venobox/venobox.min.js"></script>
-<script src="/assetsGallery/vendor/owl.carousel/owl.carousel.min.js"></script>
-<script src="/assetsGallery/vendor/aos/aos.js"></script>
-
-<!-- Template Main JS File -->
-<script src="/assetsGallery/js/main.js"></script>
 
 @endsection

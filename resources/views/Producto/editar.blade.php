@@ -23,7 +23,8 @@ Productos
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <div class="form-group">
-                    <img src="/imagenes/{{$producto->img}}" class="imagen" width='180px' height='150px'>
+                    <!-- <img src="/imagenes/{{$producto->img}}" class="imagen" width='180px' height='150px'> -->
+                    <img src="{{$producto->img=='/img/defecto.jpg'?"/img/defecto.jpg":"/imagenes/$producto->img"}}" class="imagen" width='180px' height='150px'>
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12">

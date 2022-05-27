@@ -113,7 +113,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/cotizacion/crear/{producto}', [CotizacionController::class, 'crear']);
     Route::get('/cotizacion/personalizada', [CotizacionController::class, 'Personalizada']);
     Route::post('/cotizacion/guardar', [CotizacionController::class, 'guardar']);
-    // Route::get('/cotizacion/editar/{id}', [CotizacionController::class, 'editar']);
+    Route::get('/cotizacion/editar/{id}', [CotizacionController::class, 'editar']);
     Route::get('/cotizacion/ver/{id}', [CotizacionController::class, 'verDetalle']);
     Route::get('/cotizacion/verListado/{id}', [CotizacionController::class, 'verListar']);
     // Route::get('/cotizacion/catalogo', [CotizacionController::class, 'catalogo']);

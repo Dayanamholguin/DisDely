@@ -34,7 +34,7 @@ class CotizacionController extends Controller
             //     return $cotizacion->fechaEntrega->toDayDateTimeString();
             // })
             ->editColumn('acciones', function ($cotizacion) {
-                $acciones = '<a class="btn btn-info btn-sm" href="/cotizacion/xxx/' . $cotizacion->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
+                $acciones = '<a class="btn btn-info btn-sm" href="/cotizacion/editar/' . $cotizacion->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
                 $acciones .= '<a class="btn btn-secondary btn-sm" href="/cotizacion/ver/' . $cotizacion->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-info-circle"></i> Ver</a> ';
                 // if ($cotizacion->estado == 1) {
                 //     $acciones .= '<a class="btn btn-danger btn-sm " href="/cotizacion/cambiar/estado/' . $cotizacion->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
@@ -93,8 +93,8 @@ class CotizacionController extends Controller
             }
             DB::commit();
             \Cart::clear();
-            Flash::success("Se ha creado éxitosamente");
-            return redirect("/producto/catalogo");
+            Flash::success("Se ha creado la cotización éxitosamente");
+            return redirect("/cotizacion");
         } catch (\Exception $e) {
             DB::rollBack();
             Flash::error($e->getMessage());
@@ -104,24 +104,43 @@ class CotizacionController extends Controller
 
     public function editar($id)
     {
-
-        $categorias = Categoria::all()->where('id', '>', 1)->where('estado', 1);
-        $sabores = Sabor::all()->where('id', '>', 1)->where('estado', 1);
-        $etapas = DB::table('etapas')->get()->where('id', '>', 1);
-        $producto = Producto::find($id);
-        if ($producto == null) {
-            Flash::error("No se encontró el producto");
-            return redirect("/producto");
+        $cotizacionUsuario = Cotizacion::select('users.nombre')
+        ->join("users", "users.id", "cotizaciones.idUser")
+        ->where("cotizaciones.id", $id)
+        ->value("nombre");
+        // dd($cotizacionUsuario);
+        $cotizacion = Cotizacion::find($id);
+        if ($cotizacion == null) {
+            Flash::error("No se encontró la cotización");
+            return redirect("/cotizacion");
         }
-        $mi_imagen = public_path() . '/imagenes/' . $producto->img;
-        if (@getimagesize($mi_imagen)) {
-            $producto->img = $producto->img;
-            //return "<img src='/"."imagenes/".$producto->img."' width='100px' height='100px'>";
-        } else {
-            $producto->img = public_path() . '/img/defecto.jpg';
-            //return "<img src='/img/defecto.jpg' width='100px' height='100px'>";
+        $detalleCotizacion = detalle_cotizaciones::select("cotizaciones.id as cotizacionid","detalle_cotizaciones.*", "productos.nombre as producto")
+        ->join("cotizaciones", "detalle_cotizaciones.idCotizacion", "cotizaciones.id")
+        ->join("productos", "productos.id", "detalle_cotizaciones.idProducto")
+        ->where("cotizaciones.id", $id)
+        ->get();
+        dd($detalleCotizacion);
+        foreach ($detalleCotizacion as $value) {
+            \Cart::add(array(
+                'id' => $producto->id,
+                'name' => $producto->nombre,
+                'price' => 0,
+                'quantity' => 1,
+                'attributes' => array(
+                    'img' => $producto->img==null?$img:$producto->img,
+                    'saborDeseado' => $request->saborDeseado,
+                    'numeroPersonas' => $request->numeroPersonas,
+                    'frase' => $request->frase,
+                    'pisos' => $request->pisos,
+                    'descripcionProducto' => $request->descripcionProducto,
+                    'tiempo' => now(),
+                    'clienteId' => $userId,
+                    'cliente' => $userName,
+                    'imagen1' => $img,
+                )
+            ));
         }
-        return view("producto.editar", compact("producto", "categorias", "sabores", "etapas"));
+        return view("cotizacion.editar", compact("cotizacion", "cotizacionUsuario"));
     }
     public function verDetalle($id)
     {

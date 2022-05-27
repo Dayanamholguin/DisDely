@@ -17,7 +17,7 @@
             <thead class="thead-ligth">
                 <tr>
                     <th>#</th>
-                    <th>imagen</th>
+                    <th>imagen referencia</th>
                     <th>Producto</th>
                     <th>Número de personas</th>
                     <th>Pisos</th>
@@ -30,8 +30,11 @@
                 @foreach($detalleCotizacion as $value)
                     <tr>
                         <td>{{$value->cotizacionid}}</td>
-                        <td><img src="{{$value->img==null?'':'/imagenes/'.$value->img}}" height="80px" width="80px" alt="">{{$value->img==null?'No tiene imagen de referencia':''}}</td>
-                        <td>{{$value->producto}}</td>
+                        <td>
+                            <img src="{{$value->img==null?'/img/defecto.jpg':'/imagenes/'.$value->img}}" height="80px" width="80px" alt="{{$value->img==null?'No tiene imagen de referencia':''}}" data-toggle="tooltip" data-placement="bottom" title="{{$value->img==null?'No tiene imagen de referencia':'Foto de referencia'}}">
+                            <!--  -->
+                        </td>
+                        <td><a href="" class="titulo" data-toggle="tooltip" data-placement="bottom" title="Ver información del producto">{{$value->producto}}</a></td>
                         <td>{{$value->numeroPersonas}}</td>
                         <td>{{$value->pisos}}</td>
                         <td>{{$value->saborDeseado}}</td>

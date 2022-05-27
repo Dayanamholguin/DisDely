@@ -51,13 +51,14 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+            return Validator::make($data, [
             'nombre' => ['required', 'string', 'max:255'],
             'apellido' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'celular' => ['required', 'string', 'max:25'],
-            'celularAlternativo' => ['string', 'max:25'],
+            'celular' => ['required', 'numeric'],
+            'celularAlternativo' => ['numeric'],
             'genero' => ['required', 'exists:generos,id'],
+            'foto'=>['image'],
             'password' => ['required', 'string', 'confirmed', Password::min(8)
             ->letters()
             ->mixedCase()
@@ -76,6 +77,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        
+        if ($data['genero']==3) {
+            $foto = 'undraw_profile_3.svg';
+        }else{
+            $foto = 'undraw_profile_2.svg';
+        }
         return User::create([
             'nombre' => $data['nombre'],
             'apellido' => $data['apellido'],
@@ -84,6 +91,7 @@ class RegisterController extends Controller
             'celularAlternativo' => $data['celularAlternativo'],
             'estado' => 1,
             'idGenero' => $data['genero'],
+            'foto'=> $foto,
             'password' => Hash::make($data['password']),
         ])->syncRoles('cliente');
     }

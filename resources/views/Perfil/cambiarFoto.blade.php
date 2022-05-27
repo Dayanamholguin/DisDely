@@ -22,15 +22,9 @@
 
                 @for($i=0;$i<=3;$i++) <label>
                     <img src="/../img/undraw_profile_{{$i}}.svg" alt="Admin" class="rounded-circle mt-5" width="90">
-<<<<<<< HEAD
-                    <input type="checkbox" name="imagen" 
-                    {{$usuario->foto}} == "undraw_profile_{{$i}}.svg"{{'checked'}}
-                    value="undraw_profile_{{$i}}.svg" class="mr-1">
-=======
                     <input type="radio" name="imagen" 
                     {{$usuario->foto == "undraw_profile_$i.svg" ? "checked" : ""}}
                     value="undraw_profile_{{$i}}.svg" class="mr-1 imagenes">
->>>>>>> 1eda5d10229e0c37fc8a57ac7c74a78f3706d01d
                     </label>
                 @endfor
                     <div class="col-12 centrado mt-5">

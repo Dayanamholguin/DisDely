@@ -135,7 +135,7 @@
                         <b>Fotos referencia: </b>
                         <p id="foto"></p>
                         <p>
-                            <img src="" id="imagen1">
+                            <img src="" id="imagen1" width="300;">
                         </p>
                     </div>
                 </div>

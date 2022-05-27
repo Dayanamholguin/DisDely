@@ -69,7 +69,7 @@ Registrar - DisDely
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="form-floating">
                                                 <label for="celularAlternativo"><b>Celular alternativo</b><b style="color: red"> *</b></label>
                                                 <input id="celularAlternativo" type="text" name="celularAlternativo" value="{{ old('celularAlternativo') }}" class="form-control @error('celularAlternativo') is-invalid @enderror" name="celularAlternativo" required autocomplete="celularAlternativo" placeholder="Ingrese su teléfono alternativo" />
@@ -81,7 +81,7 @@ Registrar - DisDely
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for=""><b>Género</b><b style="color: red"> *</b></label>
                                                 <select class="form-control" name="genero">

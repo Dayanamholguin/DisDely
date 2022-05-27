@@ -144,16 +144,11 @@ class ProductoController extends Controller
             Flash::error("No se encontró el producto");
             return redirect("/producto");
         }
-
-
-
         $mi_imagen = public_path() . '/imagenes/' . $producto->img;
-        if (@getimagesize($mi_imagen)) {
+        if (is_file($mi_imagen)) {
             $producto->img = $producto->img;
-            //return "<img src='/"."imagenes/".$producto->img."' width='100px' height='100px'>";
         } else {
-            $producto->img = public_path() . '/img/defecto.jpg';
-            //return "<img src='/img/defecto.jpg' width='100px' height='100px'>";
+            $producto->img = '/img/defecto.jpg';
         }
         return view("producto.editar", compact("producto", "categorias", "sabores", "etapas"));
     }
@@ -168,6 +163,12 @@ class ProductoController extends Controller
         if ($producto == null) {
             Flash::error("No se encontró el producto");
             return redirect("/producto");
+        }
+        $mi_imagen = public_path() . '/imagenes/' . $producto->img;
+        if (is_file($mi_imagen)) {
+            $producto->img = $producto->img;
+        } else {
+            $producto->img = '/img/defecto.jpg';
         }
         $categoria = Producto::select('categorias.nombre')->join("categorias", "productos.idCategoria", "categorias.id")->where("productos.id",$id)->value('nombre');
         $sabor = Producto::select('sabores.nombre')->join("sabores", "productos.idsabor", "sabores.id")->where("productos.id",$id)->value('nombre');
