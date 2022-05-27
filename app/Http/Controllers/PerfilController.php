@@ -51,11 +51,13 @@ class PerfilController extends Controller
             Flash::error("Perfil no encontrado");      
             return redirect("/perfil/{$request->id}");
         }
+        
             $imagen = null;
             if($request->imagen != null){
-                $imagen =time().'.'.$request->imagen->extension();
-                $request->imagen->move(public_path('imagenes'), $imagen);
+                $imagen =$usuario->nombre.'.'.time().'.'.$request->imagen->extension();
+                $request->imagen->move(public_path('img'), $imagen);
             }
+            // dd($imagen);
             $usuario->update([
                 "foto"=>$imagen,
             ]);

@@ -12,12 +12,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
 use DataTables;
 use Flash;
-use Laracasts\Flash\Flash as FlashFlash;
+//use Laracasts\Flash\Flash as Flash;
 use PhpParser\Node\Stmt\Catch_;
-
-use Spatie\Permission\Models\Role;
 use App\Models\User;
-
+use Spatie\Permission\Models\Role;
 class UsuarioController extends Controller
 {
     public function index()
@@ -56,7 +54,6 @@ class UsuarioController extends Controller
 
     public function guardar(Request $request)
     {
-        // $pattern="[a-zA-Z]+";
         $request->validate(Usuario::$rules);
         $input = $request->all();
         $correo = Usuario::find($request->email);
@@ -73,6 +70,12 @@ class UsuarioController extends Controller
         //     return back();
         // }
         try {
+            if ($input['genero']==3) {
+                $foto = 'undraw_profile_3.svg';
+            }else{
+                $foto = 'undraw_profile_2.svg';
+            }
+            // dd($foto);
             Usuario::create([
                 'nombre' => $input['nombre'],
                 'apellido' => $input['apellido'],
@@ -82,6 +85,7 @@ class UsuarioController extends Controller
                 'estado' => 1,
                 'idGenero' => $input['genero'],
                 'password' => Hash::make("dulce_ncan4*:"),
+                'foto' => $foto,
             ]);
             Flash::success("Se ha creado éxitosamente");
             return redirect("/usuario");
@@ -100,7 +104,17 @@ class UsuarioController extends Controller
             Flash::error("No se encontró el usuario");
             return redirect("/usuario");
         }
-        return view("usuario.editar", compact("usuario", "generos", "roles"));
+        // SELECT roles.name FROM `model_has_roles`
+        // join roles on roles.id=model_has_roles.role_id
+        // JOIN users on users.id=model_has_roles.model_id
+        // where users.id=3;
+        $consulta = Role::select('roles.id')
+        ->join("model_has_roles", "roles.id", "model_has_roles.role_id")
+        ->join("users", "users.id", "model_has_roles.model_id")
+        ->where("users.id", $id)
+        ->value("id");
+        // dd($consulta);
+        return view("usuario.editar", compact("usuario", "generos", "roles", "consulta"));
     }
 
     public function ver($id)
@@ -115,7 +129,7 @@ class UsuarioController extends Controller
         return view("usuario.ver", compact("usuario", "genero", "rol"));
     }
 
-    public function modificar(Request $request, User $usuario, $id)
+    public function modificar(Request $request, $id)
     {
         $correo = Usuario::select('*')->where('email',$request->email)->where('id','<>',$id)->value('email');
         if ($correo!=null) {
@@ -125,8 +139,8 @@ class UsuarioController extends Controller
         $usuario = Usuario::select("*")->where("email", $request->email)->first();
         if ($usuario != null) {
             $campos = [
-                'nombre' => ['required', 'string', 'max:255', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
-                'apellido' => ['required', 'string', 'max:255', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+                'nombre' => ['required', 'string', 'max:255'],
+                'apellido' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $usuario->id],
                 'celular' => ['required', 'numeric'],
                 'celularAlternativo' => ['required', 'numeric'],
@@ -135,8 +149,8 @@ class UsuarioController extends Controller
             $this->validate($request, $campos);
         } else {
             $campos = [
-                'nombre' => ['required', 'string', 'max:255', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
-                'apellido' => ['required', 'string', 'max:255', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+                'nombre' => ['required', 'string', 'max:255'],
+                'apellido' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'celular' => ['required', 'numeric'],
                 'celularAlternativo' => ['required', 'numeric'],
@@ -162,8 +176,9 @@ class UsuarioController extends Controller
                 'celular' => $request['celular'],
                 'celularAlternativo' => $request['celularAlternativo'],
                 'idGenero' => $request['genero'],
-            ]);
-            $usuario->roles()->syncRoles($request->roles);    
+            ]); 
+            $usuarioRol = User::find($id);
+            $usuarioRol->roles()->sync($request->roles);        
             Flash::success("Se ha modificado éxitosamente");
             return redirect("/usuario");
         } catch (\Exception $e) {

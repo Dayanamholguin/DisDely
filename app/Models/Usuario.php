@@ -16,6 +16,7 @@ class Usuario extends Model
         'celular',
         'celularAlternativo',
         'estado',
+        'foto',
         'idGenero',
         'password',
     ];
@@ -26,8 +27,8 @@ class Usuario extends Model
     ];
 
     public static $rules = [
-        'nombre' => ['required', 'string', 'max:255', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'], 
-        'apellido' => ['required', 'string', 'max:255', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+        'nombre' => ['required', 'string', 'max:255', 'regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/'], 
+        'apellido' => ['required', 'string', 'max:255', 'regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/'],
         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
         'celular' => ['required', 'numeric'],
         'celularAlternativo' => ['required','numeric'],

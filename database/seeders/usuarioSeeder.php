@@ -26,6 +26,7 @@ class usuarioSeeder extends Seeder
             'celular' => '123456',
             'celularAlternativo' => '4566578',
             'estado' => 1,
+            'foto' =>'undraw_profile_3.svg',
             'idGenero' => 3,
             'password' => Hash::make("123456789"),
             'created_at' => "2022/05/02",

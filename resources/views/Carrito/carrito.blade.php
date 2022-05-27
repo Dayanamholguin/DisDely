@@ -74,7 +74,6 @@
                 </div>
             </div>
             @endif
-
             @foreach($carritoCollection as $item)
             <div class="row">
                 <div class="col-lg-3 col-sm-12">
@@ -187,7 +186,7 @@
                         $('#foto').html("No tiene imágenes");
                     }else {
                         $('#foto').html("");
-                        let imagen= "/imagenesCotizar/"+res.attributes.imagen1;
+                        let imagen= "/imagenes/"+res.attributes.imagen1;
                         $('#imagen1').attr("src",imagen);
                     }
                 },

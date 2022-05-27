@@ -72,6 +72,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/producto/guardar', [ProductoController::class, 'guardar']);
     Route::get('/producto/editar/{id}', [ProductoController::class, 'editar']);
     Route::get('/producto/ver/{id}', [ProductoController::class, 'ver']);
+    Route::get('/producto/verProductoCatalogo/{id}', [ProductoController::class, 'verProductoCatalogo']);
     Route::get('/producto/catalogo', [ProductoController::class, 'catalogo']);
     Route::post('/producto/actualizar', [ProductoController::class, 'modificar']);
     Route::get('/producto/cambiar/estado/{id}/{estado}', [ProductoController::class, 'modificarEstado']);
@@ -107,12 +108,14 @@ Route::group(['middleware' => 'auth'], function(){
     
 
     //cotización
-    // Route::get('/cotizacion', [CotizacionController::class, 'index']);
-    // Route::get('/cotizacion/listar', [CotizacionController::class, 'listar']);
+    Route::get('/cotizacion', [CotizacionController::class, 'index']);
+    Route::get('/cotizacion/listar', [CotizacionController::class, 'listar']);
     Route::get('/cotizacion/crear/{producto}', [CotizacionController::class, 'crear']);
+    Route::get('/cotizacion/personalizada', [CotizacionController::class, 'Personalizada']);
     Route::post('/cotizacion/guardar', [CotizacionController::class, 'guardar']);
     // Route::get('/cotizacion/editar/{id}', [CotizacionController::class, 'editar']);
-    // Route::get('/cotizacion/ver/{id}', [CotizacionController::class, 'ver']);
+    Route::get('/cotizacion/ver/{id}', [CotizacionController::class, 'verDetalle']);
+    Route::get('/cotizacion/verListado/{id}', [CotizacionController::class, 'verListar']);
     // Route::get('/cotizacion/catalogo', [CotizacionController::class, 'catalogo']);
     // Route::post('/cotizacion/actualizar', [CotizacionController::class, 'modificar']);
     // Route::get('/cotizacion/cambiar/estado/{id}/{estado}', [CotizacionController::class, 'modificarEstado']);

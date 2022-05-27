@@ -40,7 +40,7 @@ Usuarios
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="nombre">Nombre<b style="color: red"> *</b></label>
-                        <input value="{{$usuario->nombre}}" type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required pattern="[a-zA-Z]+">
+                        <input value="{{$usuario->nombre}}" type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required>
                         @error('nombre')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}
@@ -51,7 +51,7 @@ Usuarios
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="apellido">Apellido<b style="color: red"> *</b></label>
-                        <input value="{{$usuario->apellido}}" type="text" class="form-control @error('apellido') is-invalid @enderror" id="apellido" name="apellido" required pattern="[a-zA-Z]+">
+                        <input value="{{$usuario->apellido}}" type="text" class="form-control @error('apellido') is-invalid @enderror" id="apellido" name="apellido" require>
                         @error('apellido')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}
@@ -112,7 +112,7 @@ Usuarios
                     <label for="">Rol<b style="color: red"> *</b></label>
                     <select class="form-control" name="roles[]">
                     @foreach ($roles as $key => $value)
-                        <option value="{{$value->id}}">{{$value->name}}</option>
+                        <option {{$value->id == $consulta?'selected':''}} value="{{$value->id}}">{{$value->name}}</option>
                     @endforeach
                     @error('roles')
                         <div class="alert alert-danger" role="alert">

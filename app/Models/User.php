@@ -28,6 +28,7 @@ class User extends Authenticatable
         'celular',
         'celularAlternativo',
         'estado',
+        'foto',
         'idGenero',
         'password',
     ];
