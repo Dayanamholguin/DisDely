@@ -56,7 +56,6 @@ class UsuarioController extends Controller
 
     public function guardar(Request $request)
     {
-        // $pattern="[a-zA-Z]+";
         $request->validate(Usuario::$rules);
         $input = $request->all();
         $correo = Usuario::find($request->email);
@@ -73,6 +72,12 @@ class UsuarioController extends Controller
         //     return back();
         // }
         try {
+            if ($input['genero']==3) {
+                $foto = 'undraw_profile_3.svg';
+            }else{
+                $foto = 'undraw_profile_2.svg';
+            }
+            // dd($foto);
             Usuario::create([
                 'nombre' => $input['nombre'],
                 'apellido' => $input['apellido'],
@@ -82,6 +87,7 @@ class UsuarioController extends Controller
                 'estado' => 1,
                 'idGenero' => $input['genero'],
                 'password' => Hash::make("dulce_ncan4*:"),
+                'foto' => $foto,
             ]);
             Flash::success("Se ha creado éxitosamente");
             return redirect("/usuario");
@@ -125,8 +131,8 @@ class UsuarioController extends Controller
         $usuario = Usuario::select("*")->where("email", $request->email)->first();
         if ($usuario != null) {
             $campos = [
-                'nombre' => ['required', 'string', 'max:255', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
-                'apellido' => ['required', 'string', 'max:255', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+                'nombre' => ['required', 'string', 'max:255'],
+                'apellido' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $usuario->id],
                 'celular' => ['required', 'numeric'],
                 'celularAlternativo' => ['required', 'numeric'],
@@ -135,8 +141,8 @@ class UsuarioController extends Controller
             $this->validate($request, $campos);
         } else {
             $campos = [
-                'nombre' => ['required', 'string', 'max:255', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
-                'apellido' => ['required', 'string', 'max:255', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
+                'nombre' => ['required', 'string', 'max:255'],
+                'apellido' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'celular' => ['required', 'numeric'],
                 'celularAlternativo' => ['required', 'numeric'],

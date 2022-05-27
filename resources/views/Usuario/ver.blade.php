@@ -19,8 +19,8 @@ Usuarios
         </div>
         <div class="card-body text-center">
             <h5 class="card-title">Usuario {{$usuario->nombre}}</h5>
-            <img src="/imagenes/{{$usuario->img}}" width='auto' height='auto'>;
-            <p class="card-text">Apellido: {{$usuario->apellido}}</p>
+            <img src="/../img/{{Auth::user()->foto}}" width='80px' height='80px'>
+            <p class="card-text mt-2">Apellido: {{$usuario->apellido}}</p>
             <p class="card-text">Correo: {{$usuario->email}}</p>
             <p class="card-text">Teléfono: {{$usuario->celular}}</p>
             <p class="card-text">Celular Alternativo: {{$usuario->celularAlternativo}}</p>

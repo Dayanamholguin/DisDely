@@ -19,7 +19,7 @@ class RoleController extends Controller
 
     public function listar(Request $request)
     {
-        $roles = Role::all()->where('id', '>', 0);
+        $roles = Role::all()->where('name', '<>', 'Admin');
         return DataTables::of($roles)
             ->editColumn("estado", function ($rol) {
                 return $rol->estado == 1 ? "Activo" : "Inactivo";
@@ -27,7 +27,7 @@ class RoleController extends Controller
             ->addColumn('acciones', function ($rol) {
                 $acciones = '<a class="btn btn-info btn-sm"  href="/rol/editar/' . $rol->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
                 if ($rol->estado == 1) {
-                    $acciones .= '<a class="btn btn-danger btn-sm"  href="/rol/cambiar/estado/' . $rol->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
+                    $acciones .= '<a class="btn btn-danger btn-sm" href="/rol/cambiar/estado/' . $rol->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
                 } else {
                     $acciones .= '<a class="btn btn-success btn-sm" href="/rol/cambiar/estado/' . $rol->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check-circle"></i> Activar</a>';
                 }
@@ -45,7 +45,7 @@ class RoleController extends Controller
 
     public function guardar(Request $request)
     {
-        $pattern = "[a-zA-Z]+";
+        //$pattern="[a-zA-Z]+";
         $input = $request->all();
         $rol = Role::select('*')->where('name', $request->name)->value('name');
         if ($rol != null) {
@@ -59,15 +59,13 @@ class RoleController extends Controller
         } elseif ($request->name == null) {
             Flash::error("Debe llenar el campo de nombre que desea ponerle al rol");
             return back();
-        } 
-        // elseif ($request->name != $pattern) {
-        //     Flash::error("Para el campo nombre, solo se admiten letras");
-        //     return back();
-        // } 
-        else {
+        //} elseif ($request->name != $pattern) {
+        //    Flash::error("Para el campo nombre, solo se admiten letras");
+        //    return back();
+        } else {
             foreach ($permisos as $permiso) {
                 foreach ($request->permissions as $key => $value) {
-                    if (in_array($value[$key], $request->permissions)) {
+                    if(in_array($value[$key],$request->permissions)){
                         try {
                             $rol = Role::create([
                                 "name" => $input["name"],
@@ -86,7 +84,7 @@ class RoleController extends Controller
                     }
                 }
             }
-        } 
+        }
     }
 
     public function editar($id)
@@ -106,8 +104,8 @@ class RoleController extends Controller
 
     public function modificar(Request $request)
     {
-        $pattern = "[a-zA-Z]+";
-        // $request->validate(Role::$rules);
+        //$pattern="[a-zA-Z]+";
+        //$request->validate(Role::$rules);
         $input = $request->all();
         $id = $request->id;
         $rol = Role::select('*')->where('name', $request->name)->where('id', '<>', $id)->value('name');
@@ -117,17 +115,18 @@ class RoleController extends Controller
         } else if ($request->name == null) {
             Flash::error("El campo nombre es requerido");
             return redirect("/rol/editar/$id");
-        } else if ($request->permisos == null) {
+        }else if ($request->permisos == null) {
             Flash::error("Debe seleccionar los permisos que quiera asociar al rol");
             return redirect("/rol/editar/$id");
-        } else if ($request->name != $pattern) {
-            Flash::error("Para el campo nombre, solo se admiten letras");
-            return redirect("/rol/editar/$id");
         }
+        // } else if ($request->name != $pattern) {
+        //     Flash::error("Para el campo nombre, solo se admiten letras");
+        //     return redirect("/rol/editar/$id");
+        // } 
         $permisos = Permission::all();
         foreach ($permisos as $permiso) {
             foreach ($request->permisos as $key => $value) {
-                if ($value[$key] == $permiso->id) {
+                if (in_array($value[$key], $request->permisos)) {
                     try {
                         $rol = Role::find($input["id"]);
                         if ($rol == null) {

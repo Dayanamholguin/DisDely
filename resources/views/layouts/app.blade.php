@@ -104,7 +104,7 @@
                 </a>
                 <div id="collapsePages" class="collapse tipoletra" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo nos permite tener un registro de las cotizaciones, llevar un seguimiento, de acuerdo al estado en que se encuentre cada una: pendiente, rechazada o aprobada" href="#">Cotización</a>
+                        <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo nos permite tener un registro de las cotizaciones, llevar un seguimiento, de acuerdo al estado en que se encuentre cada una: pendiente, rechazada o aprobada" href="/cotizacion">Cotizaciones</a>
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo nos permite hacer un seguimiento de los pedidos, teniendo así la posibilidad de hacer el registro de los pedidos que se hagan tanto en el aplicativo, como externamente" href="#">Pedidos</a>
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo nos permite hacer seguimiento de los abonos realizados a los pedidos" href="#">Abonos</a>
                         <div class="collapse-divider"></div>
@@ -165,7 +165,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small tipoletra">{{ Auth::user()->nombre}}</span>
-                                <img class="img-profile rounded-circle" src="/../img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="/../img/{{Auth::user()->foto}}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

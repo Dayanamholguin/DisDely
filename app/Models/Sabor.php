@@ -16,7 +16,7 @@ class Sabor extends Model
     ];
 
     public static $rules = [
-        'nombre' => 'required|min:3',
+        'nombre' => 'required|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/',
         'estado' => 'in:1,0'
     ];
 }

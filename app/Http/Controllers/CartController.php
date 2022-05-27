@@ -53,7 +53,7 @@ class CartController extends Controller
         $img = null;
         if ($request->img != null) {
             $img = $producto->nombre . '.' . time() . '.' . $request->img->extension();
-            $request->img->move(public_path('imagenesCotizar'), $img);
+            $request->img->move(public_path('imagenes'), $img);
         }
         $userId = auth()->user()->id;
         $userName = auth()->user()->nombre . " " . auth()->user()->apellido;
@@ -63,7 +63,7 @@ class CartController extends Controller
             'price' => 0,
             'quantity' => 1,
             'attributes' => array(
-                'img' => $producto->img,
+                'img' => $producto->img==null?$img:$producto->img,
                 'saborDeseado' => $request->saborDeseado,
                 'numeroPersonas' => $request->numeroPersonas,
                 'frase' => $request->frase,

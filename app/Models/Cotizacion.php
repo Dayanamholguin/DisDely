@@ -18,7 +18,7 @@ class Cotizacion extends Model
 
     public static $rules = [
         'idUser' => 'required|exists:users,id',
-        'fechaEntrega' => 'required',
+        'fechaEntrega' => 'required|date',
         'descripcionGeneral' => 'required',
         'estado' => 'in:1,0'
     ];

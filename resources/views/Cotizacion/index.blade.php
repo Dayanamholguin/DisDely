@@ -1,29 +1,28 @@
 @extends('layouts.app')
 
 @section('title')
-Gestión de Productos
+Gestión de Cotizaciones
 @endsection
 
 @section('content')
 <div class="card">
     <div class="card-header">
-        <a href="/usuario/crear" class="alert-link btn btn-primary tipoletra"><i class="bi bi-person-plus"></i> Crear Usuario</a>
+        <a href="/cotizacion/personalizada" class="alert-link btn btn-primary tipoletra"><i class="bi bi-plus-circle"></i> Crear cotización personalizada</a>
     </div>
     <div class="card-body">
     @include('flash::message')
-        <table id="usuario" class="table table-bordered dt-responsive dataTable text-left" style="width: 100%;">
+        <table id="cotizaciones" class="table table-bordered dt-responsive dataTable text-left" style="width: 100%;">
             <thead>
                 <tr>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Email</th>
-                    <th>Celular</th>
+                    <th>#</th>
+                    <th>Usuario</th>
+                    <th>Fecha de entrega</th>
                     <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-
+                
             </tbody>
         </table>
 
@@ -34,29 +33,25 @@ Gestión de Productos
 @section("scripts")
 <script>
     $(document).ready(function() {
-        $('#usuario').DataTable({
+        $('#cotizaciones').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '/usuario/listar',
+            ajax: '/cotizacion/listar',
             columns: [{
-                    data: 'nombre',
-                    name: 'nombre',
+                    data: 'id',
+                    name: 'id'
                 },
                 {
-                    data: 'apellido',
-                    name: 'apellido'
+                    data: 'usuario',
+                    name: 'nombre'
                 },
                 {
-                    data: 'email',
-                    name: 'email'
-                },
-                {
-                    data: 'celular',
-                    name: 'celular'
+                    data: 'fechaEntrega',
+                    name: 'fechaEntrega'
                 },
                 {
                     data: 'estado',
-                    name: 'estado'
+                    name: 'nombre'
                 },
                 {
                     data: 'acciones',
@@ -269,8 +264,7 @@ Gestión de Productos
                 "info": "Mostrando _START_ a _END_ de _TOTAL_ registros"
             }
         });
-        new $.fn.dataTable.FixedHeader( usuario );
+        new $.fn.dataTable.FixedHeader( cotizaciones );
     });
-      
 </script>
 @endsection

@@ -62,6 +62,23 @@ class ProductoController extends Controller
         $productos = Producto::all()->where('catalogo', 1)->where('id', '>', 1);
         return view('producto.catalogo', compact("productos"));
     }
+    public function verProductoCatalogo($id)
+    {
+        if ($id == 1) {
+            Flash::error("No se puede ver el producto personalizado");
+            return redirect("/producto/catalogo");
+        }
+        $producto = Producto::find($id);
+        if ($producto == null) {
+            Flash::error("No se encontró el producto");
+            return redirect("/producto/catalogo");
+        }
+        $categoria = Producto::select('categorias.nombre')->join("categorias", "productos.idCategoria", "categorias.id")->where("productos.id",$id)->value('nombre');
+        $sabor = Producto::select('sabores.nombre')->join("sabores", "productos.idsabor", "sabores.id")->where("productos.id",$id)->value('nombre');
+        $etapa = Producto::select('etapas.nombre')->join("etapas", "productos.idetapa", "etapas.id")->where("productos.id",$id)->value('nombre');
+        return view("producto.verProductoCatalogo", compact("producto", "categoria", "sabor", "etapa"));
+    }
+
 
     public function crear()
     {
@@ -149,12 +166,12 @@ class ProductoController extends Controller
         }
         $producto = Producto::find($id);
         if ($producto == null) {
-            Flash::error("No se encontró la producto");
+            Flash::error("No se encontró el producto");
             return redirect("/producto");
         }
-        $categoria = Producto::select('categorias.nombre')->join("categorias", "productos.idCategoria", "categorias.id")->value('nombre');
-        $sabor = Producto::select('sabores.nombre')->join("sabores", "productos.idsabor", "sabores.id")->value('nombre');
-        $etapa = Producto::select('etapas.nombre')->join("etapas", "productos.idetapa", "etapas.id")->value('nombre');
+        $categoria = Producto::select('categorias.nombre')->join("categorias", "productos.idCategoria", "categorias.id")->where("productos.id",$id)->value('nombre');
+        $sabor = Producto::select('sabores.nombre')->join("sabores", "productos.idsabor", "sabores.id")->where("productos.id",$id)->value('nombre');
+        $etapa = Producto::select('etapas.nombre')->join("etapas", "productos.idetapa", "etapas.id")->where("productos.id",$id)->value('nombre');
         return view("producto.ver", compact("producto", "categoria", "sabor", "etapa"));
     }
 

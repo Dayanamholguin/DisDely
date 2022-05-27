@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Producto;
-use App\Models\Categoria;
+use App\Models\detalle_cotizaciones;
 use App\Models\Sabor;
 use App\Models\cotizacion;
 use App\Http\Controllers\File;
 use Illuminate\Support\Facades\DB;
 //use Yajra\DataTables\DataTables;
+use Carbon\Carbon;
 use Illuminate\Http\UploadedFile;
 use DataTables;
 use Flash;
@@ -19,43 +20,32 @@ class CotizacionController extends Controller
 {
     public function index()
     {
-        return view('producto.index');
+        return view('cotizacion.index');
     }
     public function listar(Request $request)
     {
-        $producto = Producto::select("productos.*", "categorias.nombre as cnombre", "sabores.nombre as snombre", "etapas.nombre as enombre")
-            ->join("categorias", "productos.idCategoria", "categorias.id")
-            ->join("sabores", "productos.idSabor", "sabores.id")
-            ->join("etapas", "productos.idEtapa", "etapas.id")
+        $cotizacion = cotizacion::select("cotizaciones.*", "users.nombre as usuario", "estado_cotizaciones.nombre as estado")
+            ->join("users", "users.id", "cotizaciones.idUser")
+            ->join("estado_cotizaciones", "estado_cotizaciones.id", "cotizaciones.estado")
             ->get();
-        return DataTables::of($producto)
-            ->editColumn("imagen", function ($producto) {
-                $mi_imagen = public_path() . '/imagenes/' . $producto->img;
-                if (@getimagesize($mi_imagen)) {
-                    return "<img src='/" . "imagenes/" . $producto->img . "' width='60px' height='60px'>";
-                } else {
-                    return "<img src='/img/defecto.jpg' width='60px' height='60px'>";
-                }
-                //return "<img src='/".($producto->img==''?"imagenes/defecto.jpg":"imagenes/".$producto->img)."' width='100px' height='100px'>";
-            })
-            ->editColumn("estado", function ($producto) {
-                return $producto->estado == 1 ? "Activo" : "Inactivo";
-            })
-
-            ->editColumn("acciones", function ($producto) {
-                $acciones = '<a class="btn btn-primary btn-sm" href="/producto/editar/' . $producto->id . '" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit"></i></a> ';
-                $acciones .= '<a class="btn btn-secondary btn-sm" href="/producto/ver/' . $producto->id . '" data-toggle="tooltip" data-placement="top" title="Ver"><i class="fas fa-info-circle"></i></a> ';
-                if ($producto->estado == 1) {
-                    $acciones .= '<a class="btn btn-danger btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/0" data-toggle="tooltip" data-placement="top" title="Inactivar"><i class="far fa-eye-slash"></i></a>';
-                } else {
-                    $acciones .= '<a class="btn btn-success btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/1" data-toggle="tooltip" data-placement="top" title="Activar"><i class="far fa-eye"></i></a>';
-                }
+            
+        return DataTables::of($cotizacion)
+            // ->editColumn("fechaEntrega", function ($cotizacion) {
+            //     return $cotizacion->fechaEntrega->toDayDateTimeString();
+            // })
+            ->editColumn('acciones', function ($cotizacion) {
+                $acciones = '<a class="btn btn-info btn-sm" href="/cotizacion/xxx/' . $cotizacion->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
+                $acciones .= '<a class="btn btn-secondary btn-sm" href="/cotizacion/ver/' . $cotizacion->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-info-circle"></i> Ver</a> ';
+                // if ($cotizacion->estado == 1) {
+                //     $acciones .= '<a class="btn btn-danger btn-sm " href="/cotizacion/cambiar/estado/' . $cotizacion->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
+                // } else {
+                //     $acciones .= '<a class="btn btn-success btn-sm " href="/cotizacion/cambiar/estado/' . $cotizacion->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check-circle"></i> Activar</a>';
+                // }
                 return $acciones;
             })
-            ->rawColumns(['acciones', 'imagen'])
+            ->rawColumns(['acciones'])
             ->make(true);
     }
-
     public function crear($id)
     {
         $producto = Producto::find($id);
@@ -65,79 +55,51 @@ class CotizacionController extends Controller
         }
         return view('cotizacion.crear', compact("producto"));
     }
+    public function Personalizada()
+    {
+        $producto = Producto::find(1);
+        return view('cotizacion.crearPersonalizada', compact("producto"));
+    }
 
     public function guardar(Request $request)
     {
+        $productos = \Cart::getContent();
         $input = $request->all();
-        try{
+        // dd(Carbon::now()->addDays(3));
+        if ($input["fechaEntrega"]<now() || $input["fechaEntrega"]<now()->addDays(3)) {
+            Flash::error("No se puede poner la fecha de entrega antes de la fecha actual. También debes tener el cuenta que podría que estés poniendo la fecha muy cerca, mínimo con tres días de anticipación.");
+            return back();
+        }
+        try {
             DB::beginTransaction();
             $cotizacion = cotizacion::create([
-                "idUser"=> $input["idUser"],
-                "fechaEntrega"=> $input["fechaEntrega"],
-                "descripcionGeneral"=> $input["descripcionGeneral"],
-                "estado"=> 1,
-
+                "idUser" => $input["idUser"],
+                "fechaEntrega" => $input["fechaEntrega"],
+                "descripcionGeneral" => $input["descripcionGeneral"],
+                "estado" => 1,
             ]);
-            
-            foreach ($input["id"] as $key => $value) {
-                $producto = \Cart::get($value);
+            foreach ($productos as $value) {
                 detalle_cotizaciones::create([
-                    "idCotizacion"=>$cotizacion->id,
-                    "idProducto"=>$value,
-                    // "numeroPersonas"=>$input["descripcion"
-                    "numeroPersonas"=>$producto.attributes.numeroPersonas,
-                    "saborDeseado"=>$producto.attributes.saborDeseado,
-                    "frase"=>$producto.attributes.frase,
-                    "pisos"=>$producto.attributes.pisos,
-                    "pisos"=>$producto.attributes.pisos,
-                    "descripcionProducto"=>$producto.attributes.descripcionProducto,
-                    "img"=>$producto.attributes.img,
-                    // "descripcion"=>$input["descripcion"][$key]
+                    "idCotizacion" => $cotizacion->id,
+                    "idProducto" => $value->id,
+                    "numeroPersonas" => $value->attributes->numeroPersonas,
+                    "saborDeseado" => $value->attributes->saborDeseado,
+                    "frase" => $value->attributes->frase,
+                    "pisos" => $value->attributes->pisos,
+                    "pisos" => $value->attributes->pisos,
+                    "descripcionProducto" => $value->attributes->descripcionProducto,
+                    "img" => $value->attributes->imagen1,
                 ]);
-                
             }
             DB::commit();
+            \Cart::clear();
             Flash::success("Se ha creado éxitosamente");
             return redirect("/producto/catalogo");
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollBack();
             Flash::error($e->getMessage());
             return redirect("/carrito");
         }
-        // $request->validate(Producto::$rules);
-        // $input = $request->all();
-        // $producto = Producto::select('*')->where('nombre', $request->nombre)->value('nombre');
-        // if ($producto != null) {
-        //     Flash::error("El producto " . $producto . " ya está creado");
-        //     return redirect("/producto/crear");
-        // }
-        // try {
-        //     $imagen = null;
-        //     if ($request->imagen != null) {
-        //         $imagen = $input["nombre"] . '.' . time() . '.' . $request->imagen->extension();
-        //         $request->imagen->move(public_path('imagenes'), $imagen);
-        //     }else {
-        //         Flash::error("La imagen es requerida, por favor, colóquela");
-        //         return back();
-        //     }
-        //     Producto::create([
-        //         "idCategoria" => $input["categoria"],
-        //         "idSabor" => $input["sabor"],
-        //         "idEtapa" => $input["etapa"],
-        //         "nombre" => $input["nombre"],
-        //         "descripcion" => $input["descripcion"],
-        //         "numeroPersonas" => $input["numeroPersonas"],
-        //         "pisos" => $input["pisos"],
-        //         "catalogo" => $input["catalogo"],
-        //         "img" => $imagen,
-        //         "estado" => 1
-        //     ]);
-        //     Flash::success("Se ha creado éxitosamente");
-        //     return redirect("/producto");
-        // } catch (\Exception $e) {
-        //     Flash::error($e->getMessage());
-        //     return redirect("/producto/crear");
-        // }
     }
 
     public function editar($id)
@@ -161,18 +123,23 @@ class CotizacionController extends Controller
         }
         return view("producto.editar", compact("producto", "categorias", "sabores", "etapas"));
     }
-
-    public function ver($id)
+    public function verDetalle($id)
     {
-        $producto = Producto::find($id);
-        if ($producto == null) {
-            Flash::error("No se encontró la producto");
-            return redirect("/producto");
+        $cotizacion = Cotizacion::find($id);
+        if ($cotizacion == null) {
+            Flash::error("No se encontró la cotización");
+            return redirect("/cotizacion");
         }
-        $categoria = Producto::select('categorias.nombre')->join("categorias", "productos.idCategoria", "categorias.id")->value('nombre');
-        $sabor = Producto::select('sabores.nombre')->join("sabores", "productos.idsabor", "sabores.id")->value('nombre');
-        $etapa = Producto::select('etapas.nombre')->join("etapas", "productos.idetapa", "etapas.id")->value('nombre');
-        return view("producto.ver", compact("producto", "categoria", "sabor", "etapa"));
+        // SELECT cotizaciones.id, detalle_cotizaciones.*, productos.nombre FROM `detalle_cotizaciones` 
+        // join cotizaciones on detalle_cotizaciones.idCotizacion=cotizaciones.id
+        // join productos on productos.id=detalle_cotizaciones.idProducto
+        // where cotizaciones.id=27
+        $detalleCotizacion = detalle_cotizaciones::select("cotizaciones.id as cotizacionid","detalle_cotizaciones.*", "productos.nombre as producto")
+        ->join("cotizaciones", "detalle_cotizaciones.idCotizacion", "cotizaciones.id")
+        ->join("productos", "productos.id", "detalle_cotizaciones.idProducto")
+        ->where("cotizaciones.id", $id)
+        ->get();
+        return view('cotizacion.ver', compact("detalleCotizacion"));
     }
 
     public function modificar(Request $request)
