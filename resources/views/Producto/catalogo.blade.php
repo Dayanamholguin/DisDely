@@ -13,7 +13,7 @@
 <link href="/assetsGallery/css/style.css" rel="stylesheet">
 @endsection
 @section('car')
-    @include('carrito.icono')
+@include('carrito.icono')
 @endsection
 @section('content')
 <!-- ======= Portfolio Section ======= -->
@@ -35,25 +35,72 @@
         @if(count($productos) == 0)
         <p class="d-flex justify-content-center">No hay productos registrados</p>
         @else
-        <ul id="portfolio-flters" class="d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
-            <li data-filter="*" class="filter-active">All</li>
-            <li data-filter=".filter-app">App</li>
-            <li data-filter=".filter-card">Card</li>
-            <li data-filter=".filter-web">Web</li>
+        <ul id="portfolio-flters" class="d-flex justify-content-center boton" data-aos="fade-up" data-aos-delay="100">
+            <li data-filter="*" class="filter-active">Todo</li>
         </ul>
 
-        <div class="container mt-5">
-            <input type="text" id="formulario" class="form-control my-2" placeholder="Buscar el producto">
-            <button class="btn btn-info mb-2" id="boton">Buscar</button>
+        <!--Search-->
+        <style>
+            .hol {
+                display: flex;
+                align-items: center;
+            }
+
+            form>div {
+                display: flex;
+                background: #fff;
+                padding: 9px 22px 9px 26px;
+                border-radius: 30px;
+                border: 2px solid #cad3dc;
+                box-shadow: rgba(255, 255, 255, 0.5) -8px -8px 15px,
+                    rgba(0, 0, 0, 0.1) 10px 10px 10px,
+                    rgba(255, 255, 255, 0.5) -8px -8px 15px inset,
+                    rgba(0, 0, 0, 0.1) 10px 10px 10px inset;
+            }
+
+            form input {
+                border: none;
+                background: transparent;
+                font-weight: bold;
+                padding-left: 24px;
+                background-size: 16px;
+                width: 0px;
+                transition: all 1s;
+            }
+
+            form input:focus {
+                outline: none;
+                width: 250px;
+            }
+        </style>
+
+        <form class="hol">
+            <div>
+            <i class="bi bi-search"></i>
+                <input type="text" name="" id="searh-item" placeholder="Buscar..." onkeyup="search()">
+            </div>
+        </form>
+
+
+        
+        <!-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group">
+                <input id="formulario" type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button id="boton" class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </div>
+            </div>
             <ul id="resultado">
 
             </ul>
-        </div>
-<br>
+        </form> -->
+        <br>
 
-        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+        <div class="row portfolio-container product-list" id="product-list" data-aos="fade-up" data-aos-delay="200">
             @foreach($productos as $producto)
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="col-lg-4 col-md-6 portfolio-item filter-app product">
                 <div class="portfolio-img"><a href="/ver/imagen/{{$producto->id}}" data-gall="portfolioGallery" class="venobox preview-link" title="{{$producto->nombre}}"><img style="background-size: 100% 100%;" src="/imagenes/{{$producto->img}}" class="img-fluid" alt=""></a></div>
                 <div class="portfolio-info">
                     <h4>{{$producto->nombre}}</h4>
@@ -94,7 +141,44 @@
 
 <!-- Template Main JS File -->
 <script src="/assetsGallery/js/main.js"></script>
+
 <script>
+    //Search
+    const search = () => {
+        const searchbox = document.getElementById("searh-item").value.toUpperCase();
+        const storeitems = document.getElementById("product-list");
+        const product = document.querySelectorAll(".product");
+        const pname = document.getElementsByTagName("h4");
+
+        for (var i = 0; i < pname.length; i++) {
+            let match = product[i].getElementsByTagName('h4')[0];
+
+            if (match) {
+                let textvalue = match.textContent || match.innerHTML
+
+                if (textvalue.toUpperCase().indexOf(searchbox) > -1) {
+                    product[i].style.display = "";
+                } else {
+                    product[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    // $.ajax({
+    //     url: `/producto/catalogo/${idCategoria}`,
+    //     type: "GET",
+    //     success: function (res){
+    //         let productos = JSON.parse(res)
+    //         productos.forEach(p => {
+    //             document.querySelector(".contenedor").appendChild(`<p>nombre: ${p.nombre}</p>`
+    //             )
+    //         })
+    //     },
+    // });
+</script>
+
+<!-- <script>
     const productos = [{
             nombre: 'Platanos'
         },
@@ -139,6 +223,6 @@
     boton.addEventListener('click', filtrar)
     formulario.addEventListener('keyup', filtrar)
     filtrar();
-</script>
+</script> -->
 
 @endsection
