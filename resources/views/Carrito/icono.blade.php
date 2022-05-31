@@ -23,7 +23,7 @@
                         <div class="status-indicator bg-success"></div>
                     </div>
                     <div class="font-weight-bold">
-                        <!--· {{$item->attributes->tiempo->diffForHumans()}}-->
+                        
                         <div class="text-truncate">{{$item->name}}</div>
                         <div class="small text-gray-500">{{$item->attributes->cliente}}</div>
                     </div>
