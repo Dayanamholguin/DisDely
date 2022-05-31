@@ -52,7 +52,7 @@
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/home">
                     <i class="fas fa-home tipoletra"></i>
                     <span>Dashboard</span>
                 </a>

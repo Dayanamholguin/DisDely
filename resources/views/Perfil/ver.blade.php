@@ -8,7 +8,7 @@
       <h6 class="mb-0">Nombre Completo<b style="color:red;">*</b></h6>
     </div>
     <div class="col-md-6 col-sm-12 mt-3">
-      <input type="text" class="form-control" value="{{$usuario->nombre }}" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required pattern="[a-zA-Z]+" placeholder="Ingrese su nombre">
+      <input type="text" class="form-control" value="{{$usuario->nombre }}" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+" placeholder="Ingrese su nombre">
       @error('nombre')
       <div class="alert alert-danger" role="alert">
         {{$message}}
@@ -16,7 +16,7 @@
       @enderror
     </div>
     <div class="col-md-6 col-sm-12 mt-3">
-      <input type="text" class="form-control" value="{{$usuario->apellido }}" class="form-control @error('apellido') is-invalid @enderror" id="apellido" name="apellido" required pattern="[a-zA-Z]+" placeholder="Ingrese su apellido">
+      <input type="text" class="form-control" value="{{$usuario->apellido }}" class="form-control @error('apellido') is-invalid @enderror" id="apellido" name="apellido" required pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+" placeholder="Ingrese su apellido">
       @error('apellido')
       <div class="alert alert-danger" role="alert">
         {{$message}}

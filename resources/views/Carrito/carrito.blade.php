@@ -54,7 +54,7 @@
                             </div>
                         </div>
                         <div class="col-12 centrado">
-                            <button type="submit" class="btn btn-primary"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAUxJREFUSEvNlN0xBEEUhb8TAZsBEbARKBGQAV55YCMgAzzwakWADGRgRUAGNoOjempazU/PTFfNrtr7ONN9v3vOvbfFmkNrzs//AWy7VLME5pJmq1D3p6ACiHkPJb2PhbQssn0F3AJvko5TgFiMpEGLU4Bt4KdMvCvpuwkZBQjJbM+BE+BeUlBUi1UA9oEPYClpUkLjECTb0mVXp4e2F8AecCZpnhiCGigAUsr7AKfAE7CQNK1m67LIdhjxLWAqKRTYv2ipC1W7qrbYjgV9SgoWF9E7ZrbvgEvgWVJIUERKge2wMwfR0lzADvBVHp5ICha0wnbnucFFsf0KHAEzSUFRCnADXDeVDlpU2hG2+SU5m+2PredlUEEJiSPbx6k1N6sHmVX3HstV8ACcA4+SLho70fkvqwfVsSwuNF7Q6oannovNUDCmF1kKNhrwC7rGoRm2ijZeAAAAAElFTkSuQmCC" /> Añadir producto a cotización</button>
+                            <button type="submit" class="btn btn-primary"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAUxJREFUSEvNlN0xBEEUhb8TAZsBEbARKBGQAV55YCMgAzzwakWADGRgRUAGNoOjempazU/PTFfNrtr7ONN9v3vOvbfFmkNrzs//AWy7VLME5pJmq1D3p6ACiHkPJb2PhbQssn0F3AJvko5TgFiMpEGLU4Bt4KdMvCvpuwkZBQjJbM+BE+BeUlBUi1UA9oEPYClpUkLjECTb0mVXp4e2F8AecCZpnhiCGigAUsr7AKfAE7CQNK1m67LIdhjxLWAqKRTYv2ipC1W7qrbYjgV9SgoWF9E7ZrbvgEvgWVJIUERKge2wMwfR0lzADvBVHp5ICha0wnbnucFFsf0KHAEzSUFRCnADXDeVDlpU2hG2+SU5m+2PredlUEEJiSPbx6k1N6sHmVX3HstV8ACcA4+SLho70fkvqwfVsSwuNF7Q6oannovNUDCmF1kKNhrwC7rGoRm2ijZeAAAAAElFTkSuQmCC" /> Realizar cotización</button>
                         </div>
                     </div>
                 
@@ -81,7 +81,7 @@
                 </div>
                 <div class="col-lg-5 col-sm-12">
                     <p>
-                        <input type="hidden" name="id[]" value="{{$item->id}}">
+                        <input type="hidden" name="id" value="{{$item->id}}">
                         <b><a href="#"  role="button" class="titulo"  onclick="mostrar({{$item->id}})" data-toggle="tooltip" data-placement="right" title="Clic para ver descripción del producto">{{ $item->name }}</a></b><br>
                         <b>Sabor: </b>{{ $item->attributes->saborDeseado }}
                     </p>
@@ -89,18 +89,18 @@
             </form>
                 <div class="col-lg-4 col-sm-12">
                     <div class="row">
-                        <form action="/actualizarCarrito" method="POST">
+                        {{-- <form action="/actualizarCarrito" method="POST">
                             {{ csrf_field() }}
                             <div class="form-group row ml-3">
                                     <input type="hidden" value="{{ $item->id}}" id="id" name="id">
                                     <input type="number" class="form-control form-control-sm" value="{{ $item->quantity }}" id="quantity" name="quantity" style="width: 70px; margin-right: 10px;">
                                     <button class="btn btn-secondary btn-sm" style="margin-right: 25px;"><i class="fa fa-edit"></i></button>
                             </div>
-                        </form>
+                        </form> --}}
                         <form action="/quitarProducto" method="POST">
                             {{ csrf_field() }}
                             <input type="hidden" value="{{ $item->id }}" id="id" name="id">
-                            <button class="btn btn-dark btn-sm" style="margin-right: 10px;"><i class="fa fa-trash"></i></button>
+                            <button class="btn btn-dark btn-sm" style="margin-right: 10px;" data-toggle="tooltip" data-placement="right" title="Quitar producto de la cotización"><i class="fa fa-trash"></i></button>
                         </form>
                     </div>
                 </div>
@@ -110,7 +110,7 @@
             @if(count($carritoCollection)>0)
             <form action="/limpiarCarrito" method="POST">
                 {{ csrf_field() }}
-                <button class="btn btn-secondary btn-md">Limpiar Carrito</button>
+                <button class="btn btn-secondary btn-md" data-toggle="tooltip" data-placement="right" title="Vaciar el carrito">Limpiar Carrito</button>
             </form>
             @endif
         </div>

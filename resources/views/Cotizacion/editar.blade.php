@@ -1,17 +1,18 @@
+{{-- ---------------------------------------------------------- --}}
 @extends('layouts.app')
-@section('car')
+{{-- @section('car')
 @include('carrito.icono')
-@endsection
+@endsection --}}
 
 @section('content')
 
 <div class="container">
     <div class="row justify-content-center">
 
-        
+        @if(\Cart::getTotalQuantity()>0)
         <div class="card">
             <div class="card-header text-center">
-                <strong>Edición de la cotizacion</strong> / <a href="/cotizacion" class="alert-link titulo">Volver</a>
+                <strong>Edición de la cotización</strong> / <a href="/cotizacion" class="alert-link titulo">Volver</a>
             </div>
             <div class="card-body">
                 <div class="container mt-1">
@@ -21,9 +22,10 @@
                         </div>
                     </div>
                 </div>
-                <form id="form" action="/cotizacion/guardar" method="post" enctype="multipart/form-data">
+                <form id="form" action="/cotizacion/actualizar" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="idUser" value="{{$cotizacion->idUser}}" />
+                    <input type="hidden" name="idCotizacion" value="{{$cotizacion->id}}" />
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
@@ -54,13 +56,125 @@
                             </div>
                         </div>
                         <div class="col-12 centrado">
-                            <button type="submit" class="btn btn-primary"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAUxJREFUSEvNlN0xBEEUhb8TAZsBEbARKBGQAV55YCMgAzzwakWADGRgRUAGNoOjempazU/PTFfNrtr7ONN9v3vOvbfFmkNrzs//AWy7VLME5pJmq1D3p6ACiHkPJb2PhbQssn0F3AJvko5TgFiMpEGLU4Bt4KdMvCvpuwkZBQjJbM+BE+BeUlBUi1UA9oEPYClpUkLjECTb0mVXp4e2F8AecCZpnhiCGigAUsr7AKfAE7CQNK1m67LIdhjxLWAqKRTYv2ipC1W7qrbYjgV9SgoWF9E7ZrbvgEvgWVJIUERKge2wMwfR0lzADvBVHp5ICha0wnbnucFFsf0KHAEzSUFRCnADXDeVDlpU2hG2+SU5m+2PredlUEEJiSPbx6k1N6sHmVX3HstV8ACcA4+SLho70fkvqwfVsSwuNF7Q6oannovNUDCmF1kKNhrwC7rGoRm2ijZeAAAAAElFTkSuQmCC" /> Añadir producto a cotización</button>
+                            <button type="submit" class="btn btn-primary mr-3"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAUxJREFUSEvNlN0xBEEUhb8TAZsBEbARKBGQAV55YCMgAzzwakWADGRgRUAGNoOjempazU/PTFfNrtr7ONN9v3vOvbfFmkNrzs//AWy7VLME5pJmq1D3p6ACiHkPJb2PhbQssn0F3AJvko5TgFiMpEGLU4Bt4KdMvCvpuwkZBQjJbM+BE+BeUlBUi1UA9oEPYClpUkLjECTb0mVXp4e2F8AecCZpnhiCGigAUsr7AKfAE7CQNK1m67LIdhjxLWAqKRTYv2ipC1W7qrbYjgV9SgoWF9E7ZrbvgEvgWVJIUERKge2wMwfR0lzADvBVHp5ICha0wnbnucFFsf0KHAEzSUFRCnADXDeVDlpU2hG2+SU5m+2PredlUEEJiSPbx6k1N6sHmVX3HstV8ACcA4+SLho70fkvqwfVsSwuNF7Q6oannovNUDCmF1kKNhrwC7rGoRm2ijZeAAAAAElFTkSuQmCC" /> Editar cotización</button>
+                            <a href="/cancelar" class="btn btn-secondary">Cancelar</a>
                         </div>
                     </div>
                 
             </div>
         </div>
-        
+        <div class="col-sm-12 mt-3 row">
+            <div class="col-sm-12 text-center">
+                <a href="#" class="titulo alert-link" onclick="agregarProductos()">Agregar otro producto a la cotización</a>
+            </div>
+            <div class="col-sm-12 centrado mt-3 mb-3" id="mostrarOpciones" style="display: none;">
+                <a href="/cotizacion/personalizada" class="btn btn-primary btn-sm mr-3">Agregar personalizado</a>
+                <a href="/producto/catalogo" class="btn btn-primary btn-sm">Agregar desde catálogo</a>
+            </div>
+        </div>
+        <div class="col-lg-7 col-sm-12 mt-3">
+            <p>{{ count(Cart::getContent())}} Producto(s) en la cotización</p>
+            @else
+            <div class="container mt-3">
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <p>No hay productos en tu carrito</p>
+                        <div class=" col-12 centrado">
+                            <a href="/producto/catalogo" class="btn btn-primary">Ver productos</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
+            @foreach($carritoCollection as $item)
+            <div class="row">
+                <div class="col-lg-3 col-sm-12">
+                    <img src="/imagenes/{{ $item->attributes->img }}" class="img-thumbnail" width="200" height="200">
+                </div>
+                <div class="col-lg-5 col-sm-12">
+                    <p>
+                        <input type="hidden" name="id" value="{{$item->id}}">
+                        <b><a href="#"  role="button" class="titulo"  onclick="mostrar({{$item->id}})" data-toggle="tooltip" data-placement="right" title="Clic para editar el producto">{{ $item->name }}</a></b><br>
+                        <b>Sabor: </b>{{ $item->attributes->saborDeseado }}
+                    </p>
+                </div>
+            </form>
+                <div class="col-lg-4 col-sm-12">
+                    <div class="row">
+                        {{-- <form action="/actualizarCarrito" method="POST">
+                            {{ csrf_field() }}
+                            <div class="form-group row ml-3">
+                                    <input type="hidden" value="{{ $item->id}}" id="id" name="id">
+                                    <input type="number" class="form-control form-control-sm" value="{{ $item->quantity }}" id="quantity" name="quantity" style="width: 70px; margin-right: 10px;">
+                                    <button class="btn btn-secondary btn-sm" style="margin-right: 25px;"><i class="fa fa-edit"></i></button>
+                            </div>
+                        </form> --}}
+                        <form action="/quitarProducto" method="POST">
+                            {{ csrf_field() }}
+                            <input type="hidden" value="{{ $item->id }}" id="id" name="id">
+                            <button class="btn btn-dark btn-sm" style="margin-right: 25px;"><i class="fa fa-trash"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            @endforeach
+            
+        </div>
+        @if(count($carritoCollection)>0)
+        <div class="col-lg-5 col-sm-12 mt-3" id="imagen" style="display: none;">
+            <div class="mostrar">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <strong id="nombre"></strong>
+                    </div>
+                    <div class="card-body">
+                        <form action="/actualizarCarrito" method="POST" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="idUser" value="{{$cotizacion->idUser}}" />
+                            <input type="hidden" id="idProducto" value="" name="id">
+                            {{-- <input type="text" id="id" value="" name="id"> --}}
+                            <div class="form-group col-md-12">
+                                <label for="">Sabor deseado: <b style="color: red"> *</b> </label>
+                                <input type="text" class="form-control form-control-sm " id="sabor" value="" name="saborDeseado">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="">Para número de personas: <b style="color: red"> *</b></label>
+                                <input type="number" class="form-control form-control-sm" id="nPersonas" value="" name="numeroPersonas">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="">Pisos: <b style="color: red"> *</b></label>
+                                <input type="number" class="form-control form-control-sm" id="pisos" value="" name="pisos">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="">Frase: </label>
+                                <input type="text" class="form-control form-control-sm" id="frase" value="" name="frase" placeholder="Escribe la frase de tu pastel aquí">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="">Descripción: <b style="color: red"> *</b></label>
+                                <input type="text" class="form-control form-control-sm" id="descripcionProducto" value="" name="descripcionProducto">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="">Foto de referencia: </label>
+                                <input type="file" class="form-control-file" name="img" value="">
+                                {{-- <input type="hidden" name="imagenJs" id="imagenJs" value=""> --}}
+                                <p id="foto"></p>
+                                <p>
+                                    <img src="" id="imagen1" width="300;">
+                                </p>
+                            </div>
+                            <div class="centrado">
+                                <button class="btn btn-dark btn-sm mb-3">Actualizar datos del producto</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- <p><b>Total: </b>${{ \Cart::getTotal() }}</p>
+            <br><a href="/shop" class="btn btn-dark">Continue en la tienda</a>
+            <a href="/checkout" class="btn btn-success">Proceder al Checkout</a> -->
+        </div>
+        @endif
     </div>
     <br><br>
 </div>
@@ -88,25 +202,31 @@
                 type: "GET",
                 success: function (res) {
                     $('#nombre').html(res.name);
-                    $('#sabor').html(res.attributes.saborDeseado);
-                    $('#nPersonas').html(res.attributes.numeroPersonas);
-                    $('#pisos').html(res.attributes.pisos);
+                    $('#sabor').val(res.attributes.saborDeseado);
+                    $('#idProducto').val(res.id);
+                    $('#nPersonas').val(res.attributes.numeroPersonas);
+                    $('#pisos').val(res.attributes.pisos);
                     if (res.attributes.frase==null) {
-                        $('#frase').html("No tiene frase");
+                        $('#frase').val('');
                     }else {
-                        $('#frase').html(res.attributes.frase);
+                        $('#frase').val(res.attributes.frase);
                     }
-                    $('#descripcionProducto').html(res.attributes.descripcionProducto);
+                    $('#descripcionProducto').val(res.attributes.descripcionProducto);
                     if (res.attributes.imagen1==null) {
                         $('#imagen1').attr("src","");
                         $('#foto').html("No tiene imágenes");
                     }else {
                         $('#foto').html("");
                         let imagen= "/imagenes/"+res.attributes.imagen1;
+                        // $('#img').val(imagen);
+                        // $('#imagenJs').val(imagen);
                         $('#imagen1').attr("src",imagen);
                     }
                 },
             });
+    }
+    function agregarProductos() {
+        $("#mostrarOpciones").toggle();
     }
 </script>
 

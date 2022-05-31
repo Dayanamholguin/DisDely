@@ -114,10 +114,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/cotizacion/personalizada', [CotizacionController::class, 'Personalizada']);
     Route::post('/cotizacion/guardar', [CotizacionController::class, 'guardar']);
     Route::get('/cotizacion/editar/{id}', [CotizacionController::class, 'editar']);
+    Route::get('/cancelar', [CotizacionController::class, 'cancelar']);
     Route::get('/cotizacion/ver/{id}', [CotizacionController::class, 'verDetalle']);
     Route::get('/cotizacion/verListado/{id}', [CotizacionController::class, 'verListar']);
-    // Route::get('/cotizacion/catalogo', [CotizacionController::class, 'catalogo']);
-    // Route::post('/cotizacion/actualizar', [CotizacionController::class, 'modificar']);
+    Route::post('/cotizacion/actualizar', [CotizacionController::class, 'modificar']);
     // Route::get('/cotizacion/cambiar/estado/{id}/{estado}', [CotizacionController::class, 'modificarEstado']);
 
     // Route::post('/perfil/actualizar/{id}', [PerfilController::class, 'modificar'])->middleware('password.confirm');
