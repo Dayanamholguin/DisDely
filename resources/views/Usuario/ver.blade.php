@@ -10,7 +10,7 @@ Usuarios
         <div class="col-md-4 border-right">
             <div class="card-body">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                    <img src="/../img/{{Auth::user()->foto}}" class="rounded-circle mt-4" width='150px' height='150px'>
+                    <img src="/../img/{{$usuario->foto}}" class="rounded-circle mt-4" width='150px' height='150px'>
                     <div class="mt-3">
                         <h4>Usuario {{$usuario->nombre}}</h4>
                     </div>

@@ -120,6 +120,7 @@ class UsuarioController extends Controller
     public function ver($id)
     {
         $usuario = Usuario::find($id);
+        // dd($usuario);
         if ($usuario == null) {
             Flash::error("No se encontró el usuario");
             return redirect("/usuario");
