@@ -202,8 +202,8 @@ class CotizacionController extends Controller
             return back();
         }
         $input = $request->all();
-        if ($input["fechaEntrega"] < now() || $input["fechaEntrega"] < now()->addDays(3)) {
-            Flash("No se puede poner la fecha de entrega antes de la fecha actual. También debes tener el cuenta que podría que estés poniendo la fecha muy cerca, mínimo con tres días de anticipación.")->error()->important();
+        if ($input["fechaEntrega"] < now()) {
+            Flash("No se puede poner la fecha de entrega antes de la fecha actual.")->error()->important();
             return back();
         }
         $detalleCotizacion = detalle_cotizaciones::select("cotizaciones.id as cotizacionid", "detalle_cotizaciones.*", "productos.nombre as producto", "productos.img as imagen", "productos.id as idProducto")
@@ -213,6 +213,7 @@ class CotizacionController extends Controller
             ->get();
         // $detalleCotizacion=detalle_cotizaciones::all()->where("idCotizacion", $request->idCotizacion);
         $productos = \Cart::getContent();
+        // dd($productos);
         try {
             DB::beginTransaction();
             $cotizacion->update([
@@ -257,6 +258,36 @@ class CotizacionController extends Controller
                     }
                 }                
             }
+            $detalleNueva = detalle_cotizaciones::select("cotizaciones.id as cotizacionid", "detalle_cotizaciones.*", "productos.nombre as producto", "productos.img as imagen", "productos.id as idProducto")
+                ->join("cotizaciones", "detalle_cotizaciones.idCotizacion", "cotizaciones.id")
+                ->join("productos", "productos.id", "detalle_cotizaciones.idProducto")
+                ->where("cotizaciones.id", $cotizacion->id)
+                ->get();
+                $id = [];
+                $cont=0;
+
+                $productosNuevo = \Cart::getContent()->toArray();
+                // dd($productosNuevo);
+                dd(array_search(4, array_column($productosNuevo, 'id')));
+                // dd($detalleNueva );
+                // array_search('blue', array_column($people, 'fav_color'));
+                // dd(array_search(3, array_column($detalleNueva, 'idProducto'))?'lo encontró':'no lo encontró');
+                // dd(array_search(3, $productosNuevo));
+                // dd(array_search(3, $productosNuevo)?'Lo encontró':'no lo encontró');
+                dd(array_search(1, array_column($productosNuevo, 'id'))?'Lo encontró':'no lo encontró');
+            foreach ($detalleNueva as $value) {
+                    // // dd($value->id);
+                    // foreach ($productos as $value) {
+                    //     # code...
+                    // }
+                    // dd('hola');
+                    // $id[$cont] = (array_search($value->idProducto, array_column($productosNuevo, 'id')))?'':$value->idProducto;
+                    
+                    dd('hola');
+                    $cont++;
+            }
+            dd($id);
+
             DB::commit();
             \Cart::clear();
             Flash::success("Se ha actualizado la cotización éxitosamente");
