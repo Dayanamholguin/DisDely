@@ -127,21 +127,6 @@
 @endsection
 
 @section('scripts')
-
-
-
-<script src="/assetsGallery/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/assetsGallery/vendor/jquery.easing/jquery.easing.min.js"></script>
-<script src="/assetsGallery/vendor/php-email-form/validate.js"></script>
-<script src="/assetsGallery/vendor/waypoints/jquery.waypoints.min.js"></script>
-<script src="/assetsGallery/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-<script src="/assetsGallery/vendor/venobox/venobox.min.js"></script>
-<script src="/assetsGallery/vendor/owl.carousel/owl.carousel.min.js"></script>
-<script src="/assetsGallery/vendor/aos/aos.js"></script>
-
-<!-- Template Main JS File -->
-<script src="/assetsGallery/js/main.js"></script>
-
 <script>
     //Search
     const search = () => {
@@ -164,6 +149,7 @@
             }
         }
     }
+    //end search
 
     // $.ajax({
     //     url: `/producto/catalogo/${idCategoria}`,
@@ -225,4 +211,15 @@
     filtrar();
 </script> -->
 
+<script src="/assetsGallery/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assetsGallery/vendor/jquery.easing/jquery.easing.min.js"></script>
+<script src="/assetsGallery/vendor/php-email-form/validate.js"></script>
+<script src="/assetsGallery/vendor/waypoints/jquery.waypoints.min.js"></script>
+<script src="/assetsGallery/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="/assetsGallery/vendor/venobox/venobox.min.js"></script>
+<script src="/assetsGallery/vendor/owl.carousel/owl.carousel.min.js"></script>
+<script src="/assetsGallery/vendor/aos/aos.js"></script>
+
+<!-- Template Main JS File -->
+<script src="/assetsGallery/js/main.js"></script>
 @endsection
