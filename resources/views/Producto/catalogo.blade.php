@@ -128,6 +128,8 @@
 
 @section('scripts')
 <script>
+   /*  let pro = <?= json_encode($productos); ?>;
+    console.log(pro); */
     //Search
     const search = () => {
         const searchbox = document.getElementById("searh-item").value.toUpperCase();

@@ -132,7 +132,7 @@ class CotizacionController extends Controller
             ->join("users", "users.id", "cotizaciones.idUser")
             ->where("cotizaciones.id", $id)
             ->value("nombre");
-           
+
         // dd($cotizacionUsuario);
         if (count($carritoCollection) <> 0) {
             foreach ($carritoCollection as $value) {
@@ -180,6 +180,8 @@ class CotizacionController extends Controller
             Flash::error("No se encontró la cotización");
             return redirect("/cotizacion");
         }
+        $cotizacionUsuario = Cotizacion::select('users.nombre')->join("users", "users.id", "cotizaciones.idUser")->where("cotizaciones.id", $cotizacion->id)->value("nombre");
+        
         // SELECT cotizaciones.id, detalle_cotizaciones.*, productos.nombre FROM `detalle_cotizaciones` 
         // join cotizaciones on detalle_cotizaciones.idCotizacion=cotizaciones.id
         // join productos on productos.id=detalle_cotizaciones.idProducto
@@ -189,7 +191,7 @@ class CotizacionController extends Controller
             ->join("productos", "productos.id", "detalle_cotizaciones.idProducto")
             ->where("cotizaciones.id", $id)
             ->get();
-        return view('cotizacion.ver', compact("detalleCotizacion"));
+        return view('cotizacion.ver', compact("detalleCotizacion", "cotizacion", "cotizacionUsuario"));
     }
 
     public function modificar(Request $request)
@@ -210,10 +212,7 @@ class CotizacionController extends Controller
             ->where("cotizaciones.id", $cotizacion->id)
             ->get();
         // $detalleCotizacion=detalle_cotizaciones::all()->where("idCotizacion", $request->idCotizacion);
-        
         $productos = \Cart::getContent();
-        // dd($productos);
-        // dd('listo');
         try {
             DB::beginTransaction();
             $cotizacion->update([
@@ -222,11 +221,9 @@ class CotizacionController extends Controller
                 "descripcionGeneral" => $input["descripcionGeneral"],
                 "estado" => 1,
             ]);
-            
-            // dd(getType($detalleCotizacion));
-            foreach ($productos as $value ) {
+            foreach ($productos as $value) {
                 foreach ($detalleCotizacion as $item) {
-                    if ($value->id==$item->idProducto) {
+                    if ($value->id == $item->idProducto) {
                         $item->update([
                             "numeroPersonas" => $value->attributes->numeroPersonas,
                             "saborDeseado" => $value->attributes->saborDeseado,
@@ -236,8 +233,16 @@ class CotizacionController extends Controller
                             "img" => $value->attributes->imagen1,
                         ]);
                     }
-                    else 
-                    {
+                    // select idProducto from detalle_cotizaciones
+                    // join cotizaciones on cotizaciones.id = detalle_cotizaciones.idCotizacion
+                    // where (detalle_cotizaciones.idCotizacion = 1) and (detalle_cotizaciones.idProducto=5)
+                    // dd($value->id);
+                    $consultasql = detalle_cotizaciones::select("idProducto")
+                        ->join("cotizaciones","cotizaciones.id","detalle_cotizaciones.idCotizacion")// $value->attributes->idCotizacion)
+                        ->where('detalle_cotizaciones.idCotizacion', $value->attributes->idCotizacion)
+                        ->where('detalle_cotizaciones.idProducto', $value->id)
+                        ->value("idProducto");
+                    if ($consultasql == null) {
                         detalle_cotizaciones::create([
                             "idCotizacion" => $cotizacion->id,
                             "idProducto" => $value->id,
@@ -250,7 +255,7 @@ class CotizacionController extends Controller
                             "img" => $value->attributes->imagen1,
                         ]);
                     }
-                }
+                }                
             }
             DB::commit();
             \Cart::clear();
@@ -261,46 +266,6 @@ class CotizacionController extends Controller
             Flash::error($e->getMessage());
             return redirect("/cotizacion");
         }
-        // $request->validate(Producto::$rules);
-        // $id = $request->id;
-        // $input = $request->all();
-        // $producto = Producto::select('*')->where('nombre', $request->nombre)->where('id', '<>', $id)->value('nombre');
-        // if ($producto != null) {
-        //     Flash::error("El producto " . $producto . " ya está creado");
-        //     return redirect("/producto/editar/{$id}");
-        // }
-
-        // try {
-        //     $producto = Producto::find($input["id"]);
-        //     if ($producto == null) {
-        //         Flash::error("No se encontró el producto");
-        //         return redirect("/producto");
-        //     }
-        //     $producto->update([
-        //         "idCategoria" => $input["categoria"],
-        //         "idSabor" => $input["sabor"],
-        //         "idEtapa" => $input["etapa"],
-        //         "nombre" => $input["nombre"],
-        //         "descripcion" => $input["descripcion"],
-        //         "numeroPersonas" => $input["numeroPersonas"],
-        //         "pisos" => $input["pisos"],
-        //         "catalogo" => $input["catalogo"],
-        //         //"img"=>$imagen,
-        //         "estado" => 1
-        //     ]);
-        //     if ($request->hasFile('img')) {
-        //         $archivoFoto = $request->file('img');
-        //         $nombreFoto = time() . $archivoFoto->getClientOriginalName();
-        //         $archivoFoto->move(public_path() . '/imagenes/', $nombreFoto);
-        //         $producto->img = $nombreFoto;
-        //         $producto->update(['img' => $nombreFoto]);
-        //     }
-        //     Flash::success("Se ha modificado éxitosamente");
-        //     return redirect("/producto");
-        // } catch (\Exception $e) {
-        //     Flash::error($e->getMessage());
-        //     return redirect("/producto/editar/{$id}");
-        // }
     }
 
     public function modificarEstado($id, $estado)
