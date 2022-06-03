@@ -52,7 +52,7 @@ class SaborController extends Controller
         }
         try {
             Sabor::create([
-                "nombre" => $input["nombre"],
+                "nombre" => ucfirst($input["nombre"]),
                 "estado" => 1
             ]);
             Flash::success("Se ha creado éxitosamente");

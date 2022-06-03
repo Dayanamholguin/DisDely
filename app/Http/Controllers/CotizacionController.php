@@ -79,7 +79,7 @@ class CotizacionController extends Controller
             $cotizacion = cotizacion::create([
                 "idUser" => $input["idUser"],
                 "fechaEntrega" => $input["fechaEntrega"],
-                "descripcionGeneral" => $input["descripcionGeneral"],
+                "descripcionGeneral" => ucfirst($input["descripcionGeneral"]),
                 "estado" => 1,
             ]);
             foreach ($productos as $value) {

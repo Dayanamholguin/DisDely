@@ -84,8 +84,8 @@ class ProductoController extends Controller
 
     public function crear()
     {
-        $categorias = Categoria::all()->where('id', '>', 1)->where('estado', 1);
-        $sabores = Sabor::all()->where('id', '>', 1)->where('estado', 1);
+        $categorias = Categoria::select('*')->where('id', '>', 1)->where('estado', 1)->orderBy('nombre', 'asc')->get();
+        $sabores = Sabor::select('*')->where('id', '>', 1)->where('estado', 1)->orderBy('nombre', 'asc')->get();
         $etapas = DB::table('etapas')->get()->where('id', '>', 1);
         return view('producto.crear', compact("categorias", "sabores", "etapas"));
     }
@@ -112,8 +112,8 @@ class ProductoController extends Controller
                 "idCategoria" => $input["categoria"],
                 "idSabor" => $input["sabor"],
                 "idEtapa" => $input["etapa"],
-                "nombre" => $input["nombre"],
-                "descripcion" => $input["descripcion"],
+                "nombre" => ucfirst($input["nombre"]),
+                "descripcion" => ucfirst($input["descripcion"]),
                 "numeroPersonas" => $input["numeroPersonas"],
                 "pisos" => $input["pisos"],
                 "catalogo" => $input["catalogo"],

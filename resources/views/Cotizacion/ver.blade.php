@@ -43,7 +43,7 @@
                             {{-- <textarea  style="width: 100%;">/> --}}
                         </div>
                     </div>
-                    @if ($nombreEstado !="Aprobada")
+                    @if ($nombreEstado ==="Pendiente")
                         <div class="col-md-12 col-sm-12 text-right">
                             <a href="/cotizacion/editar/{{$cotizacion->id}}" class="alert-link titulo">Editar cotización</a>
                         </div>

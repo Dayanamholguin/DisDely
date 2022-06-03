@@ -53,7 +53,7 @@ class CategoriaController extends Controller
         }
         try {
             Categoria::create([
-                "nombre" => $input["nombre"],
+                "nombre" => ucfirst($input["nombre"]),
                 "estado" => 1
             ]);
             Flash::success("Se ha creado éxitosamente");

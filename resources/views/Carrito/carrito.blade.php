@@ -28,7 +28,7 @@
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
                                 <label for="">Cliente que hace la cotización<b style="color: red"> *</b></label>
-                                <input type="text" readonly value="{{Auth()->user()->nombre}}" class="form-control" id="productoNombre" name="productoNombre" required>
+                                <input type="text" readonly value="{{Auth()->user()->nombre." ".Auth()->user()->apellido }}" class="form-control"required>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-12">
