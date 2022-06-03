@@ -12,7 +12,7 @@
         @if(\Cart::getTotalQuantity()>0)
         <div class="card">
             <div class="card-header text-center">
-                <strong>Edición de la cotización</strong> / <a href="/cotizacion" class="alert-link titulo">Volver</a>
+                <strong>Edición de la cotización</strong> / <a href="/cancelar" class="alert-link titulo">Volver</a>
             </div>
             <div class="card-body">
                 <div class="container mt-1">
@@ -46,9 +46,36 @@
                         </div>
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
+                                <label for="">Estado de la cotización: <b style="color: red"> *</b></label>
+                                <select class="form-control" name="estado" onchange="mostrarPrecio(this.value);">
+                                    <option value="">Seleccione</option>
+                                    @foreach($estadosCotizacion as $key => $value)
+                                    <option {{$value->id == $cotizacion->estado ? 'selected' : ''}} {{old('estado' ) == $value->id ? 'selected' : ''}} value="{{$value->id}}">{{$value->nombre}}</option>
+                                    @endforeach
+                                    @error('estado')
+                                    <div class="alert alert-danger" role="alert">
+                                        {{$message}}
+                                    </div>
+                                    @enderror
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="form-group">
                                 <label for="">Descripción<b style="color: red"> *</b></label>
                                 <textarea type="text" value="{{ $cotizacion->descripcionGeneral }}" class="form-control @error('descripcionGeneral') is-invalid @enderror" id="descripcionGeneral" name="descripcionGeneral" placeholder="Ingrese la descripción" required>{{ $cotizacion->descripcionGeneral }}{{ old('descripcionGeneral') }}</textarea>
                                 @error('descripcionGeneral')
+                                <div class="alert alert-danger" role="alert">
+                                    {{$message}}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12" id="precio" style="display: none;">
+                            <div class="form-group">
+                                <label for="">Precio<b style="color: red"> *</b></label>
+                                <textarea type="text" value="{{ old('precio') }}" class="form-control @error('precio') is-invalid @enderror" id="precio" name="precio" placeholder="Ingrese el precio de la cotización para ser pasada a pedido">{{ old('precio') }}</textarea>
+                                @error('precio')
                                 <div class="alert alert-danger" role="alert">
                                     {{$message}}
                                 </div>
@@ -228,6 +255,30 @@
     function agregarProductos() {
         $("#mostrarOpciones").toggle();
     }
+    function mostrarPrecio(id) {
+        console.log(id);
+        if (id==3) {
+            $("#precio").show();
+        } else if (id==2) {
+            $("#precio").hide();
+        } else if (id==1) {
+            $("#precio").hide();
+        } else if (id==null) {
+            $("#precio").hide();
+        }
+    }
+    $("#precio").on({
+    "focus": function (event) {
+        $(event.target).select();
+    },
+    "keyup": function (event) {
+        $(event.target).val(function (index, value ) {
+            return value.replace(/\D/g, "")
+                .replace(/([0-9])([0-9]{3})$/, '$1.$2')
+                .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
+            });
+        }
+    });
 </script>
 
 @endsection

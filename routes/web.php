@@ -29,12 +29,6 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/', [MenuController::class, 'welcome']);
 
-//menu
-// Route::get('/productos', [MenuController::class, 'productos']);
-// Route::get('/detalleProducto/{id}', [MenuController::class, 'detalle']);
-// Route::get('/quienes', [MenuController::class, 'quienes']);
-// Route::get('/contacto', [MenuController::class, 'contacto']);
-
 Route::group(['middleware' => 'auth'], function(){
 
     //Rol
@@ -104,9 +98,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/ver/carrito/{id}', [CartController::class, 'ver']);
     Route::get('/ver/imagen/{id}', [CartController::class, 'verImagen']);
 
-    
-    
-
     //cotización
     Route::get('/cotizacion', [CotizacionController::class, 'index']);
     Route::get('/cotizacion/listar', [CotizacionController::class, 'listar']);
@@ -118,7 +109,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/cotizacion/ver/{id}', [CotizacionController::class, 'verDetalle']);
     Route::get('/cotizacion/verListado/{id}', [CotizacionController::class, 'verListar']);
     Route::post('/cotizacion/actualizar', [CotizacionController::class, 'modificar']);
-    // Route::get('/cotizacion/cambiar/estado/{id}/{estado}', [CotizacionController::class, 'modificarEstado']);
 
     // Route::post('/perfil/actualizar/{id}', [PerfilController::class, 'modificar'])->middleware('password.confirm');
     //para mostrar
