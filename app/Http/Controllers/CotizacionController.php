@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Models\detalle_cotizaciones;
-use App\Models\Sabor;
+use App\Models\detalle_pedidos;
+use App\Models\Pedido;
 use App\Models\cotizacion;
 use App\Http\Controllers\File;
 use Illuminate\Support\Facades\DB;
@@ -116,7 +117,7 @@ class CotizacionController extends Controller
     {
         // \Cart::clear();
         $estadosCotizacion = DB::table('estado_cotizaciones')->get();
-        
+
         $cotizacion = Cotizacion::find($id);
         if ($cotizacion == null) {
             Flash::error("No se encontró la cotización");
@@ -126,7 +127,7 @@ class CotizacionController extends Controller
         $estado = Cotizacion::select('estado_cotizaciones.id')->join("estado_cotizaciones", "estado_cotizaciones.id", "cotizaciones.estado")->where("cotizaciones.id", $id)->value('id');
         $estadoNombre = Cotizacion::select('estado_cotizaciones.nombre')->join("estado_cotizaciones", "estado_cotizaciones.id", "cotizaciones.estado")->where("cotizaciones.id", $id)->value('nombre');
 
-        if ($estado!=1 || $estadoNombre !="Pendiente") {
+        if ($estado != 1 || $estadoNombre != "Pendiente") {
             Flash("Las cotizaciones solo se pueden editar si está en estado «Pendiente».")->warning()->important();
             return back();
         }
@@ -152,13 +153,8 @@ class CotizacionController extends Controller
                     return redirect("/cotizacion");
                 }
             }
-            if (count($carritoCollection) > 0) {
-                // Flash("Ojo, no puede quedar la cotización sin productos, porque si remueve todos los productos de la cotización, toma los productos que tenía anteriormente")->warning()->important();
-            }
-            // dd($carritoCollection);
         } else {
             foreach ($detalleCotizacion as $value) {
-                // dd($value->imagen);
                 \Cart::add(array(
                     'id' => $value->idProducto,
                     'name' => $value->producto,
@@ -180,24 +176,21 @@ class CotizacionController extends Controller
             }
         }
         $carritoCollection = \Cart::getContent();
-        // dd($carritoCollection);
         return view("cotizacion.editar", compact("cotizacion", "cotizacionUsuario", "carritoCollection", "estadosCotizacion"));
     }
     public function verDetalle($id)
     {
-        
         $cotizacion = Cotizacion::find($id);
         if ($cotizacion == null) {
             Flash::error("No se encontró la cotización");
             return redirect("/cotizacion");
         }
         $nombreEstado = Cotizacion::select('estado_cotizaciones.nombre')
-        ->join("estado_cotizaciones", "estado_cotizaciones.id", "cotizaciones.estado")
-        ->where("cotizaciones.id", $id)
-        ->value('nombre');
+            ->join("estado_cotizaciones", "estado_cotizaciones.id", "cotizaciones.estado")
+            ->where("cotizaciones.id", $id)
+            ->value('nombre');
 
         $cotizacionUsuario = Cotizacion::select('users.nombre')->join("users", "users.id", "cotizaciones.idUser")->where("cotizaciones.id", $cotizacion->id)->value("nombre");
-
         // SELECT cotizaciones.id, detalle_cotizaciones.*, productos.nombre FROM `detalle_cotizaciones` 
         // join cotizaciones on detalle_cotizaciones.idCotizacion=cotizaciones.id
         // join productos on productos.id=detalle_cotizaciones.idProducto
@@ -212,7 +205,6 @@ class CotizacionController extends Controller
 
     public function modificar(Request $request)
     {
-
         $cotizacion = Cotizacion::find($request->idCotizacion);
         if ($cotizacion == null) {
             Flash("No se encontró esa cotización")->error()->important();
@@ -231,15 +223,14 @@ class CotizacionController extends Controller
             ->get();
         // $detalleCotizacion=detalle_cotizaciones::all()->where("idCotizacion", $request->idCotizacion);
         $productos = \Cart::getContent();
-        // dd($productos);
         try {
             DB::beginTransaction();
             $cotizacion->update([
-                // "idUser" => $input["idUser"],
                 "fechaEntrega" => $input["fechaEntrega"],
                 "descripcionGeneral" => $input["descripcionGeneral"],
                 "estado" => $input["estado"],
             ]);
+
             foreach ($productos as $value) {
                 foreach ($detalleCotizacion as $item) {
                     if ($value->id == $item->idProducto) {
@@ -291,6 +282,45 @@ class CotizacionController extends Controller
                         ->where("idProducto", $value->idProducto);
                     $producto->delete();
                 }
+            }
+            
+            if ($cotizacion->estado == 3) {
+                $campos = [
+                    'precio' => ['required', 'numeric', 'regex:/^(?=.+)(?:[1-9]\d*|0)?(?:\.\d+)?$/'],
+                ];
+                $this->validate($request, $campos);
+
+                $pedido = Pedido::create([
+                    "idUser" => $cotizacion->idUser,
+                    "idCotizacion" => $cotizacion->id,
+                    "fechaEntrega" => $cotizacion->fechaEntrega,
+                    "descripcionGeneral" => $cotizacion->descripcionGeneral,
+                    "estado" => 1,
+                    "precio" => $input["precio"]
+                ]);
+
+                $detalle = detalle_cotizaciones::select("*")
+                    ->join("cotizaciones", "detalle_cotizaciones.idCotizacion", "cotizaciones.id")
+                    ->join("productos", "productos.id", "detalle_cotizaciones.idProducto")
+                    ->where("cotizaciones.id", $cotizacion->id)
+                    ->get();
+                    
+                foreach ($detalle as $value) {
+                    detalle_pedidos::create([
+                        "idPedido" => $pedido->id,
+                        "idCotizacion" => $value->idCotizacion,
+                        "idProducto" => $value->idProducto,
+                        "numeroPersonas" => $value->numeroPersonas,
+                        "saborDeseado" => $value->saborDeseado,
+                        "frase" => $value->frase,
+                        "pisos" => $value->pisos,
+                        "descripcionProducto" => $value->descripcionProducto,
+                        "img" => $value->imagen1,
+                    ]);
+                }
+                DB::commit();
+                Flash("Se ha hecho un pedido éxitosamente")->success()->important();
+                return redirect("/cotizacion");
             }
             DB::commit();
             \Cart::clear();

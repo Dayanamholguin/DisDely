@@ -43,9 +43,11 @@
                             {{-- <textarea  style="width: 100%;">/> --}}
                         </div>
                     </div>
-                    <div class="col-md-12 text-right">
-                        <a href="/cotizacion/editar/{{$cotizacion->id}}" class="alert-link titulo">Editar cotización</a>
-                    </div>
+                    @if ($nombreEstado !="Aprobada")
+                        <div class="col-md-12 col-sm-12 text-right">
+                            <a href="/cotizacion/editar/{{$cotizacion->id}}" class="alert-link titulo">Editar cotización</a>
+                        </div>
+                    @endif
                 </div>
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
