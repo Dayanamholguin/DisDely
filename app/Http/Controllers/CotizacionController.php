@@ -115,10 +115,20 @@ class CotizacionController extends Controller
     public function editar($id)
     {
         // \Cart::clear();
+        $estadosCotizacion = DB::table('estado_cotizaciones')->get();
+        
         $cotizacion = Cotizacion::find($id);
         if ($cotizacion == null) {
             Flash::error("No se encontró la cotización");
             return redirect("/cotizacion");
+        }
+
+        $estado = Cotizacion::select('estado_cotizaciones.id')->join("estado_cotizaciones", "estado_cotizaciones.id", "cotizaciones.estado")->where("cotizaciones.id", $id)->value('id');
+        $estadoNombre = Cotizacion::select('estado_cotizaciones.nombre')->join("estado_cotizaciones", "estado_cotizaciones.id", "cotizaciones.estado")->where("cotizaciones.id", $id)->value('nombre');
+
+        if ($estado!=1 || $estadoNombre !="Pendiente") {
+            Flash("Las cotizaciones solo se pueden editar si está en estado «Pendiente».")->warning()->important();
+            return back();
         }
         $carritoCollection = \Cart::getContent();
         // dd(\Cart::getContent());
@@ -171,17 +181,23 @@ class CotizacionController extends Controller
         }
         $carritoCollection = \Cart::getContent();
         // dd($carritoCollection);
-        return view("cotizacion.editar", compact("cotizacion", "cotizacionUsuario", "carritoCollection"));
+        return view("cotizacion.editar", compact("cotizacion", "cotizacionUsuario", "carritoCollection", "estadosCotizacion"));
     }
     public function verDetalle($id)
     {
+        
         $cotizacion = Cotizacion::find($id);
         if ($cotizacion == null) {
             Flash::error("No se encontró la cotización");
             return redirect("/cotizacion");
         }
+        $nombreEstado = Cotizacion::select('estado_cotizaciones.nombre')
+        ->join("estado_cotizaciones", "estado_cotizaciones.id", "cotizaciones.estado")
+        ->where("cotizaciones.id", $id)
+        ->value('nombre');
+
         $cotizacionUsuario = Cotizacion::select('users.nombre')->join("users", "users.id", "cotizaciones.idUser")->where("cotizaciones.id", $cotizacion->id)->value("nombre");
-        
+
         // SELECT cotizaciones.id, detalle_cotizaciones.*, productos.nombre FROM `detalle_cotizaciones` 
         // join cotizaciones on detalle_cotizaciones.idCotizacion=cotizaciones.id
         // join productos on productos.id=detalle_cotizaciones.idProducto
@@ -191,16 +207,18 @@ class CotizacionController extends Controller
             ->join("productos", "productos.id", "detalle_cotizaciones.idProducto")
             ->where("cotizaciones.id", $id)
             ->get();
-        return view('cotizacion.ver', compact("detalleCotizacion", "cotizacion", "cotizacionUsuario"));
+        return view('cotizacion.ver', compact("detalleCotizacion", "cotizacion", "cotizacionUsuario", "nombreEstado"));
     }
 
     public function modificar(Request $request)
     {
+
         $cotizacion = Cotizacion::find($request->idCotizacion);
         if ($cotizacion == null) {
             Flash("No se encontró esa cotización")->error()->important();
             return back();
         }
+        $request->validate(Cotizacion::$rules);
         $input = $request->all();
         if ($input["fechaEntrega"] < now()) {
             Flash("No se puede poner la fecha de entrega antes de la fecha actual.")->error()->important();
@@ -220,7 +238,7 @@ class CotizacionController extends Controller
                 // "idUser" => $input["idUser"],
                 "fechaEntrega" => $input["fechaEntrega"],
                 "descripcionGeneral" => $input["descripcionGeneral"],
-                "estado" => 1,
+                "estado" => $input["estado"],
             ]);
             foreach ($productos as $value) {
                 foreach ($detalleCotizacion as $item) {
@@ -239,7 +257,7 @@ class CotizacionController extends Controller
                     // where (detalle_cotizaciones.idCotizacion = 1) and (detalle_cotizaciones.idProducto=5)
                     // dd($value->id);
                     $consultasql = detalle_cotizaciones::select("idProducto")
-                        ->join("cotizaciones","cotizaciones.id","detalle_cotizaciones.idCotizacion")// $value->attributes->idCotizacion)
+                        ->join("cotizaciones", "cotizaciones.id", "detalle_cotizaciones.idCotizacion") // $value->attributes->idCotizacion)
                         ->where('detalle_cotizaciones.idCotizacion', $value->attributes->idCotizacion)
                         ->where('detalle_cotizaciones.idProducto', $value->id)
                         ->value("idProducto");
@@ -256,38 +274,24 @@ class CotizacionController extends Controller
                             "img" => $value->attributes->imagen1,
                         ]);
                     }
-                }                
+                }
             }
             $detalleNueva = detalle_cotizaciones::select("cotizaciones.id as cotizacionid", "detalle_cotizaciones.*", "productos.nombre as producto", "productos.img as imagen", "productos.id as idProducto")
                 ->join("cotizaciones", "detalle_cotizaciones.idCotizacion", "cotizaciones.id")
                 ->join("productos", "productos.id", "detalle_cotizaciones.idProducto")
                 ->where("cotizaciones.id", $cotizacion->id)
                 ->get();
-                $id = [];
-                $cont=0;
-
-                $productosNuevo = \Cart::getContent()->toArray();
-                // dd($productosNuevo);
-                dd(array_search(4, array_column($productosNuevo, 'id')));
-                // dd($detalleNueva );
-                // array_search('blue', array_column($people, 'fav_color'));
-                // dd(array_search(3, array_column($detalleNueva, 'idProducto'))?'lo encontró':'no lo encontró');
-                // dd(array_search(3, $productosNuevo));
-                // dd(array_search(3, $productosNuevo)?'Lo encontró':'no lo encontró');
-                dd(array_search(1, array_column($productosNuevo, 'id'))?'Lo encontró':'no lo encontró');
+            $productosNuevo = \Cart::getContent()->toArray();
             foreach ($detalleNueva as $value) {
-                    // // dd($value->id);
-                    // foreach ($productos as $value) {
-                    //     # code...
-                    // }
-                    // dd('hola');
-                    // $id[$cont] = (array_search($value->idProducto, array_column($productosNuevo, 'id')))?'':$value->idProducto;
-                    
-                    dd('hola');
-                    $cont++;
+                if (array_search($value->idProducto, array_column($productosNuevo, 'id')) === false) {
+                    $producto = detalle_cotizaciones::select("*")
+                        ->join("cotizaciones", "detalle_cotizaciones.idCotizacion", "cotizaciones.id")
+                        ->join("productos", "productos.id", "detalle_cotizaciones.idProducto")
+                        ->where("cotizaciones.id", $cotizacion->id)
+                        ->where("idProducto", $value->idProducto);
+                    $producto->delete();
+                }
             }
-            dd($id);
-
             DB::commit();
             \Cart::clear();
             Flash::success("Se ha actualizado la cotización éxitosamente");

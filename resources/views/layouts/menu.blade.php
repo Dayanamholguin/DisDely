@@ -140,7 +140,13 @@
                                 <div class="icon">
                                     <i class="bi bi-activity"></i>
                                 </div>
-                                <a href="#" class="stretched-link">
+                                @if (Route::has('login'))
+                                    @auth
+                                        <a href="/cotizacion/crear/{{$producto->id}}" class="stretched-link" data-toggle="tooltip" data-placement="bottom" title="Clic para hacer cotización">
+                                    @else
+                                        <a href="{{ route('login') }}" class="stretched-link" data-toggle="tooltip" data-placement="bottom" title="Ingresa y haz tu cotización">
+                                    @endauth
+                                @endif
                                     <h3>{{$producto->nombre}}</h3>
                                 </a>
                                 <!-- <p>{{$producto->descripcion}}</p> -->
@@ -159,7 +165,7 @@
             <div class="container">
                 <div class="section-header">
                     <h2 style="color: #B0535E;"><b>Contacto</b></h2>
-                    Síguenos en <a href="https://www.instagram.com/dulce_encanto_20205/" class="titulo">Instagram</a>
+                    Síguenos en <a href="https://www.instagram.com/dulce_encanto_20205/" class="alert-link" style="color: #B0535E;">Instagram</a>
                 </div>
             </div>
 
@@ -193,6 +199,7 @@
     <a href="#" class="scroll-top d-flex align-items-center justify-content-center active"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
+    <script src="/vendor/jquery/jquery.min.js"></script>
     <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/vendor/aos/aos.js"></script>
     <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
@@ -202,7 +209,11 @@
 
     <!-- Template Main JS File -->
     <script src="/assets/js/main.js"></script>
-
+    <script>
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 </body>
 
 </html>

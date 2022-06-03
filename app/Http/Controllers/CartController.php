@@ -33,7 +33,13 @@ class CartController extends Controller
     }
     public function quitarProducto(Request $request)
     {
-        \Cart::remove($request->id);
+        $carritoCollection = \Cart::getContent();
+        if (count($carritoCollection) > 1) {
+            \Cart::remove($request->id);
+        }else {
+            Flash("Ojo, no puede quedar la cotización sin productos.")->warning()->important();
+            return back();
+        }
         Flash::success("Se removió correctamente el producto");
         // $carritoCollection = \Cart::getContent();
         // return view('carrito.carrito', compact("carritoCollection"));

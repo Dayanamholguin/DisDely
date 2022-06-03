@@ -3,22 +3,37 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
+        
         <div class="card">
             <div class="card-header text-center">
                 <strong>Detalle de la cotización</strong> / <a href="/cotizacion" class="alert-link titulo">Volver</a>
             </div>
+            @include('flash::message')
             <div class="card-body text-center">
                 <div class="row">
-                    <div class="col-md-6 col-sm-12">
+                    <div class="col-md-4 col-sm-12">
                         <div class="form-group">
                             <label for=""><b>Persona que hizo la cotización</b></label>
                             <p  class="form-control">{{$cotizacionUsuario}}</p>
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-12">
+                    <div class="col-md-4 col-sm-12">
                         <div class="form-group">
                             <label for=""><b>Fecha de entrega</b></label>
-                            <p  class="form-control">{{$cotizacion->fechaEntrega}}</p>
+                            <p class="form-control">{{$cotizacion->fechaEntrega}}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="form-group">
+                            <label for=""><b>Estado de la cotización</b></label>
+                            @if ($nombreEstado =="Pendiente")
+                                <p class="form-control bg-secondary text-white" >{{$nombreEstado}}</p>
+                            @elseif($nombreEstado =="Aprobada")
+                                <p class="form-control bg-success text-white" >{{$nombreEstado}}</p>
+                            @elseif($nombreEstado =="Rechazada")
+                                <p class="form-control bg-danger text-white" >{{$nombreEstado}}</p>
+                            @endif
+                            
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12">
@@ -27,6 +42,9 @@
                             <p class="textarea form-control" >{{$cotizacion->descripcionGeneral}}</p>
                             {{-- <textarea  style="width: 100%;">/> --}}
                         </div>
+                    </div>
+                    <div class="col-md-12 text-right">
+                        <a href="/cotizacion/editar/{{$cotizacion->id}}" class="alert-link titulo">Editar cotización</a>
                     </div>
                 </div>
                 <div class="row">

@@ -20,6 +20,6 @@ class Cotizacion extends Model
         'idUser' => 'required|exists:users,id',
         'fechaEntrega' => 'required|date',
         'descripcionGeneral' => 'required',
-        'estado' => 'in:1,0'
+        'estado' => 'required|exists:estado_cotizaciones,id'
     ];
 }

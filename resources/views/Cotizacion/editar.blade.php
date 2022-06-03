@@ -12,7 +12,7 @@
         @if(\Cart::getTotalQuantity()>0)
         <div class="card">
             <div class="card-header text-center">
-                <strong>Edición de la cotización</strong> / <a href="/cotizacion" class="alert-link titulo">Volver</a>
+                <strong>Edición de la cotización</strong> / <a href="/cancelar" class="alert-link titulo">Volver</a>
             </div>
             <div class="card-body">
                 <div class="container mt-1">
@@ -45,6 +45,22 @@
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label for="">Estado de la cotización: <b style="color: red"> *</b></label>
+                                <select class="form-control" name="estado">
+                                    <option value="">Seleccione</option>
+                                    @foreach($estadosCotizacion as $key => $value)
+                                    <option {{$value->id == $cotizacion->estado ? 'selected' : ''}} {{old('categoria' ) == $value->id ? 'selected' : ''}} value="{{$value->id}}">{{$value->nombre}}</option>
+                                    @endforeach
+                                    @error('categorias')
+                                    <div class="alert alert-danger" role="alert">
+                                        {{$message}}
+                                    </div>
+                                    @enderror
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
                             <div class="form-group">
                                 <label for="">Descripción<b style="color: red"> *</b></label>
                                 <textarea type="text" value="{{ $cotizacion->descripcionGeneral }}" class="form-control @error('descripcionGeneral') is-invalid @enderror" id="descripcionGeneral" name="descripcionGeneral" placeholder="Ingrese la descripción" required>{{ $cotizacion->descripcionGeneral }}{{ old('descripcionGeneral') }}</textarea>

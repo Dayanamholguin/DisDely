@@ -276,6 +276,10 @@ textarea {
     resize: none;
 }
 
+a{
+    text-decoration: none !important;
+}
+
 textarea.form-control {
     display: block;
     width: 100%;
