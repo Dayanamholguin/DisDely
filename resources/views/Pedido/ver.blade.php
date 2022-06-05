@@ -91,6 +91,7 @@
                         </div>
                         <div class="col-md-8" >
                             @foreach($detallePedidos as $value)
+                            <p><strong class="card-text">Pastel: {{$value->producto}}</strong></p>
                             <p class="card-text">Número de personas: {{$value->numeroPersonas}}</p>
                             <p class="card-text">Pisos: {{$value->pisos}}</p>
                             <p class="card-text">Sabor: {{$value->saborDeseado}}</p>

@@ -213,9 +213,13 @@ class PedidoController extends Controller
         }
 
         $cotizacion = 0;
-        $carritoCollection = \Cart::getContent();
+
         if (count($carritoCollection) <> 0) {
             foreach ($carritoCollection as $value) {
+                if ($value->attributes->clienteId != $cliente->id) {
+                    Flash::error("No coincide el nombre del cliente al que le está haciendo el pedido");
+                    return view("pedido.crear", compact("cliente", "producto"));
+                }
                 $cotizacion = $value->attributes->idCotizacion;
             }
         }
@@ -238,6 +242,10 @@ class PedidoController extends Controller
             )
         ));
         $carritoCollection = \Cart::getContent();
+        // dd($cotizacion);
+        if ($cotizacion > 0) {
+            return redirect("/pedido/editar/{$cotizacion}");
+        }
         return view('pedido.carrito', compact("carritoCollection", "userId", "userName"));
     }
     public function limpiarCarritoPedido()
@@ -343,6 +351,71 @@ class PedidoController extends Controller
         return view('pedido.carrito', compact("carritoCollection", "userId", "userName"));
     }
 
+    public function actualizarProductosPedido(Request $request)
+    {
+        $carritoCollection = \Cart::getContent();
+        $userId = Usuario::find($request->idUser);
+        if ($userId == null) {
+            Flash::error("No se encuentra el cliente");
+            return back();
+        }
+        if ($userId->id == 1) {
+            $userName = Usuario::select('nombre')->where('id', $userId->id)->value('nombre');
+        } else {
+            $userName = $userId->nombre . " " . $userId->apellido;
+        }
+        $userId = $userId->id;
+
+        $producto = \Cart::get($request->id);
+        $productoBD = Producto::find($request->id);
+        // dd($productoBD?'existe':'no existe');
+        if ($producto == null || $productoBD == null) {
+            Flash("No se encontró el producto")->error();
+            return back();
+        }
+        if ($request->saborDeseado == null || $request->numeroPersonas == null || $request->pisos == null || $request->descripcionProducto == null) {
+            Flash("Por favor, ingrese los campos requeridos del producto " . $producto->name)->error()->important();
+            return view('pedido.carrito', compact("carritoCollection", "userId", "userName"));
+        }
+        if (is_numeric($request->numeroPersonas) == false || is_numeric($request->pisos) == false) {
+            Flash("Por favor, coloque un valor numérico en los campos «Número de personas» y «Pisos» del producto " . $producto->name)->warning()->important();
+            return view('pedido.carrito', compact("carritoCollection", "userId", "userName"));
+        }
+        $cotizacion = 0;
+        $carritoCollection = \Cart::getContent();
+        if (count($carritoCollection) <> 0) {
+            foreach ($carritoCollection as $value) {
+                $cotizacion = $value->attributes->idCotizacion;
+            }
+        }
+
+        $img = $producto->attributes->imagen1;
+        if ($request->img != null) {
+            $img = $producto->name . '.' . time() . '.' . $request->img->extension();
+            $request->img->move(public_path('imagenes'), $img);
+        }
+        \Cart::update(
+            $request->id,
+            array(
+                'attributes' => array(
+                    'idCotizacion' => $cotizacion == null ? 0 : $cotizacion,
+                    'img' => $producto->attributes->img == null ? $img : $producto->attributes->img,
+                    'saborDeseado' => ucfirst($request->saborDeseado),
+                    'numeroPersonas' => $request->numeroPersonas,
+                    'frase' => ucfirst($request->frase),
+                    'pisos' => $request->pisos,
+                    'descripcionProducto' => ucfirst($request->descripcionProducto),
+                    'clienteId' => $userId,
+                    'cliente' => $userName,
+                    'imagen1' => $img,
+                )
+            )
+        );
+        Flash("Producto actualizado")->success()->important();
+        $carritoCollection = \Cart::getContent();
+        return redirect("/pedido/editar/{$cotizacion}");
+    }
+
     public function guardar(Request $request)
     {
         $productos = \Cart::getContent();
@@ -432,6 +505,230 @@ class PedidoController extends Controller
             return redirect("/pedido");
         }
     }
+
+    public function cancelarP()
+    {
+        Cart::clear();
+        return redirect("/pedido");
+    }
+
+    public function editar($id)
+    {
+        // \Cart::clear();
+        $estadosPedido = DB::table('estado_pedidos')->get();
+
+        $pedido = Pedido::find($id);
+        if ($pedido == null) {
+            Flash("No se encontró el pedido")->error()->important();
+            return redirect("/pedido");
+        }
+        // dd($pedido->id);
+        $estado = Pedido::select('estado_pedidos.id')->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")->where("pedidos.id", $id)->value('id');
+        $estadoNombre = Pedido::select('estado_pedidos.nombre')->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")->where("pedidos.id", $id)->value('nombre');
+
+        if ($estado != 1 || $estadoNombre != "En espera") {
+            Flash("El pedido solo se pueden editar si está en estado «En espera».")->warning()->important();
+            return back();
+        }
+        $carritoCollection = \Cart::getContent();
+        // dd(\Cart::getContent());
+        $detallePedido = detalle_pedidos::select("pedidos.id as pedidoid", "detalle_pedidos.*", "productos.nombre as producto", "productos.img as imagen", "productos.id as idProducto")
+            ->join("pedidos", "detalle_pedidos.idPedido", "pedidos.id")
+            ->join("productos", "productos.id", "detalle_pedidos.idProducto")
+            ->where("pedidos.id", $id)
+            ->get();
+        $pedidoUsuario = Pedido::select(DB::raw('CONCAT(users.nombre, \' \', users.apellido) as nombreCompleto'))
+            ->join("users", "users.id", "pedidos.idUser")
+            ->where("pedidos.id", $id)
+            ->value("nombreCompleto");
+        if ($pedido->idUser == 1 || $pedidoUsuario == "Cliente genérico") {
+            $pedidoUsuario = Pedido::select('users.nombre')
+                ->join("users", "users.id", "pedidos.idUser")
+                ->where("pedidos.id", $id)
+                ->value("nombre");
+        }
+
+
+        // ->get()->pluck('nombreCompleto');
+        if (count($carritoCollection) <> 0) {
+            // dd(count($carritoCollection));
+            foreach ($carritoCollection as $value) {
+                // dd($value->attributes->idCotizacion!==$pedido->id?'diferente':'iuales');
+                if (intval($value->attributes->idCotizacion) !== intval($pedido->id)) {
+                    Flash("Debes terminar de editar el pedido " . $value->attributes->idCotizacion . " antes de ingresar a otro pedido")->error()->important();
+                    return redirect("/pedido");
+                }
+            }
+        } else {
+            foreach ($detallePedido as $value) {
+                \Cart::add(array(
+                    'id' => $value->idProducto,
+                    'name' => $value->producto,
+                    'price' => 0,
+                    'quantity' => 1,
+                    'attributes' => array(
+                        'idCotizacion' => $pedido->id,
+                        'img' => $value->img == null ? $value->imagen : $value->img,
+                        'saborDeseado' => $value->saborDeseado,
+                        'numeroPersonas' => $value->numeroPersonas,
+                        'frase' => $value->frase,
+                        'pisos' => $value->pisos,
+                        'descripcionProducto' => $value->descripcionProducto,
+                        'clienteId' => $pedido->idUser,
+                        'cliente' => $pedidoUsuario,
+                        'imagen1' => $value->img,
+                    )
+                ));
+            }
+        }
+        $carritoCollection = \Cart::getContent();
+        return view("pedido.editar", compact("pedido", "pedidoUsuario", "carritoCollection", "estadosPedido"));
+    }
+
+    public function modificar(Request $request)
+    {
+        $carritoCollection = \Cart::getContent();
+        $pedido = Pedido::find($request->idPedido);
+        
+        $pedidoUsuario = Pedido::select(DB::raw('CONCAT(users.nombre, \' \', users.apellido) as nombreCompleto'))
+            ->join("users", "users.id", "pedidos.idUser")
+            ->where("pedidos.id", $pedido->id)
+            ->value("nombreCompleto");
+        
+        $estadosPedido = DB::table('estado_pedidos')->get();
+        if ($pedido->idUser == 1 || $pedidoUsuario == "Cliente genérico") {
+            $pedidoUsuario = Pedido::select('users.nombre')
+                ->join("users", "users.id", "pedidos.idUser")
+                ->where("pedidos.id", $pedido->id)
+                ->value("nombre");
+        }
+        
+        // falta validar los values del estado
+        if ($pedido == null) {
+            Flash("No se encontró ese pedido")->error()->important();
+            return view("pedido.editar", compact("pedido", "pedidoUsuario", "carritoCollection", "estadosPedido"));
+        }
+        
+        if ($request->fechaEntrega < now()) {
+            Flash("No se puede poner la fecha de entrega antes de la fecha actual.")->error()->important();
+            return back();
+        }
+        
+        if ($request->descripcionGeneral == null || $request->precio == null) {
+            Flash("Por favor, rellene todos los campos")->warning()->important();
+            return view("pedido.editar", compact("pedido", "pedidoUsuario", "carritoCollection", "estadosPedido"));
+        }
+        if (is_numeric($request->precio == false)) {
+            Flash("Por favor, digite valores numéricos en el precio")->warning()->important();
+            return view("pedido.editar", compact("pedido", "pedidoUsuario", "carritoCollection", "estadosPedido"));
+        }
+        
+        foreach ($carritoCollection as $value) {
+            
+            if ($value->attributes->clienteId != $pedido->idUser) {
+                Flash("No coincide el nombre del cliente al que le está haciendo el pedido")->error()->important();
+                return view("pedido.editar", compact("pedido", "pedidoUsuario", "carritoCollection", "estadosPedido"));
+            }
+        }
+        $input = $request->all();
+        
+        $detallePedido = detalle_pedidos::select("pedidos.id as pedidoid", "detalle_pedidos.*", "productos.nombre as producto", "productos.img as imagen", "productos.id as idProducto")
+            ->join("pedidos", "detalle_pedidos.idPedido", "pedidos.id")
+            ->join("productos", "productos.id", "detalle_pedidos.idProducto")
+            ->where("pedidos.id", $pedido->id)
+            ->get();
+            
+        // $detalleCotizacion=detalle_cotizaciones::all()->where("idCotizacion", $request->idCotizacion);
+        $productos = \Cart::getContent();
+        
+        try {
+            DB::beginTransaction();
+            $pedido->update([
+                "fechaEntrega" => $input["fechaEntrega"],
+                "descripcionGeneral" => $input["descripcionGeneral"],
+                "estado" => $input["estado"],
+                "precio" => str_replace('.','', $input["precio"]),
+            ]);
+            $id=[];
+            $cont=0;
+            // dd($productos);
+            foreach ($productos as $value) {
+                
+                foreach ($detallePedido as $item) {
+                    
+                    if ($value->id == $item->idProducto) {
+                        $id[$cont]=$item->idProducto;
+                        $item->update([
+                            "numeroPersonas" => $value->attributes->numeroPersonas,
+                            "saborDeseado" => $value->attributes->saborDeseado,
+                            "frase" => $value->attributes->frase,
+                            "pisos" => $value->attributes->pisos,
+                            "descripcionProducto" => $value->attributes->descripcionProducto,
+                            "img" => $value->attributes->imagen1,
+                        ]);
+                        
+                    }
+                    $cont++;
+                    // select idProducto from detalle_cotizaciones
+                    // join cotizaciones on cotizaciones.id = detalle_cotizaciones.idCotizacion
+                    // where (detalle_cotizaciones.idCotizacion = 1) and (detalle_cotizaciones.idProducto=5)
+                    // dd($value->id);
+
+                    // dd($value->attributes->idPedido);
+                    $consultasql = detalle_pedidos::select("idProducto")
+                        ->join("pedidos", "pedidos.id", "detalle_pedidos.idPedido") // $value->attributes->idCotizacion)
+                        ->where('detalle_pedidos.idPedido', $value->attributes->idCotizacion)
+                        ->where('detalle_pedidos.idProducto', $value->id)
+                        ->value("idProducto");
+                        
+                    if ($consultasql == null) {
+                        detalle_pedidos::create([
+                            "idPedido" => $pedido->id,
+                            "idProducto" => $value->id,
+                            "numeroPersonas" => $value->attributes->numeroPersonas,
+                            "saborDeseado" => $value->attributes->saborDeseado,
+                            "frase" => $value->attributes->frase,
+                            "pisos" => $value->attributes->pisos,
+                            "pisos" => $value->attributes->pisos,
+                            "descripcionProducto" => $value->attributes->descripcionProducto,
+                            "img" => $value->attributes->imagen1,
+                        ]);
+                    }
+                    
+                }
+                
+            }
+            
+            // dd($id);
+                    
+            $detalleNueva = detalle_pedidos::select("pedidos.id as pedidoid", "detalle_pedidos.*", "productos.nombre as producto", "productos.img as imagen", "productos.id as idProducto")
+                ->join("pedidos", "detalle_pedidos.idPedido", "pedidos.id")
+                ->join("productos", "productos.id", "detalle_pedidos.idProducto")
+                ->where("pedidos.id", $pedido->id)
+                ->get();
+
+            $productosNuevo = \Cart::getContent()->toArray();
+            foreach ($detalleNueva as $value) {
+                if (array_search($value->idProducto, array_column($productosNuevo, 'id')) === false) {
+                    $producto = detalle_pedidos::select("*")
+                        ->join("pedidos", "detalle_pedidos.idPedido", "pedidos.id")
+                        ->join("productos", "productos.id", "detalle_pedidos.idProducto")
+                        ->where("pedidos.id", $pedido->id)
+                        ->where("idProducto", $value->idProducto);
+                    $producto->delete();
+                }
+            }
+            DB::commit();
+            \Cart::clear();
+            Flash::success("Se ha actualizado el pedido éxitosamente");
+            return redirect("/pedido");
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Flash($e->getMessage())->error()->important();
+            return redirect("/pedido");
+        }
+    }
+
     public function verImagen($imagen)
     {
         // $producto = pedido::where('id', $id)->firstOrFail();
@@ -461,7 +758,7 @@ class PedidoController extends Controller
             ->join("productos", "productos.id", "detalle_pedidos.idProducto")
             ->where("pedidos.id", $id)
             ->get();
-            // dd($detallePedidos);
+        // dd($detallePedidos);
         return view('pedido.ver', compact("detallePedidos", "pedido", "pedidoUsuario", "nombreEstado"));
     }
     //cada que se cambie el estado del pedido que notifique al cliente 

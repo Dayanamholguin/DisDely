@@ -9,7 +9,15 @@
         </h6>
         @if(count(\Cart::getContent()) > 0)
             @foreach(\Cart::getContent() as $item)
-                <a class="dropdown-item d-flex align-items-center" href="/carritoPedido/{{$item->attributes->clienteId}}">
+            
+                <a class="dropdown-item d-flex align-items-center" 
+                @if ($item->attributes->idCotizacion != null)
+                href="/pedido/editar/{{$item->attributes->idCotizacion}}"
+                @else
+                href="/carritoPedido/{{$item->attributes->clienteId}}"
+                @endif
+                
+                >
                     <div class="dropdown-list-image mr-3">
                         <img class="rounded-circle" src="/imagenes/{{$item->attributes->img}}" alt="...">
                         <div class="status-indicator bg-success"></div>
@@ -21,7 +29,12 @@
                     </div>
                 </a>    
             @endforeach
-            <a class="dropdown-item text-center small text-gray-500" href="/carritoPedido/{{$item->attributes->clienteId}}" data-toggle="tooltip" data-placement="bottom" title="Ver carrito">Ver carrito</a>
+            @if ($item->attributes->idCotizacion != null)
+                <a class="dropdown-item text-center small text-gray-500" href="/pedido/editar/{{$item->attributes->idCotizacion}}" data-toggle="tooltip" data-placement="bottom" title="Ver productos del pedido">Ver productos</a>
+            @else
+                <a class="dropdown-item text-center small text-gray-500" href="/carritoPedido/{{$item->attributes->clienteId}}" data-toggle="tooltip" data-placement="bottom" title="Ver carrito">Ver carrito</a>
+            @endif
+            
         @endif
     </div>
 </li>

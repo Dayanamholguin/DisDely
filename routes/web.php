@@ -123,10 +123,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/carritoPedido/{id}', [PedidoController::class, 'carrito']);
     Route::post('/pedido/guardar', [PedidoController::class, 'guardar']);
     Route::get('/pedido/ver/{id}', [PedidoController::class, 'verDetalle']);
+    Route::get('/pedido/editar/{id}', [PedidoController::class, 'editar']);
+    Route::get('/cancelarP', [PedidoController::class, 'cancelarP']);
+    Route::post('/pedido/actualizar', [PedidoController::class, 'modificar']);
     Route::get('/ver/imagenPedido/{imagen}', [PedidoController::class, 'verImagen']);
     Route::post('/limpiarCarritoPedido', [PedidoController::class, 'limpiarCarritoPedido']);
     Route::post('/quitarProductoPedido', [PedidoController::class, 'quitar']);
     Route::post('/actualizarPreProductos', [PedidoController::class, 'actualizarPreProductos']);
+    Route::post('/actualizarProductosPedido', [PedidoController::class, 'actualizarProductosPedido']);
     Route::post('/agregarCarritoPedido', [PedidoController::class, 'agregarCarritoPedido']);
     Route::get('/pedido/crear/{producto}/{cliente}', [PedidoController::class, 'crearProductoRegistrado']);
     // Route::post('/perfil/actualizar/{id}', [PerfilController::class, 'modificar'])->middleware('password.confirm');

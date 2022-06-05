@@ -267,6 +267,7 @@
     <!-- Custom scripts for all pages-->
     <script src="/js/sb-admin-2.min.js"></script>
     <script src="/js/datatables.min.js"></script>
+    
 
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.6.0/dt-1.11.5/datatables.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
@@ -277,6 +278,7 @@
     <!--Iconos-->
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
     <script>
         $(document).ready(function() {
             var contenedor = $('#contenedor_carga');
@@ -295,10 +297,6 @@
             $('[data-toggle="tooltip"]').tooltip()
         })
     </script>
-
-
-
-
     @yield('scripts')
 </body>
 
