@@ -51,7 +51,9 @@ Gestión de Cotizaciones
                 },
                 {
                     data: 'estado',
-                    name: 'nombre'
+                    name: 'nombre',
+                    orderable: true,
+                    searchable: true
                 },
                 {
                     data: 'acciones',

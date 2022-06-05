@@ -278,17 +278,19 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
-        
-        $(document).ready(function() {
-            $('select').select2();
-        });
-
         $(document).ready(function() {
             var contenedor = $('#contenedor_carga');
             contenedor.css('visibility', 'hidden');
             contenedor.css('opacity', '0');
         });
-        
+
+        $(document).ready(function() {
+            $('select').select2();
+        });
+
+        // $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+        $('div.alert').delay(3000).fadeOut(350);
+
         $(function() {
             $('[data-toggle="tooltip"]').tooltip()
         })

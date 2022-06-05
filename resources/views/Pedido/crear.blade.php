@@ -11,7 +11,8 @@ Pedidos
     </div>
     <div class="card-body">
         @include('flash::message')
-        <form id="form" action="#" method="post" enctype="multipart/form-data">
+        
+        <form id="form" action="/agregarCarritoPedido" method="POST" enctype="multipart/form-data">
             @csrf
             {{-- <input type="hidden" name="idProducto" value="{{$producto->id}}" /> --}}
             <div class="row">

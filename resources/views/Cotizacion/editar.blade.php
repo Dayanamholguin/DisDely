@@ -15,13 +15,7 @@
                 <strong>Edición de la cotización</strong> / <a href="/cotizacion" class="alert-link titulo">Volver</a>
             </div>
             <div class="card-body">
-                <div class="container mt-1">
-                    <div class="row justify-content-center">
-                        <div class="col-auto">
-                            @include('flash::message')
-                        </div>
-                    </div>
-                </div>
+                @include('flash::message')
                 <form id="form" action="/cotizacion/actualizar" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="idUser" value="{{$cotizacion->idUser}}" />

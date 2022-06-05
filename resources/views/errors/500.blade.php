@@ -1,8 +1,8 @@
 @extends('errors.app')
 
 @section('error')
-419
+500
 @endsection
 @section('errorNombre')
-Página expiró
+No puede procesar esta solicitud en este momento.
 @endsection

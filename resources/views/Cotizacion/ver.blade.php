@@ -11,80 +11,89 @@
             @include('flash::message')
             <div class="card-body text-center">
                 <div class="row">
-                    <div class="col-md-4 col-sm-12">
-                        <div class="form-group">
-                            <label for=""><b>Persona que hizo la cotización</b></label>
-                            <p  class="form-control">{{$cotizacionUsuario}}</p>
+                    @if($nombreEstado =="Aprobada")
+                        <div class="col-md-12 col-sm-12 text-center p-3">
+                            <p>Recuerda que la si la cotización está aprobada, ya se considera un pedido, <br>para mirarlo con más detalle   
+                                <a href="/pedido/ver/{{$cotizacion->id}}" class="alert-link titulo">Clic aquí</a>
+                            </p>
                         </div>
+                    @else
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label for=""><b>Persona que hizo la cotización</b></label>
+                                <p  class="form-control">{{$cotizacionUsuario}}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label for=""><b>Fecha de entrega</b></label>
+                                <p class="form-control">{{$cotizacion->fechaEntrega}}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label for=""><b>Estado de la cotización</b></label>
+                                @if ($nombreEstado =="Pendiente")
+                                    <p class="form-control bg-secondary text-white" >{{$nombreEstado}}</p>
+                                @elseif($nombreEstado =="Aprobada")
+                                    <p class="form-control bg-success text-white" >{{$nombreEstado}}</p>
+                                @elseif($nombreEstado =="Rechazada")
+                                    <p class="form-control bg-danger text-white" >{{$nombreEstado}}</p>
+                                @endif
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <label for=""><b>Descripción de la cotización</b></label>
+                                <p class="textarea form-control" >{{$cotizacion->descripcionGeneral}}</p>
+                                {{-- <textarea  style="width: 100%;">/> --}}
+                            </div>
+                        </div>
+                        @if ($nombreEstado ==="Pendiente")
+                            <div class="col-md-12 col-sm-12 text-right">
+                                <a href="/cotizacion/editar/{{$cotizacion->id}}" class="alert-link titulo">Editar cotización</a>
+                            </div>
+                        @endif
                     </div>
-                    <div class="col-md-4 col-sm-12">
-                        <div class="form-group">
-                            <label for=""><b>Fecha de entrega</b></label>
-                            <p class="form-control">{{$cotizacion->fechaEntrega}}</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-12">
-                        <div class="form-group">
-                            <label for=""><b>Estado de la cotización</b></label>
-                            @if ($nombreEstado =="Pendiente")
-                                <p class="form-control bg-secondary text-white" >{{$nombreEstado}}</p>
-                            @elseif($nombreEstado =="Aprobada")
-                                <p class="form-control bg-success text-white" >{{$nombreEstado}}</p>
-                            @elseif($nombreEstado =="Rechazada")
-                                <p class="form-control bg-danger text-white" >{{$nombreEstado}}</p>
-                            @endif
-                            
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12">
-                        <div class="form-group">
-                            <label for=""><b>Descripción de la cotización</b></label>
-                            <p class="textarea form-control" >{{$cotizacion->descripcionGeneral}}</p>
-                            {{-- <textarea  style="width: 100%;">/> --}}
-                        </div>
-                    </div>
-                    @if ($nombreEstado ==="Pendiente")
-                        <div class="col-md-12 col-sm-12 text-right">
-                            <a href="/cotizacion/editar/{{$cotizacion->id}}" class="alert-link titulo">Editar cotización</a>
-                        </div>
-                    @endif
-                </div>
-                <div class="row">
-                    <div class="col-md-12 col-sm-12">
-                        <div class="form-group mt-3 mb-3">
-                            <label for=""><b>Información de los productos que se encuentran en la cotización</b></label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 border-right">
-                        <div class="card-body">
-                            <div class="d-flex flex-column align-items-center text-center ">
-                            @foreach($detalleCotizacion as $value)
-                            <img src="{{$value->img==null?'/img/defecto.jpg':'/imagenes/'.$value->img}}" class="rounded-circle mt-4" width="130" height="100" alt="{{$value->img==null?'No tiene imagen de referencia':''}}" data-toggle="tooltip" data-placement="bottom" title="{{$value->img==null?'No tiene imagen de referencia':'Foto de referencia'}}">
-                                <div class="mt-3">
-                                    <a href="javascript:void(0)" class="alert-link titulo"  onclick="mostrarVentana({{$value->idProducto}})" data-toggle="tooltip" data-placement="bottom" title="Clic para ver información del porducto">Producto {{ $value->producto}}</a>
-                                    <hr>
-                                </div>
-                                @endforeach
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="form-group mt-3 mb-3">
+                                <label for=""><b>Información de los productos que se encuentran en la cotización</b></label>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8" >
-                        @foreach($detalleCotizacion as $value)
-                        <p class="card-text">Número de personas: {{$value->numeroPersonas}}</p>
-                        <p class="card-text">Pisos: {{$value->pisos}}</p>
-                        <p class="card-text">Sabor: {{$value->saborDeseado}}</p>
-                        <p class="card-text">frase: {{$value->frase==null?'No tiene frase':$value->frase}}</p>
-                        <p class="card-text">Descripción: {{$value->descripcionProducto}}</p>
-                        <hr>
-                        @endforeach
+                    <div class="row">
+                        <div class="col-md-4 border-right">
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center text-center ">
+                                @foreach($detalleCotizacion as $value)
+                                <img src="{{$value->img==null?'/img/defecto.jpg':'/imagenes/'.$value->img}}" class="rounded-circle mt-4" width="130" height="100" alt="{{$value->img==null?'No tiene imagen de referencia':''}}" data-toggle="tooltip" data-placement="bottom" title="{{$value->img==null?'No tiene imagen de referencia':'Foto de referencia'}}">
+                                    <div class="mt-3">
+                                        <a href="javascript:void(0)" class="alert-link titulo"  onclick="mostrarVentana({{$value->idProducto}})" data-toggle="tooltip" data-placement="bottom" title="Clic para ver información del porducto">Producto {{ $value->producto}}</a>
+                                        <hr>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8" >
+                            @foreach($detalleCotizacion as $value)
+                            <p class="card-text">Número de personas: {{$value->numeroPersonas}}</p>
+                            <p class="card-text">Pisos: {{$value->pisos}}</p>
+                            <p class="card-text">Sabor: {{$value->saborDeseado}}</p>
+                            <p class="card-text">frase: {{$value->frase==null?'No tiene frase':$value->frase}}</p>
+                            <p class="card-text">Descripción: {{$value->descripcionProducto}}</p>
+                            <hr>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>  
+    </div>  
+    @endif
   <!-- Modal -->
   <div class="modal fade" id="verProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

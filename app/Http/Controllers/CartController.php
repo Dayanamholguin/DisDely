@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use App\Models\Usuario;
 use App\Models\Cotizacion;
 use App\Models\detalle_cotizaciones;
 use Flash;
@@ -71,8 +72,13 @@ class CartController extends Controller
             $img = $producto->nombre . '.' . time() . '.' . $request->img->extension();
             $request->img->move(public_path('imagenes'), $img);
         }
-        $userId = auth()->user()->id;
-        $userName = auth()->user()->nombre . " " . auth()->user()->apellido;
+        $userId = Usuario::find($request->idUser);
+        
+        if ($userId==null) {
+            Flash::error("No se encuentra el cliente");
+            return back();
+        }
+        $userName =$userId->nombre. " " .$userId->apellido;
         $cotizacion = 0;
         $carritoCollection = \Cart::getContent();
         if (count($carritoCollection)<>0) {
@@ -186,7 +192,7 @@ class CartController extends Controller
                 )
             )
         );
-        Flash::success("Producto actualizado");
+        Flash("Producto actualizado")->success()->important();
         return back();
     }
 

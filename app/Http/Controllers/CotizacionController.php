@@ -47,7 +47,12 @@ class CotizacionController extends Controller
                 return ucwords(Date::create($cotizacion->fechaEntrega)->format('l, j F Y'));
             })
             ->editColumn('acciones', function ($cotizacion) {
-                $acciones = '<a class="btn btn-info btn-sm" href="/cotizacion/editar/' . $cotizacion->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
+                if ($cotizacion->estado =="Pendiente") {
+                    $acciones = '<a class="btn btn-info btn-sm" href="/cotizacion/editar/' . $cotizacion->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
+                }else
+                {
+                    $acciones = '<a class="btn btn-info btn-sm disabled" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
+                }
                 $acciones .= '<a class="btn btn-secondary btn-sm" href="/cotizacion/ver/' . $cotizacion->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-info-circle"></i> Ver</a> ';
                 return $acciones;
             })
@@ -203,6 +208,8 @@ class CotizacionController extends Controller
             ->join("productos", "productos.id", "detalle_cotizaciones.idProducto")
             ->where("cotizaciones.id", $id)
             ->get();
+
+            // dd($detalleCotizacion);
         return view('cotizacion.ver', compact("detalleCotizacion", "cotizacion", "cotizacionUsuario", "nombreEstado"));
     }
 
@@ -318,7 +325,7 @@ class CotizacionController extends Controller
                         "frase" => $value->frase,
                         "pisos" => $value->pisos,
                         "descripcionProducto" => $value->descripcionProducto,
-                        "img" => $value->imagen1,
+                        "img" => $value->img,  //cambié el imagen1 por img, el atributo de cotizaciones
                     ]);
                 }
                 DB::commit();

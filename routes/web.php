@@ -120,6 +120,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/pedido/buscarUsuarios', [PedidoController::class, 'buscarUsuarios']);
     Route::get('/pedido/requisitos', [PedidoController::class, 'requisitos']);
     Route::post('/pedido/crear', [PedidoController::class, 'crear']);
+    Route::get('/carritoPedido/{id}', [PedidoController::class, 'carrito']);
+    Route::post('/pedido/guardar', [PedidoController::class, 'guardar']);
+    Route::get('/pedido/ver/{id}', [PedidoController::class, 'verDetalle']);
+    Route::get('/ver/imagenPedido/{imagen}', [PedidoController::class, 'verImagen']);
+    Route::post('/limpiarCarritoPedido', [PedidoController::class, 'limpiarCarritoPedido']);
+    Route::post('/quitarProductoPedido', [PedidoController::class, 'quitar']);
+    Route::post('/actualizarPreProductos', [PedidoController::class, 'actualizarPreProductos']);
+    Route::post('/agregarCarritoPedido', [PedidoController::class, 'agregarCarritoPedido']);
     Route::get('/pedido/crear/{producto}/{cliente}', [PedidoController::class, 'crearProductoRegistrado']);
     // Route::post('/perfil/actualizar/{id}', [PerfilController::class, 'modificar'])->middleware('password.confirm');
     //para mostrar
