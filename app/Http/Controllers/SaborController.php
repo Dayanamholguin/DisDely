@@ -91,7 +91,7 @@ class SaborController extends Controller
                 return redirect("/sabor");
             }
             $sabor->update([
-                "nombre" => $input["nombre"]
+                "nombre" => ucfirst($input["nombre"])
             ]);
             Flash::success("Se ha modificado éxitosamente");
             return redirect("/sabor");

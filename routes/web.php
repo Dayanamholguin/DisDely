@@ -18,8 +18,11 @@ use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\MenuController;
 //cotización 
 use App\Http\Controllers\CotizacionController;
+//Pedido 
+use App\Http\Controllers\PedidoController;
 //carrito 
 use App\Http\Controllers\CartController;
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -66,6 +69,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/producto/guardar', [ProductoController::class, 'guardar']);
     Route::get('/producto/editar/{id}', [ProductoController::class, 'editar']);
     Route::get('/producto/ver/{id}', [ProductoController::class, 'ver']);
+    Route::get('/producto/verProductoAjax/{id}', [ProductoController::class, 'verProductoAjax']);
     Route::get('/producto/verProductoCatalogo/{id}', [ProductoController::class, 'verProductoCatalogo']);
     Route::get('/producto/catalogo', [ProductoController::class, 'catalogo']);
     Route::post('/producto/actualizar', [ProductoController::class, 'modificar']);
@@ -109,7 +113,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/cotizacion/ver/{id}', [CotizacionController::class, 'verDetalle']);
     Route::get('/cotizacion/verListado/{id}', [CotizacionController::class, 'verListar']);
     Route::post('/cotizacion/actualizar', [CotizacionController::class, 'modificar']);
-
+    
+    //cotización
+    Route::get('/pedido', [PedidoController::class, 'index']);
+    Route::get('/pedido/listar', [PedidoController::class, 'listar']);
+    Route::get('/pedido/buscarUsuarios', [PedidoController::class, 'buscarUsuarios']);
+    Route::get('/pedido/requisitos', [PedidoController::class, 'requisitos']);
+    Route::post('/pedido/crear', [PedidoController::class, 'crear']);
+    Route::get('/pedido/crear/{producto}/{cliente}', [PedidoController::class, 'crearProductoRegistrado']);
     // Route::post('/perfil/actualizar/{id}', [PerfilController::class, 'modificar'])->middleware('password.confirm');
     //para mostrar
     /*Route::get('/imagenes/{path}/{attachment}', function($path, $attachment){

@@ -12,7 +12,7 @@
         @if(\Cart::getTotalQuantity()>0)
         <div class="card">
             <div class="card-header text-center">
-                <strong>Edición de la cotización</strong> / <a href="/cancelar" class="alert-link titulo">Volver</a>
+                <strong>Edición de la cotización</strong> / <a href="/cotizacion" class="alert-link titulo">Volver</a>
             </div>
             <div class="card-body">
                 <div class="container mt-1">
@@ -183,7 +183,12 @@
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="">Foto de referencia: </label>
-                                <input type="file" class="form-control-file" name="img" value="">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input peque" name="img"
+                                     onchange="vista_preliminar(event)">
+                                    <label class="custom-file-label peque" for="customFile">Subir foto del pastel</label>
+                                </div>
+                                {{-- <input type="file" class="form-control-file" name="img" value="" onchange="vista_preliminar(event)"> --}}
                                 {{-- <input type="hidden" name="imagenJs" id="imagenJs" value=""> --}}
                                 <p id="foto"></p>
                                 <p>
@@ -252,6 +257,16 @@
                 },
             });
     }
+    let vista_preliminar = (event) => {
+        let leer_img = new FileReader();
+        let id_img = document.getElementById('imagen1');
+        leer_img.onload = () => {
+            if (leer_img.readyState == 2) {
+                id_img.src = leer_img.result
+            }
+        }
+        leer_img.readAsDataURL(event.target.files[0])
+    }    
     function agregarProductos() {
         $("#mostrarOpciones").toggle();
     }

@@ -60,7 +60,7 @@
       <h6 class="mb-0">Género<b style="color:red;">*</b></h6>
     </div>
     <div class="col-md-12 col-sm-12 mt-3">
-      <select class="form-control" name="genero">
+      <select class="form-control" style="width: 100%" name="genero">
         <option value="">Seleccione</option>
         @if ($usuario->idGenero==2)
         <option value="2" selected>Masculino</option>

@@ -97,7 +97,7 @@
                 <div class="section-header">
                     <h2 style="color: #B0535E;"><b>¿Quiénes Somos?</b></h2>
                     <p style="color: black;">Somos un negocio dedicado a la producción
-                        de productos de panadería, pastelería y repostería de alta calidad y sabor; 
+                        de productos de pastelería de alta calidad y sabor; 
                         ubicada en Bello, Las Vegas. Ofrecemos a nuestros clientes productos de la mejor
                         calidad y frescura. Contamos con una amplia gama de variedades en pan, repostería y pasteles 
                         de línea para todo tipo de gusto.

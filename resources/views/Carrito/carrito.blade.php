@@ -175,7 +175,7 @@
                     $('#sabor').html(res.attributes.saborDeseado);
                     $('#nPersonas').html(res.attributes.numeroPersonas);
                     $('#pisos').html(res.attributes.pisos);
-                    if (res.attributes.frase==null) {
+                    if (res.attributes.frase==null || res.attributes.frase=='') {
                         $('#frase').html("No tiene frase");
                     }else {
                         $('#frase').html(res.attributes.frase);

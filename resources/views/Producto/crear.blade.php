@@ -23,8 +23,11 @@ Productos
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="">Imagen<b style="color: red"> *</b></label>
-                        <input type="file" class="form-control-file @error('imagen') is-invalid @enderror" name="imagen"
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input @error('imagen') is-invalid @enderror" name="imagen"
                             id="imagen">
+                            <label class="custom-file-label" for="customFile">Subir foto del pastel</label>
+                        </div>
                         @error('imagen')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}
@@ -41,12 +44,13 @@ Productos
                             <option value="{{ $value->id }}" {{old('categorias' ) == $value->id ? 'selected' : ''}}>
                                 {{ $value->nombre }}</option>
                             @endforeach
-                            @error('categorias')
+                            
+                        </select>
+                        @error('categorias')
                             <div class="alert alert-danger" role="alert">
                                 {{$message}}
                             </div>
                             @enderror
-                        </select>
                     </div>
 
                 </div>
@@ -59,12 +63,13 @@ Productos
                             <option value="{{$value->id}}" {{old('sabores' ) == $value->id ? 'selected' : ''}}>
                                 {{$value->nombre}}</option>
                             @endforeach
-                            @error('sabores')
+                            
+                        </select>
+                        @error('sabores')
                             <div class="alert alert-danger" role="alert">
                                 {{$message}}
                             </div>
                             @enderror
-                        </select>
                     </div>
                 </div>
 
@@ -77,12 +82,13 @@ Productos
                             <option value="{{$value->id}}" {{old('etapas' ) == $value->id ? 'selected' : ''}}>
                                 {{$value->nombre}}</option>
                             @endforeach
-                            @error('etapas')
-                            <div class="alert alert-danger" role="alert">
-                                {{$message}}
-                            </div>
-                            @enderror
+                           
                         </select>
+                        @error('etapas')
+                        <div class="alert alert-danger" role="alert">
+                            {{$message}}
+                        </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-12">

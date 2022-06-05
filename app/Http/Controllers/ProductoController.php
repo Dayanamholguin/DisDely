@@ -67,12 +67,12 @@ class ProductoController extends Controller
     public function verProductoCatalogo($id)
     {
         if ($id == 1) {
-            Flash::error("No se puede ver el producto personalizado");
+            Flash("No se puede ver el producto personalizado")->error()->important();
             return redirect("/producto/catalogo");
         }
         $producto = Producto::find($id);
         if ($producto == null) {
-            Flash::error("No se encontró el producto");
+            Flash("No se encontró el producto")->error()->important();
             return redirect("/producto/catalogo");
         }
         $categoria = Producto::select('categorias.nombre')->join("categorias", "productos.idCategoria", "categorias.id")->where("productos.id",$id)->value('nombre');
@@ -96,7 +96,7 @@ class ProductoController extends Controller
         $input = $request->all();
         $producto = Producto::select('*')->where('nombre', $request->nombre)->value('nombre');
         if ($producto != null) {
-            Flash::error("El producto " . $producto . " ya está creado");
+            Flash("El producto " . $producto . " ya está creado")->error()->important();
             return redirect("/producto/crear");
         }
         try {
@@ -105,7 +105,7 @@ class ProductoController extends Controller
                 $imagen = $input["nombre"] . '.' . time() . '.' . $request->imagen->extension();
                 $request->imagen->move(public_path('imagenes'), $imagen);
             } else {
-                Flash::error("La imagen es requerida, por favor, colóquela");
+                Flash("La imagen es requerida, por favor, colóquela")->error()->important();
                 return redirect("/producto/crear");
             }
             Producto::create([
@@ -120,10 +120,10 @@ class ProductoController extends Controller
                 "img" => $imagen,
                 "estado" => 1
             ]);
-            Flash::success("Se ha creado éxitosamente");
+            Flash("Se ha creado éxitosamente")->success()->important();
             return redirect("/producto");
         } catch (\Exception $e) {
-            Flash::error($e->getMessage());
+            Flash($e->getMessage())->error()->important();
             return redirect("/producto/crear");
         }
     }
@@ -137,13 +137,13 @@ class ProductoController extends Controller
 
 
         if ($id == 1) {
-            Flash::error("No se puede editar el producto personalizado");
+            Flash("No se puede editar el producto personalizado")->error()->important();
             return redirect("/producto");
         }
 
         $producto = Producto::find($id);
         if ($producto == null) {
-            Flash::error("No se encontró el producto");
+            Flash("No se encontró el producto")->error()->important();
             return redirect("/producto");
         }
         $mi_imagen = public_path() . '/imagenes/' . $producto->img;
@@ -158,12 +158,12 @@ class ProductoController extends Controller
     public function ver($id)
     {
         if ($id == 1) {
-            Flash::error("No se puede ver el producto personalizado");
+            Flash("No se puede ver el producto personalizado")->error()->important();
             return redirect("/producto");
         }
         $producto = Producto::find($id);
         if ($producto == null) {
-            Flash::error("No se encontró el producto");
+            Flash("No se encontró el producto")->error()->important();
             return redirect("/producto");
         }
         $mi_imagen = public_path() . '/imagenes/' . $producto->img;
@@ -172,16 +172,30 @@ class ProductoController extends Controller
         } else {
             $producto->img = '/img/defecto.jpg';
         }
+        
         $categoria = Producto::select('categorias.nombre')->join("categorias", "productos.idCategoria", "categorias.id")->where("productos.id",$id)->value('nombre');
         $sabor = Producto::select('sabores.nombre')->join("sabores", "productos.idsabor", "sabores.id")->where("productos.id",$id)->value('nombre');
         $etapa = Producto::select('etapas.nombre')->join("etapas", "productos.idetapa", "etapas.id")->where("productos.id",$id)->value('nombre');
+        // dd($sabor);
         return view("producto.ver", compact("producto", "categoria", "sabor", "etapa"));
     }
-
+    public function verProductoAjax($id) {
+        $producto = Producto::find($id);
+        // $productoCompleto = Producto::select("productos.*", "categorias.nombre as categoria", "sabores.nombre as sabor", "etapas.nombre as etapa")
+        // ->join("categorias", "productos.idCategoria", "categorias.id")
+        // ->join("sabores", "productos.idsabor", "sabores.id")
+        // ->join("etapas", "productos.idetapa", "etapas.id")
+        // ->where("productos.id",$id)
+        // ->get();
+        $categoria = Producto::select('categorias.nombre')->join("categorias", "productos.idCategoria", "categorias.id")->where("productos.id",$id)->value('nombre');
+        $sabor = Producto::select('sabores.nombre')->join("sabores", "productos.idsabor", "sabores.id")->where("productos.id",$id)->value('nombre');
+        $etapa = Producto::select('etapas.nombre')->join("etapas", "productos.idetapa", "etapas.id")->where("productos.id",$id)->value('nombre');
+        return compact("producto", "categoria", "sabor", "etapa");
+    }
     public function modificar(Request $request)
     {
         if ($request->id == 1) {
-            Flash::error("No se puede editar el producto personalizado");
+            Flash("No se puede editar el producto personalizado")->error()->important();
             return redirect("/producto");
         }
         $request->validate(Producto::$rules);
@@ -189,27 +203,28 @@ class ProductoController extends Controller
         $input = $request->all();
         $producto = Producto::select('*')->where('nombre', $request->nombre)->where('id', '<>', $id)->value('nombre');
         if ($producto != null) {
-            Flash::error("El producto " . $producto . " ya está creado");
+            Flash("El producto " . $producto . " ya está creado")->error()->important();
             return redirect("/producto/editar/{$id}");
         }
 
         try {
             $producto = Producto::find($input["id"]);
             if ($producto == null) {
-                Flash::error("No se encontró el producto");
+                Flash("No se encontró el producto")->error()->important();
                 return redirect("/producto");
             }
+            $estado=$input["catalogo"]==0?$estado=0:$estado=1;
             $producto->update([
                 "idCategoria" => $input["categoria"],
                 "idSabor" => $input["sabor"],
                 "idEtapa" => $input["etapa"],
-                "nombre" => $input["nombre"],
-                "descripcion" => $input["descripcion"],
+                "nombre" => ucfirst($input["nombre"]),
+                "descripcion" => ucfirst($input["descripcion"]),
                 "numeroPersonas" => $input["numeroPersonas"],
                 "pisos" => $input["pisos"],
                 "catalogo" => $input["catalogo"],
                 //"img"=>$imagen,
-                "estado" => 1
+                "estado" => $estado
             ]);
             if ($request->hasFile('img')) {
                 $archivoFoto = $request->file('img');
@@ -218,10 +233,10 @@ class ProductoController extends Controller
                 $producto->img = $nombreFoto;
                 $producto->update(['img' => $nombreFoto]);
             }
-            Flash::success("Se ha modificado éxitosamente");
+            Flash("Se ha modificado éxitosamente")->success()->important();
             return redirect("/producto");
         } catch (\Exception $e) {
-            Flash::error($e->getMessage());
+            Flash($e->getMessage())->error()->important();
             return redirect("/producto/editar/{$id}");
         }
     }
@@ -229,18 +244,23 @@ class ProductoController extends Controller
     public function modificarEstado($id, $estado)
     {
         if ($id == 1) {
-            Flash::error("No se puede modificar el estado el producto personalizado");
+            Flash("No se puede modificar el estado el producto personalizado")->error()->important();
             return redirect("/producto");
         }
         $producto = Producto::find($id);
         if ($producto == null) {
+            Flash("No se encontró el producto")->error()->important();
             return redirect("/producto");
         }
+        $catalogo = $estado==0?$catalogo=0:$catalogo=1;
         try {
-            $producto->update(["estado" => $estado]);
+            $producto->update([
+                "estado" => $estado,
+                "catalogo" => $catalogo
+            ]);
             return redirect("/producto");
         } catch (\Exception $e) {
-            Flash::error($e->getMessage());
+            Flash($e->getMessage())->error()->important();
             return redirect("/producto");
         }
     }

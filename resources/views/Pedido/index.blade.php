@@ -1,22 +1,25 @@
 @extends('layouts.app')
 
 @section('title')
-Gestión de Cotizaciones
+Gestión de Pedidos
 @endsection
 
 @section('content')
 <div class="card">
-    <div class="card-header">
-        <a href="/cotizacion/personalizada" class="alert-link btn btn-primary tipoletra"><i class="bi bi-plus-circle"></i> Realizar cotización personalizada</a>
+    <div class="card-header centrado">
+        <a href="/pedido/requisitos" class="alert-link btn btn-primary tipoletra mr-2 "><i class="bi bi-plus-circle"></i> Realizar pedido</a>
+        <a href="#" class="btn btn-outline-secondary mr-2">Filtrar pedidos pagos y no pagos</a>
+        <a href="#" class="btn btn-outline-secondary">Filtrar por tres días antes de la entrega</a>
     </div>
     <div class="card-body">
     @include('flash::message')
-        <table id="cotizaciones" class="table table-bordered dt-responsive dataTable text-left" style="width: 100%;">
+        <table id="pedidos" class="table table-bordered dt-responsive dataTable text-left" style="width: 100%;">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Usuario</th>
                     <th>Fecha de entrega</th>
+                    <th>Precio</th>
                     <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
@@ -33,10 +36,10 @@ Gestión de Cotizaciones
 @section("scripts")
 <script>
     $(document).ready(function() {
-        $('#cotizaciones').DataTable({
+        $('#pedidos').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '/cotizacion/listar',
+            ajax: '/pedido/listar',
             columns: [{
                     data: 'id',
                     name: 'id'
@@ -48,6 +51,11 @@ Gestión de Cotizaciones
                 {
                     data: 'fechaEntrega',
                     name: 'fechaEntrega'
+                },
+                {
+                    data: 'precio',
+                    name: 'precio',
+                    render: $.fn.dataTable.render.number( '.', 2 )
                 },
                 {
                     data: 'estado',

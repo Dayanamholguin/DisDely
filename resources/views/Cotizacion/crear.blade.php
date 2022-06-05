@@ -84,17 +84,21 @@ Cotización
                 </div>
                 <div class="col-md-3 col-sm-12">
                     <div class="form-group">
-                        <label for="">Agregar fotos de referencia<b style="color: red"> *</b></label>
+                        <label for="">Agregar fotos de referencia<strong style="color: red"> *</strong></label>
                         <select class="form-control" onchange="mostrar(this.value);">
                             <option value="No">No</option>
                             <option value="imagen">Sí</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-12 col-sm-12 centrado"  id="imagen" style="display: none;">
+                <div class="col-md-12 col-sm-12"  id="imagen" style="display: none;">
                     <div class="form-group">
                         <label for="">Inserte imagen de referencia acá</label>
-                        <input type="file" class="form-control-file" name="img" id="img">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="img" id="img">
+                            <label class="custom-file-label" for="customFile">Subir foto del pastel aquí</label>
+                        </div>
+                        {{-- <input type="file" class="form-control-file" name="img" id="img"> --}}
                     </div>
                 </div>
                 <div class="col-12 centrado">

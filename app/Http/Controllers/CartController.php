@@ -48,6 +48,13 @@ class CartController extends Controller
 
     public function agregarCarrito(Request $request)
     {
+        // dd(?'personalizado':'Nomral');
+        if($request->idProducto==1){
+            $campos = [
+                'img' => ['required', 'image'],
+            ];
+            $this->validate($request, $campos);
+        }
         // $request->validate(reportes::$rules);
         $request->validate(detalle_cotizaciones::$rules);
         $producto = Producto::find($request->idProducto);
@@ -93,7 +100,7 @@ class CartController extends Controller
             )
         ));
         // dd(\Cart::getContent());
-        Flash::success("Se agregó correctamente el producto");
+        Flash::success("Se agregó correctamente el producto, ¡puedes agregar más!");
         $productos = Producto::all()->where('catalogo', 1)->where('id', '>', 1);
         return view('producto.catalogo', compact("productos"));
     }

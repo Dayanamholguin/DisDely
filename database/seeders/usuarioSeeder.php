@@ -20,6 +20,20 @@ class usuarioSeeder extends Seeder
     public function run()
     {
         User::create([
+            'nombre' => 'Cliente genérico',
+            'apellido' => 'Cliente genérico',
+            'email' => 'Clientegenérico@gmail.com',
+            'celular' => '0',
+            'celularAlternativo' => '0',
+            'estado' => 0,
+            'foto' =>'undraw_profile_1.svg',
+            'idGenero' => 1,
+            'password' => Hash::make("123456789"),
+            'created_at' => "2022/05/02",
+            'updated_at' => "2022/05/02",
+        ])->assignRole('cliente');
+        
+        User::create([
             'nombre' => 'Ibet',
             'apellido' => 'Arévalo',
             'email' => 'Ibet@gmail.com',
@@ -32,6 +46,8 @@ class usuarioSeeder extends Seeder
             'created_at' => "2022/05/02",
             'updated_at' => "2022/05/02",
         ])->assignRole('admin');
+
+        
 
 
     }

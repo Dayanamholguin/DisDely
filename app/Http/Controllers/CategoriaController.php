@@ -93,7 +93,7 @@ class CategoriaController extends Controller
                 return redirect("/categoria");
             }
             $categoria->update([
-                "nombre" => $input["nombre"]
+                "nombre" => ucfirst($input["nombre"])
             ]);
             Flash::success("Se ha modificado éxitosamente");
             return redirect("/categoria");
