@@ -115,6 +115,11 @@
     }
 }
 
+.btn-successInfo {
+    color: #fff;
+    background-color: #357c46;
+    border-color: #357c46;
+}
 .centrado {
     display: flex;
     align-items: center;

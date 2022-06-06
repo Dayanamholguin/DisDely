@@ -22,6 +22,8 @@ use App\Http\Controllers\CotizacionController;
 use App\Http\Controllers\PedidoController;
 //carrito 
 use App\Http\Controllers\CartController;
+//Abono 
+use App\Http\Controllers\abonoController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -114,7 +116,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/cotizacion/verListado/{id}', [CotizacionController::class, 'verListar']);
     Route::post('/cotizacion/actualizar', [CotizacionController::class, 'modificar']);
     
-    //cotización
+    //pedido
     Route::get('/pedido', [PedidoController::class, 'index']);
     Route::get('/pedido/listar', [PedidoController::class, 'listar']);
     Route::get('/pedido/buscarUsuarios', [PedidoController::class, 'buscarUsuarios']);
@@ -133,6 +135,15 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/actualizarProductosPedido', [PedidoController::class, 'actualizarProductosPedido']);
     Route::post('/agregarCarritoPedido', [PedidoController::class, 'agregarCarritoPedido']);
     Route::get('/pedido/crear/{producto}/{cliente}', [PedidoController::class, 'crearProductoRegistrado']);
+
+    // abonos
+    Route::get('/abono', [abonoController::class, 'index']);
+    Route::get('/abono/listar', [abonoController::class, 'listar']);
+    Route::get('/abono/crear/{id}', [abonoController::class, 'crear']);
+    Route::get('/abono/ver/{id}', [abonoController::class, 'ver']);
+    Route::get('/abono/verIndividual/{id}', [abonoController::class, 'verIndividual']);
+    Route::get('/ver/imagenAbono/{imagen}', [abonoController::class, 'verImagen']);
+    Route::post('/abono/guardar', [abonoController::class, 'guardar']);
     // Route::post('/perfil/actualizar/{id}', [PerfilController::class, 'modificar'])->middleware('password.confirm');
     //para mostrar
     /*Route::get('/imagenes/{path}/{attachment}', function($path, $attachment){

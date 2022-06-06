@@ -107,7 +107,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo nos permite tener un registro de las cotizaciones, llevar un seguimiento, de acuerdo al estado en que se encuentre cada una: pendiente, rechazada o aprobada" href="/cotizacion">Cotizaciones</a>
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo nos permite hacer un seguimiento de los pedidos, teniendo así la posibilidad de hacer el registro de los pedidos que se hagan tanto en el aplicativo, como externamente" href="/pedido">Pedidos</a>
-                        <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo nos permite hacer seguimiento de los abonos realizados a los pedidos" href="#">Abonos</a>
+                        <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo nos permite hacer seguimiento de los abonos realizados a los pedidos" href="/abono">Abonos</a>
                         <div class="collapse-divider"></div>
                     </div>
                 </div>

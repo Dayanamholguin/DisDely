@@ -21,27 +21,68 @@
                 </div>
                 @include('flash::message')
                 <div class="card-body text-center">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12">
-                            <div class="form-group">
-                                <label for=""><strong>Persona que hizo la cotización</strong></label>
-                                <p  class="form-control">{{$pedidoUsuario}}</p>
-                            </div>
+                    @if ($pedido->idUser!=1)
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a><strong>Información del cliente: </strong></a>
+                            <a href="/usuario/ver/{{$pedido->idUser}}" class="alert-link titulo">Ver información del cliente detalladamente</a>
                         </div>
-                        <div class="col-md-6 col-sm-12">
+                    @endif
+                    <div class="row {{$pedido->idUser!=1?'mt-4':''}} ">
+                        @foreach($cliente as $item)
+                            
+                            @if ($item->id==1)
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label for=""><strong>Persona responsable del pedido</strong></label>
+                                        <p  class="form-control">{{$item->nombre}}</p>
+                                    </div>
+                                </div>
+                            @else
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label for=""><strong>Persona responsable del pedido</strong></label>
+                                        <p  class="form-control">{{$item->nombre ." ". $item->apellido}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label for=""><strong>Correo electrónico</strong></label>
+                                        <p  class="form-control">{{$item->email}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label for=""><strong>Teléfono</strong></label>
+                                        <p  class="form-control">{{$item->celular}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label for=""><strong>Teléfono alternativo</strong></label>
+                                        <p  class="form-control">{{$item->celularAlternativo}}</p>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a><strong>Información del pedido: </strong></a>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-4 col-sm-12">
                             <div class="form-group">
                                 <label for=""><strong>Fecha de entrega</strong></label>
-                                <p class="form-control">{{$pedido->fechaEntrega}}</p>
+                                <p class="form-control">{{ucwords(Date::create($pedido->fechaEntrega)->format('l, j F Y'))}}</p>
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-md-4 col-sm-12">
                             <div class="form-group">
                                 <label for=""><strong>Precio del pedido</strong></label>
                                 <p class="form-control">{{number_format($pedido->precio, 0, '.', '.');}}</p>
                             </div>
                         </div>
-                        
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-md-4 col-sm-12">
                             <div class="form-group">
                                 <label for=""><strong>Estado del pedido</strong></label>
                                 @if ($nombreEstado =="En espera")
@@ -62,19 +103,37 @@
                                 {{-- <textarea  style="width: 100%;">/> --}}
                             </div>
                         </div>
-                        @if ($nombreEstado ==="En espera")
-                            <div class="col-md-12 col-sm-12 text-right">
-                                <a href="/pedido/editar/{{$pedido->id}}" class="alert-link titulo">Editar pedido</a>
-                            </div>
-                        @endif
                     </div>
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12">
-                            <div class="form-group mt-3 mb-3">
-                                <label for=""><strong>Información de los productos que se encuentran en el pedido</strong></label>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a><strong>Información de los abonos: </strong></a>
+                        <a href="/abono/ver/{{$pedido->id}}" class="alert-link titulo">Ver detalladamente</a>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for=""><strong>Porcentaje del pago:</strong></label>
+                                <p class="form-control">{{$porcentaje}} %</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for=""><strong>Estado del pedido en el abono:</strong></label>
+                                @if ($paga)
+                                    <p class="form-control bg-success text-white" >Pedido pago</p>
+                                @else
+                                    <p class="form-control bg-warning text-white" >Proceso de abono</p>
+                                @endif
                             </div>
                         </div>
                     </div>
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <strong>Información de los productos que se encuentran en el pedido</strong>
+                        @if ($nombreEstado ==="En espera")
+                            <a href="/pedido/editar/{{$pedido->id}}" class="alert-link titulo">Editar pedido</a>
+                        @endif
+                    </div>
+                    <hr>
                     <div class="row">
                         <div class="col-md-4 border-right">
                             <div class="card-body">

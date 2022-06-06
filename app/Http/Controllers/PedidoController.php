@@ -8,6 +8,7 @@ use App\Models\Producto;
 use App\Models\detalle_cotizaciones;
 use App\Models\detalle_pedidos;
 use App\Models\Pedido;
+use App\Models\Abono;
 use App\Models\cotizacion;
 use App\Models\User;
 use App\Models\Usuario;
@@ -28,10 +29,13 @@ class PedidoController extends Controller
     public function listar(Request $request)
     {
         Date::setLocale('es');
-        $pedido = Pedido::select("pedidos.*", "pedidos.estado as idEstado", "users.nombre as usuario", "estado_pedidos.nombre as estado")
+        $pedido = Pedido::select("pedidos.*", "pedidos.estado as idEstado", "users.nombre as usuario","users.apellido as Pusuario", "estado_pedidos.nombre as estado")
             ->join("users", "users.id", "pedidos.idUser")
             ->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")
             ->get();
+        // DB::raw("DATEDIFF(date_from,date_to)AS Days"))
+        // SELECT DATEDIFF((SELECT fechaEntrega FROM `pedidos` WHERE id = 6), NOW())
+        // $nombreC = Usuario::select(DB::raw('CONCAT(nombre, \' \', apellido) as nombreCompleto'))->where('id', $value->attributes->clienteId)->value('nombreCompleto');
 
         return DataTables::of($pedido)
             ->editColumn('estado', function ($pedido) {
@@ -48,12 +52,71 @@ class PedidoController extends Controller
             ->editColumn('fechaEntrega', function ($pedido) {
                 return ucwords(Date::create($pedido->fechaEntrega)->format('l, j F Y'));
             })
+            ->editColumn('cliente', function ($pedido) {
+                if ($pedido->idUser==1) {
+                    $nombre = $pedido->usuario;
+                }else {
+                    $nombre = $pedido->usuario. " ".$pedido->Pusuario;
+                }
+                return $nombre;
+            })
+            ->addColumn('verFechas', function ($pedido) {
+                $fecha = Pedido::select('fechaEntrega')->where('id', $pedido->id)->value("fechaEntrega");
+                $date1 = Carbon::parse($fecha);
+                $date2 = now();
+                $fechaPedido = intval($date1->format('d')) - intval($date2->format('d'));
+                if ($pedido->idEstado != 3) {
+                    if ($fechaPedido == 3) {
+                        return '<span class="badge badge-warning text-white p-2">' . 'Faltan ' . $fechaPedido . ' día(s)' . '</span>';
+                    } elseif ($fechaPedido == 2) {
+                        return '<span class="badge badge-info text-white p-2">' . 'Faltan ' . $fechaPedido . ' día(s)' . '</span>';
+                    } elseif ($fechaPedido == 1) {
+                        return '<span class="badge badge-danger text-white p-2">' . 'Faltan ' . $fechaPedido . ' día(s)' . '</span>';
+                    } elseif ($fechaPedido == 0) {
+                        return '<span class="badge badge-success text-white p-2">' . 'Se entrega hoy' . '</span>';
+                    } elseif ($fechaPedido < 0) {
+                        return "Se pasó el día de la entrega";
+                    }
+                    return "Faltan " . $fechaPedido . " día(s)";
+                } else {
+                    return "Se anuló el pedido";
+                }
+            })
+            ->addColumn('pagos', function ($pedido) {
+                $precio = Pedido::select('precio')->where('pedidos.id', $pedido->id)->value('precio');
+                $abonos = Abono::select("*")->where('idPedido', $pedido->id)->get();
+                $nAbonos = 0;
+                if (count($abonos) > 0) {
+                    foreach ($abonos as $value) {
+                        $nAbonos += $value->precioPagar;
+                    }
+                }
+                if ($nAbonos == $precio) {
+                    return '<span class="badge badge-success text-white p-2">' . 'Pedido pago' . '</span>';
+                }else {
+                    return '<span class="badge badge-warning text-white p-2">' . 'Proceso de abono ' . '</span>';
+                }
+            })
             ->editColumn('acciones', function ($pedido) {
-                $acciones = '<a class="btn btn-info btn-sm" href="/pedido/editar/' . $pedido->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
-                $acciones .= '<a class="btn btn-secondary btn-sm" href="/pedido/ver/' . $pedido->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-info-circle"></i> Ver</a> ';
+                $acciones = '<a class="btn btn-info btn-sm" href="/pedido/editar/' . $pedido->id . '" ><i class="fas fa-edit"></i> Editar</a> ';
+                $acciones .= '<a class="btn btn-secondary btn-sm" href="/pedido/ver/' . $pedido->id . '" ><i class="fas fa-info-circle"></i> Ver</a> ';
+                
+                $precio = Pedido::select('precio')->where('pedidos.id', $pedido->id)->value('precio');
+                $abonos = Abono::select("*")->where('idPedido', $pedido->id)->get();
+                $nAbonos = 0;
+                if (count($abonos) > 0) {
+                    foreach ($abonos as $value) {
+                        $nAbonos += $value->precioPagar;
+                    }
+                }
+                if ($nAbonos != $precio) {
+                    $acciones .= '<a class="btn btn-success btn-sm" href="/abono/crear/' . $pedido->id . '" ><i class="fas fa-dollar-sign"></i> Abono</a> ';
+                }
+
+                $acciones .= '<a class="btn btn-dark btn-sm" href="/abono/ver/' . $pedido->id . '" ><i class="fas fa-dollar-sign"></i></a> ';
                 return $acciones;
             })
-            ->rawColumns(['acciones', 'estado'])
+            ->rawColumns(['acciones', 'estado', 'verFechas', 'pagos', 'cliente'])
             ->make(true);
     }
     public function carrito($id)
@@ -589,12 +652,12 @@ class PedidoController extends Controller
     {
         $carritoCollection = \Cart::getContent();
         $pedido = Pedido::find($request->idPedido);
-        
+
         $pedidoUsuario = Pedido::select(DB::raw('CONCAT(users.nombre, \' \', users.apellido) as nombreCompleto'))
             ->join("users", "users.id", "pedidos.idUser")
             ->where("pedidos.id", $pedido->id)
             ->value("nombreCompleto");
-        
+
         $estadosPedido = DB::table('estado_pedidos')->get();
         if ($pedido->idUser == 1 || $pedidoUsuario == "Cliente genérico") {
             $pedidoUsuario = Pedido::select('users.nombre')
@@ -602,18 +665,18 @@ class PedidoController extends Controller
                 ->where("pedidos.id", $pedido->id)
                 ->value("nombre");
         }
-        
+
         // falta validar los values del estado
         if ($pedido == null) {
             Flash("No se encontró ese pedido")->error()->important();
             return view("pedido.editar", compact("pedido", "pedidoUsuario", "carritoCollection", "estadosPedido"));
         }
-        
+
         if ($request->fechaEntrega < now()) {
             Flash("No se puede poner la fecha de entrega antes de la fecha actual.")->error()->important();
             return back();
         }
-        
+
         if ($request->descripcionGeneral == null || $request->precio == null) {
             Flash("Por favor, rellene todos los campos")->warning()->important();
             return view("pedido.editar", compact("pedido", "pedidoUsuario", "carritoCollection", "estadosPedido"));
@@ -622,42 +685,40 @@ class PedidoController extends Controller
             Flash("Por favor, digite valores numéricos en el precio")->warning()->important();
             return view("pedido.editar", compact("pedido", "pedidoUsuario", "carritoCollection", "estadosPedido"));
         }
-        
+
         foreach ($carritoCollection as $value) {
-            
+
             if ($value->attributes->clienteId != $pedido->idUser) {
                 Flash("No coincide el nombre del cliente al que le está haciendo el pedido")->error()->important();
                 return view("pedido.editar", compact("pedido", "pedidoUsuario", "carritoCollection", "estadosPedido"));
             }
         }
         $input = $request->all();
-        
+
         $detallePedido = detalle_pedidos::select("pedidos.id as pedidoid", "detalle_pedidos.*", "productos.nombre as producto", "productos.img as imagen", "productos.id as idProducto")
             ->join("pedidos", "detalle_pedidos.idPedido", "pedidos.id")
             ->join("productos", "productos.id", "detalle_pedidos.idProducto")
             ->where("pedidos.id", $pedido->id)
             ->get();
-            
+
         // $detalleCotizacion=detalle_cotizaciones::all()->where("idCotizacion", $request->idCotizacion);
         $productos = \Cart::getContent();
-        
+
         try {
             DB::beginTransaction();
             $pedido->update([
                 "fechaEntrega" => $input["fechaEntrega"],
                 "descripcionGeneral" => $input["descripcionGeneral"],
                 "estado" => $input["estado"],
-                "precio" => str_replace('.','', $input["precio"]),
+                "precio" => str_replace('.', '', $input["precio"]),
             ]);
-            $id=[];
-            $cont=0;
+
             // dd($productos);
             foreach ($productos as $value) {
-                
+
                 foreach ($detallePedido as $item) {
-                    
+
                     if ($value->id == $item->idProducto) {
-                        $id[$cont]=$item->idProducto;
                         $item->update([
                             "numeroPersonas" => $value->attributes->numeroPersonas,
                             "saborDeseado" => $value->attributes->saborDeseado,
@@ -666,9 +727,7 @@ class PedidoController extends Controller
                             "descripcionProducto" => $value->attributes->descripcionProducto,
                             "img" => $value->attributes->imagen1,
                         ]);
-                        
                     }
-                    $cont++;
                     // select idProducto from detalle_cotizaciones
                     // join cotizaciones on cotizaciones.id = detalle_cotizaciones.idCotizacion
                     // where (detalle_cotizaciones.idCotizacion = 1) and (detalle_cotizaciones.idProducto=5)
@@ -680,7 +739,7 @@ class PedidoController extends Controller
                         ->where('detalle_pedidos.idPedido', $value->attributes->idCotizacion)
                         ->where('detalle_pedidos.idProducto', $value->id)
                         ->value("idProducto");
-                        
+
                     if ($consultasql == null) {
                         detalle_pedidos::create([
                             "idPedido" => $pedido->id,
@@ -694,13 +753,11 @@ class PedidoController extends Controller
                             "img" => $value->attributes->imagen1,
                         ]);
                     }
-                    
                 }
-                
             }
-            
+
             // dd($id);
-                    
+
             $detalleNueva = detalle_pedidos::select("pedidos.id as pedidoid", "detalle_pedidos.*", "productos.nombre as producto", "productos.img as imagen", "productos.id as idProducto")
                 ->join("pedidos", "detalle_pedidos.idPedido", "pedidos.id")
                 ->join("productos", "productos.id", "detalle_pedidos.idProducto")
@@ -748,7 +805,8 @@ class PedidoController extends Controller
             ->where("pedidos.id", $id)
             ->value('nombre');
 
-        $pedidoUsuario = Pedido::select('users.nombre')->join("users", "users.id", "pedidos.idUser")->where("pedidos.id", $pedido->id)->value("nombre");
+        // $cliente = Pedido::select('users.nombre')->join("users", "users.id", "pedidos.idUser")->where("pedidos.id", $pedido->id)->value("nombre");
+        $cliente = Pedido::select('users.*')->join('users', 'users.id', 'pedidos.idUser')->where('pedidos.id', $pedido->id)->get();
         // SELECT cotizaciones.id, detalle_cotizaciones.*, productos.nombre FROM `detalle_cotizaciones` 
         // join cotizaciones on detalle_cotizaciones.idCotizacion=cotizaciones.id
         // join productos on productos.id=detalle_cotizaciones.idProducto
@@ -758,8 +816,24 @@ class PedidoController extends Controller
             ->join("productos", "productos.id", "detalle_pedidos.idProducto")
             ->where("pedidos.id", $id)
             ->get();
+
+        $precio = Pedido::select('precio')->where('pedidos.id', $pedido->id)->value('precio');
+        $abonos = Abono::select("*")->where('idPedido', $pedido->id)->get();
+        $nAbonos = 0;
+        $resta = 0;
+        $paga=false;
+        if (count($abonos) > 0) {
+            foreach ($abonos as $value) {
+                $nAbonos += $value->precioPagar;
+            }
+            $resta = $pedido->precio - $nAbonos;
+        }
+        if ($nAbonos==$precio) {
+            $paga=true;
+        }
+        $porcentaje = ($nAbonos*100)/$precio;
         // dd($detallePedidos);
-        return view('pedido.ver', compact("detallePedidos", "pedido", "pedidoUsuario", "nombreEstado"));
+        return view('pedido.ver', compact("detallePedidos", "pedido", "cliente", "nombreEstado", "paga", "porcentaje"));
     }
     //cada que se cambie el estado del pedido que notifique al cliente 
 
