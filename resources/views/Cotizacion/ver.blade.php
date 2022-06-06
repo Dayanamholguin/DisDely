@@ -11,19 +11,19 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
                         <div class="form-group">
-                            <label for=""><b>Persona que hizo la cotización</b></label>
+                            <label for=""><strong>Persona que hizo la cotización</strong></label>
                             <p  class="form-control">{{$cotizacionUsuario}}</p>
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <div class="form-group">
-                            <label for=""><b>Fecha de entrega</b></label>
+                            <label for=""><strong>Fecha de entrega</strong></label>
                             <p  class="form-control">{{$cotizacion->fechaEntrega}}</p>
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12">
                         <div class="form-group">
-                            <label for=""><b>Descripción de la cotización</b></label>
+                            <label for=""><strong>Descripción de la cotización</strong></label>
                             <p class="textarea form-control" >{{$cotizacion->descripcionGeneral}}</p>
                             {{-- <textarea  style="width: 100%;">/> --}}
                         </div>
@@ -32,7 +32,7 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
                         <div class="form-group mt-3 mb-3">
-                            <label for=""><b>Información de los productos que se encuentran en la cotización</b></label>
+                            <label for=""><strong>Información de los productos que se encuentran en la cotización</strong></label>
                         </div>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                             @foreach($detalleCotizacion as $value)
                             <img src="{{$value->img==null?'/img/defecto.jpg':'/imagenes/'.$value->img}}" class="rounded-circle mt-4" width="130" height="100" alt="{{$value->img==null?'No tiene imagen de referencia':''}}" data-toggle="tooltip" data-placement="bottom" title="{{$value->img==null?'No tiene imagen de referencia':'Foto de referencia'}}">
                                 <div class="mt-3">
-                                    <b>Producto {{ $value->producto}}</b>
+                                    <strong>Producto {{ $value->producto}}</strong>
                                     <hr>
                                 </div>
                                 @endforeach

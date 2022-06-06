@@ -27,13 +27,13 @@
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
-                                <label for="">Cliente que hace la cotización<b style="color: red"> *</b></label>
+                                <label for="">Cliente que hace la cotización<strong style="color: red"> *</strong></label>
                                 <input type="text" readonly value="{{Auth()->user()->nombre}}" class="form-control" id="productoNombre" name="productoNombre" required>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
-                                <label for="">Fecha de entrega<b style="color: red"> *</b></label>
+                                <label for="">Fecha de entrega<strong style="color: red"> *</strong></label>
                                 <input id="fechaEntrega" type="date" value="" class="form-control @error('fechaEntrega') is-invalid @enderror" name="fechaEntrega" required autocomplete="fechaEntrega" />
                                 @error('fechaEntrega')
                                 <span class="invalid-feedback" role="alert">
@@ -44,7 +44,7 @@
                         </div>
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
-                                <label for="">Descripción<b style="color: red"> *</b></label>
+                                <label for="">Descripción<strong style="color: red"> *</strong></label>
                                 <textarea type="text" value="{{ old('descripcionGeneral') }}" class="form-control @error('descripcionGeneral') is-invalid @enderror" id="descripcionGeneral" name="descripcionGeneral" placeholder="Ingrese la descripción" required>{{ old('descripcionGeneral') }}</textarea>
                                 @error('descripcionGeneral')
                                 <div class="alert alert-danger" role="alert">
@@ -82,8 +82,8 @@
                 <div class="col-lg-5 col-sm-12">
                     <p>
                         <input type="hidden" name="id" value="{{$item->id}}">
-                        <b><a href="#"  role="button" class="titulo"  onclick="mostrar({{$item->id}})" data-toggle="tooltip" data-placement="right" title="Clic para ver descripción del producto">{{ $item->name }}</a></b><br>
-                        <b>Sabor: </b>{{ $item->attributes->saborDeseado }}
+                        <strong><a href="#"  role="button" class="titulo"  onclick="mostrar({{$item->id}})" data-toggle="tooltip" data-placement="right" title="Clic para ver descripción del producto">{{ $item->name }}</a></strong><br>
+                        <strong>Sabor: </strong>{{ $item->attributes->saborDeseado }}
                     </p>
                 </div>
             </form>
@@ -122,17 +122,17 @@
                         <strong id="nombre"></strong>
                     </div>
                     <div class="card-body">
-                        <b>Sabor deseado: </b>
+                        <strong>Sabor deseado: </strong>
                         <p id="sabor"></p>
-                        <b>Para número de personas: </b>
+                        <strong>Para número de personas: </strong>
                         <p id="nPersonas"></p>
-                        <b>Pisos: </b>
+                        <strong>Pisos: </strong>
                         <p id="pisos"></p>
-                        <b>Frase: </b>
+                        <strong>Frase: </strong>
                         <p id="frase"></p>
-                        <b>Descripción: </b>
+                        <strong>Descripción: </strong>
                         <p id="descripcionProducto"></p>
-                        <b>Fotos referencia: </b>
+                        <strong>Fotos referencia: </strong>
                         <p id="foto"></p>
                         <p>
                             <img src="" id="imagen1" width="300;">
