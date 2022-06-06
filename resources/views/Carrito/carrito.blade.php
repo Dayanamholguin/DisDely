@@ -28,7 +28,7 @@
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
                                 <label for="">Cliente que hace la cotización<strong style="color: red"> *</strong></label>
-                                <input type="text" readonly value="{{Auth()->user()->nombre}}" class="form-control" id="productoNombre" name="productoNombre" required>
+                                <input type="text" readonly value="{{Auth()->user()->nombre." ".Auth()->user()->apellido }}" class="form-control"required>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-12">
@@ -175,7 +175,7 @@
                     $('#sabor').html(res.attributes.saborDeseado);
                     $('#nPersonas').html(res.attributes.numeroPersonas);
                     $('#pisos').html(res.attributes.pisos);
-                    if (res.attributes.frase==null) {
+                    if (res.attributes.frase==null || res.attributes.frase=='') {
                         $('#frase').html("No tiene frase");
                     }else {
                         $('#frase').html(res.attributes.frase);

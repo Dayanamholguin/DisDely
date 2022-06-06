@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.2.2/css/fixedHeader.bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     @yield('css')
 </head>
 
@@ -105,7 +106,7 @@
                 <div id="collapsePages" class="collapse tipoletra" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo nos permite tener un registro de las cotizaciones, llevar un seguimiento, de acuerdo al estado en que se encuentre cada una: pendiente, rechazada o aprobada" href="/cotizacion">Cotizaciones</a>
-                        <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo nos permite hacer un seguimiento de los pedidos, teniendo así la posibilidad de hacer el registro de los pedidos que se hagan tanto en el aplicativo, como externamente" href="#">Pedidos</a>
+                        <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo nos permite hacer un seguimiento de los pedidos, teniendo así la posibilidad de hacer el registro de los pedidos que se hagan tanto en el aplicativo, como externamente" href="/pedido">Pedidos</a>
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo nos permite hacer seguimiento de los abonos realizados a los pedidos" href="#">Abonos</a>
                         <div class="collapse-divider"></div>
                     </div>
@@ -266,6 +267,7 @@
     <!-- Custom scripts for all pages-->
     <script src="/js/sb-admin-2.min.js"></script>
     <script src="/js/datatables.min.js"></script>
+    
 
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.6.0/dt-1.11.5/datatables.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
@@ -275,21 +277,26 @@
 
     <!--Iconos-->
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
     <script>
         $(document).ready(function() {
             var contenedor = $('#contenedor_carga');
             contenedor.css('visibility', 'hidden');
             contenedor.css('opacity', '0');
         });
+
+        $(document).ready(function() {
+            $('select').select2();
+        });
+
+        // $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+        $('div.alert').delay(3000).fadeOut(350);
+
         $(function() {
             $('[data-toggle="tooltip"]').tooltip()
         })
     </script>
-
-
-
-
     @yield('scripts')
 </body>
 

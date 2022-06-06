@@ -70,7 +70,7 @@ Usuarios
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
+                <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="celular">Teléfono celular<strong style="color: red"> *</strong></label>
                         <input value="{{$usuario->celular}}" type="number" class="form-control @error('celular') is-invalid @enderror" id="celular" name="celular" required minlength="7" maxlength="10">
@@ -81,7 +81,7 @@ Usuarios
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
+                <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="celularAlternativo">Celular alternativo<strong style="color: red"> *</strong></label>
                         <input value="{{$usuario->celularAlternativo}}" type="number" class="form-control @error('celularAlternativo') is-invalid @enderror" id="celularAlternativo" name="celularAlternativo" required minlength="7" maxlength="10">
@@ -92,7 +92,7 @@ Usuarios
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
+                <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="">Género<strong style="color: red"> *</strong></label>
                         <select class="form-control" name="genero">
@@ -108,7 +108,7 @@ Usuarios
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
+                <div class="col-md-3 col-sm-12">
                     <label for="">Rol<strong style="color: red"> *</strong></label>
                     <select class="form-control" name="roles[]">
                     @foreach ($roles as $key => $value)

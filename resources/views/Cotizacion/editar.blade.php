@@ -15,13 +15,7 @@
                 <strong>Edición de la cotización</strong> / <a href="/cotizacion" class="alert-link titulo">Volver</a>
             </div>
             <div class="card-body">
-                <div class="container mt-1">
-                    <div class="row justify-content-center">
-                        <div class="col-auto">
-                            @include('flash::message')
-                        </div>
-                    </div>
-                </div>
+                @include('flash::message')
                 <form id="form" action="/cotizacion/actualizar" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="idUser" value="{{$cotizacion->idUser}}" />
@@ -46,9 +40,36 @@
                         </div>
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
-                                <label for="">Descripción<strong style="color: red"> *</strong></label>
+                                <label for="">Estado de la cotización: <strong style="color: red"> *</strong></label>
+                                <select class="form-control" name="estado" onchange="mostrarPrecio(this.value);">
+                                    <option value="">Seleccione</option>
+                                    @foreach($estadosCotizacion as $key => $value)
+                                    <option {{$value->id == $cotizacion->estado ? 'selected' : ''}} {{old('estado' ) == $value->id ? 'selected' : ''}} value="{{$value->id}}">{{$value->nombre}}</option>
+                                    @endforeach
+                                    @error('estado')
+                                    <div class="alert alert-danger" role="alert">
+                                        {{$message}}
+                                    </div>
+                                    @enderror
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="form-group">
+                                <label for="">Descripción<b style="color: red"> *</b></label>
                                 <textarea type="text" value="{{ $cotizacion->descripcionGeneral }}" class="form-control @error('descripcionGeneral') is-invalid @enderror" id="descripcionGeneral" name="descripcionGeneral" placeholder="Ingrese la descripción" required>{{ $cotizacion->descripcionGeneral }}{{ old('descripcionGeneral') }}</textarea>
                                 @error('descripcionGeneral')
+                                <div class="alert alert-danger" role="alert">
+                                    {{$message}}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12" id="precio" style="display: none;">
+                            <div class="form-group">
+                                <label for="">Precio<b style="color: red"> *</b></label>
+                                <textarea type="text" value="{{ old('precio') }}" class="form-control @error('precio') is-invalid @enderror" id="precio" name="precio" placeholder="Ingrese el precio de la cotización para ser pasada a pedido">{{ old('precio') }}</textarea>
+                                @error('precio')
                                 <div class="alert alert-danger" role="alert">
                                     {{$message}}
                                 </div>
@@ -156,7 +177,12 @@
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="">Foto de referencia: </label>
-                                <input type="file" class="form-control-file" name="img" value="">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input peque" name="img"
+                                     onchange="vista_preliminar(event)">
+                                    <label class="custom-file-label peque" for="customFile">Subir foto del pastel</label>
+                                </div>
+                                {{-- <input type="file" class="form-control-file" name="img" value="" onchange="vista_preliminar(event)"> --}}
                                 {{-- <input type="hidden" name="imagenJs" id="imagenJs" value=""> --}}
                                 <p id="foto"></p>
                                 <p>
@@ -225,9 +251,43 @@
                 },
             });
     }
+    let vista_preliminar = (event) => {
+        let leer_img = new FileReader();
+        let id_img = document.getElementById('imagen1');
+        leer_img.onload = () => {
+            if (leer_img.readyState == 2) {
+                id_img.src = leer_img.result
+            }
+        }
+        leer_img.readAsDataURL(event.target.files[0])
+    }    
     function agregarProductos() {
         $("#mostrarOpciones").toggle();
     }
+    function mostrarPrecio(id) {
+        console.log(id);
+        if (id==3) {
+            $("#precio").show();
+        } else if (id==2) {
+            $("#precio").hide();
+        } else if (id==1) {
+            $("#precio").hide();
+        } else if (id==null) {
+            $("#precio").hide();
+        }
+    }
+    $("#precio").on({
+    "focus": function (event) {
+        $(event.target).select();
+    },
+    "keyup": function (event) {
+        $(event.target).val(function (index, value ) {
+            return value.replace(/\D/g, "")
+                .replace(/([0-9])([0-9]{3})$/, '$1.$2')
+                .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
+            });
+        }
+    });
 </script>
 
 @endsection

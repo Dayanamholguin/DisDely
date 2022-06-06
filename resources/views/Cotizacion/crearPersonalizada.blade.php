@@ -20,6 +20,7 @@ Cotización
         <form id="form" action="/agregarCarrito" method="post" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="idProducto" value="{{$producto->id}}" />
+            <input type="hidden" name="idUser" value="{{Auth()->user()->id}}" />
             <div class="row">
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
@@ -85,7 +86,17 @@ Cotización
                 <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="">Imagen<strong style="color: red"> *</strong></label>
-                        <input type="file" class="form-control-file" name="img" id="img">
+                        {{-- <input type="file" class="form-control-file" name="img" id="img"> --}}
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input @error('img') is-invalid @enderror" name="img"
+                            id="img">
+                            <label class="custom-file-label" for="customFile">Subir foto del pastel</label>
+                        </div>
+                        @error('img')
+                        <div class="alert alert-danger" role="alert">
+                            {{$message}}
+                        </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-12 centrado">

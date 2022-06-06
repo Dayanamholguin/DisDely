@@ -22,9 +22,17 @@ Productos
             <div class="row">
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
+<<<<<<< HEAD
                         <label for="">Imagen<strong style="color: red"> *</strong></label>
                         <input type="file" class="form-control-file @error('imagen') is-invalid @enderror" name="imagen"
+=======
+                        <label for="">Imagen<b style="color: red"> *</b></label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input @error('imagen') is-invalid @enderror" name="imagen"
+>>>>>>> dd1b02286299f738e601ae6522863a545c972208
                             id="imagen">
+                            <label class="custom-file-label" for="customFile">Subir foto del pastel</label>
+                        </div>
                         @error('imagen')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}
@@ -41,12 +49,13 @@ Productos
                             <option value="{{ $value->id }}" {{old('categorias' ) == $value->id ? 'selected' : ''}}>
                                 {{ $value->nombre }}</option>
                             @endforeach
-                            @error('categorias')
+                            
+                        </select>
+                        @error('categorias')
                             <div class="alert alert-danger" role="alert">
                                 {{$message}}
                             </div>
                             @enderror
-                        </select>
                     </div>
 
                 </div>
@@ -59,12 +68,13 @@ Productos
                             <option value="{{$value->id}}" {{old('sabores' ) == $value->id ? 'selected' : ''}}>
                                 {{$value->nombre}}</option>
                             @endforeach
-                            @error('sabores')
+                            
+                        </select>
+                        @error('sabores')
                             <div class="alert alert-danger" role="alert">
                                 {{$message}}
                             </div>
                             @enderror
-                        </select>
                     </div>
                 </div>
 
@@ -77,12 +87,13 @@ Productos
                             <option value="{{$value->id}}" {{old('etapas' ) == $value->id ? 'selected' : ''}}>
                                 {{$value->nombre}}</option>
                             @endforeach
-                            @error('etapas')
-                            <div class="alert alert-danger" role="alert">
-                                {{$message}}
-                            </div>
-                            @enderror
+                           
                         </select>
+                        @error('etapas')
+                        <div class="alert alert-danger" role="alert">
+                            {{$message}}
+                        </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-12">

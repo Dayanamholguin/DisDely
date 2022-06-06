@@ -23,15 +23,9 @@
         <div class="section-title">
             <h2>Catálogo de productos</h2>
             <p>Acá podrás encontrar los productos registrados en la plataforma, podrás visualizarlos, ver el detalle y
-                si así lo quieres ¡Cotizar!</p>
+                si así lo quieres ¡Cotizar!<br><a href="/cotizacion/personalizada" class="alert-link titulo">¿Deseas cotizar un producto personalizado? Clic aquí</a></p>
         </div>
-        <div class="container mt-2 mb-2">
-            <div class="row justify-content-center">
-                <div class="col-auto">
-                    @include('flash::message')
-                </div>
-            </div>
-        </div>
+        @include('flash::message')
         @if(count($productos) == 0)
         <p class="d-flex justify-content-center">No hay productos registrados</p>
         @else
@@ -90,7 +84,7 @@
                 <div class="portfolio-info">
                     <h4>{{$producto->nombre}}</h4>
 
-                    <p>{{$producto->created_at->toFormattedDateString()}}</p>
+                    <p>{{ucfirst(Date::create($producto->created_at)->format('F j, Y'));}}</p>
                     <a href="/cotizacion/crear/{{$producto->id}}" class=" preview-link"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAFxJREFUSEtjZKAxYKSx+QyjFhAMYZKC6P////9BJjIyMhKtj2iFIINHLSAYYUMniGAuJeglNAXYUhfWVERzC3C5fOjEwagPkENgcJVFpOYLcMlLjiZS9IxaQDC0AFaEOBlExtG1AAAAAElFTkSuQmCC" /></a>
                     <a href="/producto/verProductoCatalogo/{{$producto->id}}" class="details-link"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAVVJREFUSEvVVVFRA0EUSxSABFBA6wAcgAJwADgAB8UBOMABoIA6oBKogjBh3nYe7e4thSsz7Mx9XPc2yea9lxI7XtwxPpoEkg4AXAI4BjAJIXMAzwDuSC6+I65KIGkW4EMYM5LXPZINAklWeRQHHwAYyL9Bkm9yBeC83IjkdIjkC0FSvrQ1BXgdIIhs1V7YZdLqWhGE52/x1bQFXlCC5DXeD1s1yQTFdxewqSjLlHQfdjXPZILifVd95RbzVi0ygXyQ5FazIWnw3FgES5L7tSqPZdELSQ/kxvrTIjsaftKmnplJt01jUkurvgM46QzaEwD7fkvypjtoqfVyVLjP3eM5KhyAFwnQexZjUe0arA1QL+xsi785jdxqkvTi2hPt7nD4GdRAfhyAC0m2yJnk/SrJVkNVs6BH8muCaI58kzOSj0XMKASJxBG/Av+MnqE/izH2/j/BB3p8rBlg04KKAAAAAElFTkSuQmCC" /></a>
                 </div>
