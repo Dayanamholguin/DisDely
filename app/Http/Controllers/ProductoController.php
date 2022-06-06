@@ -62,6 +62,14 @@ class ProductoController extends Controller
         $productos = Producto::all()->where('catalogo', 1)->where('id', '>', 1);
         return view('producto.catalogo', compact("productos"));
     }
+
+    public function catalogoJson()
+    {
+        $productos = Producto::all()->where('catalogo', 1)->where('id', '>', 1);
+  
+        return $productos;
+    }
+
     public function verProductoCatalogo($id)
     {
         if ($id == 1) {

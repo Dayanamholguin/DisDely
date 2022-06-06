@@ -95,7 +95,25 @@
 <!-- Template Main JS File -->
 <script src="/assetsGallery/js/main.js"></script>
 <script>
-    const productos = [{
+let productos = [];
+        $.ajax({
+                url: `/producto/catalogoJson`,
+                type: "GET",
+                success: function (res) {
+                   
+
+                    for (const key in res) {
+                        console.log(key.length);
+                        if (Object.hasOwnProperty.call(res, key)) {
+                            const element = res[key];
+                            console.log(element);
+                        }
+                    }     
+                },
+            });
+    
+            
+    /* const productos = [{
             nombre: 'Platanos'
         },
         {
@@ -110,7 +128,8 @@
         {
             nombre: 'Frutillas'
         },
-    ]
+    ] */
+             
 
     const formulario = document.querySelector('#formulario');
     const boton = document.querySelector('#boton');
