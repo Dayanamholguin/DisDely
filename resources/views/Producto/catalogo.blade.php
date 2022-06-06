@@ -13,7 +13,7 @@
 <link href="/assetsGallery/css/style.css" rel="stylesheet">
 @endsection
 @section('car')
-    @include('carrito.icono')
+@include('carrito.icono')
 @endsection
 @section('content')
 <!-- ======= Portfolio Section ======= -->
@@ -23,42 +23,68 @@
         <div class="section-title">
             <h2>Catálogo de productos</h2>
             <p>Acá podrás encontrar los productos registrados en la plataforma, podrás visualizarlos, ver el detalle y
-                si así lo quieres ¡Cotizar!</p>
+                si así lo quieres ¡Cotizar!<br><a href="/cotizacion/personalizada" class="alert-link titulo">¿Deseas cotizar un producto personalizado? Clic aquí</a></p>
         </div>
-        <div class="container mt-2 mb-2">
-            <div class="row justify-content-center">
-                <div class="col-auto">
-                    @include('flash::message')
-                </div>
-            </div>
-        </div>
+        @include('flash::message')
         @if(count($productos) == 0)
         <p class="d-flex justify-content-center">No hay productos registrados</p>
         @else
-        <ul id="portfolio-flters" class="d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
-            <li data-filter="*" class="filter-active">All</li>
-            <li data-filter=".filter-app">App</li>
-            <li data-filter=".filter-card">Card</li>
-            <li data-filter=".filter-web">Web</li>
+        <ul id="portfolio-flters" class="d-flex justify-content-center boton" data-aos="fade-up" data-aos-delay="100">
+            <li data-filter="*" class="filter-active">Todo</li>
         </ul>
 
-        <div class="container mt-5">
-            <input type="text" id="formulario" class="form-control my-2" placeholder="Buscar el producto">
-            <button class="btn btn-info mb-2" id="boton">Buscar</button>
-            <ul id="resultado">
+        <!--Search-->
+        <style>
+            .hol {
+                display: flex;
+                align-items: center;
+            }
 
-            </ul>
-        </div>
-<br>
+            form>div {
+                display: flex;
+                background: #fff;
+                padding: 9px 22px 9px 26px;
+                border-radius: 30px;
+                border: 2px solid #cad3dc;
+                box-shadow: rgba(255, 255, 255, 0.5) -8px -8px 15px,
+                    rgba(0, 0, 0, 0.1) 10px 10px 10px,
+                    rgba(255, 255, 255, 0.5) -8px -8px 15px inset,
+                    rgba(0, 0, 0, 0.1) 10px 10px 10px inset;
+            }
 
-        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+            form input {
+                border: none;
+                background: transparent;
+                font-weight: bold;
+                padding-left: 24px;
+                background-size: 16px;
+                width: 0px;
+                transition: all 1s;
+            }
+
+            form input:focus {
+                outline: none;
+                width: 250px;
+            }
+        </style>
+
+        <form class="hol">
+            <div>
+                <i class="bi bi-search"></i>
+                <input type="text" name="" id="searh-item" placeholder="Buscar..." onkeyup="search()">
+            </div>
+        </form>
+
+        <br>
+
+        <div class="row portfolio-container product-list" id="product-list" data-aos="fade-up" data-aos-delay="200">
             @foreach($productos as $producto)
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="col-lg-4 col-md-6 portfolio-item filter-app product">
                 <div class="portfolio-img"><a href="/ver/imagen/{{$producto->id}}" data-gall="portfolioGallery" class="venobox preview-link" title="{{$producto->nombre}}"><img style="background-size: 100% 100%;" src="/imagenes/{{$producto->img}}" class="img-fluid" alt=""></a></div>
                 <div class="portfolio-info">
                     <h4>{{$producto->nombre}}</h4>
 
-                    <p>{{$producto->created_at->toFormattedDateString()}}</p>
+                    <p>{{ucfirst(Date::create($producto->created_at)->format('F j, Y'));}}</p>
                     <a href="/cotizacion/crear/{{$producto->id}}" class=" preview-link"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAFxJREFUSEtjZKAxYKSx+QyjFhAMYZKC6P////9BJjIyMhKtj2iFIINHLSAYYUMniGAuJeglNAXYUhfWVERzC3C5fOjEwagPkENgcJVFpOYLcMlLjiZS9IxaQDC0AFaEOBlExtG1AAAAAElFTkSuQmCC" /></a>
                     <a href="/producto/verProductoCatalogo/{{$producto->id}}" class="details-link"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAVVJREFUSEvVVVFRA0EUSxSABFBA6wAcgAJwADgAB8UBOMABoIA6oBKogjBh3nYe7e4thSsz7Mx9XPc2yea9lxI7XtwxPpoEkg4AXAI4BjAJIXMAzwDuSC6+I65KIGkW4EMYM5LXPZINAklWeRQHHwAYyL9Bkm9yBeC83IjkdIjkC0FSvrQ1BXgdIIhs1V7YZdLqWhGE52/x1bQFXlCC5DXeD1s1yQTFdxewqSjLlHQfdjXPZILifVd95RbzVi0ygXyQ5FazIWnw3FgES5L7tSqPZdELSQ/kxvrTIjsaftKmnplJt01jUkurvgM46QzaEwD7fkvypjtoqfVyVLjP3eM5KhyAFwnQexZjUe0arA1QL+xsi785jdxqkvTi2hPt7nD4GdRAfhyAC0m2yJnk/SrJVkNVs6BH8muCaI58kzOSj0XMKASJxBG/Av+MnqE/izH2/j/BB3p8rBlg04KKAAAAAElFTkSuQmCC" /></a>
                 </div>
@@ -94,70 +120,42 @@
 
 <!-- Template Main JS File -->
 <script src="/assetsGallery/js/main.js"></script>
+
 <script>
-let productos = [];
-        $.ajax({
-                url: `/producto/catalogoJson`,
-                type: "GET",
-                success: function (res) {
-                   
+    /*  let pro = <?= json_encode($productos); ?>;
+    console.log(pro); */
+    //Search
+    const search = () => {
+        const searchbox = document.getElementById("searh-item").value.toUpperCase();
+        const storeitems = document.getElementById("product-list");
+        const product = document.querySelectorAll(".product");
+        const pname = storeitems.getElementsByTagName("h4");
 
-                    for (const key in res) {
-                        console.log(key.length);
-                        if (Object.hasOwnProperty.call(res, key)) {
-                            const element = res[key];
-                            console.log(element);
-                        }
-                    }     
-                },
-            });
-    
-            
-    /* const productos = [{
-            nombre: 'Platanos'
-        },
-        {
-            nombre: 'Pera'
-        },
-        {
-            nombre: 'Fresa'
-        },
-        {
-            nombre: 'Sandia'
-        },
-        {
-            nombre: 'Frutillas'
-        },
-    ] */
-             
+        for (var i = 0; i < pname.length; i++) {
+            let match = product[i].getElementsByTagName('h4')[0];
 
-    const formulario = document.querySelector('#formulario');
-    const boton = document.querySelector('#boton');
-    const resultado = document.querySelector('#resultado');
+            if (match) {
+                let textvalue = match.textContent || match.innerHTML
 
-    const filtrar = () => {
-        resultado.innerHTML = '';
-
-        const texto = formulario.value.toLowerCase();
-
-        for (let producto of productos) {
-            let nombre = producto.nombre.toLowerCase();
-            if (nombre.indexOf(texto) !== -1) {
-                resultado.innerHTML += `
-        <li>${producto.nombre}</li>
-        `
+                if (textvalue.toUpperCase().indexOf(searchbox) > -1) {
+                    product[i].style.display = "";
+                } else {
+                    product[i].style.display = "none";
+                }
             }
-        }
-        if (resultado.innerHTML === '') {
-            resultado.innerHTML += `
-            <li>Producto no encontrado...</li>
-        `
         }
     }
 
-    boton.addEventListener('click', filtrar)
-    formulario.addEventListener('keyup', filtrar)
-    filtrar();
+    // $.ajax({
+    //     url: `/producto/catalogo/${idCategoria}`,
+    //     type: "GET",
+    //     success: function (res){
+    //         let productos = JSON.parse(res)
+    //         productos.forEach(p => {
+    //             document.querySelector(".contenedor").appendChild(`<p>nombre: ${p.nombre}</p>`
+    //             )
+    //         })
+    //     },
+    // });
 </script>
-
 @endsection

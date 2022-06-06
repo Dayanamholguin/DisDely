@@ -96,10 +96,11 @@
             <div class="container aos-init aos-animate" data-aos="fade-up">
                 <div class="section-header">
                     <h2 style="color: #B0535E;"><b>¿Quiénes Somos?</b></h2>
-                    <p style="color: black;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
-                        quam nemo quod cumque harum ducimus provident modi magnam eos perspiciatis? Eligendi aspernatur
-                        incidunt id enim non quae a mollitia consequuntur. vident modi magnam eos perspiciatis? Eligendi
-                        aspernatur im non quae a mollitia consequuntur.
+                    <p style="color: black;">Somos un negocio dedicado a la producción
+                        de productos de pastelería de alta calidad y sabor; 
+                        ubicada en Bello, Las Vegas. Ofrecemos a nuestros clientes productos de la mejor
+                        calidad y frescura. Contamos con una amplia gama de variedades en pan, repostería y pasteles 
+                        de línea para todo tipo de gusto.
                     </p>
                 </div>
                 <div class="row g-4 g-lg-5 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
@@ -123,7 +124,14 @@
             <div class="container aos-init aos-animate" data-aos="fade-up">
                 <div class="section-header">
                     <h2 style="color: #B0535E;"><b>Nuestros Productos</b></h2>
-                    <p style="color: black;">Ea vitae aspernatur deserunt voluptatem impedit deserunt magnam occaecati dssumenda quas ut ad dolores adipisci aliquam.</p>
+                    @if (Route::has('login'))
+                        @auth
+                            <p style="color: black;">Acá podrás ver los últimos productos registrados en el sistema, tenemos más productos para mostrarte dentro del aplicativo. <a href="/producto/catalogo" class="alert-link" style="color: #B0535E;">Ir al catálogo</a></p>
+                        @else
+                            <p style="color: black;">Acá podrás ver los últimos productos registrados en el sistema, tenemos más productos para mostrarte dentro del aplicativo ¡Registrate y mira más de nuestros productos!</p>
+                            
+                        @endauth
+                    @endif
                 </div>
 
                 <div class="row gy-5">
@@ -140,7 +148,13 @@
                                 <div class="icon">
                                     <i class="bi bi-activity"></i>
                                 </div>
-                                <a href="#" class="stretched-link">
+                                @if (Route::has('login'))
+                                    @auth
+                                        <a href="/cotizacion/crear/{{$producto->id}}" class="stretched-link" data-toggle="tooltip" data-placement="bottom" title="Clic para hacer cotización">
+                                    @else
+                                        <a href="{{ route('login') }}" class="stretched-link" data-toggle="tooltip" data-placement="bottom" title="Ingresa y haz tu cotización">
+                                    @endauth
+                                @endif
                                     <h3>{{$producto->nombre}}</h3>
                                 </a>
                                 <!-- <p>{{$producto->descripcion}}</p> -->
@@ -159,7 +173,7 @@
             <div class="container">
                 <div class="section-header">
                     <h2 style="color: #B0535E;"><b>Contacto</b></h2>
-                    Síguenos en <a href="https://www.instagram.com/dulce_encanto_20205/" class="titulo">Instagram</a>
+                    Síguenos en <a href="https://www.instagram.com/dulce_encanto_20205/" class="alert-link" style="color: #B0535E;">Instagram</a>
                 </div>
             </div>
 
@@ -193,6 +207,7 @@
     <a href="#" class="scroll-top d-flex align-items-center justify-content-center active"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
+    <script src="/vendor/jquery/jquery.min.js"></script>
     <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/vendor/aos/aos.js"></script>
     <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
@@ -202,7 +217,11 @@
 
     <!-- Template Main JS File -->
     <script src="/assets/js/main.js"></script>
-
+    <script>
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 </body>
 
 </html>

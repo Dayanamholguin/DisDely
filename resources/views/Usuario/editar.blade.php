@@ -39,7 +39,7 @@ Usuarios
                 </div> -->
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="nombre">Nombre<b style="color: red"> *</b></label>
+                        <label for="nombre">Nombre<strong style="color: red"> *</strong></label>
                         <input value="{{$usuario->nombre}}" type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required>
                         @error('nombre')
                         <div class="alert alert-danger" role="alert">
@@ -50,7 +50,7 @@ Usuarios
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="apellido">Apellido<b style="color: red"> *</b></label>
+                        <label for="apellido">Apellido<strong style="color: red"> *</strong></label>
                         <input value="{{$usuario->apellido}}" type="text" class="form-control @error('apellido') is-invalid @enderror" id="apellido" name="apellido" require>
                         @error('apellido')
                         <div class="alert alert-danger" role="alert">
@@ -61,7 +61,7 @@ Usuarios
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="email">Correo<b style="color: red"> *</b></label>
+                        <label for="email">Correo<strong style="color: red"> *</strong></label>
                         <input value="{{$usuario->email}}" type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required>
                         @error('email')
                         <div class="alert alert-danger" role="alert">
@@ -70,9 +70,9 @@ Usuarios
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
+                <div class="col-md-3 col-sm-12">
                     <div class="form-group">
-                        <label for="celular">Teléfono celular<b style="color: red"> *</b></label>
+                        <label for="celular">Teléfono celular<strong style="color: red"> *</strong></label>
                         <input value="{{$usuario->celular}}" type="number" class="form-control @error('celular') is-invalid @enderror" id="celular" name="celular" required minlength="7" maxlength="10">
                         @error('celular')
                         <div class="alert alert-danger" role="alert">
@@ -81,9 +81,9 @@ Usuarios
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
+                <div class="col-md-3 col-sm-12">
                     <div class="form-group">
-                        <label for="celularAlternativo">Celular alternativo<b style="color: red"> *</b></label>
+                        <label for="celularAlternativo">Celular alternativo<strong style="color: red"> *</strong></label>
                         <input value="{{$usuario->celularAlternativo}}" type="number" class="form-control @error('celularAlternativo') is-invalid @enderror" id="celularAlternativo" name="celularAlternativo" required minlength="7" maxlength="10">
                         @error('celularAlternativo')
                         <div class="alert alert-danger" role="alert">
@@ -92,9 +92,9 @@ Usuarios
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
+                <div class="col-md-3 col-sm-12">
                     <div class="form-group">
-                        <label for="">Género<b style="color: red"> *</b></label>
+                        <label for="">Género<strong style="color: red"> *</strong></label>
                         <select class="form-control" name="genero">
                             <option value="">Seleccione</option>
                             @foreach($generos as $key => $value)
@@ -108,8 +108,8 @@ Usuarios
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
-                    <label for="">Rol<b style="color: red"> *</b></label>
+                <div class="col-md-3 col-sm-12">
+                    <label for="">Rol<strong style="color: red"> *</strong></label>
                     <select class="form-control" name="roles[]">
                     @foreach ($roles as $key => $value)
                         <option {{$value->id == $consulta?'selected':''}} value="{{$value->id}}">{{$value->name}}</option>

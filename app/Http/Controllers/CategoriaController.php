@@ -53,7 +53,7 @@ class CategoriaController extends Controller
         }
         try {
             Categoria::create([
-                "nombre" => $input["nombre"],
+                "nombre" => ucfirst($input["nombre"]),
                 "estado" => 1
             ]);
             Flash::success("Se ha creado éxitosamente");
@@ -93,7 +93,7 @@ class CategoriaController extends Controller
                 return redirect("/categoria");
             }
             $categoria->update([
-                "nombre" => $input["nombre"]
+                "nombre" => ucfirst($input["nombre"])
             ]);
             Flash::success("Se ha modificado éxitosamente");
             return redirect("/categoria");

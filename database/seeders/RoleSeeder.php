@@ -99,15 +99,21 @@ class RoleSeeder extends Seeder
         'description' => 'Ver cotizaciones'])->syncRoles($admin);
 
         Permission::create(['name' => 'cotizacion/crear',
-                'description' => 'Crear cotizacion'])->syncRoles($admin);
+                'description' => 'Crear cotización'])->syncRoles($admin);
+               
+        Permission::create(['name' => 'cotizacion/personalizada',
+                'description' => 'Crear cotización personalizada'])->syncRoles($admin);
 
         Permission::create(['name' => 'cotizacion/editar',
-                'description' => 'Editar cotizacion'])->syncRoles($admin);
+                'description' => 'Editar cotización'])->syncRoles($admin);
 
         Permission::create(['name' => 'cotizacion/ver',
-                'description' => 'Ver cotizacion'])->syncRoles($admin);        
+                'description' => 'Ver cotización'])->syncRoles($admin);        
             
-        Permission::create(['name' => 'cotizacion/cambiar/estado',
-                'description' => 'Cambiar estado de cotizacion'])->syncRoles($admin);
+        Permission::create(['name' => 'cotizacion/verListado',
+                'description' => 'Ver listado de cotización'])->syncRoles($admin);
+                
+        //-------------------------------------CARRITO----------------------------------------------
+        
     }
 }

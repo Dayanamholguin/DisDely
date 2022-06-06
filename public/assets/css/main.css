@@ -292,7 +292,7 @@ section {
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: black;
+    background-color: #b0535e;
     visibility: hidden;
     transition: all 0.3s ease-in-out 0s;
     transform: scaleX(0);

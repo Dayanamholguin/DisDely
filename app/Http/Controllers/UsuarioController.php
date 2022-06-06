@@ -15,6 +15,7 @@ use Flash;
 //use Laracasts\Flash\Flash as Flash;
 use PhpParser\Node\Stmt\Catch_;
 use App\Models\User;
+use Laracasts\Flash\Flash as FlashFlash;
 use Spatie\Permission\Models\Role;
 class UsuarioController extends Controller
 {
@@ -27,6 +28,7 @@ class UsuarioController extends Controller
     {
         $usuario = Usuario::select("users.*", "generos.nombre as gnombre")
             ->join("generos", "users.idGenero", "generos.id")
+            ->where("users.id", ">", 1)
             ->get();
         return DataTables::of($usuario)
             ->editColumn("estado", function ($usuario) {
@@ -100,7 +102,8 @@ class UsuarioController extends Controller
         $roles = Role::all()->where('name', '<>', 'Admin');
         $generos = DB::table('generos')->get()->where('id', '>', 1);
         $usuario = Usuario::find($id);
-        if ($usuario == null) {
+        
+        if ($usuario == null || $id == 1) {
             Flash::error("No se encontró el usuario");
             return redirect("/usuario");
         }
@@ -120,7 +123,8 @@ class UsuarioController extends Controller
     public function ver($id)
     {
         $usuario = Usuario::find($id);
-        if ($usuario == null) {
+        // dd($usuario);
+        if ($usuario == null || $id == 1) {
             Flash::error("No se encontró el usuario");
             return redirect("/usuario");
         }
@@ -130,7 +134,12 @@ class UsuarioController extends Controller
     }
 
     public function modificar(Request $request, $id)
-    {
+    {   
+        if($id == 1)
+        {
+            Flash("No se puede modificar este usuario")->error()->important();
+            return redirect("/usuario");
+        }
         $correo = Usuario::select('*')->where('email',$request->email)->where('id','<>',$id)->value('email');
         if ($correo!=null) {
             Flash::error("El correo ".$correo." ya está creado, intente con otro correo nuevamente.");
@@ -190,7 +199,7 @@ class UsuarioController extends Controller
     public function modificarEstado($id, $estado)
     {
         $usuario = Usuario::find($id);
-        if ($usuario == null) {
+        if ($usuario == null || $id == 1) {
             return redirect("/usuario");
         }
         try {

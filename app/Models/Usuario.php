@@ -29,7 +29,7 @@ class Usuario extends Model
     public static $rules = [
         'nombre' => ['required', 'string', 'max:255', 'regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/'], 
         'apellido' => ['required', 'string', 'max:255', 'regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/'],
-        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'regex:/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/'],
         'celular' => ['required', 'numeric'],
         'celularAlternativo' => ['required','numeric'],
         'genero' => ['required', 'exists:generos,id'],
