@@ -124,6 +124,7 @@ Usuarios
 
 @section('scripts')
 <script>
+    
     $(document).ready(function() {
         $("#nombre, #apellido, #celular, #celularAlternativo").focusout(function(event) {
             console.log();

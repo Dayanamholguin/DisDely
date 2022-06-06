@@ -292,7 +292,23 @@
 
         // $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
         $('div.alert').delay(3000).fadeOut(350);
+        function ucfirst(str,force)
+        { 
+            str=force ? str.toLowerCase() : str; 
+            return str.replace(/(\b)([a-zA-Z])/, 
+            function(firstLetter)
+            { 
+                return firstLetter.toUpperCase(); 
+            }); 
+        }
 
+        $('input[type="text"]').keyup(function(evt){ 
+            // force: true to lower case all letter except first 
+            var cp_value= ucfirst($(this).val(),true) ; 
+            // to capitalize all words 
+            //var cp_value= ucwords($(this).val(),true) ; 
+            $(this).val(cp_value ); });
+            
         $(function() {
             $('[data-toggle="tooltip"]').tooltip()
         })
