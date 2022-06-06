@@ -24,7 +24,7 @@ Roles
                 <div class="row ">
                     <div class="col-auto">
                         <div class="form-group">
-                            <label for="">Nombre<b style="color: red"> *</b></label>
+                            <label for="">Nombre<strong style="color: red"> *</strong></label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{$rol->name}}" required pattern="[a-zA-Z]+">
                             
                             @error('name')
@@ -35,7 +35,7 @@ Roles
                         </div>
                         <br>
                         <div class="form-group">
-                            <h5>Lista de permisos<b style="color: red"> *</b></h5>
+                            <h5>Lista de permisos<strong style="color: red"> *</strong></h5>
                             <div class="row">
                                 @foreach ($permisos as $value)
                                     <div class="col-4">

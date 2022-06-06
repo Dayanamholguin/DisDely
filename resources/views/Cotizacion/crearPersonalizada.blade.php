@@ -24,13 +24,13 @@ Cotización
             <div class="row">
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">Producto<b style="color: red"> *</b></label>
+                        <label for="">Producto<strong style="color: red"> *</strong></label>
                         <input type="text" readonly value="{{$producto->nombre}}" class="form-control" id="productoNombre" name="productoNombre" required>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">Sabor deseado<b style="color: red"> *</b></label>
+                        <label for="">Sabor deseado<strong style="color: red"> *</strong></label>
                         <input type="text" value="{{ old('saborDeseado') }}" class="form-control @error('saborDeseado') is-invalid @enderror" id="saborDeseado" name="saborDeseado" placeholder="Ingrese el sabor deseado" required>
                         @error('saborDeseado')
                         <div class="alert alert-danger" role="alert">
@@ -41,7 +41,7 @@ Cotización
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">¿Para cuántas personas?<b style="color: red"> *</b></label>
+                        <label for="">¿Para cuántas personas?<strong style="color: red"> *</strong></label>
                         <input type="number" value="{{ old('numeroPersonas') }}" class="form-control @error('numeroPersonas') is-invalid @enderror" id="numeroPersonas" name="numeroPersonas" placeholder="Ingrese número de personas" required>
                         @error('numeroPersonas')
                         <div class="alert alert-danger" role="alert">
@@ -63,7 +63,7 @@ Cotización
                 </div>
                 <div class="col-md-3 col-sm-12">
                     <div class="form-group">
-                        <label for="">Pisos<b style="color: red"> *</b></label>
+                        <label for="">Pisos<strong style="color: red"> *</strong></label>
                         <input type="number" value="{{ old('pisos') }}" class="form-control @error('pisos') is-invalid @enderror" id="pisos" name="pisos" placeholder="Ingrese número de pisos" required>
                         @error('pisos')
                         <div class="alert alert-danger" role="alert">
@@ -74,7 +74,7 @@ Cotización
                 </div>
                 <div class="col-md-3 col-sm-12">
                     <div class="form-group">
-                        <label for="">Descripción<b style="color: red"> *</b></label>
+                        <label for="">Descripción<strong style="color: red"> *</strong></label>
                         <textarea type="text" value="{{ old('descripcionProducto') }}" class="form-control @error('descripcionProducto') is-invalid @enderror" id="descripcionProducto" name="descripcionProducto" placeholder="Ingrese la descripción" required>{{ old('descripcionProducto') }}</textarea>
                         @error('descripcionProducto')
                         <div class="alert alert-danger" role="alert">
@@ -85,7 +85,7 @@ Cotización
                 </div>
                 <div class="col-md-3 col-sm-12">
                     <div class="form-group">
-                        <label for="">Imagen<b style="color: red"> *</b></label>
+                        <label for="">Imagen<strong style="color: red"> *</strong></label>
                         {{-- <input type="file" class="form-control-file" name="img" id="img"> --}}
                         <div class="custom-file">
                             <input type="file" class="custom-file-input @error('img') is-invalid @enderror" name="img"

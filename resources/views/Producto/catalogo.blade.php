@@ -70,26 +70,11 @@
 
         <form class="hol">
             <div>
-            <i class="bi bi-search"></i>
+                <i class="bi bi-search"></i>
                 <input type="text" name="" id="searh-item" placeholder="Buscar..." onkeyup="search()">
             </div>
         </form>
 
-
-        
-        <!-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-                <input id="formulario" type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                    <button id="boton" class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                    </button>
-                </div>
-            </div>
-            <ul id="resultado">
-
-            </ul>
-        </form> -->
         <br>
 
         <div class="row portfolio-container product-list" id="product-list" data-aos="fade-up" data-aos-delay="200">
@@ -137,14 +122,14 @@
 <script src="/assetsGallery/js/main.js"></script>
 
 <script>
-   /*  let pro = <?= json_encode($productos); ?>;
+    /*  let pro = <?= json_encode($productos); ?>;
     console.log(pro); */
     //Search
     const search = () => {
         const searchbox = document.getElementById("searh-item").value.toUpperCase();
         const storeitems = document.getElementById("product-list");
         const product = document.querySelectorAll(".product");
-        const pname = document.getElementsByTagName("h4");
+        const pname = storeitems.getElementsByTagName("h4");
 
         for (var i = 0; i < pname.length; i++) {
             let match = product[i].getElementsByTagName('h4')[0];
@@ -173,52 +158,4 @@
     //     },
     // });
 </script>
-
-<!-- <script>
-    const productos = [{
-            nombre: 'Platanos'
-        },
-        {
-            nombre: 'Pera'
-        },
-        {
-            nombre: 'Fresa'
-        },
-        {
-            nombre: 'Sandia'
-        },
-        {
-            nombre: 'Frutillas'
-        },
-    ]
-
-    const formulario = document.querySelector('#formulario');
-    const boton = document.querySelector('#boton');
-    const resultado = document.querySelector('#resultado');
-
-    const filtrar = () => {
-        resultado.innerHTML = '';
-
-        const texto = formulario.value.toLowerCase();
-
-        for (let producto of productos) {
-            let nombre = producto.nombre.toLowerCase();
-            if (nombre.indexOf(texto) !== -1) {
-                resultado.innerHTML += `
-        <li>${producto.nombre}</li>
-        `
-            }
-        }
-        if (resultado.innerHTML === '') {
-            resultado.innerHTML += `
-            <li>Producto no encontrado...</li>
-        `
-        }
-    }
-
-    boton.addEventListener('click', filtrar)
-    formulario.addEventListener('keyup', filtrar)
-    filtrar();
-</script> -->
-
 @endsection

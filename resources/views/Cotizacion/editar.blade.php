@@ -23,13 +23,13 @@
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
-                                <label for="">Cliente que hizo la cotización<b style="color: red"> *</b></label>
+                                <label for="">Cliente que hizo la cotización<strong style="color: red"> *</strong></label>
                                 <input type="text" readonly value="{{$cotizacionUsuario}}" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
-                                <label for="">Fecha de entrega<b style="color: red"> *</b></label>
+                                <label for="">Fecha de entrega<strong style="color: red"> *</strong></label>
                                 <input id="fechaEntrega" type="date" value="{{$cotizacion->fechaEntrega, date('Y-m-d')}}" class="form-control @error('fechaEntrega') is-invalid @enderror" name="fechaEntrega" required autocomplete="fechaEntrega" />
                                 @error('fechaEntrega')
                                 <span class="invalid-feedback" role="alert">
@@ -40,7 +40,7 @@
                         </div>
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
-                                <label for="">Estado de la cotización: <b style="color: red"> *</b></label>
+                                <label for="">Estado de la cotización: <strong style="color: red"> *</strong></label>
                                 <select class="form-control" name="estado" onchange="mostrarPrecio(this.value);">
                                     <option value="">Seleccione</option>
                                     @foreach($estadosCotizacion as $key => $value)
@@ -115,8 +115,8 @@
                 <div class="col-lg-5 col-sm-12">
                     <p>
                         <input type="hidden" name="id" value="{{$item->id}}">
-                        <b><a href="#"  role="button" class="titulo"  onclick="mostrar({{$item->id}})" data-toggle="tooltip" data-placement="right" title="Clic para editar el producto">{{ $item->name }}</a></b><br>
-                        <b>Sabor: </b>{{ $item->attributes->saborDeseado }}
+                        <strong><a href="#"  role="button" class="titulo"  onclick="mostrar({{$item->id}})" data-toggle="tooltip" data-placement="right" title="Clic para editar el producto">{{ $item->name }}</a></strong><br>
+                        <strong>Sabor: </strong>{{ $item->attributes->saborDeseado }}
                     </p>
                 </div>
             </form>
@@ -156,15 +156,15 @@
                             <input type="hidden" id="idProducto" value="" name="id">
                             {{-- <input type="text" id="id" value="" name="id"> --}}
                             <div class="form-group col-md-12">
-                                <label for="">Sabor deseado: <b style="color: red"> *</b> </label>
+                                <label for="">Sabor deseado: <strong style="color: red"> *</strong> </label>
                                 <input type="text" class="form-control form-control-sm " id="sabor" value="" name="saborDeseado">
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="">Para número de personas: <b style="color: red"> *</b></label>
+                                <label for="">Para número de personas: <strong style="color: red"> *</strong></label>
                                 <input type="number" class="form-control form-control-sm" id="nPersonas" value="" name="numeroPersonas">
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="">Pisos: <b style="color: red"> *</b></label>
+                                <label for="">Pisos: <strong style="color: red"> *</strong></label>
                                 <input type="number" class="form-control form-control-sm" id="pisos" value="" name="pisos">
                             </div>
                             <div class="form-group col-md-12">
@@ -172,7 +172,7 @@
                                 <input type="text" class="form-control form-control-sm" id="frase" value="" name="frase" placeholder="Escribe la frase de tu pastel aquí">
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="">Descripción: <b style="color: red"> *</b></label>
+                                <label for="">Descripción: <strong style="color: red"> *</strong></label>
                                 <input type="text" class="form-control form-control-sm" id="descripcionProducto" value="" name="descripcionProducto">
                             </div>
                             <div class="form-group col-md-12">

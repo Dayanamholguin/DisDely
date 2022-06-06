@@ -20,20 +20,20 @@
                     @else
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
-                                <label for=""><b>Persona que hizo la cotización</b></label>
+                                <label for=""><strong>Persona que hizo la cotización</strong></label>
                                 <p  class="form-control">{{$cotizacionUsuario}}</p>
                             </div>
                         </div>
                         
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
-                                <label for=""><b>Fecha de entrega</b></label>
+                                <label for=""><strong>Fecha de entrega</strong></label>
                                 <p class="form-control">{{$cotizacion->fechaEntrega}}</p>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
-                                <label for=""><b>Estado de la cotización</b></label>
+                                <label for=""><strong>Estado de la cotización</strong></label>
                                 @if ($nombreEstado =="Pendiente")
                                     <p class="form-control bg-secondary text-white" >{{$nombreEstado}}</p>
                                 @elseif($nombreEstado =="Aprobada")
@@ -46,7 +46,7 @@
                         </div>
                         <div class="col-md-12 col-sm-12">
                             <div class="form-group">
-                                <label for=""><b>Descripción de la cotización</b></label>
+                                <label for=""><strong>Descripción de la cotización</strong></label>
                                 <p class="textarea form-control" >{{$cotizacion->descripcionGeneral}}</p>
                                 {{-- <textarea  style="width: 100%;">/> --}}
                             </div>
@@ -60,7 +60,7 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="form-group mt-3 mb-3">
-                                <label for=""><b>Información de los productos que se encuentran en la cotización</b></label>
+                                <label for=""><strong>Información de los productos que se encuentran en la cotización</strong></label>
                             </div>
                         </div>
                     </div>

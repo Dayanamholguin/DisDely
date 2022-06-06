@@ -22,9 +22,14 @@ Productos
             <div class="row">
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
+<<<<<<< HEAD
+                        <label for="">Imagen<strong style="color: red"> *</strong></label>
+                        <input type="file" class="form-control-file @error('imagen') is-invalid @enderror" name="imagen"
+=======
                         <label for="">Imagen<b style="color: red"> *</b></label>
                         <div class="custom-file">
                             <input type="file" class="custom-file-input @error('imagen') is-invalid @enderror" name="imagen"
+>>>>>>> dd1b02286299f738e601ae6522863a545c972208
                             id="imagen">
                             <label class="custom-file-label" for="customFile">Subir foto del pastel</label>
                         </div>
@@ -37,7 +42,7 @@ Productos
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">Categoría<b style="color: red"> *</b></label>
+                        <label for="">Categoría<strong style="color: red"> *</strong></label>
                         <select class="form-control" name="categoria">
                             <option value="">Seleccione</option>
                             @foreach($categorias as $key => $value)
@@ -56,7 +61,7 @@ Productos
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">Sabor<b style="color: red"> *</b></label>
+                        <label for="">Sabor<strong style="color: red"> *</strong></label>
                         <select class="form-control" name="sabor">
                             <option value="">Seleccione</option>
                             @foreach($sabores as $key => $value)
@@ -75,7 +80,7 @@ Productos
 
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">Etapa<b style="color: red"> *</b></label>
+                        <label for="">Etapa<strong style="color: red"> *</strong></label>
                         <select class="form-control" name="etapa">
                             <option value="">Seleccione</option>
                             @foreach($etapas as $key => $value)
@@ -93,7 +98,7 @@ Productos
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">Nombre<b style="color: red"> *</b></label>
+                        <label for="">Nombre<strong style="color: red"> *</strong></label>
                         <input type="text" value="{{ old('nombre') }}"
                             class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre"
                             placeholder="Ingrese el nombre" required>
@@ -106,7 +111,7 @@ Productos
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">Descripción<b style="color: red"> *</b></label>
+                        <label for="">Descripción<strong style="color: red"> *</strong></label>
                         <textarea type="text" value="{{ old('descripcion') }}"
                             class="form-control @error('descripcion') is-invalid @enderror" id="descripcion"
                             name="descripcion" placeholder="Ingrese la descripción"
@@ -120,7 +125,7 @@ Productos
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">Número de personas<b style="color: red"> *</b></label>
+                        <label for="">Número de personas<strong style="color: red"> *</strong></label>
                         <input type="number" value="{{ old('numeroPersonas') }}"
                             class="form-control @error('numeroPersonas') is-invalid @enderror" id="numeroPersonas"
                             name="numeroPersonas" placeholder="Ingrese número de personas" required>
@@ -133,7 +138,7 @@ Productos
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">Pisos<b style="color: red"> *</b></label>
+                        <label for="">Pisos<strong style="color: red"> *</strong></label>
                         <input type="number" value="{{ old('pisos') }}"
                             class="form-control @error('pisos') is-invalid @enderror" id="pisos" name="pisos"
                             placeholder="Ingrese número de pisos" required>
@@ -146,7 +151,7 @@ Productos
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">¿Desea añadirlo al catálogo?<b style="color: red"> *</b></label>
+                        <label for="">¿Desea añadirlo al catálogo?<strong style="color: red"> *</strong></label>
                         <select class="form-control" name="catalogo">
                             <option value="1">Sí</option>
                             <option value="0">No</option>
