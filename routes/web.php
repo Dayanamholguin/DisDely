@@ -18,8 +18,13 @@ use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\MenuController;
 //cotización 
 use App\Http\Controllers\CotizacionController;
+//Pedido 
+use App\Http\Controllers\PedidoController;
 //carrito 
 use App\Http\Controllers\CartController;
+//Abono 
+use App\Http\Controllers\abonoController;
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -66,6 +71,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/producto/guardar', [ProductoController::class, 'guardar']);
     Route::get('/producto/editar/{id}', [ProductoController::class, 'editar']);
     Route::get('/producto/ver/{id}', [ProductoController::class, 'ver']);
+    Route::get('/producto/verProductoAjax/{id}', [ProductoController::class, 'verProductoAjax']);
     Route::get('/producto/verProductoCatalogo/{id}', [ProductoController::class, 'verProductoCatalogo']);
     Route::get('/producto/catalogo', [ProductoController::class, 'catalogo']);
     Route::post('/producto/actualizar', [ProductoController::class, 'modificar']);
@@ -109,7 +115,35 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/cotizacion/ver/{id}', [CotizacionController::class, 'verDetalle']);
     Route::get('/cotizacion/verListado/{id}', [CotizacionController::class, 'verListar']);
     Route::post('/cotizacion/actualizar', [CotizacionController::class, 'modificar']);
+    
+    //pedido
+    Route::get('/pedido', [PedidoController::class, 'index']);
+    Route::get('/pedido/listar', [PedidoController::class, 'listar']);
+    Route::get('/pedido/buscarUsuarios', [PedidoController::class, 'buscarUsuarios']);
+    Route::get('/pedido/requisitos', [PedidoController::class, 'requisitos']);
+    Route::post('/pedido/crear', [PedidoController::class, 'crear']);
+    Route::get('/carritoPedido/{id}', [PedidoController::class, 'carrito']);
+    Route::post('/pedido/guardar', [PedidoController::class, 'guardar']);
+    Route::get('/pedido/ver/{id}', [PedidoController::class, 'verDetalle']);
+    Route::get('/pedido/editar/{id}', [PedidoController::class, 'editar']);
+    Route::get('/cancelarP', [PedidoController::class, 'cancelarP']);
+    Route::post('/pedido/actualizar', [PedidoController::class, 'modificar']);
+    Route::get('/ver/imagenPedido/{imagen}', [PedidoController::class, 'verImagen']);
+    Route::post('/limpiarCarritoPedido', [PedidoController::class, 'limpiarCarritoPedido']);
+    Route::post('/quitarProductoPedido', [PedidoController::class, 'quitar']);
+    Route::post('/actualizarPreProductos', [PedidoController::class, 'actualizarPreProductos']);
+    Route::post('/actualizarProductosPedido', [PedidoController::class, 'actualizarProductosPedido']);
+    Route::post('/agregarCarritoPedido', [PedidoController::class, 'agregarCarritoPedido']);
+    Route::get('/pedido/crear/{producto}/{cliente}', [PedidoController::class, 'crearProductoRegistrado']);
 
+    // abonos
+    Route::get('/abono', [abonoController::class, 'index']);
+    Route::get('/abono/listar', [abonoController::class, 'listar']);
+    Route::get('/abono/crear/{id}', [abonoController::class, 'crear']);
+    Route::get('/abono/ver/{id}', [abonoController::class, 'ver']);
+    Route::get('/abono/verIndividual/{id}', [abonoController::class, 'verIndividual']);
+    Route::get('/ver/imagenAbono/{imagen}', [abonoController::class, 'verImagen']);
+    Route::post('/abono/guardar', [abonoController::class, 'guardar']);
     // Route::post('/perfil/actualizar/{id}', [PerfilController::class, 'modificar'])->middleware('password.confirm');
     //para mostrar
     /*Route::get('/imagenes/{path}/{attachment}', function($path, $attachment){

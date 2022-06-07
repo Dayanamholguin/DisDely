@@ -7,7 +7,7 @@ Gestión de Cotizaciones
 @section('content')
 <div class="card">
     <div class="card-header">
-        <a href="/cotizacion/personalizada" class="alert-link btn btn-primary tipoletra"><i class="bi bi-plus-circle"></i> Crear cotización personalizada</a>
+        <a href="/cotizacion/personalizada" class="alert-link btn btn-primary tipoletra"><i class="bi bi-plus-circle"></i> Realizar cotización personalizada</a>
     </div>
     <div class="card-body">
     @include('flash::message')
@@ -51,7 +51,9 @@ Gestión de Cotizaciones
                 },
                 {
                     data: 'estado',
-                    name: 'nombre'
+                    name: 'nombre',
+                    orderable: true,
+                    searchable: true
                 },
                 {
                     data: 'acciones',

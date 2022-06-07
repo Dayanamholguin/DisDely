@@ -5,7 +5,7 @@
   <input type="hidden" name="id" value="{{$usuario->id}}" />
   <div class="row">
     <div class="col-md-12 col-sm-12 ">
-      <h6 class="mb-0">Nombre Completo<b style="color:red;">*</b></h6>
+      <h6 class="mb-0">Nombre Completo<strong style="color:red;">*</strong></h6>
     </div>
     <div class="col-md-6 col-sm-12 mt-3">
       <input type="text" class="form-control" value="{{$usuario->nombre }}" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+" placeholder="Ingrese su nombre">
@@ -26,7 +26,7 @@
 
     <hr>
     <div class="col-md-12 col-sm-12 mt-3 mb-3">
-      <h6 class="mb-0">Correo Electrónico<b style="color:red;">*</b></h6>
+      <h6 class="mb-0">Correo Electrónico<strong style="color:red;">*</strong></h6>
     </div>
     <div class="col-md-12 col-sm-12 ">
       <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required value="{{$usuario->email }}" placeholder="Ingrese su email">
@@ -38,7 +38,7 @@
     </div>
     <hr>
     <div class="col-md-12 col-sm-12 mt-3">
-      <h6 class="mb-0">Celular y/o Teléfono<b style="color:red;">*</b></h6>
+      <h6 class="mb-0">Celular y/o Teléfono<strong style="color:red;">*</strong></h6>
     </div>
     <div class="col-md-6 col-sm-12 mt-3">
       <input type="text" class="form-control" value="{{$usuario->celular }}" class="form-control @error('celular') is-invalid @enderror" name="celular" required minlength="7" maxlength="10" placeholder="Ingrese su celular">
@@ -57,10 +57,10 @@
       @enderror
     </div>
     <div class="col-md-12 col-sm-12 mt-3">
-      <h6 class="mb-0">Género<b style="color:red;">*</b></h6>
+      <h6 class="mb-0">Género<strong style="color:red;">*</strong></h6>
     </div>
     <div class="col-md-12 col-sm-12 mt-3">
-      <select class="form-control" name="genero">
+      <select class="form-control" style="width: 100%" name="genero">
         <option value="">Seleccione</option>
         @if ($usuario->idGenero==2)
         <option value="2" selected>Masculino</option>

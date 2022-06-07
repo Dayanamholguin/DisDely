@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use App\Models\Usuario;
 use App\Models\Cotizacion;
 use App\Models\detalle_cotizaciones;
 use Flash;
@@ -48,6 +49,13 @@ class CartController extends Controller
 
     public function agregarCarrito(Request $request)
     {
+        // dd(?'personalizado':'Nomral');
+        if($request->idProducto==1){
+            $campos = [
+                'img' => ['required', 'image'],
+            ];
+            $this->validate($request, $campos);
+        }
         // $request->validate(reportes::$rules);
         $request->validate(detalle_cotizaciones::$rules);
         $producto = Producto::find($request->idProducto);
@@ -64,8 +72,13 @@ class CartController extends Controller
             $img = $producto->nombre . '.' . time() . '.' . $request->img->extension();
             $request->img->move(public_path('imagenes'), $img);
         }
-        $userId = auth()->user()->id;
-        $userName = auth()->user()->nombre . " " . auth()->user()->apellido;
+        $userId = Usuario::find($request->idUser);
+        
+        if ($userId==null) {
+            Flash::error("No se encuentra el cliente");
+            return back();
+        }
+        $userName =$userId->nombre. " " .$userId->apellido;
         $cotizacion = 0;
         $carritoCollection = \Cart::getContent();
         if (count($carritoCollection)<>0) {
@@ -82,18 +95,18 @@ class CartController extends Controller
             'attributes' => array(
                 'idCotizacion'=>$cotizacion==null?0:$cotizacion,
                 'img' => $producto->img==null?$img:$producto->img,
-                'saborDeseado' => $request->saborDeseado,
+                'saborDeseado' => ucfirst($request->saborDeseado),
                 'numeroPersonas' => $request->numeroPersonas,
-                'frase' => $request->frase,
+                'frase' => ucfirst($request->frase),
                 'pisos' => $request->pisos,
-                'descripcionProducto' => $request->descripcionProducto,
+                'descripcionProducto' => ucfirst($request->descripcionProducto),
                 'clienteId' => $userId,
                 'cliente' => $userName,
                 'imagen1' => $img,
             )
         ));
         // dd(\Cart::getContent());
-        Flash::success("Se agregó correctamente el producto");
+        Flash::success("Se agregó correctamente el producto, ¡puedes agregar más!");
         $productos = Producto::all()->where('catalogo', 1)->where('id', '>', 1);
         return view('producto.catalogo', compact("productos"));
     }
@@ -179,7 +192,7 @@ class CartController extends Controller
                 )
             )
         );
-        Flash::success("Producto actualizado");
+        Flash("Producto actualizado")->success()->important();
         return back();
     }
 

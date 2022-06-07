@@ -22,7 +22,7 @@ Usuarios
             <div class="row">
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="nombre">Nombre<b style="color: red"> *</b></label>
+                        <label for="nombre">Nombre<strong style="color: red"> *</strong></label>
                         <input id="nombre" type="text" name="nombre" value="{{ old('nombre') }}" class="form-control @error('nombre') is-invalid @enderror" name="nombre" required 
                         autocomplete="nombre" placeholder="Ingrese su nombre" />
                         @error('nombre')
@@ -34,7 +34,7 @@ Usuarios
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="apellido">Apellido<b style="color: red"> *</b></label>
+                        <label for="apellido">Apellido<strong style="color: red"> *</strong></label>
                         <input id="apellido" type="text" name="apellido" value="{{ old('apellido') }}" class="form-control @error('apellido') is-invalid @enderror" name="apellido" 
                         required autocomplete="apellido" placeholder="Ingrese su apellido"  />
                         @error('apellido')
@@ -46,7 +46,7 @@ Usuarios
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="email">Correo<b style="color: red"> *</b></label>
+                        <label for="email">Correo<strong style="color: red"> *</strong></label>
                         <input id="email" type="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" name="email" required autocomplete="email" placeholder="Ingrese su correo electrónico" />
                         @error('email')
                         <span class="invalid-feedback" role="alert">
@@ -57,7 +57,7 @@ Usuarios
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="celular">Teléfono celular<b style="color: red"> *</b></label>
+                        <label for="celular">Teléfono celular<strong style="color: red"> *</strong></label>
                         <input id="celular" type="number" name="celular" value="{{ old('celular') }}" class="form-control @error('celular') is-invalid @enderror" name="celular" 
                         required autocomplete="celular" placeholder="Ingrese su teléfono o celular" minlength="7" maxlength="10"/>
                         @error('celular')
@@ -69,7 +69,7 @@ Usuarios
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="celularAlternativo">Celular alternativo<b style="color: red"> *</b></label>
+                        <label for="celularAlternativo">Celular alternativo<strong style="color: red"> *</strong></label>
                         <input id="celularAlternativo" type="number" name="celularAlternativo" value="{{ old('celularAlternativo') }}" class="form-control @error('celularAlternativo') is-invalid @enderror" name="celularAlternativo" 
                         required autocomplete="celularAlternativo" placeholder="Ingrese su teléfono alternativo" minlength="7" maxlength="10"/>
                         @error('celularAlternativo')
@@ -81,7 +81,7 @@ Usuarios
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="genero">Género<b style="color: red"> *</b></label>
+                        <label for="genero">Género<strong style="color: red"> *</strong></label>
                         <select class="form-control" name="genero">
                             <option value="">Seleccione</option>
                             @foreach($generos as $key => $value)
@@ -97,7 +97,7 @@ Usuarios
                 </div>
                 <!-- <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">Contraseña<b style="color: red"> *</b></label>
+                        <label for="">Contraseña<strong style="color: red"> *</strong></label>
                         <input type="password" class="form-control form-control-user @error('password') is-invalid @enderror" id="exampleInputPassword" placeholder="Contraseña" name="password" required autocomplete="new-password">
                         @error('password')
                         <span class="invalid-feedback" role="alert">
@@ -124,6 +124,7 @@ Usuarios
 
 @section('scripts')
 <script>
+    
     $(document).ready(function() {
         $("#nombre, #apellido, #celular, #celularAlternativo").focusout(function(event) {
             console.log();

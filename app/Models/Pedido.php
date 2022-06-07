@@ -10,6 +10,7 @@ class Pedido extends Model
     public $table = "pedidos";
     
     protected $fillable = [
+        'id',
         'idUser',
         'idCotizacion',
         'fechaEntrega',
@@ -19,6 +20,7 @@ class Pedido extends Model
     ];
 
     public static $rules = [
+        'id' => 'required|exists:cotizaciones,id',
         'idUser' => 'required|exists:users,id',
         'idCotizacion' => 'required|exists:cotizaciones,id',
         'fechaEntrega' => 'required|date',
