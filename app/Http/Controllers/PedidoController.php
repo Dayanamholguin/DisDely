@@ -98,8 +98,8 @@ class PedidoController extends Controller
                 }
             })
             ->editColumn('acciones', function ($pedido) {
-                $acciones = '<a class="btn btn-info btn-sm" href="/pedido/editar/' . $pedido->id . '" ><i class="fas fa-edit"></i> Editar</a> ';
-                $acciones .= '<a class="btn btn-secondary btn-sm" href="/pedido/ver/' . $pedido->id . '" ><i class="fas fa-info-circle"></i> Ver</a> ';
+                $acciones = '<a class="btn btn-info btn-sm" href="/pedido/editar/' . $pedido->id . '" ><i class="fas fa-edit"></i></a> ';
+                $acciones .= '<a class="btn btn-secondary btn-sm" href="/pedido/ver/' . $pedido->id . '" ><i class="fas fa-info-circle"></i></a> ';
                 
                 $precio = Pedido::select('precio')->where('pedidos.id', $pedido->id)->value('precio');
                 $abonos = Abono::select("*")->where('idPedido', $pedido->id)->get();

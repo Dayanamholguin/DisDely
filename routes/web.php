@@ -37,56 +37,56 @@ Route::get('/', [MenuController::class, 'welcome']);
 Route::group(['middleware' => 'auth'], function(){
 
     //Rol
-    Route::get('/rol', [RoleController::class, 'index']);
-    Route::get('/rol/listar', [RoleController::class, 'listar']);
-    Route::get('/rol/crear', [RoleController::class, 'crear']);
-    Route::post('/rol/guardar', [RoleController::class, 'guardar']);
-    Route::get('/rol/editar/{id}', [RoleController::class, 'editar']);
-    Route::post('/rol/actualizar', [RoleController::class, 'modificar']);
-    Route::get('/rol/ver/{id}', [RoleController::class, 'ver']);
-    Route::get('/rol/cambiar/estado/{id}/{estado}', [RoleController::class, 'modificarEstado']);
+    Route::get('/rol', [RoleController::class, 'index'])->middleware('can:rol/listar');
+    Route::get('/rol/listar', [RoleController::class, 'listar'])->middleware('can:rol/listar');
+    Route::get('/rol/crear', [RoleController::class, 'crear'])->middleware('can:rol/crear');
+    Route::post('/rol/guardar', [RoleController::class, 'guardar'])->middleware('can:rol/crear');
+    Route::get('/rol/editar/{id}', [RoleController::class, 'editar'])->middleware('can:rol/editar');
+    Route::post('/rol/actualizar', [RoleController::class, 'modificar'])->middleware(('can:rol/editar'));
+    Route::get('/rol/ver/{id}', [RoleController::class, 'ver'])->middleware('can:rol/ver');
+    Route::get('/rol/cambiar/estado/{id}/{estado}', [RoleController::class, 'modificarEstado'])->middleware('can:rol/cambiar/estado');
 
     //Sabor
-    Route::get('/sabor', [SaborController::class, 'index']);
-    Route::get('/sabor/listar', [SaborController::class, 'listar']);
-    Route::get('/sabor/crear', [SaborController::class, 'crear']);
-    Route::post('/sabor/guardar', [SaborController::class, 'guardar']);
-    Route::get('/sabor/editar/{id}', [SaborController::class, 'editar']);
-    Route::post('/sabor/actualizar', [SaborController::class, 'modificar']);
-    Route::get('/sabor/cambiar/estado/{id}/{estado}', [SaborController::class, 'modificarEstado']);
+    Route::get('/sabor', [SaborController::class, 'index'])->middleware('can:sabor/listar');
+    Route::get('/sabor/listar', [SaborController::class, 'listar'])->middleware('can:sabor/listar');
+    Route::get('/sabor/crear', [SaborController::class, 'crear'])->middleware('can:sabor/crear');
+    Route::post('/sabor/guardar', [SaborController::class, 'guardar'])->middleware('can:sabor/crear');
+    Route::get('/sabor/editar/{id}', [SaborController::class, 'editar'])->middleware('can:sabor/editar');
+    Route::post('/sabor/actualizar', [SaborController::class, 'modificar'])->middleware('can:sabor/editar');
+    Route::get('/sabor/cambiar/estado/{id}/{estado}', [SaborController::class, 'modificarEstado'])->middleware('can:sabor/cambiar/estado');
 
     //categorias
-    Route::get('/categoria', [CategoriaController::class, 'index']);
-    Route::get('/categoria/listar', [CategoriaController::class, 'listar']);
-    Route::get('/categoria/crear', [CategoriaController::class, 'crear']);
-    Route::post('/categoria/guardar', [CategoriaController::class, 'guardar']);
-    Route::get('/categoria/editar/{id}', [CategoriaController::class, 'editar']);
-    Route::post('/categoria/actualizar', [CategoriaController::class, 'modificar']);
-    Route::get('/categoria/cambiar/estado/{id}/{estado}', [CategoriaController::class, 'modificarEstado']);
+    Route::get('/categoria', [CategoriaController::class, 'index'])->middleware('can:categoria/listar');
+    Route::get('/categoria/listar', [CategoriaController::class, 'listar'])->middleware('can:categoria/listar');
+    Route::get('/categoria/crear', [CategoriaController::class, 'crear'])->middleware('can:categoria/crear');
+    Route::post('/categoria/guardar', [CategoriaController::class, 'guardar'])->middleware('can:categoria/crear');
+    Route::get('/categoria/editar/{id}', [CategoriaController::class, 'editar'])->middleware('can:categoria/editar');
+    Route::post('/categoria/actualizar', [CategoriaController::class, 'modificar'])->middleware('can:categoria/editar');
+    Route::get('/categoria/cambiar/estado/{id}/{estado}', [CategoriaController::class, 'modificarEstado'])->middleware('can:categoria/cambiar/estado');
 
     //productos
-    Route::get('/producto', [ProductoController::class, 'index']);
-    Route::get('/producto/listar', [ProductoController::class, 'listar']);
-    Route::get('/producto/crear', [ProductoController::class, 'crear']);
-    Route::post('/producto/guardar', [ProductoController::class, 'guardar']);
-    Route::get('/producto/editar/{id}', [ProductoController::class, 'editar']);
-    Route::get('/producto/ver/{id}', [ProductoController::class, 'ver']);
-    Route::get('/producto/verProductoAjax/{id}', [ProductoController::class, 'verProductoAjax']);
-    Route::get('/producto/verProductoCatalogo/{id}', [ProductoController::class, 'verProductoCatalogo']);
-    Route::get('/producto/catalogo', [ProductoController::class, 'catalogo']);
-    Route::get('/producto/catalogoJson', [ProductoController::class, 'catalogoJson']);
-    Route::post('/producto/actualizar', [ProductoController::class, 'modificar']);
-    Route::get('/producto/cambiar/estado/{id}/{estado}', [ProductoController::class, 'modificarEstado']);
+    Route::get('/producto', [ProductoController::class, 'index'])->middleware('can:producto/listar');
+    Route::get('/producto/listar', [ProductoController::class, 'listar'])->middleware('can:producto/listar');
+    Route::get('/producto/crear', [ProductoController::class, 'crear'])->middleware('can:producto/crear');
+    Route::post('/producto/guardar', [ProductoController::class, 'guardar'])->middleware('can:producto/crear');
+    Route::get('/producto/editar/{id}', [ProductoController::class, 'editar'])->middleware('can:producto/editar');
+    Route::get('/producto/ver/{id}', [ProductoController::class, 'ver'])->middleware('can:producto/ver');
+    Route::get('/producto/verProductoAjax/{id}', [ProductoController::class, 'verProductoAjax'])->middleware('can:producto/verProductoCatalogo');
+    Route::get('/producto/verProductoCatalogo/{id}', [ProductoController::class, 'verProductoCatalogo'])->middleware('can:producto/verProductoCatalogo');
+    Route::get('/producto/catalogo', [ProductoController::class, 'catalogo'])->middleware('can:producto/verProductoCatalogo');
+    // Route::get('/producto/catalogoJson', [ProductoController::class, 'catalogoJson']);
+    Route::post('/producto/actualizar', [ProductoController::class, 'modificar'])->middleware('can:producto/editar');
+    Route::get('/producto/cambiar/estado/{id}/{estado}', [ProductoController::class, 'modificarEstado'])->middleware('can:producto/cambiar/estado');
 
     //usuarios
-    Route::get('/usuario', [UsuarioController::class, 'index']); //->middleware('auth', 'can:usuarios');
-    Route::get('/usuario/listar', [UsuarioController::class, 'listar']);
-    Route::get('/usuario/crear', [UsuarioController::class, 'crear']);
-    Route::post('/usuario/guardar', [UsuarioController::class, 'guardar']);
-    Route::get('/usuario/editar/{id}', [UsuarioController::class, 'editar']);
-    Route::get('/usuario/ver/{id}', [UsuarioController::class, 'ver']);
-    Route::post('/usuario/actualizar/{id}', [UsuarioController::class, 'modificar']);
-    Route::get('/usuario/cambiar/estado/{id}/{estado}', [UsuarioController::class, 'modificarEstado']);
+    Route::get('/usuario', [UsuarioController::class, 'index'])->middleware('can:usuario/listar');
+    Route::get('/usuario/listar', [UsuarioController::class, 'listar'])->middleware('can:usuario/listar');
+    Route::get('/usuario/crear', [UsuarioController::class, 'crear'])->middleware('can:usuario/crear');
+    Route::post('/usuario/guardar', [UsuarioController::class, 'guardar'])->middleware('can:usuario/crear');
+    Route::get('/usuario/editar/{id}', [UsuarioController::class, 'editar'])->middleware('can:usuario/editar');
+    Route::get('/usuario/ver/{id}', [UsuarioController::class, 'ver'])->middleware('can:usuario/ver');
+    Route::post('/usuario/actualizar/{id}', [UsuarioController::class, 'modificar'])->middleware('can:usuario/editar');
+    Route::get('/usuario/cambiar/estado/{id}/{estado}', [UsuarioController::class, 'modificarEstado'])->middleware('can:usuario/cambiar/estado');
 
     //perfil
     Route::get('/perfil/{id}', [PerfilController::class, 'index']);
@@ -97,54 +97,54 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/perfil/recibirFoto/{id}', [PerfilController::class, 'recibirFoto']);
 
     //carrito
-    Route::get('/carrito', [CartController::class, 'carrito']);
-    Route::post('/agregarCarrito', [CartController::class, 'agregarCarrito']);
-    Route::post('/actualizarCarrito', [CartController::class, 'actualizarCarrito']);
-    Route::post('/quitarProducto', [CartController::class, 'quitarProducto']);
-    Route::post('/limpiarCarrito', [CartController::class, 'limpiarCarrito']);
-    Route::get('/ver/carrito/{id}', [CartController::class, 'ver']);
+    Route::get('/carrito', [CartController::class, 'carrito'])->middleware('can:agregarCarrito');
+    Route::post('/agregarCarrito', [CartController::class, 'agregarCarrito'])->middleware('can:agregarCarrito');
+    Route::post('/actualizarCarrito', [CartController::class, 'actualizarCarrito'])->middleware('can:actualizarCarrito');
+    Route::post('/quitarProducto', [CartController::class, 'quitarProducto'])->middleware('can:quitarProducto');
+    Route::post('/limpiarCarrito', [CartController::class, 'limpiarCarrito'])->middleware('can:limpiarCarrito');
+    Route::get('/ver/carrito/{id}', [CartController::class, 'ver'])->middleware('can:ver/carrito');
     Route::get('/ver/imagen/{id}', [CartController::class, 'verImagen']);
 
     //cotización
-    Route::get('/cotizacion', [CotizacionController::class, 'index']);
-    Route::get('/cotizacion/listar', [CotizacionController::class, 'listar']);
-    Route::get('/cotizacion/crear/{producto}', [CotizacionController::class, 'crear']);
-    Route::get('/cotizacion/personalizada', [CotizacionController::class, 'Personalizada']);
-    Route::post('/cotizacion/guardar', [CotizacionController::class, 'guardar']);
-    Route::get('/cotizacion/editar/{id}', [CotizacionController::class, 'editar']);
-    Route::get('/cancelar', [CotizacionController::class, 'cancelar']);
-    Route::get('/cotizacion/ver/{id}', [CotizacionController::class, 'verDetalle']);
-    Route::get('/cotizacion/verListado/{id}', [CotizacionController::class, 'verListar']);
-    Route::post('/cotizacion/actualizar', [CotizacionController::class, 'modificar']);
+    Route::get('/cotizacion', [CotizacionController::class, 'index'])->middleware('can:cotizacion/listar');
+    Route::get('/cotizacion/listar', [CotizacionController::class, 'listar'])->middleware('can:cotizacion/listar');
+    Route::get('/cotizacion/crear/{producto}', [CotizacionController::class, 'crear'])->middleware('can:cotizacion/crear');
+    Route::get('/cotizacion/personalizada', [CotizacionController::class, 'Personalizada'])->middleware('can:cotizacion/personalizada');
+    Route::post('/cotizacion/guardar', [CotizacionController::class, 'guardar'])->middleware('can:cotizacion/crear', 'can:cotizacion/personalizada');
+    Route::get('/cotizacion/editar/{id}', [CotizacionController::class, 'editar'])->middleware('can:cotizacion/editar');
+    Route::get('/cancelar', [CotizacionController::class, 'cancelar'])->middleware('can:cotizacion/cancelar');
+    Route::get('/cotizacion/ver/{id}', [CotizacionController::class, 'verDetalle'])->middleware('can:cotizacion/ver');
+    // Route::get('/cotizacion/verListado/{id}', [CotizacionController::class, 'verListar']);
+    Route::post('/cotizacion/actualizar', [CotizacionController::class, 'modificar'])->middleware('can:cotizacion/editar');
     
     //pedido
-    Route::get('/pedido', [PedidoController::class, 'index']);
-    Route::get('/pedido/listar', [PedidoController::class, 'listar']);
-    Route::get('/pedido/buscarUsuarios', [PedidoController::class, 'buscarUsuarios']);
-    Route::get('/pedido/requisitos', [PedidoController::class, 'requisitos']);
-    Route::post('/pedido/crear', [PedidoController::class, 'crear']);
-    Route::get('/carritoPedido/{id}', [PedidoController::class, 'carrito']);
-    Route::post('/pedido/guardar', [PedidoController::class, 'guardar']);
-    Route::get('/pedido/ver/{id}', [PedidoController::class, 'verDetalle']);
-    Route::get('/pedido/editar/{id}', [PedidoController::class, 'editar']);
-    Route::get('/cancelarP', [PedidoController::class, 'cancelarP']);
-    Route::post('/pedido/actualizar', [PedidoController::class, 'modificar']);
+    Route::get('/pedido', [PedidoController::class, 'index'])->middleware('can:pedido/listar');
+    Route::get('/pedido/listar', [PedidoController::class, 'listar'])->middleware('can:pedido/listar');
+    Route::get('/pedido/buscarUsuarios', [PedidoController::class, 'buscarUsuarios'])->middleware('can:pedido/crear');
+    Route::get('/pedido/requisitos', [PedidoController::class, 'requisitos'])->middleware('can:pedido/crear');
+    Route::post('/pedido/crear', [PedidoController::class, 'crear'])->middleware('can:pedido/crear');
+    Route::get('/carritoPedido/{id}', [PedidoController::class, 'carrito'])->middleware('can:carritoPedido');
+    Route::post('/pedido/guardar', [PedidoController::class, 'guardar'])->middleware('can:pedido/crear');
+    Route::get('/pedido/ver/{id}', [PedidoController::class, 'verDetalle'])->middleware('can:pedido/ver');
+    Route::get('/pedido/editar/{id}', [PedidoController::class, 'editar'])->middleware('can:pedido/editar');
+    Route::get('/cancelarP', [PedidoController::class, 'cancelarP'])->middleware('can:cancelarP');
+    Route::post('/pedido/actualizar', [PedidoController::class, 'modificar'])->middleware('can:pedido/editar');
     Route::get('/ver/imagenPedido/{imagen}', [PedidoController::class, 'verImagen']);
-    Route::post('/limpiarCarritoPedido', [PedidoController::class, 'limpiarCarritoPedido']);
-    Route::post('/quitarProductoPedido', [PedidoController::class, 'quitar']);
-    Route::post('/actualizarPreProductos', [PedidoController::class, 'actualizarPreProductos']);
-    Route::post('/actualizarProductosPedido', [PedidoController::class, 'actualizarProductosPedido']);
-    Route::post('/agregarCarritoPedido', [PedidoController::class, 'agregarCarritoPedido']);
-    Route::get('/pedido/crear/{producto}/{cliente}', [PedidoController::class, 'crearProductoRegistrado']);
+    Route::post('/limpiarCarritoPedido', [PedidoController::class, 'limpiarCarritoPedido'])->middleware('can:limpiarCarritoPedido');
+    Route::post('/quitarProductoPedido', [PedidoController::class, 'quitar'])->middleware('can:quitarProductoPedido');
+    Route::post('/actualizarPreProductos', [PedidoController::class, 'actualizarPreProductos'])->middleware('can:actualizarPreProductos');
+    Route::post('/actualizarProductosPedido', [PedidoController::class, 'actualizarProductosPedido'])->middleware('can:actualizarProductosPedido');
+    Route::post('/agregarCarritoPedido', [PedidoController::class, 'agregarCarritoPedido'])->middleware('can:agregarCarritoPedido');
+    Route::get('/pedido/crear/{producto}/{cliente}', [PedidoController::class, 'crearProductoRegistrado'])->middleware('can:pedido/crear/producto/cliente');
 
     // abonos
-    Route::get('/abono', [abonoController::class, 'index']);
-    Route::get('/abono/listar', [abonoController::class, 'listar']);
-    Route::get('/abono/crear/{id}', [abonoController::class, 'crear']);
-    Route::get('/abono/ver/{id}', [abonoController::class, 'ver']);
-    Route::get('/abono/verIndividual/{id}', [abonoController::class, 'verIndividual']);
+    Route::get('/abono', [abonoController::class, 'index'])->middleware('can:abono/listar');
+    Route::get('/abono/listar', [abonoController::class, 'listar'])->middleware('can:abono/listar');
+    Route::get('/abono/crear/{id}', [abonoController::class, 'crear'])->middleware('can:abono/crear');
+    Route::get('/abono/ver/{id}', [abonoController::class, 'ver'])->middleware('can:abono/ver');
+    Route::get('/abono/verIndividual/{id}', [abonoController::class, 'verIndividual'])->middleware('can:abono/verIndividual');
     Route::get('/ver/imagenAbono/{imagen}', [abonoController::class, 'verImagen']);
-    Route::post('/abono/guardar', [abonoController::class, 'guardar']);
+    Route::post('/abono/guardar', [abonoController::class, 'guardar'])->middleware('can:abono/crear');
     // Route::post('/perfil/actualizar/{id}', [PerfilController::class, 'modificar'])->middleware('password.confirm');
     //para mostrar
     /*Route::get('/imagenes/{path}/{attachment}', function($path, $attachment){
