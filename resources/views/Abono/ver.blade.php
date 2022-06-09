@@ -81,7 +81,8 @@ Abonos
                 </div>
             </div>
             <div class="d-flex justify-content-center">
-                <strong>Información detallada de la realización del abono</strong>
+                <strong>Información detallada de la realización del abono</strong> / 
+                <a href="/abono/crear/{{$pedido->id}}" class="titulo alert-link">Registrar abono de este pedido</a>
             </div>
             <table class="table mt-4">
                 <thead>
