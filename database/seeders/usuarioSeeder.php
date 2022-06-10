@@ -36,7 +36,7 @@ class usuarioSeeder extends Seeder
         User::create([
             'nombre' => 'Ibet',
             'apellido' => 'Arévalo',
-            'email' => 'dayanamonsalveholguin@gmail.com',
+            'email' => 'ibet@gmail.com',
             'celular' => '123456',
             'celularAlternativo' => '4566578',
             'estado' => 1,

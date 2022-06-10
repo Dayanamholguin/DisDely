@@ -30,7 +30,9 @@ class UsuarioController extends Controller
             ->join("generos", "users.idGenero", "generos.id")
             ->where("users.id", ">", 1)
             ->get();
-        return DataTables::of($usuario)
+        $usuarioEnSesion = User::findOrFail(auth()->user()->id);    
+        if($usuarioEnSesion->can("rol/editar") && $usuarioEnSesion->can("rol/ver") && $usuarioEnSesion->can("rol/cambiar/estado")){
+            return DataTables::of($usuario)
             ->editColumn("estado", function ($usuario) {
                 return $usuario->estado == 1 ? "Activo" : "Inactivo";
             })
@@ -46,6 +48,13 @@ class UsuarioController extends Controller
             })
             ->rawColumns(['acciones'])
             ->make(true);
+        }else{
+            return DataTables::of($usuario)
+            ->editColumn("estado", function ($usuario) {
+                return $usuario->estado == 1 ? "Activo" : "Inactivo";
+            })
+            ->make(true);
+        }
     }
 
     public function crear()
@@ -78,7 +87,7 @@ class UsuarioController extends Controller
                 $foto = 'undraw_profile_2.svg';
             }
             // dd($foto);
-            Usuario::create([
+            User::create([
                 'nombre' => $input['nombre'],
                 'apellido' => $input['apellido'],
                 'email' => $input['email'],
@@ -88,7 +97,7 @@ class UsuarioController extends Controller
                 'idGenero' => $input['genero'],
                 'password' => Hash::make("dulce_ncan4*:"),
                 'foto' => $foto,
-            ]);
+            ])->syncRoles("Cliente");
             Flash::success("Se ha creado éxitosamente");
             return redirect("/usuario");
         } catch (\Exception $e) {

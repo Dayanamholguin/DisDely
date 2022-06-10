@@ -67,7 +67,7 @@ class RoleController extends Controller
             foreach ($permisos as $permiso) {
                 foreach ($request->permissions as $key => $value) {
                     // dd($value);
-                    if(in_array($value,$request->permissions)){
+                    if(in_array($value, $request->permissions)){
                         try {
                             $rol = Role::create([
                                 "name" => $input["name"],
@@ -128,7 +128,7 @@ class RoleController extends Controller
         $permisos = Permission::all();
         foreach ($permisos as $permiso) {
             foreach ($request->permisos as $key => $value) {
-                if (in_array($value[$key], $request->permisos)) {
+                if (in_array($value, $request->permisos)) {
                     try {
                         $rol = Role::find($input["id"]);
                         if ($rol == null) {

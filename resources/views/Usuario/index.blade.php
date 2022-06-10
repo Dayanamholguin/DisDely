@@ -60,12 +60,7 @@ Gestión de Productos
                     data: 'estado',
                     name: 'estado'
                 },
-                {
-                    data: 'acciones',
-                    name: 'acciones',
-                    orderable: false,
-                    searchable: false
-                }
+                
             ],
             language: {   
                 "processing": "Procesando...",

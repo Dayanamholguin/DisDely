@@ -37,7 +37,7 @@ Route::get('/', [MenuController::class, 'welcome']);
 Route::group(['middleware' => 'auth'], function(){
 
     //Rol
-    Route::get('/rol', [RoleController::class, 'index'])->middleware('can:rol/listar');
+    Route::get('/rol', [RoleController::class, 'index'])->middleware('can:/rol');
     Route::get('/rol/listar', [RoleController::class, 'listar'])->middleware('can:rol/listar');
     Route::get('/rol/crear', [RoleController::class, 'crear'])->middleware('can:rol/crear');
     Route::post('/rol/guardar', [RoleController::class, 'guardar'])->middleware('can:rol/crear');
@@ -47,7 +47,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/rol/cambiar/estado/{id}/{estado}', [RoleController::class, 'modificarEstado'])->middleware('can:rol/cambiar/estado');
 
     //Sabor
-    Route::get('/sabor', [SaborController::class, 'index'])->middleware('can:sabor/listar');
+    Route::get('/sabor', [SaborController::class, 'index'])->middleware('can:/sabor');
     Route::get('/sabor/listar', [SaborController::class, 'listar'])->middleware('can:sabor/listar');
     Route::get('/sabor/crear', [SaborController::class, 'crear'])->middleware('can:sabor/crear');
     Route::post('/sabor/guardar', [SaborController::class, 'guardar'])->middleware('can:sabor/crear');
@@ -56,7 +56,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/sabor/cambiar/estado/{id}/{estado}', [SaborController::class, 'modificarEstado'])->middleware('can:sabor/cambiar/estado');
 
     //categorias
-    Route::get('/categoria', [CategoriaController::class, 'index'])->middleware('can:categoria/listar');
+    Route::get('/categoria', [CategoriaController::class, 'index'])->middleware('can:/categoria');
     Route::get('/categoria/listar', [CategoriaController::class, 'listar'])->middleware('can:categoria/listar');
     Route::get('/categoria/crear', [CategoriaController::class, 'crear'])->middleware('can:categoria/crear');
     Route::post('/categoria/guardar', [CategoriaController::class, 'guardar'])->middleware('can:categoria/crear');
@@ -65,7 +65,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/categoria/cambiar/estado/{id}/{estado}', [CategoriaController::class, 'modificarEstado'])->middleware('can:categoria/cambiar/estado');
 
     //productos
-    Route::get('/producto', [ProductoController::class, 'index'])->middleware('can:producto/listar');
+    Route::get('/producto', [ProductoController::class, 'index'])->middleware('can:/producto');
     Route::get('/producto/listar', [ProductoController::class, 'listar'])->middleware('can:producto/listar');
     Route::get('/producto/crear', [ProductoController::class, 'crear'])->middleware('can:producto/crear');
     Route::post('/producto/guardar', [ProductoController::class, 'guardar'])->middleware('can:producto/crear');
@@ -79,7 +79,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/producto/cambiar/estado/{id}/{estado}', [ProductoController::class, 'modificarEstado'])->middleware('can:producto/cambiar/estado');
 
     //usuarios
-    Route::get('/usuario', [UsuarioController::class, 'index'])->middleware('can:usuario/listar');
+    Route::get('/usuario', [UsuarioController::class, 'index'])->middleware('can:/usuario');
     Route::get('/usuario/listar', [UsuarioController::class, 'listar'])->middleware('can:usuario/listar');
     Route::get('/usuario/crear', [UsuarioController::class, 'crear'])->middleware('can:usuario/crear');
     Route::post('/usuario/guardar', [UsuarioController::class, 'guardar'])->middleware('can:usuario/crear');
@@ -106,7 +106,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/ver/imagen/{id}', [CartController::class, 'verImagen']);
 
     //cotización
-    Route::get('/cotizacion', [CotizacionController::class, 'index'])->middleware('can:cotizacion/listar');
+    Route::get('/cotizacion', [CotizacionController::class, 'index'])->middleware('can:/cotizacion');
     Route::get('/cotizacion/listar', [CotizacionController::class, 'listar'])->middleware('can:cotizacion/listar');
     Route::get('/cotizacion/crear/{producto}', [CotizacionController::class, 'crear'])->middleware('can:cotizacion/crear');
     Route::get('/cotizacion/personalizada', [CotizacionController::class, 'Personalizada'])->middleware('can:cotizacion/personalizada');
@@ -118,7 +118,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/cotizacion/actualizar', [CotizacionController::class, 'modificar'])->middleware('can:cotizacion/editar');
     
     //pedido
-    Route::get('/pedido', [PedidoController::class, 'index'])->middleware('can:pedido/listar');
+    Route::get('/pedido', [PedidoController::class, 'index'])->middleware('can:/pedido');
     Route::get('/pedido/listar', [PedidoController::class, 'listar'])->middleware('can:pedido/listar');
     Route::get('/pedido/buscarUsuarios', [PedidoController::class, 'buscarUsuarios'])->middleware('can:pedido/crear');
     Route::get('/pedido/requisitos', [PedidoController::class, 'requisitos'])->middleware('can:pedido/crear');
@@ -138,7 +138,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/pedido/crear/{producto}/{cliente}', [PedidoController::class, 'crearProductoRegistrado'])->middleware('can:pedido/crear/producto/cliente');
 
     // abonos
-    Route::get('/abono', [abonoController::class, 'index'])->middleware('can:abono/listar');
+    Route::get('/abono', [abonoController::class, 'index'])->middleware('can:/abono');
     Route::get('/abono/listar', [abonoController::class, 'listar'])->middleware('can:abono/listar');
     Route::get('/abono/crear/{id}', [abonoController::class, 'crear'])->middleware('can:abono/crear');
     Route::get('/abono/ver/{id}', [abonoController::class, 'ver'])->middleware('can:abono/ver');

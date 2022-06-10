@@ -66,7 +66,7 @@
             </div>
             
             <!--Roles-->
-            @can('rol')
+            @can('/rol')
             <li class="nav-item">
                 <a class="nav-link tipoletra" data-toggle="tooltip" data-placement="right" title="En este módulo aquí podrás consultar y crear los roles del aplicativo, así como también asignar permisos a los roles existentes en el módulo" href="/rol">
                     <i class="fas fa-fw fa-cog"></i>
@@ -76,7 +76,7 @@
             @endcan
 
             <!--Usuarios-->
-            @can('usuario')
+            @can('/usuario')
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tooltip" data-placement="right" title="Este módulo, se encarga de gestionar la información personal y de contacto de cada cliente, registrado en el sistema" href="/usuario">
                     <i class="fas fa-user"></i>
@@ -86,7 +86,7 @@
             @endcan
 
             <!--Productos-->
-            @can('producto')
+            @can('/producto')
             <li class="nav-item">
                 <a class="nav-link tipoletra collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-birthday-cake"></i>
@@ -94,15 +94,15 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        @can('sabor')
+                        @can('/sabor')
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo, se encarga de crear, visualizar, inhabilitar y editar los sabores que serán asignados al producto" href="/sabor">Sabores</a>
                         @endcan
 
-                        @can('categoria')
+                        @can('/categoria')
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo, se encarga de crear, visualizar, inhabilitar y editar las categorias que serán asignados al producto" href="/categoria">Categorías</a>
                         @endcan
 
-                        @can('producto')
+                        @can('producto/listar')
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo, se encarga de gestionar la información de los diferentes productos que se venden en el negocio" href="/producto">Productos</a>
                         @endcan
 
@@ -115,7 +115,7 @@
             @endcan
 
             <!--Ventas-->
-            @can('venta')
+            @can('/venta')
             <li class="nav-item">
                 <a class="nav-link tipoletra collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
@@ -123,15 +123,15 @@
                 </a>
                 <div id="collapsePages" class="collapse tipoletra" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        @can('cotizacion')
+                        @can('/cotizacion')
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo nos permite tener un registro de las cotizaciones, llevar un seguimiento, de acuerdo al estado en que se encuentre cada una: pendiente, rechazada o aprobada" href="/cotizacion">Cotizaciones</a>
                         @endcan
 
-                        @can('pedido')
+                        @can('/pedido')
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo nos permite hacer un seguimiento de los pedidos, teniendo así la posibilidad de hacer el registro de los pedidos que se hagan tanto en el aplicativo, como externamente" href="/pedido">Pedidos</a>
                         @endcan
 
-                        @can('abono')
+                        @can('/abono')
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo nos permite hacer seguimiento de los abonos realizados a los pedidos" href="/abono">Abonos</a>
                         @endcan
                         <div class="collapse-divider"></div>
@@ -186,36 +186,38 @@
                                 </form>
                             </div>
                         </li>
+                        @can('')
                         @yield('car')
-                        <div class="topbar-divider d-none d-sm-block"></div>
+                            <div class="topbar-divider d-none d-sm-block"></div>
 
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small tipoletra">{{ Auth::user()->nombre}}</span>
-                                <img class="img-profile rounded-circle" src="/../img/{{Auth::user()->foto}}">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item tipoletra" href="/perfil/{{Auth::user()->id}}">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Editar Perfil
+                            <!-- Nav Item - User Information -->
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small tipoletra">{{ Auth::user()->nombre}}</span>
+                                    <img class="img-profile rounded-circle" src="/../img/{{Auth::user()->foto}}">
                                 </a>
-                                <a class="dropdown-item tipoletra" href="/perfil/cambiar/{{Auth::user()->id}}">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Cambiar contraseña
-                                </a>
-                                <!--<a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
-                                </a>-->
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item tipoletra" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Cerrar sesión
-                                </a>
-                            </div>
-                        </li>
+                                <!-- Dropdown - User Information -->
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item tipoletra" href="/perfil/{{Auth::user()->id}}">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Editar Perfil
+                                    </a>
+                                    <a class="dropdown-item tipoletra" href="/perfil/cambiar/{{Auth::user()->id}}">
+                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Cambiar contraseña
+                                    </a>
+                                    <!--<a class="dropdown-item" href="#">
+                                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Activity Log
+                                    </a>-->
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item tipoletra" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Cerrar sesión
+                                    </a>
+                                </div>
+                            </li>
+                        @endcan
                     </ul>
                 </nav>
                 <!-- End of Topbar -->
