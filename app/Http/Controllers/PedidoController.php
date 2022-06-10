@@ -64,7 +64,10 @@ class PedidoController extends Controller
                 $fecha = Pedido::select('fechaEntrega')->where('id', $pedido->id)->value("fechaEntrega");
                 $date1 = Carbon::parse($fecha);
                 $date2 = now();
+                // $fechaPedido = intval($date1->format('d')) - intval($date2->format('d'));
                 $fechaPedido = intval($date1->format('d')) - intval($date2->format('d'));
+                // $dt->diffInDays($dt->copy()->addMonth());       
+                $fechaPedido =  $date1->diffInDays($date2) + 1;
                 if ($pedido->idEstado != 3) {
                     if ($fechaPedido == 3) {
                         return '<span class="badge badge-warning text-white p-2">' . 'Faltan ' . $fechaPedido . ' día(s)' . '</span>';
@@ -81,6 +84,7 @@ class PedidoController extends Controller
                 } else {
                     return "Se anuló el pedido";
                 }
+                return "Faltan " . $fechaPedido . " día(s)";
             })
             ->addColumn('pagos', function ($pedido) {
                 $precio = Pedido::select('precio')->where('pedidos.id', $pedido->id)->value('precio');
@@ -98,8 +102,8 @@ class PedidoController extends Controller
                 }
             })
             ->editColumn('acciones', function ($pedido) {
-                $acciones = '<a class="btn btn-info btn-sm" href="/pedido/editar/' . $pedido->id . '" ><i class="fas fa-edit"></i> Editar</a> ';
-                $acciones .= '<a class="btn btn-secondary btn-sm" href="/pedido/ver/' . $pedido->id . '" ><i class="fas fa-info-circle"></i> Ver</a> ';
+                $acciones = '<a class="btn btn-info btn-sm" href="/pedido/editar/' . $pedido->id . '" ><i class="fas fa-edit"></i></a> ';
+                $acciones .= '<a class="btn btn-secondary btn-sm" href="/pedido/ver/' . $pedido->id . '" ><i class="fas fa-info-circle"></i></a> ';
                 
                 $precio = Pedido::select('precio')->where('pedidos.id', $pedido->id)->value('precio');
                 $abonos = Abono::select("*")->where('idPedido', $pedido->id)->get();

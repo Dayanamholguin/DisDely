@@ -7,7 +7,9 @@ Gestión de Productos
 @section('content')
 <div class="card">
     <div class="card-header">
+        @can('usuario/crear')
         <a href="/usuario/crear" class="alert-link btn btn-primary tipoletra"><i class="bi bi-person-plus"></i> Crear Usuario</a>
+        @endcan
     </div>
     <div class="card-body">
     @include('flash::message')

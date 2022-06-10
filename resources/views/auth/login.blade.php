@@ -14,6 +14,7 @@ Acceso - DisDely
                                 <h3 class="text-center font-weight-light my-4" style="color: #B0535E">Dulce Encanto</h3>
                             </div>
                             <div class="card-body">
+                                @include('flash::message')
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
                                     <div class="user-details">

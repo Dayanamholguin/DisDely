@@ -7,7 +7,9 @@ Gestión de Pedidos
 @section('content')
 <div class="card">
     <div class="card-header">
+        @can('pedido/crear')
         <a href="/pedido/requisitos" class="alert-link btn btn-primary tipoletra mr-2 "><i class="bi bi-plus-circle"></i> Realizar pedido</a>
+        @endcan
         {{-- <a href="#" class="btn btn-outline-secondary mr-2">Filtrar pedidos pagos y no pagos</a> --}}
         {{-- <a href="#" class="btn btn-outline-secondary">Filtrar por tres días antes de la entrega</a> --}}
     </div>

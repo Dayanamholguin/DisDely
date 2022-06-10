@@ -7,8 +7,10 @@ Gestión de Categorías
 @section('content')
 <div class="card">
     <div class="card-header">
-        <a href="/categoria/crear" class="alert-link btn btn-primary tipoletra"><i class="bi bi-plus-circle"></i> Crear Categoría</a>
-    </div>
+        @can('categoria/crear')
+            <a href="/categoria/crear" class="alert-link btn btn-primary tipoletra"><i class="bi bi-plus-circle"></i> Crear Categoría</a>
+        @endcan
+        </div>
     <div class="card-body">
     @include('flash::message')
         <table id="categoria" class="table table-bordered dt-responsive dataTable text-left" style="width: 100%;">

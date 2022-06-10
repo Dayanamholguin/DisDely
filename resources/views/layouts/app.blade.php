@@ -66,22 +66,27 @@
             </div>
             
             <!--Roles-->
+            @can('rol')
             <li class="nav-item">
                 <a class="nav-link tipoletra" data-toggle="tooltip" data-placement="right" title="En este módulo aquí podrás consultar y crear los roles del aplicativo, así como también asignar permisos a los roles existentes en el módulo" href="/rol">
                     <i class="fas fa-fw fa-cog"></i>
                     <span> Gestión de Roles</span>
                 </a>
             </li>
+            @endcan
 
             <!--Usuarios-->
+            @can('usuario')
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tooltip" data-placement="right" title="Este módulo, se encarga de gestionar la información personal y de contacto de cada cliente, registrado en el sistema" href="/usuario">
                     <i class="fas fa-user"></i>
                     <span>Gestión de Usuarios</span>
                 </a>
             </li>
+            @endcan
 
             <!--Productos-->
+            @can('producto')
             <li class="nav-item">
                 <a class="nav-link tipoletra collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-birthday-cake"></i>
@@ -89,15 +94,28 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
+                        @can('sabor')
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo, se encarga de crear, visualizar, inhabilitar y editar los sabores que serán asignados al producto" href="/sabor">Sabores</a>
+                        @endcan
+
+                        @can('categoria')
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo, se encarga de crear, visualizar, inhabilitar y editar las categorias que serán asignados al producto" href="/categoria">Categorías</a>
+                        @endcan
+
+                        @can('producto')
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo, se encarga de gestionar la información de los diferentes productos que se venden en el negocio" href="/producto">Productos</a>
+                        @endcan
+
+                        @can('producto/verProductoCatalogo')
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Podrá visualizar todos los productos añadidos al catálogo" href="/producto/catalogo">Catálogo</a>
+                        @endcan
                     </div>
                 </div>
             </li>
+            @endcan
 
             <!--Ventas-->
+            @can('venta')
             <li class="nav-item">
                 <a class="nav-link tipoletra collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
@@ -105,13 +123,22 @@
                 </a>
                 <div id="collapsePages" class="collapse tipoletra" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
+                        @can('cotizacion')
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo nos permite tener un registro de las cotizaciones, llevar un seguimiento, de acuerdo al estado en que se encuentre cada una: pendiente, rechazada o aprobada" href="/cotizacion">Cotizaciones</a>
+                        @endcan
+
+                        @can('pedido')
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo nos permite hacer un seguimiento de los pedidos, teniendo así la posibilidad de hacer el registro de los pedidos que se hagan tanto en el aplicativo, como externamente" href="/pedido">Pedidos</a>
+                        @endcan
+
+                        @can('abono')
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo nos permite hacer seguimiento de los abonos realizados a los pedidos" href="/abono">Abonos</a>
+                        @endcan
                         <div class="collapse-divider"></div>
                     </div>
                 </div>
             </li>
+            @endcan
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -291,7 +318,7 @@
         });
 
         // $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
-        $('div.alert').delay(3000).fadeOut(350);
+        $('div.alert').delay(10000).fadeOut(350);
         function ucfirst(str,force)
         { 
             str=force ? str.toLowerCase() : str; 

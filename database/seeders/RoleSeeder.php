@@ -21,93 +21,184 @@ class RoleSeeder extends Seeder
         $cliente = Role::create(['name' => 'Cliente', 'estado' => '1']);
     
         //---------------------------------ROLES--------------------------------------------------
+        Permission::create(['name' => 'rol', 'description' => 'Roles'])->syncRoles($admin);
+
         Permission::create(['name' => 'rol/listar',
-                            'description' => 'Ver roles'])->syncRoles($admin);
+                'description' => 'Roles ver listado'])->syncRoles($admin);
                             
         Permission::create(['name' => 'rol/crear',
-                            'description' => 'Crear rol'])->syncRoles($admin);
+                'description' => 'Rol crear'])->syncRoles($admin);
                             
         Permission::create(['name' => 'rol/editar',
-                            'description' => 'Editar rol'])->syncRoles($admin);
+                'description' => 'Rol editar'])->syncRoles($admin);
                             
         Permission::create(['name' => 'rol/ver',
-                            'description' => 'Ver rol'])->syncRoles($admin);
+                'description' => 'Rol ver información'])->syncRoles($admin);
                             
         Permission::create(['name' => 'rol/cambiar/estado',
-                            'description' => 'Cambiar estado de rol'])->syncRoles($admin);
+                'description' => 'Rol cambiar estado'])->syncRoles($admin);
 
         //------------------------------------SABORES-----------------------------------------------
+        Permission::create(['name' => 'sabor', 'description' => 'Sabores'])->syncRoles($admin);
+
         Permission::create(['name' => 'sabor/listar',
-                            'description' => 'Ver listado de sabores'])->syncRoles($admin);
+                'description' => 'Sabores ver listado'])->syncRoles($admin);
 
         Permission::create(['name' => 'sabor/crear', 
-                            'description' => 'Crear sabor'])->syncRoles($admin);
+                'description' => 'Sabor crear'])->syncRoles($admin);
                             
         Permission::create(['name' => 'sabor/editar', 
-                            'description' => 'Editar sabor'])->syncRoles($admin);
+                'description' => 'Sabor editar'])->syncRoles($admin);
 
         Permission::create(['name' => 'sabor/cambiar/estado', 
-                            'description' => 'Cambiar estado de sabor'])->syncRoles($admin);
+                'description' => 'Sabor cambiar estado'])->syncRoles($admin);
 
         //-------------------------------------CATEGORIA----------------------------------------------
+        Permission::create(['name' => 'categoria', 'description' => 'Categorías'])->syncRoles($admin);
+
         Permission::create(['name' => 'categoria/listar', 
-                            'description' => 'Ver listado de categorías'])->syncRoles($admin);
+                'description' => 'Categorías ver listado'])->syncRoles($admin);
 
         Permission::create(['name' => 'categoria/crear', 
-                            'description' => 'Crear categoría'])->syncRoles($admin);
+                'description' => 'Categoría crear'])->syncRoles($admin);
 
         Permission::create(['name' => 'categoria/editar', 
-                            'description' => 'Editar categoría'])->syncRoles($admin);
+                'description' => 'Categoría editar'])->syncRoles($admin);
 
         Permission::create(['name' => 'categoria/cambiar/estado', 
-                            'description' => 'Cambiar estado de categoría'])->syncRoles($admin);
+                'description' => 'Categoría cambiar estado'])->syncRoles($admin);
 
         //----------------------------------------PRODUCTO-------------------------------------------
+        Permission::create(['name' => 'producto', 'description' => 'Productos'])->syncRoles($admin);
+        
         Permission::create(['name' => 'producto/listar', 
-                            'description' => 'Ver listado de producto'])->syncRoles($admin);
+                'description' => 'Producto ver listado'])->syncRoles($admin);
 
         Permission::create(['name' => 'producto/crear', 
-                            'description' => 'Crear producto'])->syncRoles($admin);
+                'description' => 'Producto crear'])->syncRoles($admin);
 
         Permission::create(['name' => 'producto/editar', 
-                            'description' => 'Editar Producto'])->syncRoles($admin);
+                'description' => 'Producto editar'])->syncRoles($admin);
 
         Permission::create(['name' => 'producto/ver', 
-                            'description' => 'Ver información del producto'])->syncRoles($admin);
+                'description' => 'Producto ver información'])->syncRoles($admin);
+
+        Permission::create(['name' => 'producto/verProductoCatalogo', 
+                'description' => 'Ver productos del catálogo'])->syncRoles($admin, $cliente);
 
         Permission::create(['name' => 'producto/cambiar/estado', 
-                            'description' => 'Cambiar estado producto'])->syncRoles($admin);
+                'description' => 'Producto cambiar estado'])->syncRoles($admin);
 
         //--------------------------------------USUARIO---------------------------------------------
+        Permission::create(['name' => 'usuario', 'description' => 'Usuarios'])->syncRoles($admin);
+
         Permission::create(['name' => 'usuario/listar',
-        'description' => 'Ver usuarios'])->syncRoles($admin);
+                'description' => 'Usuarios ver listado'])->syncRoles($admin);
 
         Permission::create(['name' => 'usuario/crear',
-                'description' => 'Crear usuario'])->syncRoles($admin);
+                'description' => 'Usuario crear'])->syncRoles($admin);
 
         Permission::create(['name' => 'usuario/editar',
-                'description' => 'Editar usuario'])->syncRoles($admin);
+                'description' => 'Usuario editar'])->syncRoles($admin);
 
         Permission::create(['name' => 'usuario/ver',
-                'description' => 'Ver usuario'])->syncRoles($admin);        
+                'description' => 'Usuario ver información'])->syncRoles($admin);        
             
         Permission::create(['name' => 'usuario/cambiar/estado',
-                'description' => 'Cambiar estado de usuario'])->syncRoles($admin);
+                'description' => 'Usuario cambiar estado'])->syncRoles($admin);
+                 
+        //-------------------------------------CARRITO----------------------------------------------
+        Permission::create(['name' => 'agregarCarrito',
+                'description' => 'Carrito para hacer cotización'])->syncRoles($cliente);
                 
+        Permission::create(['name' => 'actualizarCarrito', 
+                'description' => 'Carrito actualizar cotización'])->syncRoles($cliente);
+
+        Permission::create(['name' => 'quitarProducto',
+                'description' => 'Carrito quitar productos'])->syncRoles($cliente);
+
+        Permission::create(['name' => 'limpiarCarrito',
+                'description' => 'Carrito limpiar'])->syncRoles($cliente);
+
+        Permission::create(['name' => 'ver/carrito',
+                'description' => 'Carrito ver información'])->syncRoles($cliente);
+
+        Permission::create(['name' => 'venta',
+                'description' => 'Ventas'])->syncRoles($admin, $cliente);
+                        
         //-------------------------------------COTIZACION----------------------------------------------
+        Permission::create(['name' => 'cotizacion', 'description' => 'Cotizaciones'])->syncRoles($admin, $cliente);
+
         Permission::create(['name' => 'cotizacion/listar',
-        'description' => 'Ver cotizaciones'])->syncRoles($admin);
+                'description' => 'Cotizaciones ver listado'])->syncRoles($admin, $cliente);
 
         Permission::create(['name' => 'cotizacion/crear',
-                'description' => 'Crear cotizacion'])->syncRoles($admin);
+                'description' => 'Cotización crear'])->syncRoles($cliente);
+               
+        Permission::create(['name' => 'cotizacion/personalizada',
+                'description' => 'Cotización crear personalizada'])->syncRoles($cliente);
 
         Permission::create(['name' => 'cotizacion/editar',
-                'description' => 'Editar cotizacion'])->syncRoles($admin);
+                'description' => 'Cotización editar'])->syncRoles($admin);
+                
+        Permission::create(['name' => 'cotizacion/cancelar',
+                'description' => 'Ccotización cancelar'])->syncRoles($admin);
 
         Permission::create(['name' => 'cotizacion/ver',
-                'description' => 'Ver cotizacion'])->syncRoles($admin);        
-            
-        Permission::create(['name' => 'cotizacion/cambiar/estado',
-                'description' => 'Cambiar estado de cotizacion'])->syncRoles($admin);
+                'description' => 'Cotización ver información'])->syncRoles($admin, $cliente);  
+             
+        //-------------------------------------PEDIDOS----------------------------------------------
+        Permission::create(['name' => 'pedido', 'description' => 'Pedidos'])->syncRoles($admin, $cliente);
+
+        Permission::create(['name' => 'pedido/listar',
+                'description' => 'Pedidos ver listado'])->syncRoles($admin, $cliente); 
+        
+        Permission::create(['name' => 'pedido/crear',
+                'description' => 'Pedido crear'])->syncRoles($admin); 
+        
+        Permission::create(['name' => 'carritoPedido',
+                'description' => 'Carrito para hacer pedido'])->syncRoles($cliente); 
+                
+        Permission::create(['name' => 'pedido/ver',
+                'description' => 'Pedido ver información'])->syncRoles($admin, $cliente); 
+        
+        Permission::create(['name' => 'pedido/editar',
+                'description' => 'Pedido editar'])->syncRoles($admin); 
+                
+        Permission::create(['name' => 'cancelarP',
+                'description' => 'Pedido cancelar'])->syncRoles($admin); 
+                
+        Permission::create(['name' => 'limpiarCarritoPedido',
+                'description' => 'Pedido limpiar carrito'])->syncRoles($cliente); 
+                
+        Permission::create(['name' => 'quitarProductoPedido',
+                'description' => 'Pedido quitar producto'])->syncRoles($cliente); 
+        
+        Permission::create(['name' => 'actualizarPreProductos',
+                'description' => 'Pedido actualizar productos antes de hacer'])->syncRoles($cliente); 
+
+        Permission::create(['name' => 'actualizarProductosPedido',
+                'description' => 'Pedido actualizar productos'])->syncRoles($admin); 
+
+        Permission::create(['name' => 'agregarCarritoPedido',
+                'description' => 'Pedido agregar productos de carrito'])->syncRoles($cliente); 
+                
+        Permission::create(['name' => 'pedido/crear/producto/cliente',
+                'description' => 'Pedido crear con producto registrado'])->syncRoles($cliente); 
+                
+        //-------------------------------------ABONOS---------------------------------------------
+        Permission::create(['name' => 'abono', 'description' => 'Abonos'])->syncRoles($admin, $cliente);
+
+        Permission::create(['name' => 'abono/listar',
+                'description' => 'Abonos ver listado'])->syncRoles($admin, $cliente); 
+        
+        Permission::create(['name' => 'abono/crear',
+                'description' => 'Abono crear'])->syncRoles($admin); 
+
+        Permission::create(['name' => 'abono/ver',
+                'description' => 'Abonos ver información'])->syncRoles($admin, $cliente); 
+                
+        Permission::create(['name' => 'abono/verIndividual',
+                'description' => 'Abono ver individual'])->syncRoles($admin, $cliente);
     }
 }

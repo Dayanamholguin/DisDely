@@ -31,7 +31,7 @@ class abonoController extends Controller
                 return '<a class="alert-link titulo" href="/pedido/ver/' . $abono->idPedido . '" >'. $abono->idPedido .'</a> ';
             })
             ->editColumn('acciones', function ($abono) {
-                $acciones = '<a class="btn btn-info btn-sm" onclick="mostrarVentana(' . $abono->id . ')" href="javascript:void(0)" ><i class="fas fa-info-circle"></i> Ver</a> ';
+                $acciones = '<a class="btn btn-info btn-sm" onclick="mostrarVentana(' . $abono->id . ')" href="javascript:void(0)" ><i class="fas fa-info-circle"></i> Ver detalle del abono</a> ';
                 return $acciones;
             })
             ->rawColumns(['acciones', 'fecha', 'idPedido'])
@@ -169,6 +169,7 @@ class abonoController extends Controller
             $paga=true;
         }
         $porcentaje = ($nAbonos*100)/$precio;
+        $porcentaje = round($porcentaje);
         return view("abono.ver", compact("pedido", "cliente", "abonos", "nAbonos", "resta", "precio", "paga", "porcentaje"));
     }
     

@@ -42,7 +42,12 @@ class ProductoController extends Controller
             ->editColumn("estado", function ($producto) {
                 return $producto->estado == 1 ? "Activo" : "Inactivo";
             })
-
+            ->editColumn("categoria", function ($producto) {
+                return $producto->cnombre;
+            })
+            ->editColumn("sabor", function ($producto) {
+                return $producto->snombre;
+            })
             ->editColumn("acciones", function ($producto) {
                 $acciones = '<a class="btn btn-info btn-sm" href="/producto/editar/' . $producto->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
                 $acciones .= '<a class="btn btn-secondary btn-sm" href="/producto/ver/' . $producto->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-info-circle"></i> Ver</a> ';

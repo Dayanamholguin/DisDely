@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Categoria;
+use App\Models\Producto;
 //use Yajra\DataTables\DataTables;
 use DataTables;
 use Flash;
@@ -110,9 +111,19 @@ class CategoriaController extends Controller
             return redirect("/categoria");
         }
         try {
-            $categoria->update(["estado" => $estado]);         
+            $categoria->update(["estado" => $estado]);   
+            // SELECT productos.* from productos join categorias on productos.idCategoria=categorias.id where categorias.id=3;
+            $productos=Producto::select('productos.*')->join('categorias', 'categorias.id', 'productos.idCategoria')->where('categorias.id', $categoria->id)->get();
+            foreach ($productos as $key => $value) {
+                $productos[$key]->update([
+                    "estado" => $estado,
+                    "catalogo" => $estado
+                ]);
+            }
+            Flash('Se ha cambiado el estado de la categoria con los productos asignados a esa categoría éxitosamente')->success()->important();
             return redirect("/categoria");
-        } catch (\Exception $e) {       
+        } catch (\Exception $e) {   
+            Flash('No se pudo cambiar el estado de la categoría')->error()->important();    
             return redirect("/categoria");
         }
     }

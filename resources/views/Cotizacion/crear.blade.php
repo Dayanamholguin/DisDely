@@ -7,7 +7,7 @@ Cotización
 @section('content')
 <div class="card">
     <div class="card-header text-center">
-        <strong>Registro de cotización</strong> 
+        <strong>Registro de producto para la cotización</strong> 
     </div>
     <div class="card-body">
         <div class="container mt-1">
