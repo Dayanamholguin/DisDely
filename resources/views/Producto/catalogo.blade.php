@@ -106,21 +106,6 @@
 @endsection
 
 @section('scripts')
-
-
-
-<script src="/assetsGallery/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/assetsGallery/vendor/jquery.easing/jquery.easing.min.js"></script>
-<script src="/assetsGallery/vendor/php-email-form/validate.js"></script>
-<script src="/assetsGallery/vendor/waypoints/jquery.waypoints.min.js"></script>
-<script src="/assetsGallery/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-<script src="/assetsGallery/vendor/venobox/venobox.min.js"></script>
-<script src="/assetsGallery/vendor/owl.carousel/owl.carousel.min.js"></script>
-<script src="/assetsGallery/vendor/aos/aos.js"></script>
-
-<!-- Template Main JS File -->
-<script src="/assetsGallery/js/main.js"></script>
-
 <script>
     /*  let pro = <?= json_encode($productos); ?>;
     console.log(pro); */
@@ -145,6 +130,7 @@
             }
         }
     }
+    //end search
 
     // $.ajax({
     //     url: `/producto/catalogo/${idCategoria}`,
@@ -158,4 +144,66 @@
     //     },
     // });
 </script>
+<<<<<<< HEAD
+
+<!-- <script>
+    const productos = [{
+            nombre: 'Platanos'
+        },
+        {
+            nombre: 'Pera'
+        },
+        {
+            nombre: 'Fresa'
+        },
+        {
+            nombre: 'Sandia'
+        },
+        {
+            nombre: 'Frutillas'
+        },
+    ]
+
+    const formulario = document.querySelector('#formulario');
+    const boton = document.querySelector('#boton');
+    const resultado = document.querySelector('#resultado');
+
+    const filtrar = () => {
+        resultado.innerHTML = '';
+
+        const texto = formulario.value.toLowerCase();
+
+        for (let producto of productos) {
+            let nombre = producto.nombre.toLowerCase();
+            if (nombre.indexOf(texto) !== -1) {
+                resultado.innerHTML += `
+        <li>${producto.nombre}</li>
+        `
+            }
+        }
+        if (resultado.innerHTML === '') {
+            resultado.innerHTML += `
+            <li>Producto no encontrado...</li>
+        `
+        }
+    }
+
+    boton.addEventListener('click', filtrar)
+    formulario.addEventListener('keyup', filtrar)
+    filtrar();
+</script> -->
+
+<script src="/assetsGallery/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assetsGallery/vendor/jquery.easing/jquery.easing.min.js"></script>
+<script src="/assetsGallery/vendor/php-email-form/validate.js"></script>
+<script src="/assetsGallery/vendor/waypoints/jquery.waypoints.min.js"></script>
+<script src="/assetsGallery/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="/assetsGallery/vendor/venobox/venobox.min.js"></script>
+<script src="/assetsGallery/vendor/owl.carousel/owl.carousel.min.js"></script>
+<script src="/assetsGallery/vendor/aos/aos.js"></script>
+
+<!-- Template Main JS File -->
+<script src="/assetsGallery/js/main.js"></script>
+=======
+>>>>>>> c8c6145fa3ae79119547670bbf418a1693fe7018
 @endsection

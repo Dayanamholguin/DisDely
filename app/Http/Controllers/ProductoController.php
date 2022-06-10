@@ -99,11 +99,11 @@ class ProductoController extends Controller
     {
         $request->validate(Producto::$rules);
         $input = $request->all();
-        $producto = Producto::select('*')->where('nombre', $request->nombre)->value('nombre');
-        if ($producto != null) {
-            Flash("El producto " . $producto . " ya está creado")->error()->important();
-            return redirect("/producto/crear");
-        }
+        // $producto = Producto::select('*')->where('nombre', $request->nombre)->value('nombre');
+        // if ($producto != null) {
+        //     Flash("El producto " . $producto . " ya está creado")->error()->important();
+        //     return redirect("/producto/crear");
+        // }
         try {
             $imagen = null;
             if ($request->imagen != null) {

@@ -12,7 +12,7 @@
         @if(\Cart::getTotalQuantity()>0)
         <div class="card">
             <div class="card-header text-center">
-                <strong>Edición de la cotización</strong> / <a href="/cotizacion" class="alert-link titulo">Volver</a>
+                <strong>Edición de la cotización</strong>
             </div>
             <div class="card-body">
                 @include('flash::message')
