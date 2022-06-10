@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sabor;
+use App\Models\Producto;
 //use Yajra\DataTables\DataTables;
 use DataTables;
 use Flash;
@@ -108,9 +109,19 @@ class SaborController extends Controller
             return redirect("/sabor");
         }
         try {
-            $sabor->update(["estado" => $estado]);         
+            $sabor->update(["estado" => $estado]); 
+            // SELECT productos.* from productos join sabores on productos.idSabor=sabores.id where sabores.id=3;
+            $productos=Producto::select('productos.*')->join('sabores', 'sabores.id', 'productos.idSabor')->where('sabores.id', $sabor->id)->get();
+            foreach ($productos as $key => $value) {
+                $productos[$key]->update([
+                    "estado" => $estado,
+                    "catalogo" => $estado
+                ]);
+            } 
+            Flash('Se ha cambiado el estado del sabor con los productos asignados a ese sabor éxitosamente')->success()->important();
             return redirect("/sabor");
-        } catch (\Exception $e) {       
+        } catch (\Exception $e) {
+            Flash('No se pudo cambiar el estado del sabor')->error()->important();      
             return redirect("/sabor");
         }
     }

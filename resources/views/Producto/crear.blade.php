@@ -20,25 +20,6 @@ Productos
         <form id="form" action="/producto/guardar" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
-<<<<<<< HEAD
-                <div class="col-md-4 col-sm-12">
-                    <div class="form-group">
-                        <label for="">Imagen<b style="color: red"> *</b></label>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input @error('imagen') is-invalid @enderror" name="imagen"
-                            id="imagen">
-                            <label class="custom-file-label" for="customFile">Subir foto del pastel</label>
-                        </div>
-                        @error('imagen')
-                        <div class="alert alert-danger" role="alert">
-                            {{$message}}
-                        </div>
-                        @enderror
-                    </div>
-                </div>
-=======
-                
->>>>>>> 7231da28129a1062a8867d969aaa363cbfb7dee3
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label for="">Categoría<strong style="color: red"> *</strong></label>

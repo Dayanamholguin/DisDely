@@ -7,7 +7,9 @@ Gestión de Productos
 @section('content')
 <div class="card">
     <div class="card-header">
+        @can('producto/crear')
         <a href="/producto/crear" class="alert-link btn btn-primary tipoletra"><i class="bi bi-plus-circle"></i> Crear Producto</a>
+        @endcan
     </div>
     <div class="card-body">
     @include('flash::message')
@@ -49,12 +51,12 @@ Gestión de Productos
                     name: 'nombre'
                 },
                 {
-                    data: 'cnombre',
-                    name: 'nombre'
+                    data: 'categoria',
+                    name: 'categoria'
                 },
                 {
-                    data: 'snombre',
-                    name: 'nombre'
+                    data: 'sabor',
+                    name: 'sabor'
                 },
                 {
                     data: 'estado',

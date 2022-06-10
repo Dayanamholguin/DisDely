@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use DataTables;
+use App\Models\Usuario;
 use Flash;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models;
@@ -65,7 +66,8 @@ class RoleController extends Controller
         } else {
             foreach ($permisos as $permiso) {
                 foreach ($request->permissions as $key => $value) {
-                    if(in_array($value[$key],$request->permissions)){
+                    // dd($value);
+                    if(in_array($value,$request->permissions)){
                         try {
                             $rol = Role::create([
                                 "name" => $input["name"],
@@ -157,9 +159,19 @@ class RoleController extends Controller
             return redirect("/rol");
         }
         try {
+            // dd($estado);
             $rol->update(["estado" => $estado]);
+            // SELECT users.* FROM users join model_has_roles on model_id=users.id JOIN roles on roles.id=model_has_roles.role_id where roles.id=3;
+            $usuarios = Usuario::select('users.*')->join('model_has_roles', 'model_id', 'users.id')->join('roles','roles.id','model_has_roles.role_id')->where('roles.id', $rol->id)->get();
+            foreach ($usuarios as $key => $value) {
+                $usuarios[$key]->update([
+                    "estado" => $estado
+                ]);
+            }
+            Flash('Se ha modificado el estado del rol éxitosamente')->success()->important();
             return redirect("/rol");
         } catch (\Exception $e) {
+            Flash('No ha sido posible realizar el cambio del estado del rol')->error()->important();
             return redirect("/rol");
         }
     }

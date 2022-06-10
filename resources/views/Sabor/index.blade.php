@@ -7,7 +7,9 @@ Gestión de Sabores
 @section('content')
 <div class="card">
     <div class="card-header">
+        @can('sabor/crear')
         <a href="/sabor/crear" class="alert-link btn btn-primary tipoletra"><i class="bi bi-plus-circle"></i> Crear Sabor</a>
+        @endcan
     </div>
     <div class="card-body">
     @include('flash::message')
