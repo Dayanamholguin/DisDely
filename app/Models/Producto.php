@@ -26,7 +26,7 @@ class Producto extends Model
         'categoria'=>'required|exists:categorias,id',
         'sabor'=>'required|exists:sabores,id',
         'etapa'=>'required|exists:etapas,id',
-        'nombre' => 'required|min:3', //unique:productos'
+        'nombre' => 'required|min:3',
         'descripcion' => 'required|max:500',
         //'imagen' => 'required',
         'numeroPersonas' => 'required|numeric',
