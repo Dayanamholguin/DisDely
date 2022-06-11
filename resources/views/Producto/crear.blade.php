@@ -22,24 +22,6 @@ Productos
             <div class="row">
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-<<<<<<< HEAD
-                        <label for="">Imagen<b style="color: red"> *</b></label>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input @error('imagen') is-invalid @enderror" name="imagen"
-                            id="imagen">
-                            <label class="custom-file-label" for="customFile">Subir foto del pastel</label>
-                        </div>
-                        @error('imagen')
-                        <div class="alert alert-danger" role="alert">
-                            {{$message}}
-                        </div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-12">
-                    <div class="form-group">
-=======
->>>>>>> d566044c89a3df55fa328e29993ee15e6064f04e
                         <label for="">Categoría<strong style="color: red"> *</strong></label>
                         <select class="form-control" name="categoria">
                             <option value="">Seleccione</option>

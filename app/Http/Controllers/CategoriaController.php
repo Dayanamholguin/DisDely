@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
 use App\Models\Producto;
+use App\Models\User;
 //use Yajra\DataTables\DataTables;
 use DataTables;
 use Flash;
@@ -25,12 +26,29 @@ class CategoriaController extends Controller
                 return $categoria->estado == 1 ? "Activo" : "Inactivo";
             })
             ->addColumn('acciones', function ($categoria) {
-                $acciones = '<a class="btn btn-info btn-sm" href="/categoria/editar/' . $categoria->id . '"><i class="fas fa-edit"></i> Editar</a> ';
-            
-                if ($categoria->estado == 1) {
-                    $acciones .= '<a class="btn btn-danger btn-sm" href="/categoria/cambiar/estado/' . $categoria->id . '/0"><i class="bi bi-x-circle"></i> Inactivar</a>';
-                } else {
-                    $acciones .= '<a class="btn btn-success btn-sm" href="/categoria/cambiar/estado/' . $categoria->id . '/1"><i class="bi bi-check-circle"></i> Activar</a>';
+                $usuarioEnSesion = User::findOrFail(auth()->user()->id);
+                $acciones=null; 
+                if($usuarioEnSesion->can('categoria/editar')){
+
+                    $acciones = '<a class="btn btn-info btn-sm" href="/categoria/editar/' . $categoria->id . '"><i class="fas fa-edit"></i> Editar</a> ';
+                }
+                if($usuarioEnSesion->can('categoria/cambiar/estado')){
+
+                    if ($categoria->estado == 1) {
+                        if ($acciones == null) {
+                            $acciones = '<a class="btn btn-danger btn-sm" href="/categoria/cambiar/estado/' . $categoria->id . '/0"><i class="bi bi-x-circle"></i> Inactivar</a>';
+                        }else{
+                            $acciones .= '<a class="btn btn-danger btn-sm" href="/categoria/cambiar/estado/' . $categoria->id . '/0"><i class="bi bi-x-circle"></i> Inactivar</a>';
+                        }
+                    } else {
+                        if ($acciones==null) {
+                            $acciones = '<a class="btn btn-success btn-sm" href="/categoria/cambiar/estado/' . $categoria->id . '/1"><i class="bi bi-check-circle"></i> Activar</a>';
+                        }else {
+                            $acciones .= '<a class="btn btn-success btn-sm" href="/categoria/cambiar/estado/' . $categoria->id . '/1"><i class="bi bi-check-circle"></i> Activar</a>';
+                        }
+                        
+                    }
+
                 }
                 return $acciones;
             })

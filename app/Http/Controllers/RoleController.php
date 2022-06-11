@@ -40,7 +40,7 @@ class RoleController extends Controller
 
     public function crear()
     {
-        $permissions = Permission::all()->where('id', '>', 0);
+        $permissions = Permission::orderBy('description')->get();
         return view('rol.crear', compact('permissions'));
     }
 
@@ -73,6 +73,7 @@ class RoleController extends Controller
                                 "name" => $input["name"],
                                 "estado" => 1,
                             ]);
+                            // dd($request->permissions);
                             $rol->permissions()->sync($request->permissions);
                             Flash::success("Se ha creado éxitosamente");
                             return redirect("/rol");
@@ -91,7 +92,7 @@ class RoleController extends Controller
 
     public function editar($id)
     {
-        $permisos = Permission::all();
+        $permisos = Permission::orderBy('description')->get();
         $rol = Role::find($id);
         // SELECT role_has_permissions.permission_id, roles.name FROM `role_has_permissions` 
         // join roles on role_has_permissions.role_id=roles.id 

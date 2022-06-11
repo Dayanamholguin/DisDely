@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Models\Usuario;
+use App\Models\User;
 use App\Models\Cotizacion;
 use App\Models\detalle_cotizaciones;
 use Flash;
@@ -78,6 +79,7 @@ class CartController extends Controller
             Flash::error("No se encuentra el cliente");
             return back();
         }
+        $usuarioEnSesion = User::findOrFail(auth()->user()->id);
         $userName =$userId->nombre. " " .$userId->apellido;
         $cotizacion = 0;
         $carritoCollection = \Cart::getContent();
@@ -108,7 +110,7 @@ class CartController extends Controller
         // dd(\Cart::getContent());
         Flash::success("Se agregó correctamente el producto, ¡puedes agregar más!");
         $productos = Producto::all()->where('catalogo', 1)->where('id', '>', 1);
-        return view('producto.catalogo', compact("productos"));
+        return view('producto.catalogo', compact("productos", "usuarioEnSesion"));
     }
 
     // public function actualizarCarrito(Request $request)

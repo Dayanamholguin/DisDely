@@ -8,6 +8,7 @@ use App\Models\Producto;
 use App\Models\detalle_cotizaciones;
 use App\Models\detalle_pedidos;
 use App\Models\Pedido;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Abono;
 use App\Models\cotizacion;
 use App\Models\User;
@@ -29,10 +30,19 @@ class PedidoController extends Controller
     public function listar(Request $request)
     {
         Date::setLocale('es');
+        $user=User::find(Auth()->user()->id);
+        if ($user->hasRole('Admin')==false) {
         $pedido = Pedido::select("pedidos.*", "pedidos.estado as idEstado", "users.nombre as usuario","users.apellido as Pusuario", "estado_pedidos.nombre as estado")
             ->join("users", "users.id", "pedidos.idUser")
             ->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")
+            ->where("users.id", Auth::user()->id)
             ->get();
+        }else {
+            $pedido = Pedido::select("pedidos.*", "pedidos.estado as idEstado", "users.nombre as usuario","users.apellido as Pusuario", "estado_pedidos.nombre as estado")
+            ->join("users", "users.id", "pedidos.idUser")
+            ->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")
+            ->get();
+        }
         // DB::raw("DATEDIFF(date_from,date_to)AS Days"))
         // SELECT DATEDIFF((SELECT fechaEntrega FROM `pedidos` WHERE id = 6), NOW())
         // $nombreC = Usuario::select(DB::raw('CONCAT(nombre, \' \', apellido) as nombreCompleto'))->where('id', $value->attributes->clienteId)->value('nombreCompleto');
@@ -102,9 +112,18 @@ class PedidoController extends Controller
                 }
             })
             ->editColumn('acciones', function ($pedido) {
-                $acciones = '<a class="btn btn-info btn-sm" href="/pedido/editar/' . $pedido->id . '" ><i class="fas fa-edit"></i></a> ';
-                $acciones .= '<a class="btn btn-secondary btn-sm" href="/pedido/ver/' . $pedido->id . '" ><i class="fas fa-info-circle"></i></a> ';
-                
+                $usuarioEnSesion = User::findOrFail(auth()->user()->id);
+                $acciones=null; 
+                if($usuarioEnSesion->can('pedido/editar')){
+                    $acciones = '<a class="btn btn-info btn-sm" href="/pedido/editar/' . $pedido->id . '" ><i class="fas fa-edit"></i></a> ';
+                }
+                if($usuarioEnSesion->can('pedido/ver')){
+                    if ($acciones==null) {
+                        $acciones = '<a class="btn btn-secondary btn-sm" href="/pedido/ver/' . $pedido->id . '" ><i class="fas fa-info-circle"></i></a> ';
+                    }else {
+                        $acciones .= '<a class="btn btn-secondary btn-sm" href="/pedido/ver/' . $pedido->id . '" ><i class="fas fa-info-circle"></i></a> ';
+                    }
+                }
                 $precio = Pedido::select('precio')->where('pedidos.id', $pedido->id)->value('precio');
                 $abonos = Abono::select("*")->where('idPedido', $pedido->id)->get();
                 $nAbonos = 0;
@@ -113,11 +132,22 @@ class PedidoController extends Controller
                         $nAbonos += $value->precioPagar;
                     }
                 }
-                if ($nAbonos != $precio) {
-                    $acciones .= '<a class="btn btn-success btn-sm" href="/abono/crear/' . $pedido->id . '" ><i class="fas fa-dollar-sign"></i> Abono</a> ';
+                if($usuarioEnSesion->can('abono/crear')){
+                    if ($nAbonos != $precio) {
+                        if ($acciones==null) {
+                            $acciones = '<a class="btn btn-success btn-sm" href="/abono/crear/' . $pedido->id . '" ><i class="fas fa-dollar-sign"></i> Abono</a> ';
+                        }else {
+                            $acciones .= '<a class="btn btn-success btn-sm" href="/abono/crear/' . $pedido->id . '" ><i class="fas fa-dollar-sign"></i> Abono</a> ';
+                        }
+                    }
                 }
-
-                $acciones .= '<a class="btn btn-dark btn-sm" href="/abono/ver/' . $pedido->id . '" ><i class="fas fa-dollar-sign"></i></a> ';
+                if($usuarioEnSesion->can('abono/ver')){
+                    if($acciones==null){
+                        $acciones = '<a class="btn btn-dark btn-sm" href="/abono/ver/' . $pedido->id . '" ><i class="fas fa-dollar-sign"></i></a> ';
+                    }else {
+                        $acciones .= '<a class="btn btn-dark btn-sm" href="/abono/ver/' . $pedido->id . '" ><i class="fas fa-dollar-sign"></i></a> ';
+                    }
+                }
                 return $acciones;
             })
             ->rawColumns(['acciones', 'estado', 'verFechas', 'pagos', 'cliente'])
@@ -593,8 +623,8 @@ class PedidoController extends Controller
         $estado = Pedido::select('estado_pedidos.id')->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")->where("pedidos.id", $id)->value('id');
         $estadoNombre = Pedido::select('estado_pedidos.nombre')->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")->where("pedidos.id", $id)->value('nombre');
 
-        if ($estado != 1 || $estadoNombre != "En espera") {
-            Flash("El pedido solo se pueden editar si está en estado «En espera».")->warning()->important();
+        if (($estado == 3 || $estado == 4) || ($estadoNombre == "Anulado" || $estadoNombre == "Entregado")) {
+            Flash("El pedido solo se pueden editar si está en estado «En espera» o «En proceso».")->warning()->important();
             return back();
         }
         $carritoCollection = \Cart::getContent();
@@ -836,6 +866,7 @@ class PedidoController extends Controller
             $paga=true;
         }
         $porcentaje = ($nAbonos*100)/$precio;
+        $porcentaje = intval($porcentaje);
         // dd($detallePedidos);
         return view('pedido.ver', compact("detallePedidos", "pedido", "cliente", "nombreEstado", "paga", "porcentaje"));
     }

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Jenssegers\Date\Date;
 use App\Models\detalle_pedidos;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Pedido;
 use App\Models\Abono;
+use App\Models\User;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\DB;
 use DataTables;
@@ -22,16 +24,30 @@ class abonoController extends Controller
     public function listar(Request $request)
     {
         Date::setLocale('es');
-        $abono = Abono::all();
-        return DataTables::of($abono)
-            ->editColumn('fecha', function ($abono) {
-                return ucwords(Date::create($abono->created_at)->format('l, j F Y'));
+       
+        $user=User::find(Auth()->user()->id);
+        if ($user->hasRole('Admin')==false) {
+            $pedido = Pedido::select("pedidos.*", "pedidos.estado as idEstado", "users.nombre as usuario","users.apellido as Pusuario", "estado_pedidos.nombre as estado")
+            ->join("users", "users.id", "pedidos.idUser")
+            ->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")
+            ->where("users.id", Auth::user()->id)
+            ->get();
+        }else {
+            $pedido = Pedido::all();
+        }
+        return DataTables::of($pedido)
+            ->editColumn('fecha', function ($pedido) {
+                return ucwords(Date::create($pedido->created_at)->format('l, j F Y'));
             })
-            ->editColumn('idPedido', function ($abono) {
-                return '<a class="alert-link titulo" href="/pedido/ver/' . $abono->idPedido . '" >'. $abono->idPedido .'</a> ';
+            ->editColumn('idPedido', function ($pedido) {
+                return '<a class="alert-link titulo" href="/pedido/ver/' . $pedido->id . '" >'. $pedido->id .'</a> ';
             })
-            ->editColumn('acciones', function ($abono) {
-                $acciones = '<a class="btn btn-info btn-sm" onclick="mostrarVentana(' . $abono->id . ')" href="javascript:void(0)" ><i class="fas fa-info-circle"></i> Ver detalle del abono</a> ';
+            ->editColumn('acciones', function ($pedido) {
+                $usuarioEnSesion = User::findOrFail(auth()->user()->id);
+                $acciones=null; 
+                if($usuarioEnSesion->can('abono/ver')){
+                    $acciones = '<a class="btn btn-info btn-sm" href="/abono/verAbonoPedido/' . $pedido->id . '" ><i class="fas fa-info-circle"></i> Ver abono de los pedidos</a> ';
+                }
                 return $acciones;
             })
             ->rawColumns(['acciones', 'fecha', 'idPedido'])
@@ -79,13 +95,15 @@ class abonoController extends Controller
 
         return view("abono.crear", compact("pedido", "nombreCliente", "abonos", "nAbonos", "resta"));
     }
-    public function verIndividual($id)
+    public function verAbonoPedido($id)
     {
-        $abono = Abono::find($id);
-        if ($abono==null) {
-            return 0;
+        $pedido=Pedido::find($id);
+        if ($pedido==null) {
+            Flash('No se encontró el pedido')->error()->important();
+            return back();
         }
-        return $abono;
+        $abonos = Abono::select("*")->where('idPedido', $pedido->id)->get();
+        return view("abono.verAbonoPedido", compact("pedido", "abonos"));
     }
     public function guardar(Request $request)
     {
@@ -169,7 +187,7 @@ class abonoController extends Controller
             $paga=true;
         }
         $porcentaje = ($nAbonos*100)/$precio;
-        $porcentaje = round($porcentaje);
+        $porcentaje = intval($porcentaje);
         return view("abono.ver", compact("pedido", "cliente", "abonos", "nAbonos", "resta", "precio", "paga", "porcentaje"));
     }
     

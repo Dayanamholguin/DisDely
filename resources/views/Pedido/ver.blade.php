@@ -24,7 +24,9 @@
                     @if ($pedido->idUser!=1)
                         <div class="d-flex justify-content-between align-items-center">
                             <a><strong>Información del cliente: </strong></a>
-                            <a href="/usuario/ver/{{$pedido->idUser}}" class="alert-link titulo">Ver información del cliente detalladamente</a>
+                            @can('usuario/ver')
+                                <a href="/usuario/ver/{{$pedido->idUser}}" class="alert-link titulo">Ver información del cliente detalladamente</a>
+                            @endcan
                         </div>
                     @endif
                     <div class="row {{$pedido->idUser!=1?'mt-4':''}} ">
@@ -129,9 +131,11 @@
                     <hr>
                     <div class="d-flex justify-content-between align-items-center">
                         <strong>Información de los productos que se encuentran en el pedido</strong>
-                        @if ($nombreEstado ==="En espera")
-                            <a href="/pedido/editar/{{$pedido->id}}" class="alert-link titulo">Editar pedido</a>
-                        @endif
+                        @can('pedido/editar')
+                            @if ($nombreEstado ==="En espera" || $nombreEstado ==="En proceso")
+                                <a href="/pedido/editar/{{$pedido->id}}" class="alert-link titulo">Editar pedido</a>
+                            @endif
+                        @endcan
                     </div>
                     <hr>
                     <div class="row">

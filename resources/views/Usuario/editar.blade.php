@@ -92,35 +92,55 @@ Usuarios
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-12">
-                    <div class="form-group">
-                        <label for="">Género<strong style="color: red"> *</strong></label>
-                        <select class="form-control" name="genero">
-                            <option value="">Seleccione</option>
-                            @foreach($generos as $key => $value)
-                                <option {{$value->id == $usuario->idGenero ? 'selected' : ''}} value="{{$value->id}}">{{$value->nombre}}</option>
-                            @endforeach
-                            @error('generos')
+                @if ($usuarioEnSesion->hasRole('Admin')==false)
+                    <div class="col-md-3 col-sm-12">
+                        <div class="form-group">
+                            <label for="">Género<strong style="color: red"> *</strong></label>
+                            <select class="form-control" name="genero">
+                                <option value="">Seleccione</option>
+                                @foreach($generos as $key => $value)
+                                    <option {{$value->id == $usuario->idGenero ? 'selected' : ''}} value="{{$value->id}}">{{$value->nombre}}</option>
+                                @endforeach
+                                @error('generos')
+                                <div class="alert alert-danger" role="alert">
+                                    {{$message}}
+                                </div>
+                                @enderror
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3 col-sm-12">
+                        <label for="">Rol<strong style="color: red"> *</strong></label>
+                        <select class="form-control" name="roles[]">
+                        @foreach ($roles as $key => $value)
+                            <option {{$value->id == $consulta?'selected':''}} value="{{$value->id}}">{{$value->name}}</option>
+                        @endforeach
+                        @error('roles')
                             <div class="alert alert-danger" role="alert">
                                 {{$message}}
                             </div>
-                            @enderror
+                        @enderror
                         </select>
                     </div>
-                </div>
-                <div class="col-md-3 col-sm-12">
-                    <label for="">Rol<strong style="color: red"> *</strong></label>
-                    <select class="form-control" name="roles[]">
-                    @foreach ($roles as $key => $value)
-                        <option {{$value->id == $consulta?'selected':''}} value="{{$value->id}}">{{$value->name}}</option>
-                    @endforeach
-                    @error('roles')
-                        <div class="alert alert-danger" role="alert">
-                            {{$message}}
+                @else
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="">Género<strong style="color: red"> *</strong></label>
+                            <select class="form-control" name="genero">
+                                <option value="">Seleccione</option>
+                                @foreach($generos as $key => $value)
+                                    <option {{$value->id == $usuario->idGenero ? 'selected' : ''}} value="{{$value->id}}">{{$value->nombre}}</option>
+                                @endforeach
+                                @error('generos')
+                                <div class="alert alert-danger" role="alert">
+                                    {{$message}}
+                                </div>
+                                @enderror
+                            </select>
                         </div>
-                    @enderror
-                    </select>
-                </div>
+                    </div>
+                @endif
                 <div class="col-12 centrado">
                     <button type="submit" class="btn btn-primary tipoletra">Editar</button>
                     <a href="/usuario" class="btn btn-primary tipoletra">Volver</a>

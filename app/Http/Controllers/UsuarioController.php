@@ -30,31 +30,47 @@ class UsuarioController extends Controller
             ->join("generos", "users.idGenero", "generos.id")
             ->where("users.id", ">", 1)
             ->get();
-        $usuarioEnSesion = User::findOrFail(auth()->user()->id);    
-        if($usuarioEnSesion->can("rol/editar") && $usuarioEnSesion->can("rol/ver") && $usuarioEnSesion->can("rol/cambiar/estado")){
+          
+            
             return DataTables::of($usuario)
             ->editColumn("estado", function ($usuario) {
                 return $usuario->estado == 1 ? "Activo" : "Inactivo";
             })
             ->addColumn('acciones', function ($usuario) {
-                $acciones = '<a class="btn btn-info btn-sm" href="/usuario/editar/' . $usuario->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
-                $acciones .= '<a class="btn btn-secondary btn-sm" href="/usuario/ver/' . $usuario->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-info-circle"></i> Ver</a> ';
-                if ($usuario->estado == 1) {
-                    $acciones .= '<a class="btn btn-danger btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
-                } else {
-                    $acciones .= '<a class="btn btn-success btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check-circle"></i> Activar</a>';
+                $usuarioEnSesion = User::findOrFail(auth()->user()->id);
+                $acciones=null; 
+                if($usuarioEnSesion->can('usuario/editar')){
+                    $acciones = '<a class="btn btn-info btn-sm" href="/usuario/editar/' . $usuario->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
+                }
+                if($usuarioEnSesion->can('usuario/ver')){
+                    if ($acciones == null) {
+                        $acciones = '<a class="btn btn-secondary btn-sm" href="/usuario/ver/' . $usuario->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-info-circle"></i> Ver</a> ';
+                    }else {
+                        $acciones .= '<a class="btn btn-secondary btn-sm" href="/usuario/ver/' . $usuario->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-info-circle"></i> Ver</a> ';
+                    }
+                    
+                }
+                if($usuarioEnSesion->can('usuario/cambiar/estado')){
+                    if ($usuario->estado == 1) {
+                        if ($acciones == null) {
+                            $acciones = '<a class="btn btn-danger btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
+                        }else {
+                            $acciones .= '<a class="btn btn-danger btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
+                        }
+                        
+                    } else {
+                        if ($acciones == null) {
+                            $acciones = '<a class="btn btn-success btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check-circle"></i> Activar</a>';
+                        }else {
+                            $acciones .= '<a class="btn btn-success btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check-circle"></i> Activar</a>';
+                        }
+                    }
                 }
                 return $acciones;
             })
             ->rawColumns(['acciones'])
             ->make(true);
-        }else{
-            return DataTables::of($usuario)
-            ->editColumn("estado", function ($usuario) {
-                return $usuario->estado == 1 ? "Activo" : "Inactivo";
-            })
-            ->make(true);
-        }
+        
     }
 
     public function crear()
@@ -98,7 +114,7 @@ class UsuarioController extends Controller
                 'password' => Hash::make("dulce_ncan4*:"),
                 'foto' => $foto,
             ])->syncRoles("Cliente");
-            Flash::success("Se ha creado éxitosamente");
+            Flash("Se ha creado éxitosamente")->success()->important();
             return redirect("/usuario");
         } catch (\Exception $e) {
             Flash::error($e->getMessage());
@@ -126,18 +142,23 @@ class UsuarioController extends Controller
         ->where("users.id", $id)
         ->value("id");
         // dd($consulta);
-        return view("usuario.editar", compact("usuario", "generos", "roles", "consulta"));
+        $usuarioEnSesion = User::findOrFail($id);
+        return view("usuario.editar", compact("usuario", "generos", "roles", "consulta", "usuarioEnSesion"));
     }
 
     public function ver($id)
     {
+        
         $usuario = Usuario::find($id);
         // dd($usuario);
         if ($usuario == null || $id == 1) {
             Flash::error("No se encontró el usuario");
             return redirect("/usuario");
         }
-        $genero = Usuario::select('generos.nombre')->join("generos", "users.idGenero", "generos.id")->value('nombre');
+        $genero = Usuario::select('generos.nombre')
+        ->join("generos", "users.idGenero", "generos.id")
+        ->where('users.id', $usuario->id)
+        ->value('nombre');
         $rol = Role::select('name')->join("model_has_roles", "roles.id", "model_has_roles.role_id")->value('name');
         return view("usuario.ver", compact("usuario", "genero", "rol"));
     }
@@ -196,7 +217,10 @@ class UsuarioController extends Controller
                 'idGenero' => $request['genero'],
             ]); 
             $usuarioRol = User::find($id);
-            $usuarioRol->roles()->sync($request->roles);        
+            $usuarioEnSesion = User::findOrFail($id);
+            if ($usuarioEnSesion->hasRole('Admin')==false) {
+                $usuarioRol->roles()->sync($request->roles);
+            }
             Flash::success("Se ha modificado éxitosamente");
             return redirect("/usuario");
         } catch (\Exception $e) {

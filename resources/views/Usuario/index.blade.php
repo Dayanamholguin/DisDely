@@ -60,6 +60,10 @@ Gestión de Productos
                     data: 'estado',
                     name: 'estado'
                 },
+                {
+                    data: 'acciones',
+                    name: 'acciones'
+                },
                 
             ],
             language: {   

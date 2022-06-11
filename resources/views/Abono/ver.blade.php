@@ -26,7 +26,9 @@ Abonos
         @include('flash::message')
         @if (count($abonos)==0)
             <p class="text-center p-3">No se ha registrado ningún abono a este pedido</p>
-            <p><a href="/abono/crear/{{$pedido->id}}" class="titulo alert-link ">Registra el primer abono dando clic aquí</a></p>
+            @can('abono/crear')
+                <p><a href="/abono/crear/{{$pedido->id}}" class="titulo alert-link ">Registra el primer abono dando clic aquí</a></p>
+            @endcan   
         @else
             <div class="row">
                 @foreach($cliente as $item)
@@ -81,8 +83,11 @@ Abonos
                 </div>
             </div>
             <div class="d-flex justify-content-center">
-                <strong>Información detallada de la realización del abono</strong> / 
+                <strong>Información detallada de la realización del abono</strong> 
+                @can('abono/crear')
+                / 
                 <a href="/abono/crear/{{$pedido->id}}" class="titulo alert-link">Registrar abono de este pedido</a>
+                @endcan
             </div>
             <table class="table mt-4">
                 <thead>

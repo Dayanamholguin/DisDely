@@ -52,12 +52,22 @@
             </a>
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Dashboard -->
+            @if (Auth()->user()->hasRole('Admin'))
             <li class="nav-item active">
-                <a class="nav-link" href="/home">
+                <a class="nav-link" href="/dashobard">
                     <i class="fas fa-home tipoletra"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
+            @else
+            <li class="nav-item active">
+                <a class="nav-link" href="/home">
+                    <i class="fas fa-home tipoletra"></i>
+                    <span>Inicio</span>
+                </a>
+            </li>
+            @endif
+            
 
             <hr class="sidebar-divider">
 
@@ -84,7 +94,6 @@
                 </a>
             </li>
             @endcan
-
             <!--Productos-->
             @can('/producto')
             <li class="nav-item">
@@ -186,7 +195,7 @@
                                 </form>
                             </div>
                         </li>
-                        @can('')
+                        
                         @yield('car')
                             <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -217,7 +226,6 @@
                                     </a>
                                 </div>
                             </li>
-                        @endcan
                     </ul>
                 </nav>
                 <!-- End of Topbar -->

@@ -24,6 +24,8 @@ use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\CartController;
 //Abono 
 use App\Http\Controllers\abonoController;
+//Dashboard 
+use App\Http\Controllers\DashboardController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -31,6 +33,10 @@ use App\Http\Controllers\abonoController;
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+// Route::get('/inicio', [HomeController::class, 'index'])->name('home');
+
+Route::get('/dashobard', [DashboardController::class, 'index']);
 
 Route::get('/', [MenuController::class, 'welcome']);
 
@@ -100,17 +106,20 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/carrito', [CartController::class, 'carrito'])->middleware('can:agregarCarrito');
     Route::post('/agregarCarrito', [CartController::class, 'agregarCarrito'])->middleware('can:agregarCarrito');
     Route::post('/actualizarCarrito', [CartController::class, 'actualizarCarrito'])->middleware('can:actualizarCarrito');
-    Route::post('/quitarProducto', [CartController::class, 'quitarProducto'])->middleware('can:quitarProducto');
-    Route::post('/limpiarCarrito', [CartController::class, 'limpiarCarrito'])->middleware('can:limpiarCarrito');
-    Route::get('/ver/carrito/{id}', [CartController::class, 'ver'])->middleware('can:ver/carrito');
+    Route::post('/quitarProducto', [CartController::class, 'quitarProducto'])->middleware('can:agregarCarrito');
+    Route::post('/limpiarCarrito', [CartController::class, 'limpiarCarrito'])->middleware('can:agregarCarrito');
+    Route::get('/ver/carritoCotizacion/{id}', [CartController::class, 'ver'])->middleware('can:agregarCarrito');
     Route::get('/ver/imagen/{id}', [CartController::class, 'verImagen']);
 
     //cotización
     Route::get('/cotizacion', [CotizacionController::class, 'index'])->middleware('can:/cotizacion');
+    Route::post('/quitarProducto', [CotizacionController::class, 'quitarProducto'])->middleware('can:cotizacion/editar');
+    Route::post('/actualizarCarrito', [CotizacionController::class, 'actualizarCarrito'])->middleware('can:cotizacion/editar');
+    Route::get('/ver/carrito/{id}', [CotizacionController::class, 'ver'])->middleware('can:cotizacion/editar');
     Route::get('/cotizacion/listar', [CotizacionController::class, 'listar'])->middleware('can:cotizacion/listar');
-    Route::get('/cotizacion/crear/{producto}', [CotizacionController::class, 'crear'])->middleware('can:cotizacion/crear');
-    Route::get('/cotizacion/personalizada', [CotizacionController::class, 'Personalizada'])->middleware('can:cotizacion/personalizada');
-    Route::post('/cotizacion/guardar', [CotizacionController::class, 'guardar'])->middleware('can:cotizacion/crear', 'can:cotizacion/personalizada');
+    Route::get('/cotizacion/crear/{producto}', [CotizacionController::class, 'crear'])->middleware('can:cotizacion/crear', 'can:agregarCarrito');
+    Route::get('/cotizacion/personalizada', [CotizacionController::class, 'Personalizada'])->middleware('can:cotizacion/personalizada', 'can:agregarCarrito');
+    Route::post('/cotizacion/guardar', [CotizacionController::class, 'guardar'])->middleware('can:cotizacion/crear');
     Route::get('/cotizacion/editar/{id}', [CotizacionController::class, 'editar'])->middleware('can:cotizacion/editar');
     Route::get('/cancelar', [CotizacionController::class, 'cancelar'])->middleware('can:cotizacion/cancelar');
     Route::get('/cotizacion/ver/{id}', [CotizacionController::class, 'verDetalle'])->middleware('can:cotizacion/ver');
@@ -139,6 +148,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     // abonos
     Route::get('/abono', [abonoController::class, 'index'])->middleware('can:/abono');
+    Route::get('/abono/verAbonoPedido/{id}', [abonoController::class, 'verAbonoPedido'])->middleware('can:abono/ver');
     Route::get('/abono/listar', [abonoController::class, 'listar'])->middleware('can:abono/listar');
     Route::get('/abono/crear/{id}', [abonoController::class, 'crear'])->middleware('can:abono/crear');
     Route::get('/abono/ver/{id}', [abonoController::class, 'ver'])->middleware('can:abono/ver');

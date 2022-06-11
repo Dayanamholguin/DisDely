@@ -13,8 +13,11 @@
                 <div class="row">
                     @if($nombreEstado =="Aprobada")
                         <div class="col-md-12 col-sm-12 text-center p-3">
-                            <p>Recuerda que la si la cotización está aprobada, ya se considera un pedido, <br>para mirarlo con más detalle   
+                            <p>Recuerda que la si la cotización está aprobada, ya se considera un pedido. 
+                                @can('pedido/ver')
+                                <br>Para mirarlo con más detalle   
                                 <a href="/pedido/ver/{{$cotizacion->id}}" class="alert-link titulo">Clic aquí</a>
+                                @endcan
                             </p>
                         </div>
                     @else
@@ -51,11 +54,13 @@
                                 {{-- <textarea  style="width: 100%;">/> --}}
                             </div>
                         </div>
-                        @if ($nombreEstado ==="Pendiente")
-                            <div class="col-md-12 col-sm-12 text-right">
-                                <a href="/cotizacion/editar/{{$cotizacion->id}}" class="alert-link titulo">Editar cotización</a>
-                            </div>
-                        @endif
+                        @can('cotizacion/editar')
+                            @if ($nombreEstado ==="Pendiente")
+                                <div class="col-md-12 col-sm-12 text-right">
+                                    <a href="/cotizacion/editar/{{$cotizacion->id}}" class="alert-link titulo">Editar cotización</a>
+                                </div>
+                            @endif
+                        @endcan
                     </div>
                     <div class="row">
                         <div class="col-md-12 col-sm-12">

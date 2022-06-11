@@ -8,6 +8,7 @@ use App\Models\detalle_cotizaciones;
 use App\Models\detalle_pedidos;
 use App\Models\Pedido;
 use App\Models\cotizacion;
+use App\Models\User;
 use App\Http\Controllers\File;
 use Illuminate\Support\Facades\DB;
 //use Yajra\DataTables\DataTables;
@@ -16,6 +17,7 @@ use Carbon\Carbon;
 use Illuminate\Http\UploadedFile;
 use DataTables;
 use Jenssegers\Date\Date;
+use Illuminate\Support\Facades\Auth;
 use Flash;
 use Cart;
 use PhpParser\Node\Stmt\Catch_;
@@ -28,11 +30,19 @@ class CotizacionController extends Controller
     }
     public function listar(Request $request)
     {
-        $cotizacion = cotizacion::select("cotizaciones.*", "users.nombre as usuario", "estado_cotizaciones.nombre as estado")
-            ->join("users", "users.id", "cotizaciones.idUser")
-            ->join("estado_cotizaciones", "estado_cotizaciones.id", "cotizaciones.estado")
-            ->get();
-
+        $user=User::find(Auth()->user()->id);
+        if ($user->hasRole('Admin')==false) {
+            $cotizacion = cotizacion::select("cotizaciones.*", "users.nombre as usuario", "estado_cotizaciones.nombre as estado")
+                ->join("users", "users.id", "cotizaciones.idUser")
+                ->join("estado_cotizaciones", "estado_cotizaciones.id", "cotizaciones.estado")
+                ->where("users.id", Auth::user()->id)
+                ->get();
+        }else {
+            $cotizacion = cotizacion::select("cotizaciones.*", "users.nombre as usuario", "estado_cotizaciones.nombre as estado")
+                ->join("users", "users.id", "cotizaciones.idUser")
+                ->join("estado_cotizaciones", "estado_cotizaciones.id", "cotizaciones.estado")
+                ->get();
+        }
         return DataTables::of($cotizacion)
             ->editColumn('estado', function($cotizacion){
                 if($cotizacion->estado=="Aprobada"){
@@ -47,13 +57,23 @@ class CotizacionController extends Controller
                 return ucwords(Date::create($cotizacion->fechaEntrega)->format('l, j F Y'));
             })
             ->editColumn('acciones', function ($cotizacion) {
-                if ($cotizacion->estado =="Pendiente") {
-                    $acciones = '<a class="btn btn-info btn-sm" href="/cotizacion/editar/' . $cotizacion->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
-                }else
-                {
-                    $acciones = '<a class="btn btn-info btn-sm disabled" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
+                $usuarioEnSesion = User::findOrFail(auth()->user()->id);
+                $acciones=null; 
+                if($usuarioEnSesion->can('cotizacion/editar')){
+                    if ($cotizacion->estado =="Pendiente") {
+                        $acciones = '<a class="btn btn-info btn-sm" href="/cotizacion/editar/' . $cotizacion->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
+                    }else
+                    {
+                        $acciones = '<a class="btn btn-info btn-sm disabled" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
+                    }
                 }
-                $acciones .= '<a class="btn btn-secondary btn-sm" href="/cotizacion/ver/' . $cotizacion->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-info-circle"></i> Ver</a> ';
+                if($usuarioEnSesion->can('cotizacion/ver')){
+                    if($acciones==null){
+                        $acciones = '<a class="btn btn-secondary btn-sm" href="/cotizacion/ver/' . $cotizacion->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-info-circle"></i> Ver</a> ';
+                    }else {
+                        $acciones .= '<a class="btn btn-secondary btn-sm" href="/cotizacion/ver/' . $cotizacion->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-info-circle"></i> Ver</a> ';
+                    }
+                }
                 return $acciones;
             })
             ->rawColumns(['acciones', 'estado'])
@@ -76,6 +96,8 @@ class CotizacionController extends Controller
 
     public function guardar(Request $request)
     {
+        // dd('hola');
+        
         $productos = \Cart::getContent();
         // dd($productos);
         $input = $request->all();
@@ -109,6 +131,10 @@ class CotizacionController extends Controller
             DB::commit();
             \Cart::clear();
             Flash("Se ha creado la cotización éxitosamente")->success()->important();
+            $usuarioEnSesion = User::findOrFail(auth()->user()->id);
+            if($usuarioEnSesion->hasRole('Admin')==false){
+                return back();
+            }
             return redirect("/cotizacion");
         } catch (\Exception $e) {
             DB::rollBack();
@@ -116,7 +142,87 @@ class CotizacionController extends Controller
             return redirect("/cotizacion");
         }
     }
-
+    public function actualizarCarrito(Request $request)
+    {
+        $producto = \Cart::get($request->id);
+        $productoBD= Producto::find($request->id);
+        // dd($productoBD?'existe':'no existe');
+        if ($producto==null || $productoBD==null) {
+            Flash("No se encontró el producto")->error();
+            return back();
+        }
+        $campos = [
+            'saborDeseado' => ['required', 'regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/'],
+            'numeroPersonas' => ['required', 'numeric'],
+            'pisos' => ['required', 'numeric'],
+            // 'frase' => ['string'],
+            'descripcionProducto' => ['required', 'string'],
+            'img' => ['image'],
+        ];
+        $this->validate($request, $campos);
+        
+        
+        $img = $producto->attributes->imagen1;
+        if ($request->img != null) {
+            $img = $producto->name . '.' . time() . '.' . $request->img->extension();
+            $request->img->move(public_path('imagenes'), $img);
+        }
+        
+        $cotizacion = 0;
+        $carritoCollection = \Cart::getContent();
+        if (count($carritoCollection)<>0) {
+            foreach ($carritoCollection as $value) {
+                $cotizacion = $value->attributes->idCotizacion;
+            }
+        }
+        
+        $cotizacionBD = Cotizacion::find($cotizacion);
+        // dd($cotizacionBD->idUser==$request->idUser?'son iguales':'no son los mismos');
+        if ($cotizacionBD->idUser!=$request->idUser) {
+            Flash("No es el mismo usuario que hizo la cotización")->error();
+            return back();
+        }
+        $cotizacionUsuario = Cotizacion::select('users.nombre')->join("users", "users.id", "cotizaciones.idUser")->where("cotizaciones.id", $cotizacionBD->id)->value("nombre");
+        // dd($request->imagenJs);
+        \Cart::update(
+            $request->id,
+            array(
+                'attributes' => array(
+                    'idCotizacion'=>$cotizacion==null?0:$cotizacion,
+                    'img' => $producto->attributes->img==null?$img:$producto->attributes->img,
+                    'saborDeseado' => $request->saborDeseado,
+                    'numeroPersonas' => $request->numeroPersonas,
+                    'frase' => $request->frase,
+                    'pisos' => $request->pisos,
+                    'descripcionProducto' => $request->descripcionProducto,
+                    'clienteId' => $cotizacionBD->idUser,
+                    'cliente' => $cotizacionUsuario,
+                    'imagen1' => $img,
+                )
+            )
+        );
+        Flash("Producto actualizado")->success()->important();
+        return back();
+    }
+    public function quitarProducto(Request $request)
+    {
+        $carritoCollection = \Cart::getContent();
+        if (count($carritoCollection) > 1) {
+            \Cart::remove($request->id);
+        }else {
+            Flash("Ojo, no puede quedar sin productos.")->warning()->important();
+            return back();
+        }
+        Flash::success("Se removió correctamente el producto");
+        // $carritoCollection = \Cart::getContent();
+        // return view('carrito.carrito', compact("carritoCollection"));
+        return back();
+    }
+    public function ver($id)
+    {
+        $producto = \Cart::get($id);
+        return $producto;
+    }
     public function cancelar()
     {
         Cart::clear();

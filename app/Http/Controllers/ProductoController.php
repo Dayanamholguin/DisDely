@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Models\Categoria;
 use App\Models\Sabor;
+use App\Models\User;
 use App\Http\Controllers\File;
 use Illuminate\Support\Facades\DB;
 //use Yajra\DataTables\DataTables;
@@ -49,12 +50,32 @@ class ProductoController extends Controller
                 return $producto->snombre;
             })
             ->editColumn("acciones", function ($producto) {
-                $acciones = '<a class="btn btn-info btn-sm" href="/producto/editar/' . $producto->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
-                $acciones .= '<a class="btn btn-secondary btn-sm" href="/producto/ver/' . $producto->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-info-circle"></i> Ver</a> ';
-                if ($producto->estado == 1) {
-                    $acciones .= '<a class="btn btn-danger btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
-                } else {
-                    $acciones .= '<a class="btn btn-success btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check-circle"></i> Activar</a>';
+                $usuarioEnSesion = User::findOrFail(auth()->user()->id);
+                $acciones=null; 
+                if($usuarioEnSesion->can('producto/editar')){
+                    $acciones = '<a class="btn btn-info btn-sm" href="/producto/editar/' . $producto->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
+                }
+                if($usuarioEnSesion->can('producto/ver')){
+                    if($acciones==null){
+                        $acciones = '<a class="btn btn-secondary btn-sm" href="/producto/ver/' . $producto->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-info-circle"></i> Ver</a> ';
+                    }else {
+                        $acciones .= '<a class="btn btn-secondary btn-sm" href="/producto/ver/' . $producto->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-info-circle"></i> Ver</a> ';
+                    }
+                }
+                if($usuarioEnSesion->can('producto/cambiar/estado')){
+                    if ($producto->estado == 1) {
+                        if ($acciones==null) {
+                            $acciones = '<a class="btn btn-danger btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
+                        }else {
+                            $acciones .= '<a class="btn btn-danger btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
+                        }
+                    } else {
+                        if ($acciones==null) {
+                            $acciones = '<a class="btn btn-success btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check-circle"></i> Activar</a>';
+                        }else {
+                            $acciones .= '<a class="btn btn-success btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check-circle"></i> Activar</a>';
+                        }                        
+                    }
                 }
                 return $acciones;
             })
@@ -64,9 +85,13 @@ class ProductoController extends Controller
 
     public function catalogo()
     {
+        $usuarioEnSesion = User::findOrFail(auth()->user()->id);
+            // if($usuarioEnSesion->hasRole('asistente')==false){
+            //     return back();
+            // }
         // $categorias = Categoria::all()->where('id', '>', 1)->where('estado', 1);
         $productos = Producto::all()->where('catalogo', 1)->where('id', '>', 1);
-        return view('producto.catalogo', compact("productos"));
+        return view('producto.catalogo', compact("productos", "usuarioEnSesion"));
     }
 
     public function verProductoCatalogo($id)

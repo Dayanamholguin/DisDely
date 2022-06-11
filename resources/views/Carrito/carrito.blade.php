@@ -66,6 +66,7 @@
             <div class="container mt-3">
                 <div class="row justify-content-center">
                     <div class="col-auto">
+                        @include('flash::message')
                         <p>No hay productos en tu carrito</p>
                         <div class=" col-12 centrado">
                             <a href="/producto/catalogo" class="btn btn-primary">Ver productos</a>
@@ -168,7 +169,7 @@
     function mostrar(producto) {
         $("#imagen").show();
         $.ajax({
-                url: `/ver/carrito/${producto}`,
+                url: `/ver/carritoCotizacion/${producto}`,
                 type: "GET",
                 success: function (res) {
                     $('#nombre').html(res.name);

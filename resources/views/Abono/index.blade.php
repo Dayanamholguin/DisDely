@@ -13,8 +13,7 @@ Gestión de Abonos
                 <tr>
                     <th>#</th>
                     <th>N° Pedido</th>
-                    <th>Precio del abono</th>
-                    <th>Fecha de realización del abono</th>
+                    <th>Fecha de realización del pedido</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -25,32 +24,7 @@ Gestión de Abonos
 
     </div>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="verAbono" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-body text-center">
-            <div class="row">
-                <div class="col-md-12 mt-3">
-                    <div class="">
-                        <strong>Ver información del abono</strong>
-                    </div>
-                    <hr>
-                        <p class="card-text" id="idAbono"> </p>
-                        <p class="card-text" id="idPedido"> </p>
-                        <p class="card-text" id="precio"> </p>
-                        <p class="card-text" id="fecha"> </p>
-                        <img src="" id="imagen1" width='250px' height='250px' alt="Imagen abono">
-                </div>
-            </div>
-        </div>
 
-        <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-        </div>
-    </div>
-    </div>
-</div>
 @endsection
 
 @section("scripts")
@@ -69,11 +43,11 @@ Gestión de Abonos
                     data: 'idPedido',
                     name: 'idPedido'
                 },
-                {
-                    data: 'precioPagar',
-                    name: 'precioPagar',
-                    render: $.fn.dataTable.render.number( '.', 2 )
-                },
+                // {
+                //     data: 'precioPagar',
+                //     name: 'precioPagar',
+                //     render: $.fn.dataTable.render.number( '.', 2 )
+                // },
                 {
                     data: 'fecha',
                     name: 'fecha'
@@ -293,53 +267,6 @@ Gestión de Abonos
         new $.fn.dataTable.FixedHeader( abonos );
     });
 </script>
-<script>
-    function number_format (number, decimals, dec_point, thousands_sep) {
-        // Strip all characters but numerical ones.
-        number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
-        var n = !isFinite(+number) ? 0 : +number,
-            prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-            sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
-            dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
-            s = '',
-            toFixedFix = function (n, prec) {
-                var k = Math.pow(10, prec);
-                return '' + Math.round(n * k) / k;
-            };
-        // Fix for IE parseFloat(0.55).toFixed(0) = 0;
-        s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
-        if (s[0].length > 3) {
-            s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
-        }
-        if ((s[1] || '').length < prec) {
-            s[1] = s[1] || '';
-            s[1] += new Array(prec - s[1].length + 1).join('0');
-        }
-        return s.join(dec);
-    }
-    function mostrarVentana(id){
-        $('#verAbono').modal('toggle');
-        $.ajax({
-                url: `/abono/verIndividual/${id}`,
-                type: "GET",
-                success: function (res) {
-                    var fecha = new Date(res.created_at);
-                    var options = { year: 'numeric', month: 'long', day: 'numeric' };
-                    console.log(res.id);
-                    let imagen
-                    $('#idAbono').html('<strong> Abono N° </strong> '+res.id);
-                    if (res.img==null) {
-                        imagen= "/img/defecto.jpg";
-                    }else {
-                        imagen = "/comprobantes/"+res.img;
-                    }
-                    $('#imagen1').attr("src",imagen);
-                    $('#idPedido').html('<strong> N° del pedido: </strong>'+res.idPedido);
-                    $('#precio').html('<strong> Precio: </strong>'+number_format(res.precioPagar, 0, '.', '.'));
-                    $('#fecha').html('<strong> Fecha: </strong>'+fecha.toLocaleDateString("es-ES", options));
-                },
-            });
-        }
-</script>
+
 @endsection
 

@@ -21,7 +21,7 @@ class RoleSeeder extends Seeder
         $cliente = Role::create(['name' => 'Cliente', 'estado' => '1']);
     
         //---------------------------------ROLES--------------------------------------------------
-        Permission::create(['name' => '/rol', 'description' => 'Roles'])->syncRoles($admin);
+        Permission::create(['name' => '/rol', 'description' => 'Roles módulo'])->syncRoles($admin);
 
         Permission::create(['name' => 'rol/listar',
                 'description' => 'Roles ver listado'])->syncRoles($admin);
@@ -39,7 +39,7 @@ class RoleSeeder extends Seeder
                 'description' => 'Rol cambiar estado'])->syncRoles($admin);
 
         //------------------------------------SABORES-----------------------------------------------
-        Permission::create(['name' => '/sabor', 'description' => 'Sabores'])->syncRoles($admin);
+        Permission::create(['name' => '/sabor', 'description' => 'Sabores módulo'])->syncRoles($admin);
 
         Permission::create(['name' => 'sabor/listar',
                 'description' => 'Sabores ver listado'])->syncRoles($admin);
@@ -54,7 +54,7 @@ class RoleSeeder extends Seeder
                 'description' => 'Sabor cambiar estado'])->syncRoles($admin);
 
         //-------------------------------------CATEGORIA----------------------------------------------
-        Permission::create(['name' => '/categoria', 'description' => 'Categorías'])->syncRoles($admin);
+        Permission::create(['name' => '/categoria', 'description' => 'Categorías módulo'])->syncRoles($admin);
 
         Permission::create(['name' => 'categoria/listar', 
                 'description' => 'Categorías ver listado'])->syncRoles($admin);
@@ -69,7 +69,7 @@ class RoleSeeder extends Seeder
                 'description' => 'Categoría cambiar estado'])->syncRoles($admin);
 
         //----------------------------------------PRODUCTO-------------------------------------------
-        Permission::create(['name' => '/producto', 'description' => 'Productos'])->syncRoles($admin);
+        Permission::create(['name' => '/producto', 'description' => 'Productos módulo'])->syncRoles($admin, $cliente);
         
         Permission::create(['name' => 'producto/listar', 
                 'description' => 'Producto ver listado'])->syncRoles($admin);
@@ -90,7 +90,7 @@ class RoleSeeder extends Seeder
                 'description' => 'Producto cambiar estado'])->syncRoles($admin);
 
         //--------------------------------------USUARIO---------------------------------------------
-        Permission::create(['name' => '/usuario', 'description' => 'Usuarios'])->syncRoles($admin);
+        Permission::create(['name' => '/usuario', 'description' => 'Usuarios módulo'])->syncRoles($admin);
 
         Permission::create(['name' => 'usuario/listar',
                 'description' => 'Usuarios ver listado'])->syncRoles($admin);
@@ -109,7 +109,7 @@ class RoleSeeder extends Seeder
                  
         //-------------------------------------CARRITO----------------------------------------------
         Permission::create(['name' => 'agregarCarrito',
-                'description' => 'Carrito para hacer cotización'])->syncRoles($cliente);
+                'description' => 'Carrito para hacer cotización'])->syncRoles($cliente, $admin);
                 
         Permission::create(['name' => 'actualizarCarrito', 
                 'description' => 'Carrito actualizar cotización'])->syncRoles($cliente);
@@ -124,31 +124,31 @@ class RoleSeeder extends Seeder
                 'description' => 'Carrito ver información'])->syncRoles($cliente);
 
         Permission::create(['name' => '/venta',
-                'description' => 'Ventas'])->syncRoles($admin, $cliente);
+                'description' => 'Ventas módulo'])->syncRoles($admin, $cliente);
                         
         //-------------------------------------COTIZACION----------------------------------------------
-        Permission::create(['name' => '/cotizacion', 'description' => 'Cotizaciones'])->syncRoles($admin, $cliente);
+        Permission::create(['name' => '/cotizacion', 'description' => 'Cotizaciones módulo'])->syncRoles($admin, $cliente);
 
         Permission::create(['name' => 'cotizacion/listar',
                 'description' => 'Cotizaciones ver listado'])->syncRoles($admin, $cliente);
 
         Permission::create(['name' => 'cotizacion/crear',
-                'description' => 'Cotización crear'])->syncRoles($cliente);
+                'description' => 'Cotización crear'])->syncRoles($cliente, $admin);
                
         Permission::create(['name' => 'cotizacion/personalizada',
-                'description' => 'Cotización crear personalizada'])->syncRoles($cliente);
+                'description' => 'Cotización crear personalizada'])->syncRoles($cliente, $admin);
 
         Permission::create(['name' => 'cotizacion/editar',
                 'description' => 'Cotización editar'])->syncRoles($admin);
                 
         Permission::create(['name' => 'cotizacion/cancelar',
-                'description' => 'Ccotización cancelar'])->syncRoles($admin);
+                'description' => 'Cotización cancelar'])->syncRoles($admin);
 
         Permission::create(['name' => 'cotizacion/ver',
                 'description' => 'Cotización ver información'])->syncRoles($admin, $cliente);  
              
         //-------------------------------------PEDIDOS----------------------------------------------
-        Permission::create(['name' => '/pedido', 'description' => 'Pedidos'])->syncRoles($admin, $cliente);
+        Permission::create(['name' => '/pedido', 'description' => 'Pedidos módulo'])->syncRoles($admin, $cliente);
 
         Permission::create(['name' => 'pedido/listar',
                 'description' => 'Pedidos ver listado'])->syncRoles($admin, $cliente); 
@@ -157,7 +157,7 @@ class RoleSeeder extends Seeder
                 'description' => 'Pedido crear'])->syncRoles($admin); 
         
         Permission::create(['name' => 'carritoPedido',
-                'description' => 'Carrito para hacer pedido'])->syncRoles($cliente); 
+                'description' => 'Carrito para hacer pedido'])->syncRoles($admin); 
                 
         Permission::create(['name' => 'pedido/ver',
                 'description' => 'Pedido ver información'])->syncRoles($admin, $cliente); 
@@ -175,19 +175,19 @@ class RoleSeeder extends Seeder
                 'description' => 'Pedido quitar producto'])->syncRoles($cliente); 
         
         Permission::create(['name' => 'actualizarPreProductos',
-                'description' => 'Pedido actualizar productos antes de hacer'])->syncRoles($cliente); 
+                'description' => 'Pedido actualizar productos antes de hacer'])->syncRoles($cliente, $admin); 
 
         Permission::create(['name' => 'actualizarProductosPedido',
                 'description' => 'Pedido actualizar productos'])->syncRoles($admin); 
 
         Permission::create(['name' => 'agregarCarritoPedido',
-                'description' => 'Pedido agregar productos de carrito'])->syncRoles($cliente); 
+                'description' => 'Pedido agregar productos de carrito'])->syncRoles($cliente, $admin); 
                 
         Permission::create(['name' => 'pedido/crear/producto/cliente',
-                'description' => 'Pedido crear con producto registrado'])->syncRoles($cliente); 
+                'description' => 'Pedido crear con producto registrado'])->syncRoles($cliente, $admin); 
                 
         //-------------------------------------ABONOS---------------------------------------------
-        Permission::create(['name' => '/abono', 'description' => 'Abonos'])->syncRoles($admin, $cliente);
+        Permission::create(['name' => '/abono', 'description' => 'Abonos módulo'])->syncRoles($admin, $cliente);
 
         Permission::create(['name' => 'abono/listar',
                 'description' => 'Abonos ver listado'])->syncRoles($admin, $cliente); 

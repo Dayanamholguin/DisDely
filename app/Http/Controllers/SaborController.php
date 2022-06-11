@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sabor;
+use App\Models\User;
 use App\Models\Producto;
 //use Yajra\DataTables\DataTables;
 use DataTables;
@@ -24,12 +25,26 @@ class SaborController extends Controller
                 return $sabor->estado == 1 ? "Activo" : "Inactivo";
             })
             ->addColumn('acciones', function ($sabor) {
-                $acciones = '<a class="btn btn-info btn-sm mb-1" href="/sabor/editar/' . $sabor->id . '"><i class="fas fa-edit"></i> Editar</a> ';
-           
-                if ($sabor->estado == 1) {
-                    $acciones .= '<a class="btn btn-danger btn-sm mb-1" href="/sabor/cambiar/estado/' . $sabor->id . '/0"><i class="bi bi-x-circle"></i> Inactivar</a>';
-                } else {
-                    $acciones .= '<a class="btn btn-success btn-sm mb-1" href="/sabor/cambiar/estado/' . $sabor->id . '/1"><i class="bi bi-check-circle"></i> Activar</a>';
+                $usuarioEnSesion = User::findOrFail(auth()->user()->id);
+                $acciones = null;
+                if($usuarioEnSesion->can('sabor/editar')){
+                    $acciones = '<a class="btn btn-info btn-sm mb-1" href="/sabor/editar/' . $sabor->id . '"><i class="fas fa-edit"></i> Editar</a> ';
+                }
+                if($usuarioEnSesion->can('sabor/cambiar/estado')){
+                    if ($sabor->estado == 1) {
+                        if ($acciones == null) {
+                            $acciones = '<a class="btn btn-danger btn-sm mb-1" href="/sabor/cambiar/estado/' . $sabor->id . '/0"><i class="bi bi-x-circle"></i> Inactivar</a>';
+                        }else {
+                            $acciones .= '<a class="btn btn-danger btn-sm mb-1" href="/sabor/cambiar/estado/' . $sabor->id . '/0"><i class="bi bi-x-circle"></i> Inactivar</a>';
+                        }
+                        
+                    } else {
+                        if ($acciones == null) {
+                            $acciones = '<a class="btn btn-success btn-sm mb-1" href="/sabor/cambiar/estado/' . $sabor->id . '/1"><i class="bi bi-check-circle"></i> Activar</a>';
+                        }else {
+                            $acciones .= '<a class="btn btn-success btn-sm mb-1" href="/sabor/cambiar/estado/' . $sabor->id . '/1"><i class="bi bi-check-circle"></i> Activar</a>';
+                        }
+                    }
                 }
                 return $acciones;
             })

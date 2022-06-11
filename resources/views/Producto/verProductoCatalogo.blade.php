@@ -31,7 +31,9 @@ Producto
             <p class="card-text">Número de Pisos: {{$producto->pisos}}</p>
             <div class="centrado mb-3">
                 <a href="/producto/catalogo" class="btn btn-primary">Volver</a>
-                <a href="/cotizacion/crear/{{ $producto->id}}" class="btn btn-primary">Realizar cotización</a>   
+                @can('cotizacion/crear')
+                    <a href="/cotizacion/crear/{{ $producto->id}}" class="btn btn-primary">Realizar cotización</a>   
+                @endcan
             </div>
         </div>
     </div>
