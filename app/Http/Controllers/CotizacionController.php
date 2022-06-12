@@ -32,13 +32,13 @@ class CotizacionController extends Controller
     {
         $user=User::find(Auth()->user()->id);
         if ($user->hasRole('Admin')==false) {
-            $cotizacion = cotizacion::select("cotizaciones.*", "users.nombre as usuario", "estado_cotizaciones.nombre as estado")
+            $cotizacion = cotizacion::select("cotizaciones.*", "users.nombre as usuario","users.apellido as Pusuario", "estado_cotizaciones.nombre as estado")
                 ->join("users", "users.id", "cotizaciones.idUser")
                 ->join("estado_cotizaciones", "estado_cotizaciones.id", "cotizaciones.estado")
                 ->where("users.id", Auth::user()->id)
                 ->get();
         }else {
-            $cotizacion = cotizacion::select("cotizaciones.*", "users.nombre as usuario", "estado_cotizaciones.nombre as estado")
+            $cotizacion = cotizacion::select("cotizaciones.*", "users.nombre as usuario","users.apellido as Pusuario", "estado_cotizaciones.nombre as estado")
                 ->join("users", "users.id", "cotizaciones.idUser")
                 ->join("estado_cotizaciones", "estado_cotizaciones.id", "cotizaciones.estado")
                 ->get();
@@ -55,6 +55,14 @@ class CotizacionController extends Controller
             })
             ->editColumn('fechaEntrega', function($cotizacion){
                 return ucwords(Date::create($cotizacion->fechaEntrega)->format('l, j F Y'));
+            })
+            ->editColumn('cliente', function ($cotizacion) {
+                if ($cotizacion->idUser==1) {
+                    $nombre = $cotizacion->usuario;
+                }else {
+                    $nombre = $cotizacion->usuario. " ".$cotizacion->Pusuario;
+                }
+                return $nombre;
             })
             ->editColumn('acciones', function ($cotizacion) {
                 $usuarioEnSesion = User::findOrFail(auth()->user()->id);
@@ -76,7 +84,7 @@ class CotizacionController extends Controller
                 }
                 return $acciones;
             })
-            ->rawColumns(['acciones', 'estado'])
+            ->rawColumns(['acciones', 'estado', 'cliente'])
             ->make(true);
     }
     public function crear($id)

@@ -44,8 +44,8 @@ Gestión de Cotizaciones
                     name: 'id'
                 },
                 {
-                    data: 'usuario',
-                    name: 'nombre'
+                    data: 'cliente',
+                    name: 'cliente'
                 },
                 {
                     data: 'fechaEntrega',
