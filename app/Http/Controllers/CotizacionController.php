@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\cambiarEstadoCotizacionEvent;
+use App\Events\CotizacionRegistradaAdminEvent;
+use App\Events\CotizacionRegistradaEvent;
 use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Models\detalle_cotizaciones;
@@ -26,7 +29,8 @@ class CotizacionController extends Controller
 {
     public function index()
     {
-        return view('cotizacion.index');
+        $usuarioEnSesion = User::findOrFail(auth()->user()->id);
+        return view('cotizacion.index', compact("usuarioEnSesion"));
     }
     public function listar(Request $request)
     {
@@ -138,11 +142,14 @@ class CotizacionController extends Controller
             }
             DB::commit();
             \Cart::clear();
-            Flash("Se ha creado la cotización éxitosamente")->success()->important();
-            $usuarioEnSesion = User::findOrFail(auth()->user()->id);
-            if($usuarioEnSesion->hasRole('Admin')==false){
-                return back();
-            }
+            Flash("Se ha creado la cotización éxitosamente, por favor, revise su correo electrónico.")->success();
+            // $usuarioEnSesion = User::findOrFail(auth()->user()->id);
+            // if($usuarioEnSesion->hasRole('Admin')==false){
+            //     event(new CotizacionRegistradaEvent($cotizacion));
+            //     return back();
+            // }
+            event(new CotizacionRegistradaEvent($cotizacion));
+            event(new CotizacionRegistradaAdminEvent($cotizacion));
             return redirect("/cotizacion");
         } catch (\Exception $e) {
             DB::rollBack();
@@ -442,10 +449,16 @@ class CotizacionController extends Controller
                         "img" => $value->img,  //cambié el imagen1 por img, el atributo de cotizaciones
                     ]);
                 }
+                if ($cotizacion->estado!=1) {
+                    event(new cambiarEstadoCotizacionEvent($cotizacion));
+                }
                 DB::commit();
                 \Cart::clear();
                 Flash("Se ha hecho un pedido éxitosamente")->success()->important();
                 return redirect("/cotizacion");
+            }
+            if ($cotizacion->estado!=1) {
+                event(new cambiarEstadoCotizacionEvent($cotizacion));
             }
             DB::commit();
             \Cart::clear();

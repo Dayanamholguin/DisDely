@@ -114,10 +114,11 @@
                         @can('producto/listar')
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo, se encarga de gestionar la información de los diferentes productos que se venden en el negocio" href="/producto">Productos</a>
                         @endcan
-
+                        @if (Auth()->user()->hasRole('Admin')==false)
                         @can('producto/verProductoCatalogo')
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Podrá visualizar todos los productos añadidos al catálogo" href="/producto/catalogo">Catálogo</a>
                         @endcan
+                        @endif
                     </div>
                 </div>
             </li>

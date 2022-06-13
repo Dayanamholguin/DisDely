@@ -7,9 +7,11 @@ Gestión de Cotizaciones
 @section('content')
 <div class="card">
     <div class="card-header">
-        @can('cotizacion/personalizada')
-        <a href="/cotizacion/personalizada" class="alert-link btn btn-primary tipoletra"><i class="bi bi-plus-circle"></i> Realizar cotización personalizada</a>
-        @endcan
+        @if ($usuarioEnSesion->hasRole('Admin')==false)
+            @can('cotizacion/personalizada')
+            <a href="/cotizacion/personalizada" class="alert-link btn btn-primary tipoletra"><i class="bi bi-plus-circle"></i> Realizar cotización personalizada</a>
+            @endcan
+        @endif
     </div>
     <div class="card-body">
     @include('flash::message')

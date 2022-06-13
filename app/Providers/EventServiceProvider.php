@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Events\cambiarEstadoCotizacionEvent;
+use App\Events\CotizacionRegistradaEvent;
+use App\Events\CotizacionRegistradaAdminEvent;
+use App\Listeners\cambiarEstadoCotizacionListener;
+use App\Listeners\CotizacionRegistradaListener;
+use App\Listeners\CotizacionRegistradaAdminListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,6 +24,18 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+
+        CotizacionRegistradaEvent::class => [
+            CotizacionRegistradaListener::class,
+        ],
+
+        CotizacionRegistradaAdminEvent::class => [
+            CotizacionRegistradaAdminListener::class,
+        ],
+
+        cambiarEstadoCotizacionEvent::class => [
+            cambiarEstadoCotizacionListener::class,
+        ]
     ];
 
     /**

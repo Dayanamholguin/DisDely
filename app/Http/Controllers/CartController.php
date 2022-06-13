@@ -108,6 +108,10 @@ class CartController extends Controller
             )
         ));
         // dd(\Cart::getContent());
+        if ($cotizacion!=null) {
+            Flash("Se agregó correctamente el producto, ¡puedes agregar más!")->success()->important();
+            return redirect("/cotizacion/editar/$cotizacion");
+        }
         Flash::success("Se agregó correctamente el producto, ¡puedes agregar más!");
         $productos = Producto::all()->where('catalogo', 1)->where('id', '>', 1);
         return view('producto.catalogo', compact("productos", "usuarioEnSesion"));

@@ -84,10 +84,12 @@ Abonos
             </div>
             <div class="d-flex justify-content-center">
                 <strong>Información detallada de la realización del abono</strong> 
+                @if($nAbonos!=$precio)
                 @can('abono/crear')
                 / 
                 <a href="/abono/crear/{{$pedido->id}}" class="titulo alert-link">Registrar abono de este pedido</a>
                 @endcan
+                @endif
             </div>
             <table class="table mt-4">
                 <thead>

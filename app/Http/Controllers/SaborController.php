@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cotizacion;
 use Illuminate\Http\Request;
 use App\Models\Sabor;
 use App\Models\User;

@@ -31,17 +31,12 @@ use App\Http\Controllers\DashboardController;
 //     return view('welcome');
 // });
 Auth::routes();
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-// Route::get('/inicio', [HomeController::class, 'index'])->name('home');
-
-Route::get('/dashobard', [DashboardController::class, 'index']);
-
 Route::get('/', [MenuController::class, 'welcome']);
-
 Route::group(['middleware' => 'auth'], function(){
-
+    //inicio
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    // Dashboard
+    Route::get('/dashobard', [DashboardController::class, 'index']);
     //Rol
     Route::get('/rol', [RoleController::class, 'index'])->middleware('can:/rol');
     Route::get('/rol/listar', [RoleController::class, 'listar'])->middleware('can:rol/listar');
