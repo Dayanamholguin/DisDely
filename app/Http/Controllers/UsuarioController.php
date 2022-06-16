@@ -111,7 +111,7 @@ class UsuarioController extends Controller
                 'celularAlternativo' => $input['celularAlternativo'],
                 'estado' => 1,
                 'idGenero' => $input['genero'],
-                'password' => Hash::make("dulce_ncan4*:"),
+                'password' => Hash::make("Mi123456_"),
                 'foto' => $foto,
             ])->syncRoles("Cliente");
             Flash("Se ha creado éxitosamente")->success()->important();
