@@ -85,7 +85,7 @@ Usuarios
                         <select class="form-control" name="genero">
                             <option value="">Seleccione</option>
                             @foreach($generos as $key => $value)
-                            <option value="{{$value->id}}">{{$value->nombre}}</option>
+                            <option value="{{$value->id}}" {{old('genero') == $value->id ? 'selected' : ''}}>{{$value->nombre}}</option>
                             @endforeach
                             @error('generos')
                             <div class="alert alert-danger" role="alert">
@@ -151,6 +151,22 @@ Usuarios
             },
         });
     });
+    function ucfirst(str,force)
+        { 
+            str=force ? str.toLocaleLowerCase() : str; 
+            return str.replace(/(\b)([a-zA-Z])/, 
+            function(firstLetter)
+            { 
+                return firstLetter.toLocaleLowerCase(); 
+            }); 
+        }
+
+        $('input[type="email"]').keyup(function(evt){ 
+            // force: true to lower case all letter except first 
+            var cp_value= ucfirst($(this).val(),true) ; 
+            // to capitalize all words 
+            //var cp_value= ucwords($(this).val(),true) ; 
+            $(this).val(cp_value ); });
 </script>
 
 @endsection

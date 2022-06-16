@@ -88,7 +88,7 @@
                             <p class="card-text">Número de personas: {{$value->numeroPersonas}}</p>
                             <p class="card-text">Pisos: {{$value->pisos}}</p>
                             <p class="card-text">Sabor: {{$value->saborDeseado}}</p>
-                            <p class="card-text">frase: {{$value->frase==null?'No tiene frase':$value->frase}}</p>
+                            <p class="card-text">Frase: {{$value->frase==null?'No tiene frase':$value->frase}}</p>
                             <p class="card-text">Descripción: {{$value->descripcionProducto}}</p>
                             <hr>
                             @endforeach

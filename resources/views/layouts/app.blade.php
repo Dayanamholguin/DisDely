@@ -208,6 +208,10 @@
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item tipoletra" href="/">
+                                        <i class="fas fa-home fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Ir a página principal
+                                    </a>
                                     <a class="dropdown-item tipoletra" href="/perfil/{{Auth::user()->id}}">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Editar Perfil
@@ -330,22 +334,22 @@
 
         // $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
         $('div.alert').delay(10000).fadeOut(350);
-        function ucfirst(str,force)
-        { 
-            str=force ? str.toLowerCase() : str; 
-            return str.replace(/(\b)([a-zA-Z])/, 
-            function(firstLetter)
-            { 
-                return firstLetter.toUpperCase(); 
-            }); 
-        }
+        // function ucfirst(str,force)
+        // { 
+        //     str=force ? str.toLowerCase() : str; 
+        //     return str.replace(/(\b)([a-zA-Z])/, 
+        //     function(firstLetter)
+        //     { 
+        //         return firstLetter.toUpperCase(); 
+        //     }); 
+        // }
 
-        $('input[type="text"]').keyup(function(evt){ 
-            // force: true to lower case all letter except first 
-            var cp_value= ucfirst($(this).val(),true) ; 
-            // to capitalize all words 
-            //var cp_value= ucwords($(this).val(),true) ; 
-            $(this).val(cp_value ); });
+        // $('input[type="text"]').keyup(function(evt){ 
+        //     // force: true to lower case all letter except first 
+        //     var cp_value= ucfirst($(this).val(),true) ; 
+        //     // to capitalize all words 
+        //     //var cp_value= ucwords($(this).val(),true) ; 
+        //     $(this).val(cp_value ); });
             
         $(function() {
             $('[data-toggle="tooltip"]').tooltip()

@@ -23,7 +23,7 @@ Recuperar contraseña
                                 <form method="POST" action="{{ route('password.email') }}">
                                     @csrf
                                     <div class="form-floating mb-3">
-                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="name@example.com">
+                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="correoelectronico@ejemplo.com">
                                         <div class="col-md-5">
                                             @error('email')
                                             <span class="invalid-feedback" role="alert">

@@ -23,6 +23,10 @@ class PerfilController extends Controller
             Flash::error("Perfil no encontrado");      
             return redirect("/home");
         }
+        if (Auth()->user()->id!=$id) {
+            Flash("No puedes ingresar a otro usuario")->error()->important();      
+            return back();
+        }
         return view("perfil.ver", compact("usuario","generos"));
     }
     public function cambiar($id)
@@ -32,6 +36,10 @@ class PerfilController extends Controller
             Flash::error("Perfil no encontrado");      
             return redirect("/home");
         }
+        if (Auth()->user()->id!=$id) {
+            Flash("No puedes ingresar a otro usuario")->error()->important();      
+            return back();
+        }
         return view("perfil.cambiar", compact("usuario"));
     }
     public function cambiarFoto($id)
@@ -40,6 +48,10 @@ class PerfilController extends Controller
         if ($usuario == null) {   
             Flash::error("Perfil no encontrado");      
             return redirect("/home");
+        }
+        if (Auth()->user()->id!=$id) {
+            Flash("No puedes ingresar a otro usuario")->error()->important();      
+            return back();
         }
         return view("perfil.cambiarFoto", compact("usuario"));
     }
