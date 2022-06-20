@@ -96,23 +96,18 @@
             <div class="container aos-init aos-animate" data-aos="fade-up">
                 <div class="section-header">
                     <h2 style="color: #B0535E;"><b>¿Quiénes Somos?</b></h2>
-                    <p style="color: black;">Somos un negocio dedicado a la producción
-                        de productos de pastelería de alta calidad y sabor; 
-                        ubicada en Bello, Las Vegas. Ofrecemos a nuestros clientes productos de la mejor
-                        calidad y frescura. Contamos con una amplia gama de variedades en pan, repostería y pasteles 
-                        de línea para todo tipo de gusto.
-                    </p>
+                    <p style="color: black;">{{$principal->quienes}}</p>
                 </div>
                 <div class="row g-4 g-lg-5 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
                     <div class="col-lg-5">
                         <div class="about-img">
-                            <img src="img/preprar.png" class="img-fluid" alt="">
+                            <img src="/imagenesPrincipales/{{$principal->foto}}" class="img-fluid" alt="">
                         </div>
                     </div>
 
                     <div class="col-lg-5">
                         <div class="about-img">
-                            <img src="img/arinas.jpg" class="img-fluid" alt="">
+                            <img src="/imagenesPrincipales/{{$principal->foto2}}" class="img-fluid" alt="">
                         </div>
                     </div>
                 </div>
@@ -126,9 +121,9 @@
                     <h2 style="color: #B0535E;"><b>Nuestros Productos</b></h2>
                     @if (Route::has('login'))
                         @auth
-                            <p style="color: black;">Acá podrás ver los últimos productos registrados en el sistema, tenemos más productos para mostrarte dentro del aplicativo. <a href="/producto/catalogo" class="alert-link" style="color: #B0535E;">Ir al catálogo</a></p>
+                            <p style="color: black;">{{$principal->productos}} <a href="/producto/catalogo" class="alert-link" style="color: #B0535E;">Ir al catálogo</a></p>
                         @else
-                            <p style="color: black;">Acá podrás ver los últimos productos registrados en el sistema, tenemos más productos para mostrarte dentro del aplicativo ¡Registrate y mira más de nuestros productos!</p>
+                            <p style="color: black;">{{$principal->productos}} ¡Registrate y mira más de nuestros productos!</p>
                             
                         @endauth
                     @endif
@@ -173,30 +168,31 @@
             <div class="container">
                 <div class="section-header">
                     <h2 style="color: #B0535E;"><b>Contacto</b></h2>
-                    Síguenos en <a href="https://www.instagram.com/dulce_encanto_20205/" class="alert-link" style="color: #B0535E;">Instagram</a>
+                    Síguenos en <a href="{{$principal->instagram}}" class="alert-link" style="color: #B0535E;">Instagram</a>
                 </div>
             </div>
 
             <div class="container">
                 <div class="row gy-5 gx-lg-5">
-                    <div class="col-lg-8">
+                    {{-- <div class="col-lg-8">
                         <div class="map">
                             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7930.966710796359!2d-75.54442!3d6.331366!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x17d044d434229684!2sBarrio%20Las%20Vegas%20De%20Bello!5e0!3m2!1ses-419!2sco!4v1652471377078!5m2!1ses-419!2sco" width="2000" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        </div><!-- End Google Maps -->
-                    </div>
-                    <div class="col-lg-4 text-center">
+                        </div>
+                        <!-- End Google Maps -->
+                    </div> --}}
+                    <div class="col-lg-12 text-center">
                         <div class="info">
                             <div>
                                 <h4><i class="bi bi-geo-alt flex-shrink-0"></i> Ubicación:</h4>
-                                <p>Av 67 #67 - 78 <br> Bello, Las Vegas</p>
+                                <p>{{$principal->ubicacion}}</p>
                             </div>
                             <div>
                                 <h4><i class="bi bi-envelope flex-shrink-0"></i> Email:</h4>
-                                <p>DulceEncanto@gmail.com</p>
+                                <p>{{$principal->email}}</p>
                             </div>
                             <div>
                                 <h4><i class="bi bi-phone flex-shrink-0"></i> Celular:</h4>
-                                <p>+57 312 7018618 / +57 310 6368657</p>
+                                <p>{{$principal->celular}} / {{$principal->celular2}}</p>
                             </div><!-- End Info Item -->
                         </div>
                     </div>

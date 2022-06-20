@@ -59,6 +59,13 @@
                     <span>Dashboard</span>
                 </a>
             </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/configuracion/editar">
+                    
+                    <i class="fas fa-cog tipoletra"></i>
+                    <span>Configuración</span>
+                </a>
+            </li>
             @else
             <li class="nav-item active">
                 <a class="nav-link" href="/home">

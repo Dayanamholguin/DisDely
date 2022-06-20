@@ -26,6 +26,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\abonoController;
 //Dashboard 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PrincipalController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -150,7 +151,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/abono/verIndividual/{id}', [abonoController::class, 'verIndividual'])->middleware('can:abono/verIndividual');
     Route::get('/ver/imagenAbono/{imagen}', [abonoController::class, 'verImagen']);
     Route::post('/abono/guardar', [abonoController::class, 'guardar'])->middleware('can:abono/crear');
-    // Route::post('/perfil/actualizar/{id}', [PerfilController::class, 'modificar'])->middleware('password.confirm');
+    
+    // principal - configruacion
+    Route::get('/configuracion/editar', [PrincipalController::class, 'editar']); //->middleware('password.confirm');
+    Route::post('/configuracion/actualizar', [PrincipalController::class, 'modificar']); //->middleware('password.confirm');
+    Route::get('/configuracion/restablecer', [PrincipalController::class, 'restablecer']); //->middleware('password.confirm');
     //para mostrar
     /*Route::get('/imagenes/{path}/{attachment}', function($path, $attachment){
         $file = sprintf('storage/%s/%s', $path, $attachment);

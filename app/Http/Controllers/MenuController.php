@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Models\Categoria;
+use App\Models\Principal;
 use App\Models\Sabor;
 
 class MenuController extends Controller
@@ -16,8 +17,8 @@ class MenuController extends Controller
         ->limit(3)
         ->where('id', '<>', 1)
         ->get();
-        
-        return view('layouts.menu', compact('productos'));
+        $principal = Principal::find(1);
+        return view('layouts.menu', compact('productos', 'principal'));
     }
 
     // public function detalle($id)

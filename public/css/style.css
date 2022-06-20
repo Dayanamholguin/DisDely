@@ -313,14 +313,21 @@
     }
 }
 
-textarea {
-    resize: none;
+
+
+.textarea-P {
+    resize: initial;
+    overflow: auto;
+    resize: vertical;
+    height: 84px !important;
 }
 
 a{
     text-decoration: none !important;
 }
-
+textarea {
+    resize: none;
+}
 textarea.form-control {
     display: block;
     width: 100%;
