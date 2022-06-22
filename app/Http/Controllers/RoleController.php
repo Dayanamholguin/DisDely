@@ -10,6 +10,7 @@ use Flash;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models;
 use Illuminate\Support\Facades\DB;
+use Laracasts\Flash\Flash as FlashFlash;
 
 class RoleController extends Controller
 {
@@ -20,7 +21,7 @@ class RoleController extends Controller
 
     public function listar(Request $request)
     {
-        $roles = Role::all()->where('name', '<>', 'Admin');
+        $roles = Role::all()->where('name', '<>', 'Admin')->where('name', '<>', 'Cliente');
         return DataTables::of($roles)
             ->editColumn("estado", function ($rol) {
                 return $rol->estado == 1 ? "Activo" : "Inactivo";
@@ -97,8 +98,8 @@ class RoleController extends Controller
         // SELECT role_has_permissions.permission_id, roles.name FROM `role_has_permissions` 
         // join roles on role_has_permissions.role_id=roles.id 
         // where roles.id=3             
-        if ($rol == null) {
-            Flash::error("No se encontró el rol");
+        if ($rol == null || $rol->name == "Cliente" || $rol->id == 2 || $rol->name == "Admin" || $rol->id == 1) {
+            Flash("No se encontró el rol")->error()->important();
             return redirect("/rol");
         }
         $rolPermisos = DB::table('role_has_permissions')->where('role_id', $rol->id)->get();
@@ -112,14 +113,20 @@ class RoleController extends Controller
         $input = $request->all();
         $id = $request->id;
         $rol = Role::select('*')->where('name', $request->name)->where('id', '<>', $id)->value('name');
+        $role=Role::find($id);
+        if ($role == null || $role->name == "Cliente" || $role->id == 2 || $role->name == "Admin" || $role->id == 1) {
+            Flash("No se encontró el rol")->error()->important();
+            return back();
+        }
+
         if ($rol != null) {
-            Flash::error("El rol " . $rol . " ya está creado");
+            Flash("El rol " . $rol . " ya está creado")->error()->important();
             return redirect("/rol/editar/$id");
         } else if ($request->name == null) {
-            Flash::error("El campo nombre es requerido");
+            Flash("El campo nombre es requerido")->error()->important();
             return redirect("/rol/editar/$id");
         }else if ($request->permisos == null) {
-            Flash::error("Debe seleccionar los permisos que quiera asociar al rol");
+            Flash("Debe seleccionar los permisos que quiera asociar al rol")->error()->important();
             return redirect("/rol/editar/$id");
         }
         // } else if ($request->name != $pattern) {
@@ -142,11 +149,11 @@ class RoleController extends Controller
                         Flash::success("Se ha modificado éxitosamente");
                         return redirect("/rol");
                     } catch (\Exception $e) {
-                        Flash::error($e->getMessage());
+                        Flash($e->getMessage())->error()->important();
                         return redirect("/rol");
                     }
                 } else {
-                    Flash::error("No se encuentra ese valor del rol");
+                    Flash("No se encuentra ese valor del rol")->error()->important();
                     return redirect("/rol/editar/$id");
                 }
             }
@@ -156,8 +163,9 @@ class RoleController extends Controller
     public function modificarEstado($id, $estado)
     {
         $rol = Role::find($id);
-        if ($rol == null) {
-            return redirect("/rol");
+        if ($rol == null || $rol->name == "Cliente" || $rol->id == 2 || $rol->name == "Admin" || $rol->id == 1) {
+            Flash("No se pudo cambiar el estado")->error()->important();
+            return back();
         }
         try {
             // dd($estado);

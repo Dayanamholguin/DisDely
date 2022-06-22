@@ -10,13 +10,7 @@ Roles
         <strong>Editar Rol</strong>
     </div>
     <div class="card-body">
-        <div class="container mt-1">
-            <div class="row justify-content-center">
-                <div class="col-auto">
-                    @include('flash::message')
-                </div>
-            </div>
-        </div>
+        @include('flash::message')
         <form id="form" action="/rol/actualizar" method="post">
             @csrf
             <input type="hidden" name="id" value="{{$rol->id}}" />
