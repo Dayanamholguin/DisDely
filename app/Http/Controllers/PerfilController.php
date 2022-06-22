@@ -20,8 +20,8 @@ class PerfilController extends Controller
         $generos = DB::table('generos')->get()->where('id','>',1);
         $usuario = Usuario::find($id);
         if ($usuario == null) {   
-            Flash::error("Perfil no encontrado");      
-            return redirect("/home");
+            Flash("Perfil no encontrado")->error();      
+            return back();
         }
         if (Auth()->user()->id!=$id) {
             Flash("No puedes ingresar a otro usuario")->error()->important();      
@@ -33,8 +33,8 @@ class PerfilController extends Controller
     {
         $usuario = Usuario::find($id);
         if ($usuario == null) {   
-            Flash::error("Perfil no encontrado");      
-            return redirect("/home");
+            Flash("Perfil no encontrado")->error();      
+            return back();
         }
         if (Auth()->user()->id!=$id) {
             Flash("No puedes ingresar a otro usuario")->error()->important();      
@@ -46,8 +46,8 @@ class PerfilController extends Controller
     {
         $usuario = Usuario::find($id);
         if ($usuario == null) {   
-            Flash::error("Perfil no encontrado");      
-            return redirect("/home");
+            Flash("Perfil no encontrado")->error();      
+            return back();
         }
         if (Auth()->user()->id!=$id) {
             Flash("No puedes ingresar a otro usuario")->error()->important();      

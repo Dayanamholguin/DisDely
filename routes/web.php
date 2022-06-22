@@ -155,7 +155,7 @@ Route::group(['middleware' => 'auth'], function(){
     // principal - configruacion
     Route::get('/configuracion/editar', [PrincipalController::class, 'editar'])->middleware('can:configuracion/editar'); //->middleware('password.confirm');
     Route::post('/configuracion/actualizar', [PrincipalController::class, 'modificar'])->middleware('can:configuracion/editar'); //->middleware('password.confirm');
-    Route::get('/configuracion/restablecer', [PrincipalController::class, 'restablecer'])->middleware('configuracion/editar'); //->middleware('password.confirm');
+    Route::get('/configuracion/restablecer', [PrincipalController::class, 'restablecer'])->middleware('can:configuracion/editar'); //->middleware('password.confirm');
     //para mostrar
     /*Route::get('/imagenes/{path}/{attachment}', function($path, $attachment){
         $file = sprintf('storage/%s/%s', $path, $attachment);
