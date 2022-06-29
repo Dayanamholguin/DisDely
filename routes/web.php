@@ -132,7 +132,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/pedido/guardar', [PedidoController::class, 'guardar'])->middleware('can:pedido/crear');
     Route::get('/pedido/ver/{id}', [PedidoController::class, 'verDetalle'])->middleware('can:pedido/ver');
     Route::get('/pedido/editar/{id}', [PedidoController::class, 'editar'])->middleware('can:pedido/editar');
-    Route::get('/cancelarP', [PedidoController::class, 'cancelarP'])->middleware('can:cancelarP');
+    Route::get('/cancelarP', [PedidoController::class, 'cancelarP'])->middleware('can:pedido/editar');
     Route::post('/pedido/actualizar', [PedidoController::class, 'modificar'])->middleware('can:pedido/editar');
     Route::get('/ver/imagenPedido/{imagen}', [PedidoController::class, 'verImagen']);
     Route::post('/limpiarCarritoPedido', [PedidoController::class, 'limpiarCarritoPedido'])->middleware('can:limpiarCarritoPedido');
