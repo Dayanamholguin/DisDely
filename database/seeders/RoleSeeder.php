@@ -165,14 +165,11 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'pedido/editar',
                 'description' => 'Pedido editar'])->syncRoles($admin); 
                 
-        Permission::create(['name' => 'cancelarP',
-                'description' => 'Pedido cancelar'])->syncRoles($admin); 
-                
         Permission::create(['name' => 'limpiarCarritoPedido',
-                'description' => 'Pedido limpiar carrito'])->syncRoles($cliente); 
+                'description' => 'Pedido limpiar carrito'])->syncRoles($admin); 
                 
         Permission::create(['name' => 'quitarProductoPedido',
-                'description' => 'Pedido quitar producto'])->syncRoles($cliente); 
+                'description' => 'Pedido quitar producto'])->syncRoles($admin); 
         
         Permission::create(['name' => 'actualizarPreProductos',
                 'description' => 'Pedido actualizar productos antes de hacer'])->syncRoles($cliente, $admin); 
