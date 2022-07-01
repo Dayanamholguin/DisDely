@@ -8,6 +8,7 @@ Gestión de Abonos
 <div class="card">
     <div class="card-body">
     @include('flash::message')
+    @can('abono/listar')
         <table id="abonos" class="table table-bordered dt-responsive dataTable text-left" style="width: 100%;">
             <thead>
                 <tr>
@@ -21,7 +22,7 @@ Gestión de Abonos
 
             </tbody>
         </table>
-
+    @endcan
     </div>
 </div>
 

@@ -15,6 +15,7 @@ use Flash;
 //use Laracasts\Flash\Flash as Flash;
 use PhpParser\Node\Stmt\Catch_;
 use App\Models\User;
+use DateTime;
 use Laracasts\Flash\Flash as FlashFlash;
 use Spatie\Permission\Models\Role;
 class UsuarioController extends Controller
@@ -97,6 +98,7 @@ class UsuarioController extends Controller
         //     return back();
         // }
         try {
+           
             if ($input['genero']==3) {
                 $foto = 'undraw_profile_3.svg';
             }else{

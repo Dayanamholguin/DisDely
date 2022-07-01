@@ -13,6 +13,7 @@ Gestión de Sabores
     </div>
     <div class="card-body">
     @include('flash::message')
+    @can('sabor/listar')
         <table id="sabores"  class="table table-bordered dt-responsive dataTable text-left" style="width: 100%;">
             <thead>
                 <tr>
@@ -26,7 +27,7 @@ Gestión de Sabores
 
             </tbody>
         </table>
-
+    @endcan
     </div>
 </div>
 @endsection

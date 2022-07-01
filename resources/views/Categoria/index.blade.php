@@ -13,6 +13,7 @@ Gestión de Categorías
         </div>
     <div class="card-body">
     @include('flash::message')
+    @can('categoria/listar')
         <table id="categoria" class="table table-bordered dt-responsive dataTable text-left" style="width: 100%;">
             <thead>
                 <tr>
@@ -26,7 +27,7 @@ Gestión de Categorías
 
             </tbody>
         </table>
-
+    @endcan
     </div>
 </div>
 @endsection

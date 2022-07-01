@@ -122,9 +122,18 @@
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo, se encarga de crear, visualizar, inhabilitar y editar las categorias que serán asignados al producto" href="/categoria">Categorías</a>
                         @endcan
 
-                        @can('producto/listar')
-                        <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo, se encarga de gestionar la información de los diferentes productos que se venden en el negocio" href="/producto">Productos</a>
-                        @endcan
+                        
+
+                        {{-- @can('producto/crear') --}}
+                        
+                        @if(Auth()->user()->can('producto/listar') && Auth()->user()->can('/producto'))
+                            @can('producto/listar')
+                            <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Este módulo, se encarga de gestionar la información de los diferentes productos que se venden en el negocio" href="/producto">Productos</a>
+                            @endcan
+                        @elseif(Auth()->user()->can('producto/crear'))
+                        <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Clic para crear productos" href="/producto/crear">Crear producto</a>
+                        @endif
+
                         @if (Auth()->user()->hasRole('Admin')==false)
                         @can('producto/verProductoCatalogo')
                         <a class="collapse-item tipoletra" data-toggle="tooltip" data-placement="top" title="Podrá visualizar todos los productos añadidos al catálogo" href="/producto/catalogo">Catálogo</a>

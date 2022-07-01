@@ -31,12 +31,20 @@ class PedidoController extends Controller
     {
         Date::setLocale('es');
         $user=User::find(Auth()->user()->id);
+        $usuarioEnSesion = User::findOrFail(auth()->user()->id);
         if ($user->hasRole('Admin')==false) {
-        $pedido = Pedido::select("pedidos.*", "pedidos.estado as idEstado", "users.nombre as usuario","users.apellido as Pusuario", "estado_pedidos.nombre as estado")
-            ->join("users", "users.id", "pedidos.idUser")
-            ->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")
-            ->where("users.id", Auth::user()->id)
-            ->get();
+            if($user->hasRole('Cliente')==false && $usuarioEnSesion->can('pedido/listar')) {
+                $pedido = Pedido::select("pedidos.*", "pedidos.estado as idEstado", "users.nombre as usuario","users.apellido as Pusuario", "estado_pedidos.nombre as estado")
+                ->join("users", "users.id", "pedidos.idUser")
+                ->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")
+                ->get();
+            }else {
+                $pedido = Pedido::select("pedidos.*", "pedidos.estado as idEstado", "users.nombre as usuario","users.apellido as Pusuario", "estado_pedidos.nombre as estado")
+                ->join("users", "users.id", "pedidos.idUser")
+                ->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")
+                ->where("users.id", Auth::user()->id)
+                ->get();
+            }
         }else {
             $pedido = Pedido::select("pedidos.*", "pedidos.estado as idEstado", "users.nombre as usuario","users.apellido as Pusuario", "estado_pedidos.nombre as estado")
             ->join("users", "users.id", "pedidos.idUser")
@@ -152,6 +160,11 @@ class PedidoController extends Controller
             })
             ->rawColumns(['acciones', 'estado', 'verFechas', 'pagos', 'cliente'])
             ->make(true);
+    }
+    public function ver($id)
+    {
+        $producto = \Cart::get($id);
+        return $producto;
     }
     public function carrito($id)
     {

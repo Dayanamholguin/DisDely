@@ -128,6 +128,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/pedido/buscarUsuarios', [PedidoController::class, 'buscarUsuarios'])->middleware('can:pedido/crear');
     Route::get('/pedido/requisitos', [PedidoController::class, 'requisitos'])->middleware('can:pedido/crear');
     Route::post('/pedido/crear', [PedidoController::class, 'crear'])->middleware('can:pedido/crear');
+    Route::get('/ver/carritoP/{id}', [PedidoController::class, 'ver'])->middleware('can:pedido/crear');
     Route::get('/carritoPedido/{id}', [PedidoController::class, 'carrito'])->middleware('can:carritoPedido');
     Route::post('/pedido/guardar', [PedidoController::class, 'guardar'])->middleware('can:pedido/crear');
     Route::get('/pedido/ver/{id}', [PedidoController::class, 'verDetalle'])->middleware('can:pedido/ver');

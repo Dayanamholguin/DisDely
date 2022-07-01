@@ -13,6 +13,7 @@ Gestión de Productos
     </div>
     <div class="card-body">
     @include('flash::message')
+    @can('producto/listar')
         <table id="productos" class="table table-bordered dt-responsive dataTable text-left" style="width: 100%;">
             <thead>
                 <tr>
@@ -28,7 +29,7 @@ Gestión de Productos
 
             </tbody>
         </table>
-
+    @endcan
     </div>
 </div>
 @endsection

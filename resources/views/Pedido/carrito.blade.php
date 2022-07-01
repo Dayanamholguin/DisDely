@@ -202,7 +202,7 @@
     function mostrar(producto) {
         $("#imagen").show();
         $.ajax({
-                url: `/ver/carrito/${producto}`,
+                url: `/ver/carritoP/${producto}`,
                 type: "GET",
                 success: function (res) {
                     $('#nombre').html(res.name);

@@ -15,6 +15,7 @@ Gestión de Cotizaciones
     </div>
     <div class="card-body">
     @include('flash::message')
+    @can('cotizacion/listar')
         <table id="cotizaciones" class="table table-bordered dt-responsive dataTable text-left" style="width: 100%;">
             <thead>
                 <tr>
@@ -29,7 +30,7 @@ Gestión de Cotizaciones
                 
             </tbody>
         </table>
-
+    @endcan
     </div>
 </div>
 @endsection

@@ -15,6 +15,7 @@ Gestión de Pedidos
     </div>
     <div class="card-body">
     @include('flash::message')
+    @can('pedido/listar')
         <table id="pedidos" class="table table-bordered dt-responsive dataTable text-left" style="width: 100%;">
             <thead>
                 <tr>
@@ -32,7 +33,7 @@ Gestión de Pedidos
                 
             </tbody>
         </table>
-
+    @endcan
     </div>
 </div>
 @endsection

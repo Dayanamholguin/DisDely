@@ -14,6 +14,7 @@ Gestión de Roles
     </div>
     <div class="card-body">
     @include('flash::message')
+    @can('rol/listar')
         <table id="roles" class="table table-bordered dt-responsive dataTable text-left" style="width: 100%;">
             <thead>
                 <tr>
@@ -27,7 +28,7 @@ Gestión de Roles
 
             </tbody>
         </table>
-
+    @endcan
     </div>
 </div>
 @endsection

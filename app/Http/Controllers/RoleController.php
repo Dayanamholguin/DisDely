@@ -7,6 +7,7 @@ use Spatie\Permission\Models\Role;
 use DataTables;
 use App\Models\Usuario;
 use Flash;
+use App\Models\User;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models;
 use Illuminate\Support\Facades\DB;
@@ -27,11 +28,25 @@ class RoleController extends Controller
                 return $rol->estado == 1 ? "Activo" : "Inactivo";
             })
             ->addColumn('acciones', function ($rol) {
-                $acciones = '<a class="btn btn-info btn-sm"  href="/rol/editar/' . $rol->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
-                if ($rol->estado == 1) {
-                    $acciones .= '<a class="btn btn-danger btn-sm" href="/rol/cambiar/estado/' . $rol->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
-                } else {
-                    $acciones .= '<a class="btn btn-success btn-sm" href="/rol/cambiar/estado/' . $rol->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check-circle"></i> Activar</a>';
+                $usuarioEnSesion = User::findOrFail(auth()->user()->id);
+                $acciones = null;
+                if ($usuarioEnSesion->can('rol/editar')) {
+                    $acciones = '<a class="btn btn-info btn-sm"  href="/rol/editar/' . $rol->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
+                }
+                if($usuarioEnSesion->can('rol/cambiar/estado')){
+                    if ($rol->estado == 1) {
+                        if ($acciones == null) {
+                            $acciones = '<a class="btn btn-danger btn-sm" href="/rol/cambiar/estado/' . $rol->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
+                        }else {
+                            $acciones .= '<a class="btn btn-danger btn-sm" href="/rol/cambiar/estado/' . $rol->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
+                        }
+                    } else {
+                        if ($acciones == null) {
+                            $acciones = '<a class="btn btn-success btn-sm" href="/rol/cambiar/estado/' . $rol->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check-circle"></i> Activar</a>';
+                        }else {
+                            $acciones .= '<a class="btn btn-success btn-sm" href="/rol/cambiar/estado/' . $rol->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check-circle"></i> Activar</a>';
+                        }
+                    }
                 }
                 return $acciones;
             })
