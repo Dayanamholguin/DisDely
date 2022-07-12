@@ -116,7 +116,7 @@
             @if(count($carritoCollection)>0)
             <form action="/limpiarCarritoPedido" method="POST">
                 {{ csrf_field() }}
-                <button class="btn btn-secondary btn-md" data-toggle="tooltip" data-placement="right" title="Vaciar el carrito">Limpiar Carrito</button>
+                <button class="btn btn-secondary btn-md" data-toggle="tooltip" data-placement="right" title="Cancelar pedido">Cancelar pedido</button>
             </form>
             @endif
         </div>
@@ -128,7 +128,7 @@
                             <strong id="nombre"></strong>
                         </div>
                         <div class="card-body">
-                            <form action="/actualizarPreProductos" method="POST" enctype="multipart/form-data">
+                            <form id="form2" action="/actualizarPreProductos" method="POST" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="idUser" value="{{$userId}}" />
                                 <input type="hidden" id="idProducto" value="" name="id">
@@ -199,6 +199,7 @@
 <script src="/assetsGallery/js/main.js"></script>
 
 <script>
+    
     function mostrar(producto) {
         $("#imagen").show();
         $.ajax({
@@ -252,6 +253,65 @@
                 .replace(/([0-9])([0-9]{3})$/, '$1.$2')
                 .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
             });
+        }
+    });
+
+    $('#form').validate({
+        rules: {
+            descripcionGeneral: {
+                minlength: 10,
+                required: true,
+                maxlength: 1200
+            },
+            precio: {
+                required: true,
+                max: 999999
+            },
+        }
+    });
+        $.validator.addMethod("numeros", function (value, element) {
+            var pattern = /^[0-9]+$/;
+            return this.optional(element) || pattern.test(value);
+        }, "Solo digite números positivos, por favor");
+        jQuery.validator.addMethod("cero", function(value, element) {
+            return this.optional(element) || parseInt(value) > 0;
+        }, "Debe ser mayor a cero");
+        $.validator.addMethod("letras", function (value, element) {
+            var pattern = /^[0-9a-zA-Z-áéíóúÁÉÍÓÚÜüñÑ]+$/;
+            return this.optional(element) || pattern.test(value);
+        }, "No se admite caracteres especiales ni espacios vacíos ni al inicio ni al final");
+        jQuery.validator.addMethod("espaciosycaracteres", function(value, element) {
+            return this.optional(element) || (((value).trim().length > 0) && (value).length > 4);
+        }, "No dejar espacios vacíos en el campo y mayor a 5 caracteres");
+        jQuery.validator.addMethod("fecha", function(value, element) {
+            return this.optional(element) || (((value).trim().length > 0) && (value).length > 4);
+        }, "No dejar espacios vacíos en el campo y mayor a 5 caracteres");
+    $('#form2').validate({
+        rules: {
+            frase: {
+                minlength: 10
+            },
+            saborDeseado: {
+                espaciosycaracteres: true,
+                letras:true,
+                required: true,
+                maxlength:100
+            },
+            pisos: {
+                numeros:true,
+                required: true,
+                cero: true,
+            },
+            numeroPersonas: {
+                required: true,
+                numeros: true, 
+                min:10
+            },
+            descripcionProducto: {
+                required: true, 
+                minlength: 20,
+                maxlength:1200
+            }
         }
     });
 </script>

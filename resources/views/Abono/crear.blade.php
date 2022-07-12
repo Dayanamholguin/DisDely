@@ -11,6 +11,11 @@ Abonos
     </div>
     <div class="card-body">
         @include('flash::message')
+        @error('idPedido')
+            <div class="alert alert-danger" role="alert">
+                {{$message}}
+            </div>
+        @enderror
         @if (count($abonos)==0)
               <p class="text-center p-3">No se ha registrado ningún abono a este pedido</p>
         @endif
@@ -66,8 +71,8 @@ Abonos
                 <div class="col-md-6 col-sm-12">
                     <div class="form-group">
                         <label for="">Valor a abonar<b style="color: red"> *</b></label>
-                        <input type="text" value="" class="form-control @error('precio') is-invalid @enderror" id="precio" name="precioPagar" placeholder="Ingrese el valor a abonar al pedido"/>
-                        @error('precio')
+                        <input type="text" value="" class="form-control @error('precioPagar') is-invalid @enderror" id="precio" name="precioPagar" placeholder="Ingrese el valor a abonar al pedido"/>
+                        @error('precioPagar')
                         <div class="alert alert-danger" role="alert">
                             {{$message}}
                         </div>
@@ -127,6 +132,23 @@ Abonos
             });
         }
         
+    });
+    $(document).ready(function() {
+
+        jQuery.validator.addMethod("cero", function(value, element) {
+            return this.optional(element) || parseInt(value) > 0;
+        }, "Debe ser mayor a cero");
+
+        $('#form').validate({
+            rules: {
+                precioPagar: {
+                    cero:true,
+                    required: true,
+                    max: 999999,
+                    
+                },
+            }
+        });
     });
 </script>
 @endsection

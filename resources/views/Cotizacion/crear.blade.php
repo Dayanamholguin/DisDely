@@ -10,13 +10,7 @@ Cotización
         <strong>Registro de producto para la cotización</strong> 
     </div>
     <div class="card-body">
-        <div class="container mt-1">
-            <div class="row justify-content-center">
-                <div class="col-auto">
-                    @include('flash::message')
-                </div>
-            </div>
-        </div>
+        @include('flash::message')  
         <form id="form" action="/agregarCarrito" method="post" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="idProducto" value="{{$producto->id}}" />
@@ -123,6 +117,53 @@ Cotización
             $("#imagen").hide();
         }
     }
+    $(document).ready(function() {
+        $.validator.addMethod("numeros", function (value, element) {
+            var pattern = /^[0-9]+$/;
+            return this.optional(element) || pattern.test(value);
+        }, "Solo digite números positivos, por favor");
+        $.validator.addMethod("letras", function (value, element) {
+            var pattern = /^[0-9a-zA-Z-áéíóúÁÉÍÓÚÜüñÑ]+$/;
+            return this.optional(element) || pattern.test(value);
+        }, "No se admite caracteres especiales ni espacios vacíos ni al inicio ni al final");
+        jQuery.validator.addMethod("cero", function(value, element) {
+            return this.optional(element) || parseInt(value) > 0;
+        }, "Debe ser mayor a cero");
+        jQuery.validator.addMethod("espaciosycaracteres", function(value, element) {
+            return this.optional(element) || (((value).trim().length > 0) && (value).length > 4);
+        }, "No dejar espacios vacíos en el campo y mayor a 5 caracteres");
+        $('#form').validate({
+        rules: {
+            frase: {
+                minlength: 10
+            },
+            saborDeseado: {
+                espaciosycaracteres: true,
+                letras:true,
+                required: true,
+                maxlength:100
+            },
+            pisos: {
+                numeros:true,
+                required: true,
+                cero: true,
+            },
+            numeroPersonas: {
+                required: true,
+                numeros: true, 
+                min:10
+            },
+            descripcionProducto: {
+                required: true, 
+                minlength: 20,
+                maxlength:1200
+            },
+            img: {
+                required: true,
+            }
+        },
+        });
+    });
 </script>
 
 @endsection

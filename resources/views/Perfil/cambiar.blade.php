@@ -42,3 +42,22 @@
     </div>
 </form>
 @endsection
+
+@section('scripts')
+<script>
+    $('#form').validate({
+        rules: {
+            oldPassword: {
+                required: true
+            },
+            password: {
+                required: true
+            },
+            password_confirmation: {
+                required: true
+            }
+        }
+    });
+</script>
+@endsection
+

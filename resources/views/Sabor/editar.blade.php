@@ -17,7 +17,7 @@ Sabores
                 </div>
             </div>
         </div>
-        <form action="/sabor/actualizar" method="post">
+        <form id="form" action="/sabor/actualizar" method="post">
             @csrf
             <input type="hidden" name="id" value="{{$sabor->id}}" />
             <div class="container mt-1">
@@ -44,4 +44,27 @@ Sabores
 </div>
 @endsection
 
+@section('scripts')
+<script>
+    $(document).ready(function() {
+        jQuery.validator.addMethod("letras", function (value, element) {
+            var pattern = /^[0-9a-zA-Z-áéíóúÁÉÍÓÚÜüñÑ]+$/;
+            return this.optional(element) || pattern.test(value);
+        }, "No se admite caracteres especiales ni espacios vacíos ni al inicio ni al final");
+        jQuery.validator.addMethod("espaciosycaracteres", function(value, element) {
+            return this.optional(element) || (((value).trim().length > 0) && (value).length > 4);
+        }, "No dejar espacios vacíos en el campo y mayor a 5 caracteres");
+        $('#form').validate({
+            rules: {
+                nombre: {
+                    espaciosycaracteres: true,
+                    letras:true,
+                    required: true,
+                    maxlength:100
+                }
+            },
+        });
+    });
+</script>
+@endsection
  

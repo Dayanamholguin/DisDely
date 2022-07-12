@@ -27,13 +27,18 @@ class abonoController extends Controller
        
         $user=User::find(Auth()->user()->id);
         if ($user->hasRole('Admin')==false) {
-            $pedido = Pedido::select("pedidos.*", "pedidos.estado as idEstado", "users.nombre as usuario","users.apellido as Pusuario", "estado_pedidos.nombre as estado")
+            $pedido = Abono::select("pedidos.*", "pedidos.estado as idEstado", "users.nombre as usuario","users.apellido as Pusuario", "estado_pedidos.nombre as estado")
+            ->join("pedidos", "pedidos.id", "abonos.idPedido")
             ->join("users", "users.id", "pedidos.idUser")
             ->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")
             ->where("users.id", Auth::user()->id)
             ->get();
         }else {
-            $pedido = Pedido::all();
+            $pedido = Abono::select("pedidos.*")
+            ->join("pedidos", "pedidos.id", "abonos.idPedido")
+            ->distinct()
+            ->get();
+            // $pedido = Pedido::all();
         }
         return DataTables::of($pedido)
             ->editColumn('fecha', function ($pedido) {
@@ -71,7 +76,7 @@ class abonoController extends Controller
             }
         }
         if ($nAbonos == $precio) {
-            Flash("Ya pagó el pedido " . $pedido->id . ", por tanto, no es posible realizar abonos del mismo")->warning()->important();
+            Flash("Ya pagó el pedido " . $pedido->id . ", por lo tanto, no es posible realizar más abonos a ese pedido.")->warning()->important();
             return redirect("/pedido");
         }
 
@@ -109,6 +114,7 @@ class abonoController extends Controller
     {
         $request->validate(Abono::$rules);
         $pedido = Pedido::find($request->idPedido);
+        // dd($pedido);
         if ($pedido == null) {
             Flash("No se encontró el pedido")->error()->important();
             return back();
@@ -135,12 +141,17 @@ class abonoController extends Controller
             $resta = $pedido->precio - $nAbonos;
         }
         if ($nAbonos == $precio) {
-            Flash("Ya pagó el pedido " . $pedido->id . ", por tanto, no es posible realizar abonos del mismo")->warning()->important();
+            Flash("Ya pagó el pedido " . $pedido->id . ", por lo tanto, no es posible realizar más abonos a ese pedido.")->warning()->important();
             return redirect("/pedido");
         }
         if ($resta > 0) {
             if ($precioFormulario > $resta) {
-                Flash("Solo resta " . number_format($resta, 0, '.', '.') . ", por favor, digite nuevamente el precio")->error()->important();
+                Flash("Solo resta " . number_format($resta, 0, '.', '.') . ", por favor, digite nuevamente el valor a abonar.")->warning()->important();
+                return back();
+            }
+        }else {
+            if ($precioFormulario>$precio) {
+                Flash("Solo debe " . number_format($precio, 0, '.', '.') . ", por tanto, registre nuevamente el valor a abonar del pedido.")->warning()->important();
                 return back();
             }
         }
@@ -150,12 +161,14 @@ class abonoController extends Controller
                 $imagen = $input["nombre"] . '.' . time() . '.' . $request->img->extension();
                 $request->img->move(public_path('comprobantes'), $imagen);
             }
+            
             Abono::create([
                 "idPedido" => $pedido->id,
                 "precioPagar" => $precioFormulario,
                 "img" => $imagen
             ]);
-            Flash("Se ha registrado el abono del pedido " . $pedido->id . " éxitosamente")->success()->important();
+            
+            Flash("Se ha registrado el abono del pedido " . $pedido->id . " éxitosamente.")->success()->important();
             return redirect("/pedido");
         } catch (\Exception $e) {
             Flash($e->getMessage())->error()->important();

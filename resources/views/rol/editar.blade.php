@@ -11,7 +11,7 @@ Roles
     </div>
     <div class="card-body">
         @include('flash::message')
-        <form id="form" action="/rol/actualizar" method="post">
+        <form id="form1" action="/rol/actualizar" method="post">
             @csrf
             <input type="hidden" name="id" value="{{$rol->id}}" />
             <div class="container mt-1">
@@ -19,7 +19,7 @@ Roles
                     <div class="col-auto">
                         <div class="form-group">
                             <label for="">Nombre<strong style="color: red"> *</strong></label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{$rol->name}}" required pattern="[a-zA-Z]+">
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{$rol->name}}" required">
                             
                             @error('name')
                                 <div class="alert alert-danger" role="alert">

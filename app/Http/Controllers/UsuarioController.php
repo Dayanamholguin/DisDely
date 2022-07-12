@@ -29,7 +29,7 @@ class UsuarioController extends Controller
     {
         $usuario = Usuario::select("users.*", "generos.nombre as gnombre")
             ->join("generos", "users.idGenero", "generos.id")
-            ->where("users.id", ">", 1)
+            ->where("users.id", ">", 2)
             ->get();
           
             
@@ -52,18 +52,20 @@ class UsuarioController extends Controller
                     
                 }
                 if($usuarioEnSesion->can('usuario/cambiar/estado')){
-                    if ($usuario->estado == 1) {
-                        if ($acciones == null) {
-                            $acciones = '<a class="btn btn-danger btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
-                        }else {
-                            $acciones .= '<a class="btn btn-danger btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
-                        }
-                        
-                    } else {
-                        if ($acciones == null) {
-                            $acciones = '<a class="btn btn-success btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check-circle"></i> Activar</a>';
-                        }else {
-                            $acciones .= '<a class="btn btn-success btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check-circle"></i> Activar</a>';
+                    if ($usuario->id!=2) {
+                        if ($usuario->estado == 1) {
+                            if ($acciones == null) {
+                                $acciones = '<a class="btn btn-danger btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
+                            }else {
+                                $acciones .= '<a class="btn btn-danger btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
+                            }
+                            
+                        } else {
+                            if ($acciones == null) {
+                                $acciones = '<a class="btn btn-success btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check-circle"></i> Activar</a>';
+                            }else {
+                                $acciones .= '<a class="btn btn-success btn-sm " href="/usuario/cambiar/estado/' . $usuario->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check-circle"></i> Activar</a>';
+                            }
                         }
                     }
                 }
@@ -129,9 +131,9 @@ class UsuarioController extends Controller
         $roles = Role::all()->where('name', '<>', 'Admin');
         $generos = DB::table('generos')->get()->where('id', '>', 1);
         $usuario = Usuario::find($id);
-        
-        if ($usuario == null || $id == 1) {
-            Flash::error("No se encontró el usuario");
+        $user=User::find(Auth()->user()->id);
+        if ($usuario == null || $id == 1 || ($user->hasRole('Admin')==false && $id==2) ) {
+            Flash("No se encontró el usuario")->error();
             return redirect("/usuario");
         }
         // SELECT roles.name FROM `model_has_roles`
@@ -150,10 +152,10 @@ class UsuarioController extends Controller
 
     public function ver($id)
     {
-        
+        $user=User::find(Auth()->user()->id);
         $usuario = Usuario::find($id);
         // dd($usuario);
-        if ($usuario == null || $id == 1) {
+        if ($usuario == null || $id == 1 || ($user->hasRole('Admin')==false && $id==2)) {
             Flash::error("No se encontró el usuario");
             return redirect("/usuario");
         }
@@ -167,7 +169,8 @@ class UsuarioController extends Controller
 
     public function modificar(Request $request, $id)
     {   
-        if($id == 1)
+        $user=User::find(Auth()->user()->id);
+        if($id == 1 || ($user->hasRole('Admin')==false && $id==2))
         {
             Flash("No se puede modificar este usuario")->error()->important();
             return redirect("/usuario");
@@ -223,10 +226,10 @@ class UsuarioController extends Controller
             if ($usuarioEnSesion->hasRole('Admin')==false) {
                 $usuarioRol->roles()->sync($request->roles);
             }
-            Flash::success("Se ha modificado éxitosamente");
+            Flash("Se ha modificado éxitosamente")->success();
             return redirect("/usuario");
         } catch (\Exception $e) {
-            Flash::error($e->getMessage());
+            Flash($e->getMessage())->error();
             return redirect("/usuario/editar/{$id}");
         }
     }
@@ -234,7 +237,8 @@ class UsuarioController extends Controller
     public function modificarEstado($id, $estado)
     {
         $usuario = Usuario::find($id);
-        if ($usuario == null || $id == 1) {
+        if ($usuario == null || $id == 1 || $id == 2) {
+            Flash("No se puede modificar el estado de este usuario")->error();
             return redirect("/usuario");
         }
         try {

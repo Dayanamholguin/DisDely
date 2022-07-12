@@ -153,7 +153,7 @@ class CotizacionController extends Controller
             return redirect("/cotizacion");
         } catch (\Exception $e) {
             DB::rollBack();
-            Flash($e->getMessage())->error()->important();
+            Flash($e->getMessage(). " HOLAA")->error()->important();
             return redirect("/cotizacion");
         }
     }

@@ -245,7 +245,17 @@ class PedidoController extends Controller
             $producto = Producto::find($request->producto);
         } else {
             $productos = Producto::all()->where('catalogo', 1)->where('id', '>', 1);
+            if (count($productos)==0) {
+                Flash("No hay productos registrados en el sistema.")->warning()->important();
+                return back();
+            }
             return view('pedido.productos', compact("productos", "cliente"));
+        }
+        if (count($carritoCollection) > 0) {
+            foreach ($carritoCollection as $value) {
+                if ($value->id == 1)
+                    Flash("Recuerde solo se puede un producto personalizable por pedido, si crea otro, el sistema reemplaza el que tenías anteriormente por el nuevo")->warning()->important();
+            }
         }
         return view("pedido.crear", compact("cliente", "producto"));
     }
@@ -303,8 +313,9 @@ class PedidoController extends Controller
                 return view("pedido.crear", compact("cliente", "producto"));
             }
         }
-        if (is_numeric($request->numeroPersonas) == false || is_numeric($request->pisos) == false) {
-            Flash("Por favor, coloque un valor numérico en los campos «Número de personas» y «Pisos»")->warning()->important();
+        
+        if (is_numeric($request->numeroPersonas) == false || is_numeric($request->pisos) == false || intval($request->pisos)<0 || intval($request->numeroPersonas)<0) {
+            Flash("Por favor, ingrese números positivos y un valor numérico en los campos «Número de personas» y «Pisos»")->warning()->important();
             return view("pedido.crear", compact("cliente", "producto"));
         }
         $producto = Producto::find($request->idProducto);
@@ -361,7 +372,7 @@ class PedidoController extends Controller
     public function limpiarCarritoPedido()
     {
         \Cart::clear();
-        Flash("Se limpió el carrito")->success()->important();
+        Flash("Se canceló el pedido correctamente")->success()->important();
         return redirect("/pedido");
     }
 
@@ -552,10 +563,17 @@ class PedidoController extends Controller
             Flash("Por favor, rellene todos los campos")->warning()->important();
             return view('pedido.carrito', compact("carritoCollection", "userId", "userName"));
         }
+        if (strlen($input["precio"])>6) {
+            Flash("El precio no debe contener más de 6 caracteres.")->warning()->important();
+            return view('pedido.carrito', compact("carritoCollection", "userId", "userName"));
+        }
+        // $precio = str_replace(',', '', $input["precio"]); 
+        // dd($precio);
         if (is_numeric($input["precio"]) == false) {
             Flash("Por favor, digite valores numéricos en el precio")->warning()->important();
             return view('pedido.carrito', compact("carritoCollection", "userId", "userName"));
         }
+
         try {
             DB::beginTransaction();
             $cotizacion = cotizacion::create([
@@ -699,7 +717,11 @@ class PedidoController extends Controller
     {
         $carritoCollection = \Cart::getContent();
         $pedido = Pedido::find($request->idPedido);
-
+        $campos = [
+            // 'cliente' => ['in:1,2'],
+            'estado' => ['in:1,2,3,4'],
+        ];
+        $this->validate($request, $campos);
         $pedidoUsuario = Pedido::select(DB::raw('CONCAT(users.nombre, \' \', users.apellido) as nombreCompleto'))
             ->join("users", "users.id", "pedidos.idUser")
             ->where("pedidos.id", $pedido->id)

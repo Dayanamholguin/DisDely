@@ -193,6 +193,19 @@
                 },
             });
     }
+
+    $('#form').validate({
+        rules: {
+            descripcionGeneral: {
+                minlength: 10,
+                required: true,
+                maxlength: 1200
+            },
+            fechaEntrega: {
+                required: true
+            },
+        }
+    });
 </script>
 
 @endsection

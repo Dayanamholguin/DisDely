@@ -13,6 +13,8 @@ Usuarios
                     <img src="/../img/{{$usuario->foto}}" class="rounded-circle mt-4" width='150px' height='150px'>
                     <div class="mt-3">
                         <h4>Usuario {{$usuario->nombre}}</h4>
+                        <!--{{substr($usuario->created_at,0,10)}}-->
+                        <p class="text-muted">Creado {{$usuario->created_at->diffForHumans()}}</p>
                     </div>
                 </div>
             </div>
@@ -27,12 +29,8 @@ Usuarios
             <p class="card-text">Teléfono: {{$usuario->celular}}</p>
             <p class="card-text">Celular Alternativo: {{$usuario->celularAlternativo}}</p>
             <p class="card-text">Género: {{$genero}}</p>
-            <div class="centrado mb-3">
+            <div class="d-flex justify-content-center align-items-end">
                 <a href="/usuario" class="btn btn-primary">Volver</a></p>
-            </div>
-            <div class="card-footer text-muted text-center w3-panel w3-border w3-border-green">
-                <!--{{substr($usuario->created_at,0,10)}}-->
-                Creado {{$usuario->created_at->diffForHumans()}}
             </div>
         </div>
     </div>

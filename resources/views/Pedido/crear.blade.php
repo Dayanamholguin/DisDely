@@ -135,6 +135,80 @@ Pedidos
 
 @section('scripts')
 <script>
+    $(document).ready(function() {
+        // falta img
+        // $("#descripcionProducto,  #saborDeseado").focusout(function(event) {
+        //     if ($(this).val().length > 0) {
+        //         $(this).addClass("is-valid").removeClass("is-invalid");
+        //         $(this).rules('remove');
+        //     } else {
+        //         $(this).valid();
+        //         $(this).addClass("is-invalid").removeClass("is-valid");
+        //     }
+        // });
+        // $("#pisos, #numeroPersonas").focusout(function(event) {
+        //     if ($(this).val() > 0) {
+        //         $(this).addClass("is-valid").removeClass("is-invalid");
+        //         $(this).rules('remove');
+        //     } else {
+        //         $(this).valid();
+        //         $(this).addClass("is-invalid").removeClass("is-valid");
+        //     }
+        // });
+        // $.validator.addMethod("espaciosVacios", function (value, element) {
+        //     var pattern = $(this).val().trim().length > 0;
+        //     return this.optional(element) || pattern.test(value);
+        // }, "El campo no debe tener datos vacíos");
+        // $("#saborDeseado").blur(function(){ 
+        //     $(this).val().trim(); 
+        // }, "El campo no debe tener datos vacíos");
+        
+        $.validator.addMethod("numeros", function (value, element) {
+            var pattern = /^[0-9]+$/;
+            return this.optional(element) || pattern.test(value);
+        }, "Solo digite números positivos, por favor");
+        jQuery.validator.addMethod("cero", function(value, element) {
+            return this.optional(element) || parseInt(value) > 0;
+        }, "Debe ser mayor a cero");
+        $.validator.addMethod("letras", function (value, element) {
+            var pattern = /^[0-9a-zA-Z-áéíóúÁÉÍÓÚÜüñÑ]+$/;
+            return this.optional(element) || pattern.test(value);
+        }, "No se admite caracteres especiales ni espacios vacíos ni al inicio ni al final");
+        jQuery.validator.addMethod("espaciosycaracteres", function(value, element) {
+            return this.optional(element) || (((value).trim().length > 0) && (value).length > 4);
+        }, "No dejar espacios vacíos en el campo y mayor a 5 caracteres");
+        $('#form').validate({
+        rules: {
+            frase: {
+                minlength: 10
+            },
+            saborDeseado: {
+                espaciosycaracteres: true,
+                letras:true,
+                required: true,
+                maxlength:100
+            },
+            pisos: {
+                numeros:true,
+                required: true,
+                cero: true,
+            },
+            numeroPersonas: {
+                required: true,
+                numeros: true, 
+                min:10
+            },
+            descripcionProducto: {
+                required: true, 
+                minlength: 20,
+                maxlength:1200
+            },
+            img: {
+                required: true,
+            }
+        },
+        });
+    });
     function mostrar(id) {
         if (id == "imagen") {
             $("#imagen").show();

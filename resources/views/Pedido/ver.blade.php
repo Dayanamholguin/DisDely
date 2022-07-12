@@ -101,7 +101,7 @@
                         <div class="col-md-12 col-sm-12">
                             <div class="form-group">
                                 <label for=""><strong>Descripción del pedido</strong></label>
-                                <p class="textarea form-control" >{{$pedido->descripcionGeneral}}</p>
+                                <p class="border p-3" >{{$pedido->descripcionGeneral}}</p>
                                 {{-- <textarea  style="width: 100%;">/> --}}
                             </div>
                         </div>
@@ -158,7 +158,7 @@
                             <p class="card-text">Número de personas: {{$value->numeroPersonas}}</p>
                             <p class="card-text">Pisos: {{$value->pisos}}</p>
                             <p class="card-text">Sabor: {{$value->saborDeseado}}</p>
-                            <p class="card-text">frase: {{$value->frase==null?'No tiene frase':$value->frase}}</p>
+                            <p class="card-text">Frase: {{$value->frase==null?'No tiene frase':$value->frase}}</p>
                             <p class="card-text">Descripción: {{$value->descripcionProducto}}</p>
                             @if ($value->img!=null)
                             <div class="portfolio-img">

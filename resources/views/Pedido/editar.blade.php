@@ -38,7 +38,7 @@
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
                                 <label for="">Estado del pedido: <b style="color: red"> *</b></label>
-                                <select class="form-control" name="estado">
+                                <select name="estado" class="form-control @error('estado') is-invalid @enderror">
                                     <option value="">Seleccione</option>
                                     @foreach($estadosPedido as $key => $value)
                                     <option {{$value->id == $pedido->estado ? 'selected' : ''}} {{old('estado' ) == $value->id ? 'selected' : ''}} value="{{$value->id}}">{{$value->nombre}}</option>
@@ -49,6 +49,11 @@
                                     </div>
                                     @enderror
                                 </select>
+                                @error('estado')
+                                <div class="alert alert-danger" role="alert">
+                                    {{$message}}
+                                </div>
+                            @enderror
                             </div>
                         </div>
                         <div class="col-md-8 col-sm-12">
@@ -137,7 +142,7 @@
                         <strong id="nombre"></strong>
                     </div>
                     <div class="card-body">
-                        <form action="/actualizarProductosPedido" method="POST" enctype="multipart/form-data">
+                        <form id="form2" action="/actualizarProductosPedido" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <input type="hidden" name="idUser" value="{{$pedido->idUser}}" />
                             <input type="hidden" id="idProducto" value="" name="id">
@@ -298,5 +303,62 @@
         
     });
     
+    $('#form').validate({
+        rules: {
+            descripcionGeneral: {
+                minlength: 10,
+                required: true
+            },
+            precio: {
+                required: true,
+                max: 999999
+            },
+        }
+    });
+
+    $.validator.addMethod("numeros", function (value, element) {
+            var pattern = /^[0-9]+$/;
+            return this.optional(element) || pattern.test(value);
+        }, "Solo digite números positivos, por favor");
+        $.validator.addMethod("letras", function (value, element) {
+            var pattern = /^[0-9a-zA-Z-áéíóúÁÉÍÓÚÜüñÑ]+$/;
+            return this.optional(element) || pattern.test(value);
+        }, "No se admite caracteres especiales ni espacios vacíos ni al inicio ni al final");
+        jQuery.validator.addMethod("cero", function(value, element) {
+            return this.optional(element) || parseInt(value) > 0;
+        }, "Debe ser mayor a cero");
+        jQuery.validator.addMethod("espaciosycaracteres", function(value, element) {
+            return this.optional(element) || (((value).trim().length > 0) && (value).length > 4);
+        }, "No dejar espacios vacíos en el campo y mayor a 5 caracteres");
+        jQuery.validator.addMethod("fecha", function(value, element) {
+            return this.optional(element) || (((value).trim().length > 0) && (value).length > 4);
+        }, "No dejar espacios vacíos en el campo y mayor a 5 caracteres");
+    $('#form2').validate({
+        rules: {
+            frase: {
+                minlength: 10
+            },
+            saborDeseado: {
+                espaciosycaracteres: true,
+                letras:true,
+                required: true,
+                maxlength:100
+            },
+            pisos: {
+                numeros:true,
+                required: true,
+                cero: true,
+            },
+            numeroPersonas: {
+                required: true,
+                numeros: true, 
+                min:10
+            },
+            descripcionProducto: {
+                required: true, 
+                minlength: 20
+            }
+        }
+    });
 </script>
 @endsection

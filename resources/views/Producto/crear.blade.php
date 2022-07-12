@@ -162,3 +162,64 @@ Productos
     </div>
 </div>
 @endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function() {
+        $.validator.addMethod("numeros", function (value, element) {
+            var pattern = /^[0-9]+$/;
+            return this.optional(element) || pattern.test(value);
+        }, "Solo digite números positivos, por favor");
+        jQuery.validator.addMethod("cero", function(value, element) {
+            return this.optional(element) || parseInt(value) > 0;
+        }, "Debe ser mayor a cero");
+        $.validator.addMethod("letras", function (value, element) {
+            var pattern = /^[A-Za-z0-9áéíóúüÜÑñ\s]+$/g;
+            return this.optional(element) || pattern.test(value);
+        }, "No se admite caracteres especiales");
+        jQuery.validator.addMethod("espaciosycaracteres", function(value, element) {
+            return this.optional(element) || (((value).trim().length > 0) && (value).length > 4);
+        }, "No dejar espacios vacíos en el campo y mayor a 5 caracteres");
+        $('#form').validate({
+            rules: {
+                nombre: {
+                    // espaciosycaracteres: true,
+                    letras:true,
+                    required: true,
+                    maxlength:100
+                },
+                pisos: {
+                    numeros:true,
+                    required: true,
+                    cero: true,
+                },
+                numeroPersonas: {
+                    required: true,
+                    numeros: true, 
+                    min:10
+                },
+                descripcion: {
+                    required: true, 
+                    minlength: 20,
+                    maxlength:1200
+                },
+                imagen: {
+                    required: true,
+                },
+                categoria: {
+                    required: true,
+                },
+                sabor: {
+                    required: true,
+                },
+                etapa: {
+                    required: true,
+                },
+                catalogo: {
+                    required: true,
+                }
+            },
+        });
+    });
+</script>
+@endsection

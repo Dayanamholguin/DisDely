@@ -139,7 +139,6 @@ Productos
                     <div class="form-group">
                         <label for="">Añadirlo al catálogo<strong style="color: red"> *</strong></label>
                         <select class="form-control" name="catalogo">
-                            <option value="">Seleccione</option>
                            @if($producto->catalogo==1)
                                 <option value="1" selected>Sí</option>
                                 <option value="0">No</option>

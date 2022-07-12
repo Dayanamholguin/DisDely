@@ -152,31 +152,54 @@ Usuarios
 @endsection
 @section('scripts')
 <script>
-    $(document).ready(function() {
-        $("#nombre, #apellido, #email, #celular, #celularAlternativo").focusout(function(event) {
-            console.log();
-            if ($(this).val().length > 0) {
-                // $(this).addClass("is-valid").removeClass("is-invalid");
-                $(this).rules('remove');
-            } else {
-                $(this).valid();
-                $(this).addClass("is-invalid").removeClass("is-valid");
-            }
-        });
-        $('#form').validate({
-            rules: {
-                nombre: {
-                    required: true,
-                },
-                apellido: {
-                    required: true,
-                },
-                email: {
-                    required: true,
-                    email: true
-                }
+     $.validator.addMethod("numeros", function (value, element) {
+            var pattern = /^[0-9]+$/;
+            return this.optional(element) || pattern.test(value);
+        }, "Solo digite números positivos, por favor");
+        $.validator.addMethod("email", function (value, element) {
+          var pattern = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+          return this.optional(element) || pattern.test(value);
+        }, "Formato del email incorrecto");
+        $.validator.addMethod("letras", function (value, element) {
+            var pattern = /^[A-Za-z0-9áéíóúüÜÑñ\s]+$/g;
+            return this.optional(element) || pattern.test(value);
+        }, "No se admite caracteres especiales");
+        
+    $('#form').validate({
+        rules: {
+            email: {
+                required: true,
+                email: true
             },
-        });
+            nombre: {
+                letras:true,
+                required: true,
+                maxlength:100
+            },
+            apellido: {
+                letras:true,
+                required: true,
+                maxlength:100
+            },
+            celularAlternativo: {
+                required: true,
+                numeros: true, 
+                minlength:7,
+                maxlength:10
+            },
+            celular: {
+                required: true,
+                numeros: true, 
+                minlength:7,
+                maxlength:10
+            },
+            genero: {
+                required: true
+            },
+            roles: {
+                required: true
+            }
+        }
     });
 </script>
 
