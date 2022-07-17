@@ -7,7 +7,7 @@ Sabores
 @section('content')
 <div class="card">
     <div class="card-header text-center">
-        <strong>Editar sabor</strong> 
+        <strong>Editar sabor</strong>
     </div>
     <div class="card-body">
         <div class="container mt-1">
@@ -25,11 +25,13 @@ Sabores
                     <div class="col-auto">
                         <div class="form-group">
                             <label for="">Nombre<strong style="color: red"> *</strong></label>
-                            <input value="{{$sabor->nombre}}" type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" required>
+                            <input value="{{$sabor->nombre}}" type="text"
+                                class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre"
+                                required>
                             @error('nombre')
-                                <div class="alert alert-danger" role="alert">
-                                    {{$message}}
-                                </div>
+                            <div class="alert alert-danger" role="alert">
+                                {{$message}}
+                            </div>
                             @enderror
                         </div>
                         <div class="col-12 centrado">

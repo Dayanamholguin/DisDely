@@ -7,7 +7,7 @@ Categoria
 @section('content')
 <div class="card">
     <div class="card-header text-center">
-        <strong>Crear categoría</strong> 
+        <strong>Crear categoría</strong>
     </div>
     <div class="card-body">
         <div class="container mt-1">
@@ -24,11 +24,12 @@ Categoria
                     <div class="col-auto">
                         <div class="form-group">
                             <label for="">Nombre<strong style="color: red"> *</strong></label>
-                            <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre" placeholder="Ingrese la categoría" required>
+                            <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre"
+                                name="nombre" placeholder="Ingrese la categoría" required>
                             @error('nombre')
-                                <div class="alert alert-danger" role="alert">
-                                    {{$message}}
-                                </div>
+                            <div class="alert alert-danger" role="alert">
+                                {{$message}}
+                            </div>
                             @enderror
                         </div>
                         <div class="col-12 centrado">
