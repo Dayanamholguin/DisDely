@@ -56,7 +56,7 @@
             <nav id="navbar" class="navbar">
                 <ul>
                     <li><a class="nav-link scrollto" aria-current="page" href="/">Inicio</a>
-                    <li><a class="nav-link scrollto" href="#about">¿Quiénes Somos?</a></li>
+                    <li><a class="nav-link scrollto" href="#about">¿Quiénes somos?</a></li>
                     <li><a class="nav-link scrollto" href="#services">Productos</a></li>
                     <li><a class="nav-link scrollto" href="#contact">Contacto</a></li>
 
@@ -65,7 +65,7 @@
                         @auth
                         <a href="{{ url('/home') }}" class="btn boton my-2 my-sm-0">Ir a plataforma</a>
                         @else
-                        <a href="{{ route('login') }}" class="btn boton my-2 my-sm-0">Iniciar Sesión</a>
+                        <a href="{{ route('login') }}" class="btn boton my-2 my-sm-0">Iniciar sesión</a>
                     </li>
                     <li class="nav-item scrollto">
                         @if (Route::has('register'))
@@ -95,7 +95,7 @@
         <section id="about" class="about">
             <div class="container aos-init aos-animate" data-aos="fade-up">
                 <div class="section-header">
-                    <h2 style="color: #B0535E;"><b>¿Quiénes Somos?</b></h2>
+                    <h2 style="color: #B0535E;"><b>¿Quiénes somos?</b></h2>
                     <p style="color: black;">{{$principal->quienes}}</p>
                 </div>
                 <div class="row g-4 g-lg-5 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">

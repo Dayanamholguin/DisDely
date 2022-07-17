@@ -869,6 +869,14 @@ class PedidoController extends Controller
             Flash("No se encontró el pedido")->error()->important();
             return redirect("/pedido");
         }
+        $usuarioEnSesion = User::findOrFail(auth()->user()->id);
+        if ($usuarioEnSesion->hasRole('Admin')==false)
+        {
+            if (Auth()->user()->id!=$pedido->idUser) {
+                Flash("No puedes ingresar a este pedido")->error()->important();      
+                return redirect("/pedido");
+            }
+        }
         $nombreEstado = Pedido::select('estado_pedidos.nombre')
             ->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")
             ->where("pedidos.id", $id)

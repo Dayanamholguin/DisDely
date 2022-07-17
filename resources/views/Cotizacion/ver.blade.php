@@ -31,7 +31,7 @@
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
                                 <label for=""><strong>Fecha de entrega</strong></label>
-                                <p class="form-control">{{$cotizacion->fechaEntrega}}</p>
+                                <p class="form-control">{{ucwords(Date::create($cotizacion->fechaEntrega)->format('l, j F Y'))}}</p>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-12">

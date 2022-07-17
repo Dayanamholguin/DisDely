@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@if ($usuarioEnSesion->hasRole('Admin')==false)
+@can('agregarCarrito')
+    @section('car')
+        @include('carrito.icono')
+    @endsection
+@endcan
+@endif
+
 @section('title')
 Cotización
 @endsection

@@ -107,6 +107,14 @@ class abonoController extends Controller
             Flash('No se encontró el pedido')->error()->important();
             return back();
         }
+        $usuarioEnSesion = User::findOrFail(auth()->user()->id);
+        if ($usuarioEnSesion->hasRole('Admin')==false)
+        {
+            if (Auth()->user()->id!=$pedido->idUser) {
+                Flash("No puedes ver la información del abono de este pedido")->error()->important();      
+                return redirect("/abono");
+            }
+        }
         $abonos = Abono::select("*")->where('idPedido', $pedido->id)->get();
         return view("abono.verAbonoPedido", compact("pedido", "abonos"));
     }
@@ -181,6 +189,14 @@ class abonoController extends Controller
         if ($pedido == null) {
             Flash("No se encontró el pedido")->error()->important();
             return redirect("/pedido");
+        }
+        $usuarioEnSesion = User::findOrFail(auth()->user()->id);
+        if ($usuarioEnSesion->hasRole('Admin')==false)
+        {
+            if (Auth()->user()->id!=$pedido->idUser) {
+                Flash("No puedes ver la información del abono de este pedido")->error()->important();      
+                return redirect("/pedido");
+            }
         }
         // number_format(pPrecio, 0, '.', '.')
         $cliente = Pedido::select('users.*')->join('users', 'users.id', 'pedidos.idUser')->where('pedidos.id', $pedido->id)->get();

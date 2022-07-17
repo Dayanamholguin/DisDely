@@ -19,6 +19,11 @@ class ProductoController extends Controller
 {
     public function index()
     {
+        $usuarioEnSesion = User::findOrFail(auth()->user()->id);
+        if ($usuarioEnSesion->hasRole('Cliente')==true)
+        {
+            return view('home');
+        }
         return view('producto.index');
     }
     

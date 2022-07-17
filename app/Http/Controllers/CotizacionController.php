@@ -103,7 +103,15 @@ class CotizacionController extends Controller
     public function Personalizada()
     {
         $producto = Producto::find(1);
-        return view('cotizacion.crearPersonalizada', compact("producto"));
+        $usuarioEnSesion = User::findOrFail(auth()->user()->id);
+        $carritoCollection = \Cart::getContent();
+        if (count($carritoCollection) > 0) {
+            foreach ($carritoCollection as $value) {
+                if ($value->id == 1)
+                    Flash("Recuerde solo se puede un producto personalizable por cotización, si crea otro, el sistema reemplaza el que tenías anteriormente por este nuevo")->warning()->important();
+            }
+        }
+        return view('cotizacion.crearPersonalizada', compact("producto", "usuarioEnSesion"));
     }
 
     public function guardar(Request $request)
@@ -313,6 +321,14 @@ class CotizacionController extends Controller
         if ($cotizacion == null) {
             Flash("No se encontró la cotización")->error()->important();
             return redirect("/cotizacion");
+        }
+        $usuarioEnSesion = User::findOrFail(auth()->user()->id);
+        if ($usuarioEnSesion->hasRole('Admin')==false)
+        {
+            if (Auth()->user()->id!=$cotizacion->idUser) {
+                Flash("No puedes ingresar a esta cotización")->error()->important();      
+                return back();
+            }
         }
         $nombreEstado = Cotizacion::select('estado_cotizaciones.nombre')
             ->join("estado_cotizaciones", "estado_cotizaciones.id", "cotizaciones.estado")

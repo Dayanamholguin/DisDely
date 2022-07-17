@@ -234,7 +234,7 @@
                                     </a>
                                     <a class="dropdown-item tipoletra" href="/perfil/{{Auth::user()->id}}">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Editar Perfil
+                                        Editar perfil
                                     </a>
                                     <a class="dropdown-item tipoletra" href="/perfil/cambiar/{{Auth::user()->id}}">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
