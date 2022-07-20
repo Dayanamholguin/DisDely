@@ -57,13 +57,13 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'celular' => ['required', 'numeric'],
             'celularAlternativo' => ['numeric'],
-            'genero' => ['required', 'exists:generos,id'],
+            'genero' => ['required', 'in:2,3',],
             'foto'=>['image'],
             'password' => ['required', 'string', 'confirmed', Password::min(8)
             ->letters()
-            ->mixedCase()
+            // ->mixedCase()
             ->numbers()
-            ->symbols()
+            // ->symbols()
             ->uncompromised()
             ],
         ]);

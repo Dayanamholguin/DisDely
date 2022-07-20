@@ -80,7 +80,7 @@
         <form class="hol">
             <div>
                 <i class="bi bi-search"></i>
-                <input type="text" name="" id="searh-item" placeholder="Buscar..." onkeyup="search()">
+                <input type="text" name="" id="buscar" placeholder="Buscar..." >
             </div>
         </form>
 
@@ -88,10 +88,10 @@
 
         <div class="row portfolio-container product-list" id="product-list" data-aos="fade-up" data-aos-delay="200">
             @foreach($productos as $producto)
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app product">
+            <div class="col-lg-4 col-md-6 item portfolio-item filter-app product ">
                 <div class="portfolio-img"><a href="/ver/imagen/{{$producto->id}}" data-gall="portfolioGallery" class="venobox preview-link" title="{{$producto->nombre}}"><img style="background-size: 100% 100%;" src="/imagenes/{{$producto->img}}" class="img-fluid" alt=""></a></div>
                 <div class="portfolio-info">
-                    <h4>{{$producto->nombre}}</h4>
+                    <h4 class="nombres">{{$producto->nombre}}</h4>
 
                     <p>{{ucfirst(Date::create($producto->created_at)->format('F j, Y'));}}</p>
                     @can('cotizacion/crear')
@@ -122,27 +122,60 @@
 <script>
     /*  let pro = <?= json_encode($productos); ?>;
     console.log(pro); */
-    //Search
-    const search = () => {
-        const searchbox = document.getElementById("searh-item").value.toUpperCase();
-        const storeitems = document.getElementById("product-list");
-        const product = document.querySelectorAll(".product");
-        const pname = storeitems.getElementsByTagName("h4");
 
-        for (var i = 0; i < pname.length; i++) {
-            let match = product[i].getElementsByTagName('h4')[0];
+    // document.addEventListener("keyup", e =>{
+        
+    //     if (e.target.matches("#buscar")) {
+    //         document.querySelectorAll(".nombres").forEach(producto => {
+    //             console.log(producto.textContent);
+    //             producto.textContent.toLowerCase().includes(e.target.value.toLowerCase())
+    //             ?producto.classList.remove("filtro")
+    //             :producto.classList.add("filtro")
+    //         });
+    //     }
+    // })
 
-            if (match) {
-                let textvalue = match.textContent || match.innerHTML
 
-                if (textvalue.toUpperCase().indexOf(searchbox) > -1) {
-                    product[i].style.display = "";
-                } else {
-                    product[i].style.display = "none";
+    $(document).ready(function(){
+        $('#buscar').keyup(function(){
+            var nombres = $('.nombres');
+            var buscando = $(this).val();
+            var item='';
+            for( var i = 0; i < nombres.length; i++ ){
+                item = $(nombres[i]).html().toLowerCase();
+                for(var x = 0; x < item.length; x++ ){
+                    if( buscando.length == 0 || item.indexOf( buscando ) > -1 ){
+                        $(nombres[i]).parents('.item').show();
+                    }else{
+                        $(nombres[i]).parents('.item').hide();
+                    }
                 }
             }
-        }
-    }
+        });
+    });
+    
+    
+    //Search
+    // const search = () => {
+    //     const searchbox = document.getElementById("searh-item").value.toUpperCase();
+    //     const storeitems = document.getElementById("product-list");
+    //     const product = document.querySelectorAll(".product");
+    //     const pname = storeitems.getElementsByTagName("h4");
+
+    //     for (var i = 0; i < pname.length; i++) {
+    //         let match = product[i].getElementsByTagName('h4')[0];
+
+    //         if (match) {
+    //             let textvalue = match.textContent || match.innerHTML
+
+    //             if (textvalue.toUpperCase().indexOf(searchbox) > -1) {
+    //                 product[i].style.display = "";
+    //             } else {
+    //                 product[i].style.display = "none";
+    //             }
+    //         }
+    //     }
+    // }
     //end search
 
     // $.ajax({

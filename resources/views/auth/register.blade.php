@@ -14,7 +14,7 @@ Registrar - DisDely
                                 <h3 class="text-center font-weight-light my-4" style="color: #B0535E">Crear Cuenta</h3>
                             </div>
                             <div class="card-body">
-                                <form method="POST" action="{{ route('register') }}">
+                                <form method="POST" id="form" action="{{ route('register') }}">
                                     @csrf
                                     <div class="row mb-3">
                                         <div class="col-md-6">
@@ -57,7 +57,7 @@ Registrar - DisDely
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                <label for="celular"><b>Teléfono celular</b><b style="color: red"> *</b></label>
+                                                <label for="celular"><b>Celular</b><b style="color: red"> *</b></label>
                                                 <input id="celular" type="text" name="celular" value="{{ old('celular') }}" class="form-control @error('celular') is-invalid @enderror" name="celular" required autocomplete="celular" placeholder="Ingrese su teléfono o celular" />
 
                                                 @error('celular')
@@ -86,9 +86,14 @@ Registrar - DisDely
                                                 <label for=""><b>Género</b><b style="color: red"> *</b></label>
                                                 <select class="form-control" name="genero">
                                                     <option value="">Seleccione</option>
-                                                    <option value="2">Masculino</option>
-                                                    <option value="3">Femenino</option>
+                                                    <option value="2" {{old('genero' ) == 2 ? 'selected' : ''}}>Masculino</option>
+                                                    <option value="3" {{old('genero' ) == 3 ? 'selected' : ''}}>Femenino</option>
                                                 </select>
+                                                @error('genero')
+                                                    <div class="alert alert-danger" role="alert">
+                                                        {{$message}}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -121,4 +126,68 @@ Registrar - DisDely
         </main>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function() {
+        $.validator.addMethod("numeros", function (value, element) {
+            var pattern = /^[0-9]+$/;
+            return this.optional(element) || pattern.test(value);
+        }, "Solo digite números positivos, por favor");
+        jQuery.validator.addMethod("cero", function(value, element) {
+            return this.optional(element) || parseInt(value) > 0;
+        }, "Debe ser mayor a cero");
+        $.validator.addMethod("email", function (value, element) {
+          var pattern = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+          return this.optional(element) || pattern.test(value);
+        }, "Formato del email incorrecto");
+        $.validator.addMethod("letras", function (value, element) {
+            var pattern = /^[A-Za-z0-9áéíóúüÜÑñ\s]+$/g;
+            return this.optional(element) || pattern.test(value);
+        }, "No se admite caracteres especiales");
+        jQuery.validator.addMethod("espaciosycaracteres", function(value, element) {
+            return this.optional(element) || (((value).trim().length > 0) && (value).length > 4);
+        }, "No dejar espacios vacíos en el campo y mayor a 5 caracteres");
+        $('#form').validate({
+            rules: {
+                nombre: {
+                    letras:true,
+                    required: true,
+                    maxlength:100
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                apellido: {
+                    letras:true,
+                    required: true,
+                    maxlength:150
+                },
+                celular: {
+                    required: true,
+                    numeros: true, 
+                    minlength:7,
+                    maxlength:10
+                },
+                celularAlternativo: {
+                    required: true,
+                    numeros: true, 
+                    minlength:7,
+                    maxlength:10
+                },
+                genero: {
+                    required: true,
+                },
+                password: {
+                    required: true,
+                },
+                password_confirmation: {
+                    required: true,
+                },
+            },
+        });
+    });
+</script>
 @endsection
