@@ -563,8 +563,8 @@ class PedidoController extends Controller
             Flash("Por favor, rellene todos los campos")->warning()->important();
             return view('pedido.carrito', compact("carritoCollection", "userId", "userName"));
         }
-        if (strlen($input["precio"])>6) {
-            Flash("El precio no debe contener más de 6 caracteres.")->warning()->important();
+        if (strlen($input["precio"])>7) {
+            Flash("El precio no debe contener más de 7 dígitos.")->warning()->important();
             return view('pedido.carrito', compact("carritoCollection", "userId", "userName"));
         }
         // $precio = str_replace(',', '', $input["precio"]); 

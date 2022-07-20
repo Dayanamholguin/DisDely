@@ -150,18 +150,23 @@ class CotizacionController extends Controller
             }
             DB::commit();
             \Cart::clear();
-            Flash("Se ha creado la cotización éxitosamente, por favor, revise su correo electrónico.")->success();
+            // Flash("Se ha creado la cotización éxitosamente")->success();
             // $usuarioEnSesion = User::findOrFail(auth()->user()->id);
             // if($usuarioEnSesion->hasRole('Admin')==false){
             //     event(new CotizacionRegistradaEvent($cotizacion));
             //     return back();
             // }
-            event(new CotizacionRegistradaEvent($cotizacion));
-            event(new CotizacionRegistradaAdminEvent($cotizacion));
+            try {
+                event(new CotizacionRegistradaEvent($cotizacion));
+                event(new CotizacionRegistradaAdminEvent($cotizacion));
+                Flash("Se ha creado la cotización éxitosamente, por favor, revise su correo electrónico.")->success();
+            } catch (\Exception $e) {
+                Flash("No fue posible enviar el correo con la información de su cotización, notifica este error a los administradores a traves del siguiente correo electrónico disdely.dulcencanto@gmail.com")->warning();
+            }
             return redirect("/cotizacion");
         } catch (\Exception $e) {
             DB::rollBack();
-            Flash($e->getMessage(). " HOLAA")->error()->important();
+            Flash($e->getMessage())->error()->important();
             return redirect("/cotizacion");
         }
     }
