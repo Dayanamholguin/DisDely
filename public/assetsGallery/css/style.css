@@ -1029,7 +1029,7 @@ img {
 
 .contenedor-galeria {
   flex: 25% !important;
-  column-count: 3 !important;
+  column-count: 4 !important;
   padding: 5px !important;
 
 }
@@ -1040,6 +1040,13 @@ img {
   flex: 25% !important;
   margin-bottom: auto !important;
   object-fit: cover !important;
+}
+
+@media (max-width:600px) {
+  .contenedor-galeria {
+    flex: 100% !important;
+    column-count: 1 !important;
+  }
 }
 
 .portfolio .portfolio-item .portfolio-info {
