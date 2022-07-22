@@ -20,13 +20,12 @@ class ProductoController extends Controller
     public function index()
     {
         $usuarioEnSesion = User::findOrFail(auth()->user()->id);
-        if ($usuarioEnSesion->hasRole('Cliente')==true)
-        {
+        if ($usuarioEnSesion->hasRole('Cliente') == true) {
             return view('home');
         }
         return view('producto.index');
     }
-    
+
     public function listar(Request $request)
     {
         $producto = Producto::select("productos.*", "categorias.nombre as cnombre", "sabores.nombre as snombre", "etapas.nombre as enombre")
@@ -56,30 +55,30 @@ class ProductoController extends Controller
             })
             ->editColumn("acciones", function ($producto) {
                 $usuarioEnSesion = User::findOrFail(auth()->user()->id);
-                $acciones=null; 
-                if($usuarioEnSesion->can('producto/editar')){
+                $acciones = null;
+                if ($usuarioEnSesion->can('producto/editar')) {
                     $acciones = '<a class="btn btn-info btn-sm" href="/producto/editar/' . $producto->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-edit"></i> Editar</a> ';
                 }
-                if($usuarioEnSesion->can('producto/ver')){
-                    if($acciones==null){
+                if ($usuarioEnSesion->can('producto/ver')) {
+                    if ($acciones == null) {
                         $acciones = '<a class="btn btn-secondary btn-sm" href="/producto/ver/' . $producto->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-info-circle"></i> Ver</a> ';
-                    }else {
+                    } else {
                         $acciones .= '<a class="btn btn-secondary btn-sm" href="/producto/ver/' . $producto->id . '" data-toggle="tooltip" data-placement="top"><i class="fas fa-info-circle"></i> Ver</a> ';
                     }
                 }
-                if($usuarioEnSesion->can('producto/cambiar/estado')){
+                if ($usuarioEnSesion->can('producto/cambiar/estado')) {
                     if ($producto->estado == 1) {
-                        if ($acciones==null) {
+                        if ($acciones == null) {
                             $acciones = '<a class="btn btn-danger btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
-                        }else {
+                        } else {
                             $acciones .= '<a class="btn btn-danger btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/0" data-toggle="tooltip" data-placement="top"><i class="bi bi-x-circle"></i> Inactivar</a>';
                         }
                     } else {
-                        if ($acciones==null) {
+                        if ($acciones == null) {
                             $acciones = '<a class="btn btn-success btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check-circle"></i> Activar</a>';
-                        }else {
+                        } else {
                             $acciones .= '<a class="btn btn-success btn-sm" href="/producto/cambiar/estado/' . $producto->id . '/1" data-toggle="tooltip" data-placement="top"><i class="bi bi-check-circle"></i> Activar</a>';
-                        }                        
+                        }
                     }
                 }
                 return $acciones;
@@ -91,11 +90,12 @@ class ProductoController extends Controller
     public function catalogo()
     {
         $usuarioEnSesion = User::findOrFail(auth()->user()->id);
-            // if($usuarioEnSesion->hasRole('asistente')==false){
-            //     return back();
-            // }
+        // if($usuarioEnSesion->hasRole('asistente')==false){
+        //     return back();
+        // }
         // $categorias = Categoria::all()->where('id', '>', 1)->where('estado', 1);
         $productos = Producto::all()->where('catalogo', 1)->where('id', '>', 1);
+        $productos = Producto::paginate(7);
         return view('producto.catalogo', compact("productos", "usuarioEnSesion"));
     }
 
@@ -110,9 +110,9 @@ class ProductoController extends Controller
             Flash("No se encontró el producto")->error()->important();
             return redirect("/producto/catalogo");
         }
-        $categoria = Producto::select('categorias.nombre')->join("categorias", "productos.idCategoria", "categorias.id")->where("productos.id",$id)->value('nombre');
-        $sabor = Producto::select('sabores.nombre')->join("sabores", "productos.idsabor", "sabores.id")->where("productos.id",$id)->value('nombre');
-        $etapa = Producto::select('etapas.nombre')->join("etapas", "productos.idetapa", "etapas.id")->where("productos.id",$id)->value('nombre');
+        $categoria = Producto::select('categorias.nombre')->join("categorias", "productos.idCategoria", "categorias.id")->where("productos.id", $id)->value('nombre');
+        $sabor = Producto::select('sabores.nombre')->join("sabores", "productos.idsabor", "sabores.id")->where("productos.id", $id)->value('nombre');
+        $etapa = Producto::select('etapas.nombre')->join("etapas", "productos.idetapa", "etapas.id")->where("productos.id", $id)->value('nombre');
         return view("producto.verProductoCatalogo", compact("producto", "categoria", "sabor", "etapa"));
     }
 
@@ -207,14 +207,15 @@ class ProductoController extends Controller
         } else {
             $producto->img = '/img/defecto.jpg';
         }
-        
-        $categoria = Producto::select('categorias.nombre')->join("categorias", "productos.idCategoria", "categorias.id")->where("productos.id",$id)->value('nombre');
-        $sabor = Producto::select('sabores.nombre')->join("sabores", "productos.idsabor", "sabores.id")->where("productos.id",$id)->value('nombre');
-        $etapa = Producto::select('etapas.nombre')->join("etapas", "productos.idetapa", "etapas.id")->where("productos.id",$id)->value('nombre');
+
+        $categoria = Producto::select('categorias.nombre')->join("categorias", "productos.idCategoria", "categorias.id")->where("productos.id", $id)->value('nombre');
+        $sabor = Producto::select('sabores.nombre')->join("sabores", "productos.idsabor", "sabores.id")->where("productos.id", $id)->value('nombre');
+        $etapa = Producto::select('etapas.nombre')->join("etapas", "productos.idetapa", "etapas.id")->where("productos.id", $id)->value('nombre');
         // dd($sabor);
         return view("producto.ver", compact("producto", "categoria", "sabor", "etapa"));
     }
-    public function verProductoAjax($id) {
+    public function verProductoAjax($id)
+    {
         $producto = Producto::find($id);
         // $productoCompleto = Producto::select("productos.*", "categorias.nombre as categoria", "sabores.nombre as sabor", "etapas.nombre as etapa")
         // ->join("categorias", "productos.idCategoria", "categorias.id")
@@ -222,9 +223,9 @@ class ProductoController extends Controller
         // ->join("etapas", "productos.idetapa", "etapas.id")
         // ->where("productos.id",$id)
         // ->get();
-        $categoria = Producto::select('categorias.nombre')->join("categorias", "productos.idCategoria", "categorias.id")->where("productos.id",$id)->value('nombre');
-        $sabor = Producto::select('sabores.nombre')->join("sabores", "productos.idsabor", "sabores.id")->where("productos.id",$id)->value('nombre');
-        $etapa = Producto::select('etapas.nombre')->join("etapas", "productos.idetapa", "etapas.id")->where("productos.id",$id)->value('nombre');
+        $categoria = Producto::select('categorias.nombre')->join("categorias", "productos.idCategoria", "categorias.id")->where("productos.id", $id)->value('nombre');
+        $sabor = Producto::select('sabores.nombre')->join("sabores", "productos.idsabor", "sabores.id")->where("productos.id", $id)->value('nombre');
+        $etapa = Producto::select('etapas.nombre')->join("etapas", "productos.idetapa", "etapas.id")->where("productos.id", $id)->value('nombre');
         return compact("producto", "categoria", "sabor", "etapa");
     }
     public function modificar(Request $request)
@@ -237,10 +238,10 @@ class ProductoController extends Controller
         $id = $request->id;
         $input = $request->all();
         $producto = Producto::select('*')->where('nombre', $request->nombre)->where('id', '<>', $id)->value('nombre');
-        if ($producto != null) {
-            Flash("El producto " . $producto . " ya está creado")->error()->important();
-            return redirect("/producto/editar/{$id}");
-        }
+        // if ($producto != null) {
+        //     Flash("El producto " . $producto . " ya está creado")->error()->important();
+        //     return redirect("/producto/editar/{$id}");
+        // }
 
         try {
             $producto = Producto::find($input["id"]);
@@ -248,7 +249,7 @@ class ProductoController extends Controller
                 Flash("No se encontró el producto")->error()->important();
                 return redirect("/producto");
             }
-            $estado=$input["catalogo"]==0?$estado=0:$estado=1;
+            $estado = $input["catalogo"] == 0 ? $estado = 0 : $estado = 1;
             $producto->update([
                 "idCategoria" => $input["categoria"],
                 "idSabor" => $input["sabor"],
@@ -287,7 +288,7 @@ class ProductoController extends Controller
             Flash("No se encontró el producto")->error()->important();
             return redirect("/producto");
         }
-        $catalogo = $estado==0?$catalogo=0:$catalogo=1;
+        $catalogo = $estado == 0 ? $catalogo = 0 : $catalogo = 1;
         try {
             $producto->update([
                 "estado" => $estado,

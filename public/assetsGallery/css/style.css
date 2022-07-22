@@ -1012,6 +1012,9 @@ section {
   transition: all 0.6s;
 }
 
+
+/*Diseño catálogo*/
+
 * {
   box-sizing: border-box !important;
 }
@@ -1024,8 +1027,9 @@ section {
 }
 
 img {
-  width: 100%;
+  width: auto;
 }
+
 
 .contenedor-galeria {
   flex: 25% !important;
@@ -1047,7 +1051,24 @@ img {
     flex: 100% !important;
     column-count: 1 !important;
   }
+
+  img {
+    width: 100% !important;
+  }
 }
+
+@media (max-width:1180px) {
+  .contenedor-galeria {
+    flex: 100% !important;
+    column-count: 2 !important;
+  }
+
+  img {
+    width: 100% !important;
+  }
+}
+
+/*FIn*/
 
 .portfolio .portfolio-item .portfolio-info {
   opacity: 0;

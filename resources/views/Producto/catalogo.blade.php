@@ -85,22 +85,21 @@
             </div>
         </form>
 
-        <br>
-
         <div class="row product-list" id="product-list" data-aos="fade-up" data-aos-delay="200">
             <div class="contenedor-galeria">
+
                 @foreach($productos as $producto)
                 <div class="col-md-12 galeria__img item portfolio-item filter-app product ">
                     <div class="portfolio-img"><a href="/ver/imagen/{{$producto->id}}" data-gall="portfolioGallery"
                             class="venobox preview-link" title="{{$producto->nombre}}"><img
-                                style="background-size: 100% 100%;" src="/imagenes/{{$producto->img}}" class="img-fluid"
-                                alt=""></a></div>
+                                style="background-size: 100% 100%; width: 100%" src="/imagenes/{{$producto->img}}"
+                                class="img-fluid" alt=""></a></div>
                     <div class="portfolio-info">
                         <h4 class="nombres">{{$producto->nombre}}</h4>
 
                         <p>{{ucfirst(Date::create($producto->created_at)->format('F j, Y'));}}</p>
                         @can('cotizacion/crear')
-                        <a href="/cotizacion/crear/{{$producto->id}}" class=" preview-link"><img
+                        <a href="/cotizacion/crear/{{$producto->id}}" class="preview-link"><img
                                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAFxJREFUSEtjZKAxYKSx+QyjFhAMYZKC6P////9BJjIyMhKtj2iFIINHLSAYYUMniGAuJeglNAXYUhfWVERzC3C5fOjEwagPkENgcJVFpOYLcMlLjiZS9IxaQDC0AFaEOBlExtG1AAAAAElFTkSuQmCC" /></a>
                         @endcan
                         @can('producto/verProductoCatalogo')
@@ -113,6 +112,9 @@
             </div>
             @endif
         </div>
+
+        <br>
+        {{$productos->links()}}
     </div>
 </section><!-- End Portfolio Section -->
 @endsection
@@ -134,7 +136,6 @@
 //     }
 // })
 
-
 $(document).ready(function() {
     $('#buscar').keyup(function() {
         var nombres = $('.nombres');
@@ -152,7 +153,6 @@ $(document).ready(function() {
         }
     });
 });
-
 
 //Search
 // const search = () => {
@@ -176,18 +176,6 @@ $(document).ready(function() {
 //     }
 // }
 //end search
-
-// $.ajax({
-//     url: `/producto/catalogo/${idCategoria}`,
-//     type: "GET",
-//     success: function (res){
-//         let productos = JSON.parse(res)
-//         productos.forEach(p => {
-//             document.querySelector(".contenedor").appendChild(`<p>nombre: ${p.nombre}</p>`
-//             )
-//         })
-//     },
-// });
 </script>
 
 <!-- <script>

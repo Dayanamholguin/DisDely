@@ -30,26 +30,26 @@ class PedidoController extends Controller
     public function listar(Request $request)
     {
         Date::setLocale('es');
-        $user=User::find(Auth()->user()->id);
+        $user = User::find(Auth()->user()->id);
         $usuarioEnSesion = User::findOrFail(auth()->user()->id);
-        if ($user->hasRole('Admin')==false) {
-            if($user->hasRole('Cliente')==false && $usuarioEnSesion->can('pedido/listar')) {
-                $pedido = Pedido::select("pedidos.*", "pedidos.estado as idEstado", "users.nombre as usuario","users.apellido as Pusuario", "estado_pedidos.nombre as estado")
-                ->join("users", "users.id", "pedidos.idUser")
-                ->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")
-                ->get();
-            }else {
-                $pedido = Pedido::select("pedidos.*", "pedidos.estado as idEstado", "users.nombre as usuario","users.apellido as Pusuario", "estado_pedidos.nombre as estado")
-                ->join("users", "users.id", "pedidos.idUser")
-                ->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")
-                ->where("users.id", Auth::user()->id)
-                ->get();
+        if ($user->hasRole('Admin') == false) {
+            if ($user->hasRole('Cliente') == false && $usuarioEnSesion->can('pedido/listar')) {
+                $pedido = Pedido::select("pedidos.*", "pedidos.estado as idEstado", "users.nombre as usuario", "users.apellido as Pusuario", "estado_pedidos.nombre as estado")
+                    ->join("users", "users.id", "pedidos.idUser")
+                    ->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")
+                    ->get();
+            } else {
+                $pedido = Pedido::select("pedidos.*", "pedidos.estado as idEstado", "users.nombre as usuario", "users.apellido as Pusuario", "estado_pedidos.nombre as estado")
+                    ->join("users", "users.id", "pedidos.idUser")
+                    ->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")
+                    ->where("users.id", Auth::user()->id)
+                    ->get();
             }
-        }else {
-            $pedido = Pedido::select("pedidos.*", "pedidos.estado as idEstado", "users.nombre as usuario","users.apellido as Pusuario", "estado_pedidos.nombre as estado")
-            ->join("users", "users.id", "pedidos.idUser")
-            ->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")
-            ->get();
+        } else {
+            $pedido = Pedido::select("pedidos.*", "pedidos.estado as idEstado", "users.nombre as usuario", "users.apellido as Pusuario", "estado_pedidos.nombre as estado")
+                ->join("users", "users.id", "pedidos.idUser")
+                ->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")
+                ->get();
         }
         // DB::raw("DATEDIFF(date_from,date_to)AS Days"))
         // SELECT DATEDIFF((SELECT fechaEntrega FROM `pedidos` WHERE id = 6), NOW())
@@ -71,10 +71,10 @@ class PedidoController extends Controller
                 return ucwords(Date::create($pedido->fechaEntrega)->format('l, j F Y'));
             })
             ->editColumn('cliente', function ($pedido) {
-                if ($pedido->idUser==1) {
+                if ($pedido->idUser == 1) {
                     $nombre = $pedido->usuario;
-                }else {
-                    $nombre = $pedido->usuario. " ".$pedido->Pusuario;
+                } else {
+                    $nombre = $pedido->usuario . " " . $pedido->Pusuario;
                 }
                 return $nombre;
             })
@@ -115,20 +115,20 @@ class PedidoController extends Controller
                 }
                 if ($nAbonos == $precio) {
                     return '<span class="badge badge-success text-white p-2">' . 'Pedido pago' . '</span>';
-                }else {
+                } else {
                     return '<span class="badge badge-warning text-white p-2">' . 'Proceso de abono ' . '</span>';
                 }
             })
             ->editColumn('acciones', function ($pedido) {
                 $usuarioEnSesion = User::findOrFail(auth()->user()->id);
-                $acciones=null; 
-                if($usuarioEnSesion->can('pedido/editar')){
+                $acciones = null;
+                if ($usuarioEnSesion->can('pedido/editar')) {
                     $acciones = '<a class="btn btn-info btn-sm" href="/pedido/editar/' . $pedido->id . '" ><i class="fas fa-edit"></i></a> ';
                 }
-                if($usuarioEnSesion->can('pedido/ver')){
-                    if ($acciones==null) {
+                if ($usuarioEnSesion->can('pedido/ver')) {
+                    if ($acciones == null) {
                         $acciones = '<a class="btn btn-secondary btn-sm" href="/pedido/ver/' . $pedido->id . '" ><i class="fas fa-info-circle"></i></a> ';
-                    }else {
+                    } else {
                         $acciones .= '<a class="btn btn-secondary btn-sm" href="/pedido/ver/' . $pedido->id . '" ><i class="fas fa-info-circle"></i></a> ';
                     }
                 }
@@ -140,19 +140,19 @@ class PedidoController extends Controller
                         $nAbonos += $value->precioPagar;
                     }
                 }
-                if($usuarioEnSesion->can('abono/crear')){
+                if ($usuarioEnSesion->can('abono/crear')) {
                     if ($nAbonos != $precio) {
-                        if ($acciones==null) {
+                        if ($acciones == null) {
                             $acciones = '<a class="btn btn-success btn-sm" href="/abono/crear/' . $pedido->id . '" ><i class="fas fa-dollar-sign"></i> Abono</a> ';
-                        }else {
+                        } else {
                             $acciones .= '<a class="btn btn-success btn-sm" href="/abono/crear/' . $pedido->id . '" ><i class="fas fa-dollar-sign"></i> Abono</a> ';
                         }
                     }
                 }
-                if($usuarioEnSesion->can('abono/ver')){
-                    if($acciones==null){
+                if ($usuarioEnSesion->can('abono/ver')) {
+                    if ($acciones == null) {
                         $acciones = '<a class="btn btn-dark btn-sm" href="/abono/ver/' . $pedido->id . '" ><i class="fas fa-dollar-sign"></i></a> ';
-                    }else {
+                    } else {
                         $acciones .= '<a class="btn btn-dark btn-sm" href="/abono/ver/' . $pedido->id . '" ><i class="fas fa-dollar-sign"></i></a> ';
                     }
                 }
@@ -245,7 +245,7 @@ class PedidoController extends Controller
             $producto = Producto::find($request->producto);
         } else {
             $productos = Producto::all()->where('catalogo', 1)->where('id', '>', 1);
-            if (count($productos)==0) {
+            if (count($productos) == 0) {
                 Flash("No hay productos registrados en el sistema.")->warning()->important();
                 return back();
             }
@@ -313,8 +313,8 @@ class PedidoController extends Controller
                 return view("pedido.crear", compact("cliente", "producto"));
             }
         }
-        
-        if (is_numeric($request->numeroPersonas) == false || is_numeric($request->pisos) == false || intval($request->pisos)<0 || intval($request->numeroPersonas)<0) {
+
+        if (is_numeric($request->numeroPersonas) == false || is_numeric($request->pisos) == false || intval($request->pisos) < 0 || intval($request->numeroPersonas) < 0) {
             Flash("Por favor, ingrese números positivos y un valor numérico en los campos «Número de personas» y «Pisos»")->warning()->important();
             return view("pedido.crear", compact("cliente", "producto"));
         }
@@ -563,7 +563,7 @@ class PedidoController extends Controller
             Flash("Por favor, rellene todos los campos")->warning()->important();
             return view('pedido.carrito', compact("carritoCollection", "userId", "userName"));
         }
-        if (strlen($input["precio"])>7) {
+        if (strlen($input["precio"]) > 7) {
             Flash("El precio no debe contener más de 7 dígitos.")->warning()->important();
             return view('pedido.carrito', compact("carritoCollection", "userId", "userName"));
         }
@@ -870,10 +870,9 @@ class PedidoController extends Controller
             return redirect("/pedido");
         }
         $usuarioEnSesion = User::findOrFail(auth()->user()->id);
-        if ($usuarioEnSesion->hasRole('Admin')==false)
-        {
-            if (Auth()->user()->id!=$pedido->idUser) {
-                Flash("No puedes ingresar a este pedido")->error()->important();      
+        if ($usuarioEnSesion->hasRole('Admin') == false) {
+            if (Auth()->user()->id != $pedido->idUser) {
+                Flash("No puedes ingresar a este pedido")->error()->important();
                 return redirect("/pedido");
             }
         }
@@ -898,17 +897,17 @@ class PedidoController extends Controller
         $abonos = Abono::select("*")->where('idPedido', $pedido->id)->get();
         $nAbonos = 0;
         $resta = 0;
-        $paga=false;
+        $paga = false;
         if (count($abonos) > 0) {
             foreach ($abonos as $value) {
                 $nAbonos += $value->precioPagar;
             }
             $resta = $pedido->precio - $nAbonos;
         }
-        if ($nAbonos==$precio) {
-            $paga=true;
+        if ($nAbonos == $precio) {
+            $paga = true;
         }
-        $porcentaje = ($nAbonos*100)/$precio;
+        $porcentaje = ($nAbonos * 100) / $precio;
         $porcentaje = intval($porcentaje);
         // dd($detallePedidos);
         return view('pedido.ver', compact("detallePedidos", "pedido", "cliente", "nombreEstado", "paga", "porcentaje"));
