@@ -89,7 +89,7 @@
             <div class="contenedor-galeria">
 
                 @foreach($productos as $producto)
-                <div class="col-md-12 galeria__img item portfolio-item filter-app product ">
+                <div class="col-sm-12 col-md-12 galeria__img item portfolio-item filter-app product ">
                     <div class="portfolio-img"><a href="/ver/imagen/{{$producto->id}}" data-gall="portfolioGallery"
                             class="venobox preview-link" title="{{$producto->nombre}}"><img
                                 style="background-size: 100% 100%; width: 100%" src="/imagenes/{{$producto->img}}"

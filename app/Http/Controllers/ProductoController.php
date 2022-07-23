@@ -94,8 +94,8 @@ class ProductoController extends Controller
         //     return back();
         // }
         // $categorias = Categoria::all()->where('id', '>', 1)->where('estado', 1);
-        $productos = Producto::all()->where('catalogo', 1)->where('id', '>', 1);
-        $productos = Producto::paginate(7);
+        $productos = Producto::where('catalogo', 1)->where('id', '>', 1)->paginate(7);
+        // dd($productos);
         return view('producto.catalogo', compact("productos", "usuarioEnSesion"));
     }
 

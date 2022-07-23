@@ -87,7 +87,9 @@ class PedidoController extends Controller
                 // $dt->diffInDays($dt->copy()->addMonth());       
                 $fechaPedido =  $date1->diffInDays($date2) + 1;
                 if ($pedido->idEstado != 3) {
-                    if ($fechaPedido == 3) {
+                    if ($date2>$date1) {
+                        return "Ya pasó la fecha de entrega";
+                    }elseif ($fechaPedido == 3) {
                         return '<span class="badge badge-warning text-white p-2">' . 'Faltan ' . $fechaPedido . ' día(s)' . '</span>';
                     } elseif ($fechaPedido == 2) {
                         return '<span class="badge badge-info text-white p-2">' . 'Faltan ' . $fechaPedido . ' día(s)' . '</span>';
@@ -95,8 +97,6 @@ class PedidoController extends Controller
                         return '<span class="badge badge-danger text-white p-2">' . 'Faltan ' . $fechaPedido . ' día(s)' . '</span>';
                     } elseif ($fechaPedido == 0) {
                         return '<span class="badge badge-success text-white p-2">' . 'Se entrega hoy' . '</span>';
-                    } elseif ($fechaPedido < 0) {
-                        return "Se pasó el día de la entrega";
                     }
                     return "Faltan " . $fechaPedido . " día(s)";
                 } else {
@@ -740,9 +740,17 @@ class PedidoController extends Controller
             Flash("No se encontró ese pedido")->error()->important();
             return view("pedido.editar", compact("pedido", "pedidoUsuario", "carritoCollection", "estadosPedido"));
         }
-
-        if ($request->fechaEntrega < now()) {
-            Flash("No se puede poner la fecha de entrega antes de la fecha actual.")->error()->important();
+        $date = Carbon::parse($request->fechaEntrega);
+        $ano = $date->format('Y');
+        $date2 = Carbon::now();
+        $ano2 = $date2->format('Y');
+        // $intervalo = $dt->diff($enero);
+        // $ano = date(, 'y');
+        // dd();
+        // dd( $dt->diffInYears($request->fechaEntrega)); // 1
+        
+        if (($ano2 - $ano)>0) {
+            Flash("No se puede poner la fecha de entrega un año antes")->error()->important();
             return back();
         }
 
