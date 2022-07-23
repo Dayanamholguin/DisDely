@@ -744,10 +744,6 @@ class PedidoController extends Controller
         $ano = $date->format('Y');
         $date2 = Carbon::now();
         $ano2 = $date2->format('Y');
-        // $intervalo = $dt->diff($enero);
-        // $ano = date(, 'y');
-        // dd();
-        // dd( $dt->diffInYears($request->fechaEntrega)); // 1
         
         if (($ano2 - $ano)>0) {
             Flash("No se puede poner la fecha de entrega un año antes")->error()->important();
