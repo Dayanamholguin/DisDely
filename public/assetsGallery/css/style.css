@@ -1046,21 +1046,10 @@ img {
   object-fit: cover !important;
 }
 
-@media (max-width:600px) {
+@media (max-width:768px) {
   .contenedor-galeria {
     flex: 100% !important;
     column-count: 1 !important;
-  }
-
-  img {
-    width: 100% !important;
-  }
-}
-
-@media (max-width:1180px) {
-  .contenedor-galeria {
-    flex: 100% !important;
-    column-count: 2 !important;
   }
 
   img {
