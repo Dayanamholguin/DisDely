@@ -84,7 +84,7 @@
                 <input type="text" name="" id="buscar" placeholder="Buscar...">
             </div>
         </form>
-
+        <br>
         <div class="row product-list" id="product-list" data-aos="fade-up" data-aos-delay="200">
             <div class="contenedor-galeria">
 
