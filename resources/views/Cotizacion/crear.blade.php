@@ -80,7 +80,7 @@ Cotización
                 <div class="col-md-3 col-sm-12">
                     <div class="form-group">
                         <label for="">Agregar fotos de referencia<strong style="color: red"> *</strong></label>
-                        <select class="form-control" onchange="mostrar(this.value);">
+                        <select class="form-control" onchange="mostrar(this.value)">
                             <option value="No">No</option>
                             <option value="imagen">Sí</option>
                         </select>
@@ -96,14 +96,14 @@ Cotización
                         {{-- <input type="file" class="form-control-file" name="img" id="img"> --}}
                     </div>
                 </div>
-                <div class="col-12 centrado">
+                <div class="card-body d-flex justify-content-start">
+                    <a href="/producto/catalogo" class="btn btn-primary mr-3">Volver</a>
+                </div>
+                <div class="card-body d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAUxJREFUSEvNlN0xBEEUhb8TAZsBEbARKBGQAV55YCMgAzzwakWADGRgRUAGNoOjempazU/PTFfNrtr7ONN9v3vOvbfFmkNrzs//AWy7VLME5pJmq1D3p6ACiHkPJb2PhbQssn0F3AJvko5TgFiMpEGLU4Bt4KdMvCvpuwkZBQjJbM+BE+BeUlBUi1UA9oEPYClpUkLjECTb0mVXp4e2F8AecCZpnhiCGigAUsr7AKfAE7CQNK1m67LIdhjxLWAqKRTYv2ipC1W7qrbYjgV9SgoWF9E7ZrbvgEvgWVJIUERKge2wMwfR0lzADvBVHp5ICha0wnbnucFFsf0KHAEzSUFRCnADXDeVDlpU2hG2+SU5m+2PredlUEEJiSPbx6k1N6sHmVX3HstV8ACcA4+SLho70fkvqwfVsSwuNF7Q6oannovNUDCmF1kKNhrwC7rGoRm2ijZeAAAAAElFTkSuQmCC" /> Añadir producto a cotización</button>
                 </div>
             </div>
         </form>
-        <div class="text-center col-md-12 mt-3">
-            <a href="/producto/catalogo" class="titulo">Volver</a>
-        </div>
     </div>
 </div>
 @endsection
@@ -123,24 +123,24 @@ Cotización
             return this.optional(element) || pattern.test(value);
         }, "Solo digite números positivos, por favor");
         $.validator.addMethod("letras", function (value, element) {
-            var pattern = /^[0-9a-zA-Z-áéíóúÁÉÍÓÚÜüñÑ]+$/;
+            var pattern = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s]+$/g;
             return this.optional(element) || pattern.test(value);
         }, "No se admite caracteres especiales ni espacios vacíos ni al inicio ni al final");
         jQuery.validator.addMethod("cero", function(value, element) {
             return this.optional(element) || parseInt(value) > 0;
         }, "Debe ser mayor a cero");
         jQuery.validator.addMethod("espaciosycaracteres", function(value, element) {
-            return this.optional(element) || (((value).trim().length > 0) && (value).length > 4);
-        }, "No dejar espacios vacíos en el campo y mayor a 5 caracteres");
+            return this.optional(element) || (((value).trim().length > 0) && (value).length > 3);
+        }, "No dejar espacios vacíos en el campo y mayor a 3 caracteres");
         $('#form').validate({
         rules: {
             frase: {
                 minlength: 10
             },
             saborDeseado: {
-                espaciosycaracteres: true,
-                letras:true,
                 required: true,
+                // espaciosycaracteres: true,
+                letras:true,
                 maxlength:100
             },
             pisos: {
@@ -156,7 +156,7 @@ Cotización
             descripcionProducto: {
                 required: true, 
                 minlength: 20,
-                maxlength:1200
+                maxlength:500
             },
             img: {
                 required: true,

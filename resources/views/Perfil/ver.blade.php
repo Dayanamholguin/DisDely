@@ -95,9 +95,12 @@
           return this.optional(element) || pattern.test(value);
         }, "Formato del email incorrecto");
         $.validator.addMethod("letras", function (value, element) {
-            var pattern = /^[A-Za-z0-9áéíóúüÜÑñ\s]+$/g;
+            var pattern = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s]+$/g;
             return this.optional(element) || pattern.test(value);
-        }, "No se admite caracteres especiales");
+        }, "No se admite caracteres especiales ni espacios vacíos ni al inicio ni al final");
+        jQuery.validator.addMethod("espaciosycaracteres", function(value, element) {
+            return this.optional(element) || (((value).trim().length > 0) && (value).length > 3);
+        }, "No dejar espacios vacíos en el campo y mayor a 3 caracteres");
         
     $('#form').validate({
         rules: {

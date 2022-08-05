@@ -13,11 +13,15 @@ class Abono extends Model
         'idPedido',
         'precioPagar',
         'img',
+        'justificacion',
+        'estado',
     ];
 
     public static $rules = [
         'idPedido' => 'required|exists:pedidos,id',
         'precioPagar' => 'required',
-        'img' => 'image'
+        'img' => 'image',
+        'justificacion' => 'min:5|max:500',
+        // 'estado' => 'required|exists:estado_abonos,id',
     ];
 }

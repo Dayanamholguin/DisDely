@@ -77,7 +77,7 @@ Usuarios
                 </div>
                 <div class="col-md-3 col-sm-12">
                     <div class="form-group">
-                        <label for="celular">Teléfono celular<strong style="color: red"> *</strong></label>
+                        <label for="celular">Celular<strong style="color: red"> *</strong></label>
                         <input value="{{$usuario->celular}}" type="number"
                             class="form-control @error('celular') is-invalid @enderror" id="celular" name="celular"
                             required minlength="7" maxlength="10">
@@ -177,7 +177,7 @@ Usuarios
           return this.optional(element) || pattern.test(value);
         }, "Formato del email incorrecto");
         $.validator.addMethod("letras", function (value, element) {
-            var pattern = /^[A-Za-z0-9áéíóúüÜÑñ\s]+$/g;
+            var pattern = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s]+$/g;
             return this.optional(element) || pattern.test(value);
         }, "No se admite caracteres especiales");
         

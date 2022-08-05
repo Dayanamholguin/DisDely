@@ -17,7 +17,12 @@
             
             <div class="card">
                 <div class="card-header text-center">
-                    <strong>Detalle del pedido</strong> / <a href="/pedido" class="alert-link titulo">Volver</a>
+                    <strong>Detalle del pedido N° {{$pedido->id}}</strong> / 
+                    @if (substr(url()->previous(),-6)=="/abono")
+                        <a href="{{url()->previous()}}" class="alert-link titulo">Volver</a>
+                    @else
+                        <a href="/pedido" class="alert-link titulo">Volver</a>
+                    @endif
                 </div>
                 @include('flash::message')
                 <div class="card-body text-center">
@@ -120,7 +125,9 @@
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
                                 <label for=""><strong>Estado del pedido en el abono:</strong></label>
-                                @if ($paga)
+                                @if($estado==3)
+                                    <p class="form-control bg-danger text-white" >Pedido anulado</p>
+                                @elseif ($paga)
                                     <p class="form-control bg-success text-white" >Pedido pago</p>
                                 @else
                                     <p class="form-control bg-warning text-white" >Proceso de abono</p>
@@ -145,7 +152,7 @@
                                 @foreach($detallePedidos as $value)
                                 <img src="{{$value->img==null?'/img/defecto.jpg':'/imagenes/'.$value->img}}" class="rounded-circle mt-4" width="130" height="100" alt="{{$value->img==null?'No tiene imagen de referencia':''}}" data-toggle="tooltip" data-placement="bottom" title="{{$value->img==null?'No tiene imagen de referencia':'Foto de referencia'}}">
                                     <div class="mt-3">
-                                        <a href="javascript:void(0)" class="alert-link titulo"  onclick="mostrarVentana({{$value->idProducto}})" data-toggle="tooltip" data-placement="bottom" title="Clic para ver información del porducto">Producto {{ $value->producto}}</a>
+                                        <a href="javascript:void(0)" class="alert-link titulo"  onclick="mostrarVentana({{$value->idProducto}})" data-toggle="tooltip" data-placement="bottom" title="Clic para ver información del producto">Producto {{ $value->producto}}</a>
                                         <hr>
                                     </div>
                                     @endforeach

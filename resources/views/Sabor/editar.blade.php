@@ -50,7 +50,7 @@ Sabores
 <script>
     $(document).ready(function() {
         jQuery.validator.addMethod("letras", function (value, element) {
-            var pattern = /^[0-9a-zA-Z-áéíóúÁÉÍÓÚÜüñÑ]+$/;
+            var pattern = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s]+$/g;
             return this.optional(element) || pattern.test(value);
         }, "No se admite caracteres especiales ni espacios vacíos ni al inicio ni al final");
         jQuery.validator.addMethod("espaciosycaracteres", function(value, element) {
@@ -59,7 +59,7 @@ Sabores
         $('#form').validate({
             rules: {
                 nombre: {
-                    espaciosycaracteres: true,
+                    // espaciosycaracteres: true,
                     letras:true,
                     required: true,
                     maxlength:100

@@ -106,14 +106,17 @@ class PedidoController extends Controller
             })
             ->addColumn('pagos', function ($pedido) {
                 $precio = Pedido::select('precio')->where('pedidos.id', $pedido->id)->value('precio');
-                $abonos = Abono::select("*")->where('idPedido', $pedido->id)->get();
+                $abonos = Abono::select("*")->where('idPedido', $pedido->id)->where('estado',1)->get();
                 $nAbonos = 0;
                 if (count($abonos) > 0) {
                     foreach ($abonos as $value) {
                         $nAbonos += $value->precioPagar;
                     }
                 }
-                if ($nAbonos == $precio) {
+                $estado = Pedido::select('estado_pedidos.id')->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")->where("pedidos.id", $pedido->id)->value('id');
+                if($estado==3){
+                    return '<span class="badge badge-danger text-white p-2">' . 'Pedido anulado' . '</span>';
+                }elseif ($nAbonos == $precio) {
                     return '<span class="badge badge-success text-white p-2">' . 'Pedido pago' . '</span>';
                 } else {
                     return '<span class="badge badge-warning text-white p-2">' . 'Proceso de abono ' . '</span>';
@@ -123,7 +126,10 @@ class PedidoController extends Controller
                 $usuarioEnSesion = User::findOrFail(auth()->user()->id);
                 $acciones = null;
                 if ($usuarioEnSesion->can('pedido/editar')) {
-                    $acciones = '<a class="btn btn-info btn-sm" href="/pedido/editar/' . $pedido->id . '" ><i class="fas fa-edit"></i></a> ';
+                    $estado = Pedido::select('estado_pedidos.id')->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")->where("pedidos.id", $pedido->id)->value('id');
+                    if ($estado==1 || $estado==2) {
+                       $acciones = '<a class="btn btn-info btn-sm" href="/pedido/editar/' . $pedido->id . '" ><i class="fas fa-edit"></i></a> ';
+                    }
                 }
                 if ($usuarioEnSesion->can('pedido/ver')) {
                     if ($acciones == null) {
@@ -133,19 +139,22 @@ class PedidoController extends Controller
                     }
                 }
                 $precio = Pedido::select('precio')->where('pedidos.id', $pedido->id)->value('precio');
-                $abonos = Abono::select("*")->where('idPedido', $pedido->id)->get();
+                $abonos = Abono::select("*")->where('idPedido', $pedido->id)->where('estado',1)->get();
                 $nAbonos = 0;
                 if (count($abonos) > 0) {
                     foreach ($abonos as $value) {
                         $nAbonos += $value->precioPagar;
                     }
                 }
+                $estado = Pedido::select('estado_pedidos.id')->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")->where("pedidos.id", $pedido->id)->value('id');
                 if ($usuarioEnSesion->can('abono/crear')) {
-                    if ($nAbonos != $precio) {
-                        if ($acciones == null) {
-                            $acciones = '<a class="btn btn-success btn-sm" href="/abono/crear/' . $pedido->id . '" ><i class="fas fa-dollar-sign"></i> Abono</a> ';
-                        } else {
-                            $acciones .= '<a class="btn btn-success btn-sm" href="/abono/crear/' . $pedido->id . '" ><i class="fas fa-dollar-sign"></i> Abono</a> ';
+                    if($estado!=3){
+                        if ($nAbonos != $precio) {
+                            if ($acciones == null) {
+                                $acciones = '<a class="btn btn-success btn-sm" href="/abono/crear/' . $pedido->id . '" ><i class="fas fa-dollar-sign"></i> Abono</a> ';
+                            } else {
+                                $acciones .= '<a class="btn btn-success btn-sm" href="/abono/crear/' . $pedido->id . '" ><i class="fas fa-dollar-sign"></i> Abono</a> ';
+                            }
                         }
                     }
                 }
@@ -634,8 +643,12 @@ class PedidoController extends Controller
         }
     }
 
-    public function cancelarP()
+    public function cancelarP($url)
     {
+        if ($url!=="0") {
+            Cart::clear();
+            return redirect("/pedido/ver/$url");
+        }
         Cart::clear();
         return redirect("/pedido");
     }
@@ -898,7 +911,7 @@ class PedidoController extends Controller
             ->get();
 
         $precio = Pedido::select('precio')->where('pedidos.id', $pedido->id)->value('precio');
-        $abonos = Abono::select("*")->where('idPedido', $pedido->id)->get();
+        $abonos = Abono::select("*")->where('idPedido', $pedido->id)->where('estado',1)->get();
         $nAbonos = 0;
         $resta = 0;
         $paga = false;
@@ -914,7 +927,8 @@ class PedidoController extends Controller
         $porcentaje = ($nAbonos * 100) / $precio;
         $porcentaje = intval($porcentaje);
         // dd($detallePedidos);
-        return view('pedido.ver', compact("detallePedidos", "pedido", "cliente", "nombreEstado", "paga", "porcentaje"));
+        $estado = Pedido::select('estado_pedidos.id')->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")->where("pedidos.id", $pedido->id)->value('id');
+        return view('pedido.ver', compact("detallePedidos", "pedido", "estado", "cliente", "nombreEstado", "paga", "porcentaje"));
     }
     //cada que se cambie el estado del pedido que notifique al cliente 
 

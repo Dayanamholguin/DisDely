@@ -198,6 +198,9 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'abono/verIndividual',
                 'description' => 'Abono ver individual'])->syncRoles($admin, $cliente);
 
+        Permission::create(['name' => 'abono/cambiarEstado',
+                'description' => 'Anular abono'])->syncRoles($admin);
+
         Permission::create(['name' => 'configuracion/editar',
                 'description' => 'Editar configuración principal'])->syncRoles($admin);
 

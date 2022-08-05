@@ -9,7 +9,13 @@
         @if(\Cart::getTotalQuantity()>0)
         <div class="card">
             <div class="card-header text-center">
-                <strong>Edición del pedido</strong> / <a href="/pedido" class="alert-link titulo">Volver</a>
+                <strong>Edición del pedido</strong> /
+                @if (strpos(url()->previous(), "/pedido/ver/"))
+                    <a href="/cancelarP/{{substr(url()->previous(), -1)}}" class="titulo alert-link">Volver</a></p>
+                @else
+                <a href="/pedido" class="titulo alert-link">Volver</a></p>
+                @endif
+                {{-- <a href="/pedido" class="alert-link titulo">Volver</a> --}}
             </div>
             <div class="card-body">
                 @include('flash::message')
@@ -80,7 +86,7 @@
                         </div>
                         <div class="col-12 centrado">
                             <button type="submit" class="btn btn-primary mr-3"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAUxJREFUSEvNlN0xBEEUhb8TAZsBEbARKBGQAV55YCMgAzzwakWADGRgRUAGNoOjempazU/PTFfNrtr7ONN9v3vOvbfFmkNrzs//AWy7VLME5pJmq1D3p6ACiHkPJb2PhbQssn0F3AJvko5TgFiMpEGLU4Bt4KdMvCvpuwkZBQjJbM+BE+BeUlBUi1UA9oEPYClpUkLjECTb0mVXp4e2F8AecCZpnhiCGigAUsr7AKfAE7CQNK1m67LIdhjxLWAqKRTYv2ipC1W7qrbYjgV9SgoWF9E7ZrbvgEvgWVJIUERKge2wMwfR0lzADvBVHp5ICha0wnbnucFFsf0KHAEzSUFRCnADXDeVDlpU2hG2+SU5m+2PredlUEEJiSPbx6k1N6sHmVX3HstV8ACcA4+SLho70fkvqwfVsSwuNF7Q6oannovNUDCmF1kKNhrwC7rGoRm2ijZeAAAAAElFTkSuQmCC" /> Editar pedido</button>
-                            <a href="/cancelarP" class="btn btn-secondary">Cancelar</a>
+                            <a href="/cancelarP/0" class="btn btn-secondary">Cancelar</a>
                         </div>
                     </div>
             </div>
@@ -321,7 +327,7 @@
             return this.optional(element) || pattern.test(value);
         }, "Solo digite números positivos, por favor");
         $.validator.addMethod("letras", function (value, element) {
-            var pattern = /^[0-9a-zA-Z-áéíóúÁÉÍÓÚÜüñÑ]+$/;
+            var pattern = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s]+$/g;
             return this.optional(element) || pattern.test(value);
         }, "No se admite caracteres especiales ni espacios vacíos ni al inicio ni al final");
         jQuery.validator.addMethod("cero", function(value, element) {
@@ -339,7 +345,7 @@
                 minlength: 10
             },
             saborDeseado: {
-                espaciosycaracteres: true,
+                // espaciosycaracteres: true,
                 letras:true,
                 required: true,
                 maxlength:100

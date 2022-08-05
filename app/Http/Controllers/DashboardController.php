@@ -47,7 +47,7 @@ class DashboardController extends Controller
         $pedidos=Pedido::all();
         foreach ($pedidos as $pedido) {
             $precio = Pedido::select('precio')->where('pedidos.id', $pedido->id)->value('precio');
-            $abonos = Abono::select("*")->where('idPedido', $pedido->id)->get();
+            $abonos = Abono::select("*")->where('idPedido', $pedido->id)->where('estado',1)->get();
             $nAbonos = 0;
             $resta = 0;
             $paga=false;

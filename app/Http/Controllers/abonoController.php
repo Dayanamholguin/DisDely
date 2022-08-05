@@ -32,6 +32,7 @@ class abonoController extends Controller
             ->join("users", "users.id", "pedidos.idUser")
             ->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")
             ->where("users.id", Auth::user()->id)
+            ->distinct()
             ->get();
         }else {
             $pedido = Abono::select("pedidos.*")
@@ -51,12 +52,18 @@ class abonoController extends Controller
                 $usuarioEnSesion = User::findOrFail(auth()->user()->id);
                 $acciones=null; 
                 if($usuarioEnSesion->can('abono/ver')){
-                    $acciones = '<a class="btn btn-info btn-sm" href="/abono/verAbonoPedido/' . $pedido->id . '" ><i class="fas fa-info-circle"></i> Ver abono de los pedidos</a> ';
+                    $acciones = '<a class="btn btn-info btn-sm" href="/abono/verAbonoPedido/' . $pedido->id . '" ><i class="fas fa-info-circle"></i> Ver abonos del pedido</a> ';
                 }
                 return $acciones;
             })
             ->rawColumns(['acciones', 'fecha', 'idPedido'])
             ->make(true);
+    }
+    public function verAbonoAjax($id)
+    {
+        $abono = Abono::find($id);
+        $nombre = Abono::select('estado_abonos.nombre')->join("estado_abonos", "estado_abonos.id", "abonos.estado")->where("estado_abonos.id", $abono->estado)->value('nombre');
+        return compact("abono", "nombre");
     }
     public function crear($id)
     {
@@ -65,10 +72,8 @@ class abonoController extends Controller
             Flash("No se encontró el pedido")->error()->important();
             return redirect("/pedido");
         }
-
-
         $precio = Pedido::select('precio')->where('pedidos.id', $pedido->id)->value('precio');
-        $abonos = Abono::select("*")->where('idPedido', $pedido->id)->get();
+        $abonos = Abono::select("*")->where('idPedido', $pedido->id)->where('estado',1)->get();
         $nAbonos = 0;
         if (count($abonos) > 0) {
             foreach ($abonos as $value) {
@@ -88,7 +93,7 @@ class abonoController extends Controller
         }
 
         // dd($pedido->id);
-        $abonos = Abono::select("*")->where('idPedido', $pedido->id)->get();
+        $abonos = Abono::select("*")->where('idPedido', $pedido->id)->where('estado',1)->get();
         $nAbonos = 0;
         $resta = 0;
         if (count($abonos) > 0) {
@@ -97,9 +102,52 @@ class abonoController extends Controller
             }
             $resta = $pedido->precio - $nAbonos;
         }
+        $estado = Pedido::select('estado_pedidos.id')->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")->where("pedidos.id", $id)->value('id');
+        $estadoNombre = Pedido::select('estado_pedidos.nombre')->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")->where("pedidos.id", $id)->value('nombre');
 
+        if (($estado == 3) || ($estadoNombre == "Anulado")) {
+            Flash("No se puede abonar al pedido ya que está anulado.")->warning()->important();
+            return back();
+        }
         return view("abono.crear", compact("pedido", "nombreCliente", "abonos", "nAbonos", "resta"));
     }
+    public function AnularDevolver($id)
+    {
+        $abono = Abono::find($id);
+        return $abono;
+    }
+    public function AnularDevolverGuardar(Request $request)
+    {
+        $abono=Abono::find($request->id);
+        if ($abono==null) {
+            Flash('No se encontró el abono')->error()->important();
+            return back();
+        }
+        if ($abono->estado!=1) {
+            Flash('No es posible hacer anulación o devolución a este abono')->error()->important();
+            return back();
+        }
+        $campos = [
+            // 'cliente' => ['in:1,2'],
+            'estado' => ['in:2,3'],
+            'justificacion' => 'required|min:5|max:500',
+        ];
+        $this->validate($request, $campos);
+        $estado=$request->estado=="2"?2:3;
+        $nombre=$estado==2?"Anulado":"Devuelto";
+        try {
+            $abono->update([
+                "justificacion" => ucfirst($request->justificacion),
+                "estado" => $estado
+            ]);
+            Flash("Se ha «" . $nombre . "» el abono exitosamente")->success()->important();
+            return back();
+        } catch (\Exception $e) {
+            Flash("No fue «" . $nombre . "» el abono")->error()->important();
+            return back();
+        }
+    }
+
     public function verAbonoPedido($id)
     {
         $pedido=Pedido::find($id);
@@ -107,6 +155,7 @@ class abonoController extends Controller
             Flash('No se encontró el pedido')->error()->important();
             return back();
         }
+        
         $usuarioEnSesion = User::findOrFail(auth()->user()->id);
         if ($usuarioEnSesion->hasRole('Admin')==false)
         {
@@ -115,8 +164,11 @@ class abonoController extends Controller
                 return redirect("/abono");
             }
         }
-        $abonos = Abono::select("*")->where('idPedido', $pedido->id)->get();
-        return view("abono.verAbonoPedido", compact("pedido", "abonos"));
+        $abonos = Abono::select("*")->where('idPedido', $pedido->id)->where('estado',1)->get();
+        $abonosAnulado = Abono::select("*")->where('idPedido', $pedido->id)->where('estado',2)->get();
+        $abonosDevuelto = Abono::select("*")->where('idPedido', $pedido->id)->where('estado',3)->get();
+        
+        return view("abono.verAbonoPedido", compact("pedido", "abonos", "abonosAnulado","abonosDevuelto"));
     }
     public function guardar(Request $request)
     {
@@ -139,7 +191,7 @@ class abonoController extends Controller
         $input = $request->all();
         $precioFormulario = intval(str_replace('.', '', $input["precioPagar"]));
         $precio = Pedido::select('precio')->where('pedidos.id', $pedido->id)->value('precio');
-        $abonos = Abono::select("*")->where('idPedido', $pedido->id)->get();
+        $abonos = Abono::select("*")->where('idPedido', $pedido->id)->where('estado',1)->get();
         $nAbonos = 0;
         $resta = 0;
         if (count($abonos) > 0) {
@@ -149,19 +201,26 @@ class abonoController extends Controller
             $resta = $pedido->precio - $nAbonos;
         }
         if ($nAbonos == $precio) {
-            Flash("Ya pagó el pedido " . $pedido->id . ", por lo tanto, no es posible realizar más abonos a ese pedido.")->warning()->important();
+            Flash("Ya pagó el pedido " . $pedido->id . ". Por lo tanto, no es posible realizar más abonos a ese pedido.")->warning()->important();
             return redirect("/pedido");
         }
         if ($resta > 0) {
             if ($precioFormulario > $resta) {
-                Flash("Solo resta " . number_format($resta, 0, '.', '.') . ", por favor, digite nuevamente el valor a abonar.")->warning()->important();
+                Flash("Solo resta " . number_format($resta, 0, '.', '.') . ". Por favor, digite nuevamente el valor a abonar.")->warning()->important();
                 return back();
             }
         }else {
             if ($precioFormulario>$precio) {
-                Flash("Solo debe " . number_format($precio, 0, '.', '.') . ", por tanto, registre nuevamente el valor a abonar del pedido.")->warning()->important();
+                Flash("Solo debe " . number_format($precio, 0, '.', '.') . ". Por lo tanto, registre nuevamente el valor a abonar del pedido.")->warning()->important();
                 return back();
             }
+        }
+        $estado = Pedido::select('estado_pedidos.id')->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")->where("pedidos.id", $pedido->id)->value('id');
+        $estadoNombre = Pedido::select('estado_pedidos.nombre')->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")->where("pedidos.id", $pedido->id)->value('nombre');
+
+        if (($estado == 3) || ($estadoNombre == "Anulado")) {
+            Flash("No se puede abonar al pedido ya que está anulado.")->warning()->important();
+            return back();
         }
         try {
             $imagen = null;
@@ -173,13 +232,14 @@ class abonoController extends Controller
             Abono::create([
                 "idPedido" => $pedido->id,
                 "precioPagar" => $precioFormulario,
-                "img" => $imagen
+                "img" => $imagen,
+                "estado" => 1
             ]);
             
             Flash("Se ha registrado el abono del pedido " . $pedido->id . " éxitosamente.")->success()->important();
             return redirect("/pedido");
         } catch (\Exception $e) {
-            Flash($e->getMessage())->error()->important();
+            Flash($e->getMessage(). " acá estoy")->error()->important();
             return redirect("/pedido");
         }
     }
@@ -190,6 +250,7 @@ class abonoController extends Controller
             Flash("No se encontró el pedido")->error()->important();
             return redirect("/pedido");
         }
+        $estado = Pedido::select('estado_pedidos.id')->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")->where("pedidos.id", $pedido->id)->value('id');
         $usuarioEnSesion = User::findOrFail(auth()->user()->id);
         if ($usuarioEnSesion->hasRole('Admin')==false)
         {
@@ -202,7 +263,10 @@ class abonoController extends Controller
         $cliente = Pedido::select('users.*')->join('users', 'users.id', 'pedidos.idUser')->where('pedidos.id', $pedido->id)->get();
         // dd($cliente);
         $precio = Pedido::select('precio')->where('pedidos.id', $pedido->id)->value('precio');
-        $abonos = Abono::select("*")->where('idPedido', $pedido->id)->get();
+        $abonos = Abono::select("*")->where('idPedido', $pedido->id)->where('estado',1)->get();
+        $abonosAnulado = Abono::select("*")->where('idPedido', $pedido->id)->where('estado',2)->get();
+        $abonosDevuelto = Abono::select("*")->where('idPedido', $pedido->id)->where('estado',3)->get();
+        
         $nAbonos = 0;
         $resta = 0;
         $paga=false;
@@ -217,7 +281,8 @@ class abonoController extends Controller
         }
         $porcentaje = ($nAbonos*100)/$precio;
         $porcentaje = intval($porcentaje);
-        return view("abono.ver", compact("pedido", "cliente", "abonos", "nAbonos", "resta", "precio", "paga", "porcentaje"));
+        // $abonos = Abono::select("*")->where('idPedido', $pedido->id)->get();
+        return view("abono.ver", compact("pedido", "abonosAnulado", "abonosDevuelto","estado", "cliente", "abonos", "nAbonos", "resta", "precio", "paga", "porcentaje"));
     }
     
     public function verImagen($imagen)

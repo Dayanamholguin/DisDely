@@ -277,24 +277,22 @@
             return this.optional(element) || parseInt(value) > 0;
         }, "Debe ser mayor a cero");
         $.validator.addMethod("letras", function (value, element) {
-            var pattern = /^[0-9a-zA-Z-áéíóúÁÉÍÓÚÜüñÑ]+$/;
+            var pattern = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s]+$/g;
             return this.optional(element) || pattern.test(value);
         }, "No se admite caracteres especiales ni espacios vacíos ni al inicio ni al final");
         jQuery.validator.addMethod("espaciosycaracteres", function(value, element) {
-            return this.optional(element) || (((value).trim().length > 0) && (value).length > 4);
-        }, "No dejar espacios vacíos en el campo y mayor a 5 caracteres");
-        jQuery.validator.addMethod("fecha", function(value, element) {
-            return this.optional(element) || (((value).trim().length > 0) && (value).length > 4);
-        }, "No dejar espacios vacíos en el campo y mayor a 5 caracteres");
+            return this.optional(element) || (((value).trim().length > 0) && (value).length > 3);
+        }, "No dejar espacios vacíos en el campo y mayor a 3 caracteres");
+        
     $('#form2').validate({
         rules: {
             frase: {
                 minlength: 10
             },
             saborDeseado: {
-                espaciosycaracteres: true,
-                letras:true,
                 required: true,
+                letras:true,
+                minlength:3,
                 maxlength:100
             },
             pisos: {
@@ -310,7 +308,7 @@
             descripcionProducto: {
                 required: true, 
                 minlength: 20,
-                maxlength:1200
+                maxlength:500
             }
         }
     });

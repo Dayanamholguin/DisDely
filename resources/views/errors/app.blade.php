@@ -30,7 +30,7 @@
                 <div class="error mx-auto" data-text="@yield('error')">@yield('error')</div>
                     <p class="lead text-gray-800 mb-5">@yield('errorNombre')</p>
                     <p class="text-gray-500 mb-0">Parece que encontraste un error</p>
-                    <a href="/" class="alert-link titulo">← Ir a página principal</a>
+                    <a href="{{url()->previous()}}" class="alert-link titulo">← Ir a página principal</a>
                 </div>
         </div>
         <script src="/js/jquery-3.6.0.min"></script>

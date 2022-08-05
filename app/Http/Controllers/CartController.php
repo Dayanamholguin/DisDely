@@ -51,15 +51,19 @@ class CartController extends Controller
     public function agregarCarrito(Request $request)
     {
         // dd(?'personalizado':'Nomral');
+        
         if($request->idProducto==1){
             $campos = [
                 'img' => ['required', 'image'],
             ];
             $this->validate($request, $campos);
         }
+        
         // $request->validate(reportes::$rules);
         $request->validate(detalle_cotizaciones::$rules);
+        
         $producto = Producto::find($request->idProducto);
+        
         if ($producto == null) {
             Flash::error("No se encontró el producto");
             return back();
@@ -68,18 +72,22 @@ class CartController extends Controller
             Flash::error("El nombre del producto no coincide");
             return back();
         }
+        
         $img = null;
         if ($request->img != null) {
             $img = $producto->nombre . '.' . time() . '.' . $request->img->extension();
             $request->img->move(public_path('imagenes'), $img);
         }
+        
         $userId = Usuario::find($request->idUser);
         
         if ($userId==null) {
-            Flash::error("No se encuentra el cliente");
+            Flash("No se encuentra el cliente")->error();
             return back();
         }
+        
         $usuarioEnSesion = User::findOrFail(auth()->user()->id);
+        
         $userName =$userId->nombre. " " .$userId->apellido;
         $cotizacion = 0;
         $carritoCollection = \Cart::getContent();
@@ -88,32 +96,37 @@ class CartController extends Controller
                 $cotizacion = $value->attributes->idCotizacion;
             }
         }
-        // dd($producto->id);
-        \Cart::add(array(
-            'id' => $producto->id,
-            'name' => $producto->nombre,
-            'price' => 0,
-            'quantity' => 1,
-            'attributes' => array(
-                'idCotizacion'=>$cotizacion==null?0:$cotizacion,
-                'img' => $producto->img==null?$img:$producto->img,
-                'saborDeseado' => ucfirst($request->saborDeseado),
-                'numeroPersonas' => $request->numeroPersonas,
-                'frase' => ucfirst($request->frase),
-                'pisos' => $request->pisos,
-                'descripcionProducto' => ucfirst($request->descripcionProducto),
-                'clienteId' => $userId,
-                'cliente' => $userName,
-                'imagen1' => $img,
-            )
-        ));
-        // dd(\Cart::getContent());
-        if ($cotizacion!=null) {
-            Flash("Se agregó correctamente el producto, ¡puedes agregar más!")->success()->important();
-            return redirect("/cotizacion/editar/$cotizacion");
+        try {
+            \Cart::add(array(
+                'id' => $producto->id,
+                'name' => $producto->nombre,
+                'price' => 0,
+                'quantity' => 1,
+                'attributes' => array(
+                    'idCotizacion'=>$cotizacion==null?0:$cotizacion,
+                    'img' => $producto->img==null?$img:$producto->img,
+                    'saborDeseado' => ucfirst($request->saborDeseado),
+                    'numeroPersonas' => $request->numeroPersonas,
+                    'frase' => ucfirst($request->frase),
+                    'pisos' => $request->pisos,
+                    'descripcionProducto' => ucfirst($request->descripcionProducto),
+                    'clienteId' => $userId,
+                    'cliente' => $userName,
+                    'imagen1' => $img,
+                )
+            ));
+            // dd(\Cart::getContent());
+            if ($cotizacion!=null) {
+                Flash("Se agregó correctamente el producto, ¡puedes agregar más!")->success()->important();
+                return redirect("/cotizacion/editar/$cotizacion");
+            }
+            Flash("Se agregó correctamente el producto, ¡puedes agregar más!")->success();
+            
+        } catch (\Throwable $e) {
+            Flash("No fue posible realizar esta operación")->error();
         }
-        Flash::success("Se agregó correctamente el producto, ¡puedes agregar más!");
-        $productos = Producto::all()->where('catalogo', 1)->where('id', '>', 1);
+        // $productos = Producto::all()->where('catalogo', 1)->where('id', '>', 1)->paginate(7);
+        $productos = Producto::where('catalogo', 1)->where('id', '>', 1)->paginate(7);
         return view('producto.catalogo', compact("productos", "usuarioEnSesion"));
     }
 

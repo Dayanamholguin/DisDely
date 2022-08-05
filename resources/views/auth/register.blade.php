@@ -147,8 +147,8 @@ Registrar - DisDely
             return this.optional(element) || pattern.test(value);
         }, "No se admite caracteres especiales");
         jQuery.validator.addMethod("espaciosycaracteres", function(value, element) {
-            return this.optional(element) || (((value).trim().length > 0) && (value).length > 4);
-        }, "No dejar espacios vacíos en el campo y mayor a 5 caracteres");
+            return this.optional(element) || (((value).trim().length > 0) && (value).length > 3);
+        }, "No dejar espacios vacíos en el campo y mayor a 3 caracteres");
         $('#form').validate({
             rules: {
                 nombre: {

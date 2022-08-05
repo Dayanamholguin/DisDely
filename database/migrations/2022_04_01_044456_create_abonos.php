@@ -19,8 +19,14 @@ return new class extends Migration
             $table->unsignedBigInteger('idPedido');  
             $table->foreign('idPedido')->references('id')->on('pedidos');
 
-            $table->double('precioPagar');
             $table->String('img',500)->nullable();
+            $table->double('precioPagar');
+
+            $table->text('justificacion')->nullable();
+
+            $table->unsignedBigInteger('estado');  
+            $table->foreign('estado')->references('id')->on('estado_abonos');
+
             $table->timestamps();            
         });
     }

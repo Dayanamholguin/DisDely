@@ -65,7 +65,7 @@ Abonos
                 <div class="col-md-2 col-sm-12">
                     <div class="form-group">
                         <label for="">Falta por abonar</label>
-                        <input class="form-control" type="text" id="resta" readonly value="{{$resta}}">
+                        <input class="form-control" type="text" id="resta" readonly value="{{$resta==0?$pedido->precio:$resta}}">
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
@@ -80,7 +80,11 @@ Abonos
                     </div>
                 </div>
                 <div class="col-12 d-flex justify-content-between align-items-center">
-                    <a href="/pedido" class="btn btn-primary tipoletra">Volver</a>
+                    @if (strpos(url()->previous(), "/abono/ver/"))
+                        <a href="{{url()->previous()}}" class="btn btn-primary tipoletra">Volver</a>
+                    @else
+                        <a href="/pedido" class="btn btn-primary tipoletra">Volver</a>
+                    @endif
                     <button type="submit" class="btn btn-primary tipoletra">Registrar abono</button>
                 </div>
             </div>

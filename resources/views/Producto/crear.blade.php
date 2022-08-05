@@ -26,7 +26,7 @@ Productos
                         <select class="form-control" name="categoria">
                             <option value="">Seleccione</option>
                             @foreach($categorias as $key => $value)
-                            <option value="{{ $value->id }}" {{old('categorias' ) == $value->id ? 'selected' : ''}}>
+                            <option value="{{ $value->id }}" {{old('categoria' ) == $value->id ? 'selected' : ''}}>
                                 {{ $value->nombre }}</option>
                             @endforeach
                             
@@ -45,7 +45,7 @@ Productos
                         <select class="form-control" name="sabor">
                             <option value="">Seleccione</option>
                             @foreach($sabores as $key => $value)
-                            <option value="{{$value->id}}" {{old('sabores' ) == $value->id ? 'selected' : ''}}>
+                            <option value="{{$value->id}}" {{old('sabor' ) == $value->id ? 'selected' : ''}}>
                                 {{$value->nombre}}</option>
                             @endforeach
                             
@@ -64,7 +64,7 @@ Productos
                         <select class="form-control" name="etapa">
                             <option value="">Seleccione</option>
                             @foreach($etapas as $key => $value)
-                            <option value="{{$value->id}}" {{old('etapas' ) == $value->id ? 'selected' : ''}}>
+                            <option value="{{$value->id}}" {{old('etapa' ) == $value->id ? 'selected' : ''}}>
                                 {{$value->nombre}}</option>
                             @endforeach
                            
@@ -148,6 +148,7 @@ Productos
                     <div class="form-group">
                         <label for="">¿Desea añadirlo al catálogo?<strong style="color: red"> *</strong></label>
                         <select class="form-control" name="catalogo">
+                            <option value="" selected>Seleccione</option>
                             <option value="1">Sí</option>
                             <option value="0">No</option>
                         </select>
@@ -174,12 +175,12 @@ Productos
             return this.optional(element) || parseInt(value) > 0;
         }, "Debe ser mayor a cero");
         $.validator.addMethod("letras", function (value, element) {
-            var pattern = /^[A-Za-z0-9áéíóúüÜÑñ\s]+$/g;
+            var pattern = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s]+$/g;
             return this.optional(element) || pattern.test(value);
-        }, "No se admite caracteres especiales");
+        }, "No se admite caracteres especiales ni espacios vacíos ni al inicio ni al final");
         jQuery.validator.addMethod("espaciosycaracteres", function(value, element) {
-            return this.optional(element) || (((value).trim().length > 0) && (value).length > 4);
-        }, "No dejar espacios vacíos en el campo y mayor a 5 caracteres");
+            return this.optional(element) || (((value).trim().length > 0) && (value).length > 3);
+        }, "No dejar espacios vacíos en el campo y mayor a 3 caracteres");
         $('#form').validate({
             rules: {
                 nombre: {
@@ -201,7 +202,7 @@ Productos
                 descripcion: {
                     required: true, 
                     minlength: 20,
-                    maxlength:1200
+                    maxlength:500
                 },
                 imagen: {
                     required: true,

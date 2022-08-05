@@ -133,7 +133,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/pedido/guardar', [PedidoController::class, 'guardar'])->middleware('can:pedido/crear');
     Route::get('/pedido/ver/{id}', [PedidoController::class, 'verDetalle'])->middleware('can:pedido/ver');
     Route::get('/pedido/editar/{id}', [PedidoController::class, 'editar'])->middleware('can:pedido/editar');
-    Route::get('/cancelarP', [PedidoController::class, 'cancelarP'])->middleware('can:pedido/editar');
+    Route::get('/cancelarP/{url}', [PedidoController::class, 'cancelarP'])->middleware('can:pedido/editar');
     Route::post('/pedido/actualizar', [PedidoController::class, 'modificar'])->middleware('can:pedido/editar');
     Route::get('/ver/imagenPedido/{imagen}', [PedidoController::class, 'verImagen']);
     Route::post('/limpiarCarritoPedido', [PedidoController::class, 'limpiarCarritoPedido'])->middleware('can:limpiarCarritoPedido');
@@ -152,7 +152,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/abono/verIndividual/{id}', [abonoController::class, 'verIndividual'])->middleware('can:abono/verIndividual');
     Route::get('/ver/imagenAbono/{imagen}', [abonoController::class, 'verImagen']);
     Route::post('/abono/guardar', [abonoController::class, 'guardar'])->middleware('can:abono/crear');
-    
+    Route::get('/abono/AD/{id}', [abonoController::class, 'AnularDevolver'])->middleware('can:abono/cambiarEstado');
+    Route::post('/abono/AD/guardar', [abonoController::class, 'AnularDevolverGuardar'])->middleware('can:abono/cambiarEstado');
+    Route::get('/abono/verAbonoAjax/{id}', [abonoController::class, 'verAbonoAjax'])->middleware('can:/abono');
     // principal - configruacion
     Route::get('/configuracion/editar', [PrincipalController::class, 'editar'])->middleware('can:configuracion/editar'); //->middleware('password.confirm');
     Route::post('/configuracion/actualizar', [PrincipalController::class, 'modificar'])->middleware('can:configuracion/editar'); //->middleware('password.confirm');
