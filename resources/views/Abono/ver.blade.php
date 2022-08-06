@@ -148,7 +148,7 @@ Abonos
                                             <div class="col-md-12 col-sm-12">
                                                 <div class="form-group">
                                                     <label for=""><b>Razón</b> <b style="color: red" data-toggle="tooltip" data-placement="top" title="Requerido"> *</b></label>
-                                                    <select name="estado" id="estado" class="form-control @error('estado') is-invalid @enderror">
+                                                    <select name="estado" class="form-control @error('estado') is-invalid @enderror">
                                                         <option value="" >Seleccione</option>
                                                         <option value="2" {{old('estado' ) == 1 ? 'selected' : ''}}>Anulado</option>
                                                         <option value="3" {{old('estado' ) == 2 ? 'selected' : ''}}>Devuelto</option>
@@ -365,7 +365,7 @@ Abonos
                         <div class="col-md-12 col-sm-12">
                             <div class="form-group">
                                 <label for=""><strong>Justificación</strong></label>
-                                <p id="justificacion"> </p>    
+                                <p id="justificacionM"> </p>    
                             </div>
                         </div>
                     </div>         
@@ -425,7 +425,7 @@ Abonos
                     $('#precioAbono').html((number_format(res.abono.precioPagar, 0, '.', '.')));
                     $('#estado').html(res.nombre);
                     $('#fecha').html(ucwords(new Date(res.abono.updated_at).toLocaleDateString("es-ES", options)));
-                    $('#justificacion').html(res.abono.justificacion);
+                    $('#justificacionM').html(res.abono.justificacion);
                 },
             });
     }
