@@ -147,11 +147,13 @@ Cotización
                 numeros:true,
                 required: true,
                 cero: true,
+                max:99
             },
             numeroPersonas: {
                 required: true,
                 numeros: true, 
-                min:10
+                min:10,
+                max:1000
             },
             descripcionProducto: {
                 required: true, 

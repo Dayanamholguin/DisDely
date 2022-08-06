@@ -148,7 +148,7 @@ Abonos
                                             <div class="col-md-12 col-sm-12">
                                                 <div class="form-group">
                                                     <label for=""><b>Razón</b> <b style="color: red" data-toggle="tooltip" data-placement="top" title="Requerido"> *</b></label>
-                                                    <select name="estado" class="form-control @error('estado') is-invalid @enderror">
+                                                    <select name="estado" id="estado" class="form-control @error('estado') is-invalid @enderror">
                                                         <option value="" >Seleccione</option>
                                                         <option value="2" {{old('estado' ) == 1 ? 'selected' : ''}}>Anulado</option>
                                                         <option value="3" {{old('estado' ) == 2 ? 'selected' : ''}}>Devuelto</option>
@@ -178,7 +178,7 @@ Abonos
                                             <div class="col-md-8 col-sm-12">
                                                 <div class="form-group">
                                                     <label for=""><b>Justificación</b> <b style="color: red" data-toggle="tooltip" data-placement="top" title="Requerido"> *</b></label>
-                                                    <input type="text" class="form-control form-control-sm"  value="" name="justificacion">
+                                                    <input type="text" class="form-control form-control-sm"  value="" name="justificacion" id="justificacion">
                                                     @error('justificacion')
                                                         <div class="alert alert-danger" role="alert">
                                                             {{$message}}
@@ -443,9 +443,14 @@ Abonos
     });
     
     function mostrar(abono) {
+        $('#idAbono').val("");
+        $('#nAbono').val("");
+        $('#precio').val("");
+        $('#justificacion').val("");
         // $("#abono").toggle(1000);
         $("#abono").slideToggle("slow");
         $.ajax({
+            
                 url: `/abono/AD/${abono}`,
                 type: "GET",
                 success: function (res) {

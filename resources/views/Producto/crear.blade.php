@@ -154,9 +154,9 @@ Productos
                         </select>
                     </div>
                 </div>
-                <div class="col-12 centrado">
-                    <button type="submit" class="btn btn-primary tipoletra">Crear</button>
+                <div class="col-12 d-flex justify-content-between align-items-center">
                     <a href="/producto" class="btn btn-primary tipoletra">Volver</a>
+                    <button type="submit" class="btn btn-primary tipoletra">Crear</button>
                 </div>
             </div>
         </form>
@@ -193,11 +193,13 @@ Productos
                     numeros:true,
                     required: true,
                     cero: true,
+                    max:99
                 },
                 numeroPersonas: {
                     required: true,
                     numeros: true, 
-                    min:10
+                    min:10,
+                    max:1000
                 },
                 descripcion: {
                     required: true, 

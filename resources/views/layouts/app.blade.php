@@ -288,7 +288,7 @@
                         </button>
                     </div>
                     <div class="modal-body">¿Está seguro que desea cerrar sesión?</div>
-                    <div class="modal-footer">
+                    <div class="modal-footer d-flex justify-content-between align-items-center">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
 
                         <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

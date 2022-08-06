@@ -23,13 +23,15 @@ Producto
                 <strong>Detalle del producto</strong>
             </div>
             <hr>
-            <p class="card-text">Categoría: {{$categoria}}</p>
-            <p class="card-text">Sabor: {{$sabor}}</p>
-            <p class="card-text">Etapa: {{$etapa}}</p>
-            <p class="card-text">Descripción: {{$producto->descripcion}}</p>
-            <p class="card-text">Número de Personas: {{$producto->numeroPersonas}}</p>
-            <p class="card-text">Número de Pisos: {{$producto->pisos}}</p>
-            <div class="centrado mb-3">
+            <div class="p-2 text-center">
+                <p class="card-text">Categoría: {{$categoria}}</p>
+                <p class="card-text">Sabor: {{$sabor}}</p>
+                <p class="card-text">Etapa: {{$etapa}}</p>
+                <p class="card-text">Descripción: {{$producto->descripcion}}</p>
+                <p class="card-text">Número de Personas: {{$producto->numeroPersonas}}</p>
+                <p class="card-text">Número de Pisos: {{$producto->pisos}}</p>
+            </div>
+            <div class="col-12 d-flex justify-content-between align-items-center mt-5">
                 <a href="/producto/catalogo" class="btn btn-primary">Volver</a>
                 @can('cotizacion/crear')
                     <a href="/cotizacion/crear/{{ $producto->id}}" class="btn btn-primary">Realizar cotización</a>   

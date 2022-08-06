@@ -134,7 +134,7 @@ Configuración
                     @enderror
                 </div>
                 
-                <div class="col-12 centrado mt-3">
+                <div class="col-12 d-flex justify-content-between align-items-center mt-3">
                     <button type="submit" class="btn btn-primary tipoletra">Editar configuración</button>
                     <a href="/configuracion/restablecer" class="btn btn-primary tipoletra">Restablecer datos iniciales</a>
                 </div>

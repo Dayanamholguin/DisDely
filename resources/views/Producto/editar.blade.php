@@ -168,9 +168,9 @@ Productos
                         </select>
                     </div>
                 </div>
-                <div class="col-12 centrado">
-                    <button type="submit" class="btn btn-primary tipoletra">Editar</button>
+                <div class="col-12 d-flex justify-content-between align-items-center">
                     <a href="/producto" class="btn btn-primary tipoletra">Volver</a>
+                    <button type="submit" class="btn btn-primary tipoletra">Editar</button>
                 </div>
             </div>
         </form>

@@ -28,7 +28,7 @@ Roles
                             @enderror
                         </div>
                         <br>
-                        <div class="form-group">
+                        <div class="form-group container">
                             <h5>Lista de permisos<strong style="color: red"> *</strong></h5>
                             <div class="row">
                                 @foreach ($permisos as $value)
@@ -46,9 +46,9 @@ Roles
                                 @endforeach
                             </div>
                         </div>
-                        <div class="col-12 centrado">
-                            <button type="submit" class="btn btn-primary tipoletra">Editar</button>
+                        <div class="col-12 d-flex justify-content-between align-items-center">
                             <a href="/rol" class="btn btn-primary tipoletra">Volver</a>
+                            <button type="submit" class="btn btn-primary tipoletra">Editar</button>
                         </div>
                     </div>
                 </div>
