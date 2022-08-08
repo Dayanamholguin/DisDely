@@ -7,7 +7,6 @@ use Carbon\Carbon;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use App\Providers\MailMessage;
 use App\Providers\Lang;
-use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,8 +28,6 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        Paginator::useBootstrap();
-
         Carbon::setLocale('es');
         setlocale(LC_TIME, 'es_ES');
         ##setlocale(LC_TIME, 'es_ES.utf8');

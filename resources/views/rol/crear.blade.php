@@ -23,10 +23,11 @@ Roles
                 <div class="row ">
                     <div class="col-auto">
                         <div class="form-group">
-                            <label for="name">Nombre<strong style="color: red"> *</strong></label>
+                            <label for="name">Nombre<b style="color: red" data-toggle="tooltip" data-placement="top"
+                                    title="Requerido"> *</b></label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror"
                                 value="{{old('name')}}" id="name" name="name" placeholder="Ingrese nombre del rol"
-                                required">
+                                required>
                             @error('name')
                             <div class="alert alert-danger" role="alert">
                                 {{$message}}
@@ -35,17 +36,18 @@ Roles
                         </div>
                         <br>
                         <div class="form-group container ">
-                            <h5>Lista de permisos<strong style="color: red"> *</strong></h5>
+                            <h5>Lista de Permisos<b style="color: red" data-toggle="tooltip" data-placement="top"
+                                    title="Requerido"> *</b></h5>
                             <div class="row">
                                 @foreach ($permissions as $permission)
-                                    <div class="col-4">
-                                        <label> 
-                                            <input type="checkbox" name="permissions[]" id="{{$permission->id}}" value="{{$permission->id}}"
-                                                class="mr-1">
-                                            {{$permission->description}}
-                                        </label>
-                                    </div>
-                                    
+                                <div class="col-4">
+                                    <label>
+                                        <input type="checkbox" name="permissions[]" id="{{$permission->id}}"
+                                            value="{{$permission->id}}" class="mr-1">
+                                        {{$permission->description}}
+                                    </label>
+                                </div>
+
                                 @endforeach
                             </div>
                         </div>
@@ -264,26 +266,26 @@ $('#16').change(function() {
     }
 });
 
-    //---------------------------------PRODUCTO
-    $('#17').change(function () {
-        if ($(this).prop("checked")) {
-            $('#18').prop('checked', true);
-            $('#19').prop('checked', true);
-            $('#20').prop('checked', true);
-            $('#21').prop('checked', true);
-            $('#22').prop('checked', true);
-            $('#23').prop('checked', true);
-            return;
-        }else {
-            $('#18').prop('checked', false);
-            $('#19').prop('checked', false);
-            $('#20').prop('checked', false);
-            $('#21').prop('checked', false);
-            $('#22').prop('checked', false);
-            $('#23').prop('checked', false);
-            return;
-        }
-    });
+//---------------------------------PRODUCTO
+$('#17').change(function() {
+    if ($(this).prop("checked")) {
+        $('#18').prop('checked', true);
+        $('#19').prop('checked', true);
+        $('#20').prop('checked', true);
+        $('#21').prop('checked', true);
+        $('#22').prop('checked', true);
+        $('#23').prop('checked', true);
+        return;
+    } else {
+        $('#18').prop('checked', false);
+        $('#19').prop('checked', false);
+        $('#20').prop('checked', false);
+        $('#21').prop('checked', false);
+        $('#22').prop('checked', false);
+        $('#23').prop('checked', false);
+        return;
+    }
+});
 
 $('#18').change(function() {
     if ($(this).prop("checked")) {
@@ -325,47 +327,47 @@ $('#21').change(function() {
     }
 });
 
-    $('#22').change(function () {
-        if ($(this).prop("checked")) {
-            $('#21').prop('checked', true);
-            $('#17').prop('checked', true);
-            return;
-        }else {
-            $('#21').prop('checked', false);
-            $('#17').prop('checked', false);
-        }
-    });
+$('#22').change(function() {
+    if ($(this).prop("checked")) {
+        $('#21').prop('checked', true);
+        $('#17').prop('checked', true);
+        return;
+    } else {
+        $('#21').prop('checked', false);
+        $('#17').prop('checked', false);
+    }
+});
 
-    $('#23').change(function () {
-        if ($(this).prop("checked")) {
-            $('#18').prop('checked', true);
-            $('#17').prop('checked', true);
-            
-            return;
-        }else {
-            $('#18').prop('checked', false);
-            $('#17').prop('checked', false);
-            return;
-        }
-    });
+$('#23').change(function() {
+    if ($(this).prop("checked")) {
+        $('#18').prop('checked', true);
+        $('#17').prop('checked', true);
 
-    //--------------------------USUARIO
-    $('#24').change(function () {
-        if ($(this).prop("checked")) {
-            $('#25').prop('checked', true);
-            $('#26').prop('checked', true);
-            $('#27').prop('checked', true);
-            $('#28').prop('checked', true);
-            $('#29').prop('checked', true);
-            return;
-        }else {
-            $('#25').prop('checked', false);
-            $('#26').prop('checked', false);
-            $('#27').prop('checked', false);
-            $('#28').prop('checked', false);
-            $('#29').prop('checked', false);
-        }
-    });
+        return;
+    } else {
+        $('#18').prop('checked', false);
+        $('#17').prop('checked', false);
+        return;
+    }
+});
+
+//--------------------------USUARIO
+$('#24').change(function() {
+    if ($(this).prop("checked")) {
+        $('#25').prop('checked', true);
+        $('#26').prop('checked', true);
+        $('#27').prop('checked', true);
+        $('#28').prop('checked', true);
+        $('#29').prop('checked', true);
+        return;
+    } else {
+        $('#25').prop('checked', false);
+        $('#26').prop('checked', false);
+        $('#27').prop('checked', false);
+        $('#28').prop('checked', false);
+        $('#29').prop('checked', false);
+    }
+});
 
 $('#25').change(function() {
     if ($(this).prop("checked")) {
@@ -385,56 +387,56 @@ $('#26').change(function() {
     }
 });
 
-    $('#27').change(function () {
-        if ($(this).prop("checked")) {
-            $('#24').prop('checked', true);
-            $('#25').prop('checked', true);
-            return;
-        }else {
-            $('#24').prop('checked', false);
-            $('#25').prop('checked', false);
-        }
-    });
+$('#27').change(function() {
+    if ($(this).prop("checked")) {
+        $('#24').prop('checked', true);
+        $('#25').prop('checked', true);
+        return;
+    } else {
+        $('#24').prop('checked', false);
+        $('#25').prop('checked', false);
+    }
+});
 
-    $('#28').change(function () {
-        if ($(this).prop("checked")) {
-            $('#24').prop('checked', true);
-            $('#25').prop('checked', true);
-            return;
-        }else {
-            $('#24').prop('checked', false);
-            $('#25').prop('checked', false);
-        }
-    });
+$('#28').change(function() {
+    if ($(this).prop("checked")) {
+        $('#24').prop('checked', true);
+        $('#25').prop('checked', true);
+        return;
+    } else {
+        $('#24').prop('checked', false);
+        $('#25').prop('checked', false);
+    }
+});
 
-    $('#29').change(function () {
-        if ($(this).prop("checked")) {
-            $('#24').prop('checked', true);
-            $('#25').prop('checked', true);
-            return;
-        }else {
-            $('#24').prop('checked', false);
-            $('#25').prop('checked', false);
-        }
-    });
+$('#29').change(function() {
+    if ($(this).prop("checked")) {
+        $('#24').prop('checked', true);
+        $('#25').prop('checked', true);
+        return;
+    } else {
+        $('#24').prop('checked', false);
+        $('#25').prop('checked', false);
+    }
+});
 
-    //------------------------CARRITO
-    // $('#30').change(function () {
-    //     if ($(this).prop("checked")) {
-    //         $('#25').prop('checked', true);
-    //         $('#26').prop('checked', true);
-    //         $('#27').prop('checked', true);
-    //         $('#28').prop('checked', true);
-    //         $('#29').prop('checked', true);
-    //         return;
-    //     }else {
-    //         $('#25').prop('checked', false);
-    //         $('#26').prop('checked', false);
-    //         $('#27').prop('checked', false);
-    //         $('#28').prop('checked', false);
-    //         $('#29').prop('checked', false);
-    //     }
-    // });
+//------------------------CARRITO
+// $('#30').change(function () {
+//     if ($(this).prop("checked")) {
+//         $('#25').prop('checked', true);
+//         $('#26').prop('checked', true);
+//         $('#27').prop('checked', true);
+//         $('#28').prop('checked', true);
+//         $('#29').prop('checked', true);
+//         return;
+//     }else {
+//         $('#25').prop('checked', false);
+//         $('#26').prop('checked', false);
+//         $('#27').prop('checked', false);
+//         $('#28').prop('checked', false);
+//         $('#29').prop('checked', false);
+//     }
+// });
 
 //------------------------------COTIZACIONES
 $('#36').change(function() {
@@ -975,26 +977,25 @@ $('#60').change(function() {
 });
 </script>
 <script>
-    
-    $(document).ready(function() {
-        $.validator.addMethod("letras", function (value, element) {
-            var pattern = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s]+$/g;
-            return this.optional(element) || pattern.test(value);
-        }, "No se admite caracteres especiales ni espacios vacíos ni al inicio ni al final");
-        jQuery.validator.addMethod("espaciosycaracteres", function(value, element) {
-            return this.optional(element) || (((value).trim().length > 0) && (value).length > 3);
-        }, "No dejar espacios vacíos en el campo y mayor a 3 caracteres");
-        
-        $('#form').validate({
-            rules: {
-                name: {
-                    // espaciosycaracteres:true,
-                    letras:true,
-                    required: true,
-                    maxlength:100
-                },
-            }
-        });
+$(document).ready(function() {
+    $.validator.addMethod("letras", function(value, element) {
+        var pattern = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s]+$/g;
+        return this.optional(element) || pattern.test(value);
+    }, "No se admite caracteres especiales ni espacios vacíos ni al inicio ni al final");
+    jQuery.validator.addMethod("espaciosycaracteres", function(value, element) {
+        return this.optional(element) || (((value).trim().length > 0) && (value).length > 3);
+    }, "No dejar espacios vacíos en el campo y mayor a 3 caracteres");
+
+    $('#form').validate({
+        rules: {
+            name: {
+                // espaciosycaracteres:true,
+                letras: true,
+                required: true,
+                maxlength: 100
+            },
+        }
     });
+});
 </script>
 @endsection

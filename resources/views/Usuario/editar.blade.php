@@ -39,7 +39,8 @@ Usuarios
                 </div> -->
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="nombre">Nombre<strong style="color: red"> *</strong></label>
+                        <label for="nombre">Nombre<b style="color: red" data-toggle="tooltip" data-placement="top"
+                                title="Requerido"> *</b></label>
                         <input value="{{$usuario->nombre}}" type="text"
                             class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre"
                             required>
@@ -52,7 +53,8 @@ Usuarios
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="apellido">Apellido<strong style="color: red"> *</strong></label>
+                        <label for="apellido">Apellido<b style="color: red" data-toggle="tooltip" data-placement="top"
+                                title="Requerido"> *</b></label>
                         <input value="{{$usuario->apellido}}" type="text"
                             class="form-control @error('apellido') is-invalid @enderror" id="apellido" name="apellido"
                             require>
@@ -65,7 +67,8 @@ Usuarios
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="email">Correo<strong style="color: red"> *</strong></label>
+                        <label for="email">Correo<b style="color: red" data-toggle="tooltip" data-placement="top"
+                                title="Requerido"> *</b></label>
                         <input value="{{$usuario->email}}" type="text"
                             class="form-control @error('email') is-invalid @enderror" id="email" name="email" required>
                         @error('email')
@@ -77,7 +80,8 @@ Usuarios
                 </div>
                 <div class="col-md-3 col-sm-12">
                     <div class="form-group">
-                        <label for="celular">Celular<strong style="color: red"> *</strong></label>
+                        <label for="celular">Celular<b style="color: red" data-toggle="tooltip" data-placement="top"
+                                title="Requerido"> *</b></label>
                         <input value="{{$usuario->celular}}" type="number"
                             class="form-control @error('celular') is-invalid @enderror" id="celular" name="celular"
                             required minlength="7" maxlength="10">
@@ -90,8 +94,8 @@ Usuarios
                 </div>
                 <div class="col-md-3 col-sm-12">
                     <div class="form-group">
-                        <label for="celularAlternativo">Celular alternativo<strong style="color: red">
-                                *</strong></label>
+                        <label for="celularAlternativo">Celular alternativo<b style="color: red" data-toggle="tooltip"
+                                data-placement="top" title="Requerido"> *</b></label>
                         <input value="{{$usuario->celularAlternativo}}" type="number"
                             class="form-control @error('celularAlternativo') is-invalid @enderror"
                             id="celularAlternativo" name="celularAlternativo" required minlength="7" maxlength="10">
@@ -105,7 +109,8 @@ Usuarios
                 @if ($usuarioEnSesion->hasRole('Admin')==false)
                 <div class="col-md-3 col-sm-12">
                     <div class="form-group">
-                        <label for="">Género<strong style="color: red"> *</strong></label>
+                        <label for="">Género<b style="color: red" data-toggle="tooltip" data-placement="top"
+                                title="Requerido"> *</b></label>
                         <select class="form-control" name="genero">
                             <option value="">Seleccione</option>
                             @foreach($generos as $key => $value)
@@ -123,7 +128,8 @@ Usuarios
                 </div>
 
                 <div class="col-md-3 col-sm-12">
-                    <label for="">Rol<strong style="color: red"> *</strong></label>
+                    <label for="">Rol<b style="color: red" data-toggle="tooltip" data-placement="top" title="Requerido">
+                            *</b></label>
                     <select class="form-control" name="roles[]">
                         @foreach ($roles as $key => $value)
                         <option {{$value->id == $consulta?'selected':''}} value="{{$value->id}}">{{$value->name}}
@@ -139,7 +145,8 @@ Usuarios
                 @else
                 <div class="col-md-6 col-sm-12">
                     <div class="form-group">
-                        <label for="">Género<strong style="color: red"> *</strong></label>
+                        <label for="">Género<b style="color: red" data-toggle="tooltip" data-placement="top"
+                                title="Requerido"> *</b></label>
                         <select class="form-control" name="genero">
                             <option value="">Seleccione</option>
                             @foreach($generos as $key => $value)
@@ -168,72 +175,72 @@ Usuarios
 
 @section('scripts')
 <script>
-     $.validator.addMethod("numeros", function (value, element) {
-            var pattern = /^[0-9]+$/;
-            return this.optional(element) || pattern.test(value);
-        }, "Solo digite números positivos, por favor");
-        $.validator.addMethod("email", function (value, element) {
-          var pattern = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
-          return this.optional(element) || pattern.test(value);
-        }, "Formato del email incorrecto");
-        $.validator.addMethod("letras", function (value, element) {
-            var pattern = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s]+$/g;
-            return this.optional(element) || pattern.test(value);
-        }, "No se admite caracteres especiales");
-        
-    $('#form').validate({
-        rules: {
-            email: {
-                required: true,
-                email: true
-            },
-            nombre: {
-                letras:true,
-                required: true,
-                maxlength:100
-            },
-            apellido: {
-                letras:true,
-                required: true,
-                maxlength:100
-            },
-            celularAlternativo: {
-                required: true,
-                numeros: true, 
-                minlength:7,
-                maxlength:10
-            },
-            celular: {
-                required: true,
-                numeros: true, 
-                minlength:7,
-                maxlength:10
-            },
-            genero: {
-                required: true
-            },
-            roles: {
-                required: true
-            }
-        }
-    });
-    $('#form').validate({
-        rules: {
-            nombre: {
-                mouseout: true,
-                required: true,
-            },
-            apellido: {
-                mouseout: true,
-                required: true,
-            },
-            email: {
-                mouseout: true,
-                required: true,
-                email: true
-            }
+$.validator.addMethod("numeros", function(value, element) {
+    var pattern = /^[0-9]+$/;
+    return this.optional(element) || pattern.test(value);
+}, "Solo digite números positivos, por favor");
+$.validator.addMethod("email", function(value, element) {
+    var pattern = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+    return this.optional(element) || pattern.test(value);
+}, "Formato del email incorrecto");
+$.validator.addMethod("letras", function(value, element) {
+    var pattern = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s]+$/g;
+    return this.optional(element) || pattern.test(value);
+}, "No se admite caracteres especiales");
+
+$('#form').validate({
+    rules: {
+        email: {
+            required: true,
+            email: true
         },
-    });
+        nombre: {
+            letras: true,
+            required: true,
+            maxlength: 100
+        },
+        apellido: {
+            letras: true,
+            required: true,
+            maxlength: 100
+        },
+        celularAlternativo: {
+            required: true,
+            numeros: true,
+            minlength: 7,
+            maxlength: 10
+        },
+        celular: {
+            required: true,
+            numeros: true,
+            minlength: 7,
+            maxlength: 10
+        },
+        genero: {
+            required: true
+        },
+        roles: {
+            required: true
+        }
+    }
+});
+$('#form').validate({
+    rules: {
+        nombre: {
+            mouseout: true,
+            required: true,
+        },
+        apellido: {
+            mouseout: true,
+            required: true,
+        },
+        email: {
+            mouseout: true,
+            required: true,
+            email: true
+        }
+    },
+});
 
 
 function ucfirst(str, force) {

@@ -5,34 +5,43 @@
     <div class="row container">
         <div class="col-md-12 col-sm-12">
             <div class="form-group">
-                <label for="">Contraseña actual<strong style="color:red;">*</strong></label>
-                <input type="password" class="form-control form-control-user @error('password') is-invalid @enderror" id="exampleInputPassword" placeholder="Ingrese contraseña actual" name="oldPassword" required>
+                <label for="">Contraseña actual<b style="color: red" data-toggle="tooltip" data-placement="top"
+                        title="Requerido"> *</b></label>
+                <input type="password" class="form-control form-control-user @error('password') is-invalid @enderror"
+                    id="exampleInputPassword" placeholder="Ingrese contraseña actual" name="oldPassword" required>
                 @error('password')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
                 @enderror
             </div>
         </div>
         <div class="col-md-12 col-sm-12">
             <div class="form-group">
-                <label for="">Nueva contraseña<strong style="color:red;">*</strong></label>
-                <input type="password" class="form-control form-control-user @error('password') is-invalid @enderror" id="exampleInputPassword" placeholder="Ingrese nueva contraseña" name="password" required autocomplete="new-password">
+                <label for="">Nueva contraseña<b style="color: red" data-toggle="tooltip" data-placement="top"
+                        title="Requerido"> *</b></label>
+                <input type="password" class="form-control form-control-user @error('password') is-invalid @enderror"
+                    id="exampleInputPassword" placeholder="Ingrese nueva contraseña" name="password" required
+                    autocomplete="new-password">
                 @error('password')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
                 @enderror
             </div>
         </div>
         <div class="col-md-12 col-sm-12">
             <div class="form-group">
-                <label for="">Confirmar nueva contraseña<strong style="color:red;">*</strong></label>
-                <input id="password-confirm" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" id="exampleRepeatPassword" placeholder="Confirme la nueva contraseña" name="password_confirmation" required autocomplete="new-password">
+                <label for="">Confirmar nueva contraseña<b style="color: red" data-toggle="tooltip" data-placement="top"
+                        title="Requerido"> *</b></label>
+                <input id="password-confirm" type="password"
+                    class="form-control form-control-user @error('password') is-invalid @enderror"
+                    id="exampleRepeatPassword" placeholder="Confirme la nueva contraseña" name="password_confirmation"
+                    required autocomplete="new-password">
                 @error('password')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
                 @enderror
             </div>
         </div>
@@ -45,19 +54,18 @@
 
 @section('scripts')
 <script>
-    $('#form').validate({
-        rules: {
-            oldPassword: {
-                required: true
-            },
-            password: {
-                required: true
-            },
-            password_confirmation: {
-                required: true
-            }
+$('#form').validate({
+    rules: {
+        oldPassword: {
+            required: true
+        },
+        password: {
+            required: true
+        },
+        password_confirmation: {
+            required: true
         }
-    });
+    }
+});
 </script>
 @endsection
-
