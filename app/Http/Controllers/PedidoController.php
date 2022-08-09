@@ -87,9 +87,9 @@ class PedidoController extends Controller
                 // $dt->diffInDays($dt->copy()->addMonth());       
                 $fechaPedido =  $date1->diffInDays($date2) + 1;
                 if ($pedido->idEstado != 3) {
-                    if ($date2>$date1) {
+                    if ($date2 > $date1) {
                         return "Ya pasó la fecha de entrega";
-                    }elseif ($fechaPedido == 3) {
+                    } elseif ($fechaPedido == 3) {
                         return '<span class="badge badge-warning text-white p-2">' . 'Faltan ' . $fechaPedido . ' día(s)' . '</span>';
                     } elseif ($fechaPedido == 2) {
                         return '<span class="badge badge-info text-white p-2">' . 'Faltan ' . $fechaPedido . ' día(s)' . '</span>';
@@ -106,17 +106,19 @@ class PedidoController extends Controller
             })
             ->addColumn('pagos', function ($pedido) {
                 $precio = Pedido::select('precio')->where('pedidos.id', $pedido->id)->value('precio');
-                $abonos = Abono::select("*")->where('idPedido', $pedido->id)->where('estado',1)->get();
+                $abonos = Abono::select("*")->where('idPedido', $pedido->id)->where('estado', 1)->get();
                 $nAbonos = 0;
                 if (count($abonos) > 0) {
                     foreach ($abonos as $value) {
                         $nAbonos += $value->precioPagar;
                     }
                 }
+                //Cambio
                 $estado = Pedido::select('estado_pedidos.id')->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")->where("pedidos.id", $pedido->id)->value('id');
-                if($estado==3){
+                if ($estado == 3) {
                     return '<span class="badge badge-danger text-white p-2">' . 'Pedido anulado' . '</span>';
-                }elseif ($nAbonos == $precio) {
+                    //Fin cambio
+                } elseif ($nAbonos == $precio) {
                     return '<span class="badge badge-success text-white p-2">' . 'Pedido pago' . '</span>';
                 } else {
                     return '<span class="badge badge-warning text-white p-2">' . 'Proceso de abono ' . '</span>';
@@ -126,11 +128,13 @@ class PedidoController extends Controller
                 $usuarioEnSesion = User::findOrFail(auth()->user()->id);
                 $acciones = null;
                 if ($usuarioEnSesion->can('pedido/editar')) {
+                    //Cambio
                     $estado = Pedido::select('estado_pedidos.id')->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")->where("pedidos.id", $pedido->id)->value('id');
-                    if ($estado==1 || $estado==2) {
-                       $acciones = '<a class="btn btn-info btn-sm" href="/pedido/editar/' . $pedido->id . '" ><i class="fas fa-edit"></i></a> ';
+                    if ($estado == 1 || $estado == 2) {
+                        $acciones = '<a class="btn btn-info btn-sm" href="/pedido/editar/' . $pedido->id . '" ><i class="fas fa-edit"></i></a> ';
                     }
                 }
+                //Fin cambio
                 if ($usuarioEnSesion->can('pedido/ver')) {
                     if ($acciones == null) {
                         $acciones = '<a class="btn btn-secondary btn-sm" href="/pedido/ver/' . $pedido->id . '" ><i class="fas fa-info-circle"></i></a> ';
@@ -139,16 +143,17 @@ class PedidoController extends Controller
                     }
                 }
                 $precio = Pedido::select('precio')->where('pedidos.id', $pedido->id)->value('precio');
-                $abonos = Abono::select("*")->where('idPedido', $pedido->id)->where('estado',1)->get();
+                $abonos = Abono::select("*")->where('idPedido', $pedido->id)->where('estado', 1)->get();
                 $nAbonos = 0;
                 if (count($abonos) > 0) {
                     foreach ($abonos as $value) {
                         $nAbonos += $value->precioPagar;
                     }
                 }
+                //Cambio
                 $estado = Pedido::select('estado_pedidos.id')->join("estado_pedidos", "estado_pedidos.id", "pedidos.estado")->where("pedidos.id", $pedido->id)->value('id');
                 if ($usuarioEnSesion->can('abono/crear')) {
-                    if($estado!=3){
+                    if ($estado != 3) {
                         if ($nAbonos != $precio) {
                             if ($acciones == null) {
                                 $acciones = '<a class="btn btn-success btn-sm" href="/abono/crear/' . $pedido->id . '" ><i class="fas fa-dollar-sign"></i> Abono</a> ';
@@ -158,6 +163,7 @@ class PedidoController extends Controller
                         }
                     }
                 }
+                //Fin cambio
                 if ($usuarioEnSesion->can('abono/ver')) {
                     if ($acciones == null) {
                         $acciones = '<a class="btn btn-dark btn-sm" href="/abono/ver/' . $pedido->id . '" ><i class="fas fa-dollar-sign"></i></a> ';
@@ -645,7 +651,7 @@ class PedidoController extends Controller
 
     public function cancelarP($url)
     {
-        if ($url!=="0") {
+        if ($url !== "0") {
             Cart::clear();
             return redirect("/pedido/ver/$url");
         }
@@ -757,8 +763,8 @@ class PedidoController extends Controller
         $ano = $date->format('Y');
         $date2 = Carbon::now();
         $ano2 = $date2->format('Y');
-        
-        if (($ano2 - $ano)>0) {
+
+        if (($ano2 - $ano) > 0) {
             Flash("No se puede poner la fecha de entrega un año antes")->error()->important();
             return back();
         }
@@ -911,7 +917,7 @@ class PedidoController extends Controller
             ->get();
 
         $precio = Pedido::select('precio')->where('pedidos.id', $pedido->id)->value('precio');
-        $abonos = Abono::select("*")->where('idPedido', $pedido->id)->where('estado',1)->get();
+        $abonos = Abono::select("*")->where('idPedido', $pedido->id)->where('estado', 1)->get();
         $nAbonos = 0;
         $resta = 0;
         $paga = false;

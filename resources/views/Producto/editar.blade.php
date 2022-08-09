@@ -31,7 +31,8 @@ Productos
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <div class="form-group">
-                        <label for="">Imagen<b style="color: red"> *</b></label>
+                        <label for="">Imagen<b style="color: red" data-toggle="tooltip" data-placement="top"
+                                title="Requerido"> *</b></label>
                         <div class="custom-file">
                             <input type="file" class="custom-file-input @error('imagen') is-invalid @enderror"
                                 name="img" id="imagen" onchange="vista_preliminar(event)">
@@ -46,7 +47,8 @@ Productos
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <div class="form-group">
-                        <label for="">Nombre<b style="color: red"> *</b></label>
+                        <label for="">Nombre<b style="color: red" data-toggle="tooltip" data-placement="top"
+                                title="Requerido"> *</b></label>
                         <input value="{{$producto->nombre}}" type="text"
                             class="form-control @error('nombre') is-invalid @enderror" id="nombre" name="nombre"
                             required>
@@ -59,13 +61,15 @@ Productos
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">Categoría<strong style="color: red"> *</strong></label>
+                        <label for="">Categoría<b style="color: red" data-toggle="tooltip" data-placement="top"
+                                title="Requerido"> *</b></label>
                         <select class="form-control" name="categoria">
                             <option value="">Seleccione</option>
                             @foreach($categorias as $key => $value)
                             <option {{$value->id == $producto->idCategoria ? 'selected' : ''}}
                                 {{old('categoria' ) == $value->id ? 'selected' : ''}} value="{{$value->id}}">
-                                {{$value->nombre}}</option>
+                                {{$value->nombre}}
+                            </option>
                             @endforeach
                             @error('categorias')
                             <div class="alert alert-danger" role="alert">
@@ -77,13 +81,15 @@ Productos
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">Sabor<strong style="color: red"> *</strong></label>
+                        <label for="">Sabor<b style="color: red" data-toggle="tooltip" data-placement="top"
+                                title="Requerido"> *</b></label>
                         <select class="form-control" name="sabor">
                             <option value="">Seleccione</option>
                             @foreach($sabores as $key => $value)
                             <option {{$value->id == $producto->idSabor ? 'selected' : ''}}
                                 {{old('sabor' ) == $value->id ? 'selected' : ''}} value="{{$value->id}}">
-                                {{$value->nombre}}</option>
+                                {{$value->nombre}}
+                            </option>
                             @endforeach
                             @error('sabores')
                             <div class="alert alert-danger" role="alert">
@@ -95,13 +101,15 @@ Productos
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">Etapa<b style="color: red"> *</b></label>
+                        <label for="">Etapa<b style="color: red" data-toggle="tooltip" data-placement="top"
+                                title="Requerido"> *</b></label>
                         <select class="form-control" name="etapa">
                             <option value="">Seleccione</option>
                             @foreach($etapas as $key => $value)
                             <option {{$value->id == $producto->idEtapa ? 'selected' : ''}}
                                 {{old('etapa' ) == $value->id ? 'selected' : ''}} value="{{$value->id}}">
-                                {{$value->nombre}}</option>
+                                {{$value->nombre}}
+                            </option>
                             @endforeach
                             @error('etapas')
                             <div class="alert alert-danger" role="alert">
@@ -113,7 +121,8 @@ Productos
                 </div>
                 <div class="col-md-12 col-sm-12">
                     <div class="form-group">
-                        <label for="">Descripción<b style="color: red"> *</b></label>
+                        <label for="">Descripción<b style="color: red" data-toggle="tooltip" data-placement="top"
+                                title="Requerido"> *</b></label>
                         <textarea value="{{$producto->descripcion}}" type="text"
                             class="form-control @error('descripcion') is-invalid @enderror" id="descripcion"
                             name="descripcion" required>{{ucfirst($producto->descripcion) }}</textarea>
@@ -126,7 +135,8 @@ Productos
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">Número de personas<strong style="color: red"> *</strong></label>
+                        <label for="">Número de personas<b style="color: red" data-toggle="tooltip" data-placement="top"
+                                title="Requerido"> *</b></label>
                         <input value="{{$producto->numeroPersonas}}" type="number"
                             class="form-control @error('numeroPersonas') is-invalid @enderror" id="numeroPersonas"
                             name="numeroPersonas" required>
@@ -139,7 +149,8 @@ Productos
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">Pisos<strong style="color: red"> *</strong></label>
+                        <label for="">Pisos<b style="color: red" data-toggle="tooltip" data-placement="top"
+                                title="Requerido"> *</b></label>
                         <input value="{{$producto->pisos}}" type="number"
                             class="form-control @error('pisos') is-invalid @enderror" id="pisos" name="pisos" required>
                         @error('pisos')
@@ -151,7 +162,8 @@ Productos
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group">
-                        <label for="">Añadirlo al catálogo<strong style="color: red"> *</strong></label>
+                        <label for="">Añadirlo al catálogo<b style="color: red" data-toggle="tooltip"
+                                data-placement="top" title="Requerido"> *</b></label>
                         <select class="form-control" name="catalogo">
                             @if($producto->catalogo==1)
                             <option value="1" selected>Sí</option>

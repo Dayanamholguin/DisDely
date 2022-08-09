@@ -18,9 +18,11 @@ Roles
                 <div class="row ">
                     <div class="col-auto">
                         <div class="form-group">
-                            <label for="">Nombre<strong style="color: red"> *</strong></label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{$rol->name}}" required">
-                            
+                            <label for="">Nombre<b style="color: red" data-toggle="tooltip" data-placement="top"
+                                    title="Requerido"> *</b></label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                                name="name" value="{{$rol->name}}" required">
+
                             @error('name')
                             <div class="alert alert-danger" role="alert">
                                 {{$message}}
@@ -29,7 +31,8 @@ Roles
                         </div>
                         <br>
                         <div class="form-group container">
-                            <h5>Lista de permisos<strong style="color: red"> *</strong></h5>
+                            <h5>Lista de Permisos<b style="color: red" data-toggle="tooltip" data-placement="top"
+                                    title="Requerido"> *</b></h5>
                             <div class="row">
                                 @foreach ($permisos as $value)
                                 <div class="col-4">
@@ -990,24 +993,24 @@ $('#60').change(function() {
 </script>
 <script>
 $(document).ready(function() {
-    $.validator.addMethod("letras", function (value, element) {
-            var pattern = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s]+$/g;
-            return this.optional(element) || pattern.test(value);
-        }, "No se admite caracteres especiales ni espacios vacíos ni al inicio ni al final");
-        jQuery.validator.addMethod("espaciosycaracteres", function(value, element) {
-            return this.optional(element) || (((value).trim().length > 0) && (value).length > 3);
-        }, "No dejar espacios vacíos en el campo y mayor a 3 caracteres");
-        
-        $('#form').validate({
-            rules: {
-                name: {
-                    letras:true,
-                    // espaciosycaracteres:true,
-                    required: true,
-                    maxlength:100
-                },
-            }
-        });
+    $.validator.addMethod("letras", function(value, element) {
+        var pattern = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s]+$/g;
+        return this.optional(element) || pattern.test(value);
+    }, "No se admite caracteres especiales ni espacios vacíos ni al inicio ni al final");
+    jQuery.validator.addMethod("espaciosycaracteres", function(value, element) {
+        return this.optional(element) || (((value).trim().length > 0) && (value).length > 3);
+    }, "No dejar espacios vacíos en el campo y mayor a 3 caracteres");
+
+    $('#form').validate({
+        rules: {
+            name: {
+                letras: true,
+                // espaciosycaracteres:true,
+                required: true,
+                maxlength: 100
+            },
+        }
     });
+});
 </script>
 @endsection

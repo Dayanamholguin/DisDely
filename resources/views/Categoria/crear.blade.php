@@ -23,7 +23,8 @@ Categoria
                 <div class="row justify-content-center">
                     <div class="col-auto">
                         <div class="form-group">
-                            <label for="">Nombre<strong style="color: red"> *</strong></label>
+                            <label for="">Nombre<b style="color: red" data-toggle="tooltip" data-placement="top"
+                                    title="Requerido"> *</b></label>
                             <input type="text" class="form-control @error('nombre') is-invalid @enderror" id="nombre"
                                 name="nombre" placeholder="Ingrese la categoría" required>
                             @error('nombre')
@@ -45,24 +46,24 @@ Categoria
 @endsection
 @section('scripts')
 <script>
-    $(document).ready(function() {
-        jQuery.validator.addMethod("letras", function (value, element) {
-            var pattern = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s]+$/g;
-            return this.optional(element) || pattern.test(value);
-        }, "No se admite caracteres especiales ni espacios vacíos ni al inicio ni al final");
-        jQuery.validator.addMethod("espaciosycaracteres", function(value, element) {
-            return this.optional(element) || (((value).trim().length > 0) && (value).length > 4);
-        }, "No dejar espacios vacíos en el campo y mayor a 5 caracteres");
-        $('#form').validate({
-            rules: {
-                nombre: {
-                    // espaciosycaracteres: true,
-                    letras:true,
-                    required: true,
-                    maxlength:100
-                }
-            },
-        });
+$(document).ready(function() {
+    jQuery.validator.addMethod("letras", function(value, element) {
+        var pattern = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s]+$/g;
+        return this.optional(element) || pattern.test(value);
+    }, "No se admite caracteres especiales ni espacios vacíos ni al inicio ni al final");
+    jQuery.validator.addMethod("espaciosycaracteres", function(value, element) {
+        return this.optional(element) || (((value).trim().length > 0) && (value).length > 4);
+    }, "No dejar espacios vacíos en el campo y mayor a 5 caracteres");
+    $('#form').validate({
+        rules: {
+            nombre: {
+                // espaciosycaracteres: true,
+                letras: true,
+                required: true,
+                maxlength: 100
+            }
+        },
     });
+});
 </script>
 @endsection
