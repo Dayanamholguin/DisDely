@@ -26,9 +26,51 @@ Productos para los pedidos
         @if(count($productos) == 0)
         <p class="d-flex justify-content-center">No hay productos registrados</p>
         @else
-        {{-- <ul id="portfolio-flters" class="d-flex justify-content-center boton" data-aos="fade-up" data-aos-delay="100">
-            <li data-filter="*" class="filter-active">Todo</li>
-        </ul> --}}
+
+        <!--Search-->
+        <style>
+        .formulario {
+            border-color: black;
+        }
+
+        .barra input {
+            box-shadow: rgba(250, 250, 250, 0.3) -8px -8px 15px,
+                rgba(0, 0, 0, 0.1) 10px 10px 10px,
+                rgba(255, 255, 255, 0.5) -8px -8px 15px inset,
+                rgba(0, 0, 0, 0.1) 10px 10px 10px inset;
+        }
+
+        .barra input:hover {
+            box-shadow: rgba(250, 250, 250, 0.3) -8px -8px 15px,
+                rgba(0, 0, 0, 0.1) 10px 10px 10px,
+                rgba(255, 255, 255, 0.5) -8px -8px 15px inset;
+        }
+
+        .icono {
+            background: #B0535E;
+            color: white;
+            border-color: black;
+        }
+
+        input:focus {
+            border-color: black !important;
+        }
+        </style>
+
+        <form class="barra">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="icono input-group-text">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </div>
+                </div>
+                <input type="text" id="buscar" class="formulario form-control" autocomplete="off"
+                    placeholder="Buscar...">
+            </div>
+        </form>
+
+        <br>
+
         <div class="row product-list" id="product-list" data-aos="fade-up" data-aos-delay="200">
             <div class="contenedor-galeria">
                 @foreach($productos as $producto)
@@ -38,7 +80,7 @@ Productos para los pedidos
                                 style="background-size: 100% 100%; width: 100%" src="/imagenes/{{$producto->img}}"
                                 class="img-fluid" alt=""></a></div>
                     <div class="portfolio-info">
-                        <h4>{{$producto->nombre}}</h4>
+                        <h4 class="nombres">{{$producto->nombre}}</h4>
 
                         <p>{{ucfirst(Date::create($producto->created_at)->format('F j, Y'));}}</p>
                         <a href="/pedido/crear/{{$producto->id}}/{{$cliente->id}}" class=" details-link"
@@ -53,10 +95,34 @@ Productos para los pedidos
             </div>
             @endif
         </div>
+    </div>
 </section><!-- End Portfolio Section -->
 @endsection
 
 @section('scripts')
+<script>
+$(document).ready(function() {
+    $('#buscar').keyup(function() {
+        var nombres = $('.nombres');
+        var buscando = $(this).val();
+        var item = '';
+        for (var i = 0; i < nombres.length; i++) {
+            item = $(nombres[i]).html().toLowerCase();
+            for (var x = 0; x < item.length; x++) {
+                if (buscando.length == 0 || item.indexOf(buscando) > -1) {
+                    $(nombres[i]).parents('.item').show();
+                } else {
+                    $(nombres[i]).parents('.item').hide();
+                }
+            }
+        }
+    });
+});
+</script>
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
 <script src="/assetsGallery/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/assetsGallery/vendor/jquery.easing/jquery.easing.min.js"></script>
 <script src="/assetsGallery/vendor/php-email-form/validate.js"></script>
