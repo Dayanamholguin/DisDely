@@ -14,7 +14,27 @@
 @section('title')
 Productos para los pedidos
 @endsection
-
+@section('car')
+<!-- Nav Item - Search Dropdown (Visible Only XS) -->
+<li class="nav-item dropdown no-arrow d-sm-none">
+    <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-search fa-fw"></i>
+    </a>
+    <!-- Dropdown - Messages -->
+    <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+        <form class="form-inline mr-auto w-100 navbar-search">
+            <div class="input-group">
+                <input type="text" class="form-control bg-light border-0 small" id="buscarMovil" placeholder="Buscar pastel..." aria-label="Search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</li> 
+@endsection
 @section('content')
 <section id="portfolio" class="portfolio">
     <div class="container" data-aos="fade-up">
@@ -38,7 +58,7 @@ Productos para los pedidos
                                 style="background-size: 100% 100%; width: 100%" src="/imagenes/{{$producto->img}}"
                                 class="img-fluid" alt=""></a></div>
                     <div class="portfolio-info">
-                        <h4>{{$producto->nombre}}</h4>
+                        <h4 class="nombres">{{$producto->nombre}}</h4>
 
                         <p>{{ucfirst(Date::create($producto->created_at)->format('F j, Y'));}}</p>
                         <a href="/pedido/crear/{{$producto->id}}/{{$cliente->id}}" class=" details-link"
@@ -57,6 +77,25 @@ Productos para los pedidos
 @endsection
 
 @section('scripts')
+<script>
+    $(document).ready(function() {
+        $('#buscarMovil').keyup(function() {
+            var nombres = $('.nombres');
+            var buscando = $(this).val();
+            var item = '';
+            for (var i = 0; i < nombres.length; i++) {
+                item = $(nombres[i]).html().toLowerCase();
+                for (var x = 0; x < item.length; x++) {
+                    if (buscando.length == 0 || item.indexOf(buscando) > -1) {
+                        $(nombres[i]).parents('.item').show();
+                    } else {
+                        $(nombres[i]).parents('.item').hide();
+                    }
+                }
+            }
+        });
+    })
+</script>
 <script src="/assetsGallery/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/assetsGallery/vendor/jquery.easing/jquery.easing.min.js"></script>
 <script src="/assetsGallery/vendor/php-email-form/validate.js"></script>
