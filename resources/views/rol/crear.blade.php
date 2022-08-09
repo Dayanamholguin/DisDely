@@ -21,7 +21,7 @@ Roles
             @csrf
             <div class="container mt-1">
                 <div class="row ">
-                    <div class="col-auto">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label for="name">Nombre<strong style="color: red"> *</strong></label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror"
@@ -33,9 +33,99 @@ Roles
                             </div>
                             @enderror
                         </div>
+                        {{-- <div class="col-md-12 mb-2"> 
+                            <a href="javascript:void(0)" class="alert-link titulo"  onclick="mostrarVentana()" data-toggle="tooltip" data-placement="right" title="Clic aquí para seleccionar rol por módulo">Necesito ayuda</a>
+                        </div> --}}
+                        <div class="col-md-12 mt-3"> 
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label> 
+                                        <input type="checkbox" id="moduloRoles" value="" class="mr-1">
+                                        Módulo Roles
+                                    </label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label> 
+                                        <input type="checkbox" id="moduloUsuarios" value="" class="mr-1">
+                                        Módulo Usuarios
+                                    </label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label> 
+                                        <input type="checkbox" id="moduloSabores"  value="" class="mr-1">
+                                        Módulo Sabores
+                                    </label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label> 
+                                        <input type="checkbox" id="1001"  value="" class="mr-1">
+                                        Módulo Categorías
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-3"> 
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label> 
+                                        <input type="checkbox" id="1001" onclick="mostrarVentana()"  value="" class="mr-1">
+                                        Módulo Productos
+                                    </label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label> 
+                                        <input type="checkbox" id="1001"  value="" class="mr-1">
+                                        Módulo Pedidos
+                                    </label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label> 
+                                        <input type="checkbox" id="1001"  value="" class="mr-1">
+                                        Módulo Abonos
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                         <br>
-                        <div class="form-group container ">
-                            <h5>Lista de permisos<strong style="color: red"> *</strong></h5>
+                        {{-- <div class="col-md-12 p-3" id="verProducto" style="display: none;"> 
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p>Módulo de productos</p>
+                                </div>
+                                <div class="col-md-2">
+                                    <label> 
+                                        <input type="checkbox" id="crearProducto" class="mr-1">
+                                        Crear producto
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <label> 
+                                        <input type="checkbox" id="editarProducto" class="mr-1">
+                                        Editar producto
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <label> 
+                                        <input type="checkbox" id="" class="mr-1">
+                                        Listar producto
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <label> 
+                                        <input type="checkbox" id="" class="mr-1">
+                                        Ver producto
+                                    </label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label> 
+                                        <input type="checkbox" id="" class="mr-1">
+                                        Cambiar estado de producto
+                                    </label>
+                                </div>
+                            </div>
+                        </div> --}}
+                        <div class="form-group container" >
+                            <h5 class="text-center mb-3">Lista de permisos<strong style="color: red"> *</strong></h5>
                             <div class="row">
                                 @foreach ($permissions as $permission)
                                     <div class="col-4">
@@ -64,6 +154,65 @@ Roles
 
 <script>
 //-------------------------------ROLES
+function mostrarVentana(id){
+    $('#verProducto').toggle();
+}
+
+$('#moduloRoles').change(function() {
+    if ($(this).prop("checked")) {
+        $('#1').prop('checked', true);
+        $('#2').prop('checked', true);
+        $('#3').prop('checked', true);
+        $('#4').prop('checked', true);
+        $('#5').prop('checked', true);
+        return;
+    } else {
+        $('#1').prop('checked', false);
+        $('#2').prop('checked', false);
+        $('#3').prop('checked', false);
+        $('#4').prop('checked', false);
+        $('#5').prop('checked', false);
+    }
+});
+
+$('#moduloUsuarios').change(function() {
+    if ($(this).prop("checked")) {
+        $('#23').prop('checked', true);
+        $('#24').prop('checked', true);
+        $('#25').prop('checked', true);
+        $('#26').prop('checked', true);
+        $('#27').prop('checked', true);
+        $('#28').prop('checked', true);
+        return;
+    } else {
+        $('#23').prop('checked', false);
+        $('#24').prop('checked', false);
+        $('#25').prop('checked', false);
+        $('#26').prop('checked', false);
+        $('#27').prop('checked', false);
+        $('#28').prop('checked', false);
+    }
+});
+
+$('#moduloSabores').change(function() {
+    if ($(this).prop("checked")) {
+        $('#6').prop('checked', true);
+        $('#7').prop('checked', true);
+        $('#8').prop('checked', true);
+        $('#9').prop('checked', true);
+        $('#10').prop('checked', true);
+        $('#28').prop('checked', true);
+        return;
+    } else {
+        $('#6').prop('checked', false);
+        $('#7').prop('checked', false);
+        $('#8').prop('checked', false);
+        $('#9').prop('checked', false);
+        $('#10').prop('checked', false);
+        $('#28').prop('checked', false);
+    }
+});
+/*
 $('#1').change(function() {
     if ($(this).prop("checked")) {
         $('#2').prop('checked', true);
@@ -909,6 +1058,7 @@ $('#55').change(function() {
 //----------------------------ABONO
 $('#56').change(function() {
     if ($(this).prop("checked")) {
+        $('#34').prop('checked', true);
         $('#35').prop('checked', true);
         $('#57').prop('checked', true);
         $('#58').prop('checked', true);
@@ -916,6 +1066,7 @@ $('#56').change(function() {
         $('#60').prop('checked', true);
         return;
     } else {
+        $('#34').prop('checked', false);
         $('#35').prop('checked', false);
         $('#57').prop('checked', false);
         $('#58').prop('checked', false);
@@ -926,11 +1077,13 @@ $('#56').change(function() {
 
 $('#57').change(function() {
     if ($(this).prop("checked")) {
+        $('#34').prop('checked', true);
         $('#35').prop('checked', true);
         $('#56').prop('checked', true);
         $('#57').prop('checked', true);
         return;
     } else {
+        $('#34').prop('checked', false);
         $('#35').prop('checked', false);
         $('#56').prop('checked', false);
         $('#57').prop('checked', false);
@@ -939,10 +1092,12 @@ $('#57').change(function() {
 
 $('#58').change(function() {
     if ($(this).prop("checked")) {
+        $('#34').prop('checked', true);
         $('#35').prop('checked', true);
         $('#56').prop('checked', true);
         return;
     } else {
+        $('#34').prop('checked', false);
         $('#35').prop('checked', false);
         $('#56').prop('checked', false);
     }
@@ -950,11 +1105,13 @@ $('#58').change(function() {
 
 $('#59').change(function() {
     if ($(this).prop("checked")) {
+        $('#34').prop('checked', true);
         $('#35').prop('checked', true);
         $('#56').prop('checked', true);
         $('#57').prop('checked', true);
         return;
     } else {
+        $('#34').prop('checked', false);
         $('#35').prop('checked', false);
         $('#56').prop('checked', false);
         $('#57').prop('checked', false);
@@ -963,16 +1120,18 @@ $('#59').change(function() {
 
 $('#60').change(function() {
     if ($(this).prop("checked")) {
+        $('#34').prop('checked', true);
         $('#35').prop('checked', true);
         $('#56').prop('checked', true);
         $('#57').prop('checked', true);
         return;
     } else {
+        $('#34').prop('checked', false);
         $('#35').prop('checked', false);
         $('#56').prop('checked', false);
         $('#57').prop('checked', false);
     }
-});
+});*/
 </script>
 <script>
     
