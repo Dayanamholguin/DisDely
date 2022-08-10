@@ -203,7 +203,6 @@ $('#moduloSabores').change(function() {
         $('#8').prop('checked', true);
         $('#9').prop('checked', true);
         $('#10').prop('checked', true);
-        $('#28').prop('checked', true);
         return;
     } else {
         $('#6').prop('checked', false);
@@ -211,7 +210,6 @@ $('#moduloSabores').change(function() {
         $('#8').prop('checked', false);
         $('#9').prop('checked', false);
         $('#10').prop('checked', false);
-        $('#28').prop('checked', false);
     }
 });
 /*

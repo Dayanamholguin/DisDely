@@ -119,7 +119,7 @@ Abonos
                     </thead>
                     <tbody id="panel">
                         @foreach ($abonos as $item)
-                            <tr  @if ($item->estado==1) @can('abono/cambiarEstado') onclick="mostrar({{$item->id}})" style="cursor: pointer;" @endcan @endif>
+                            <tr  @if ($item->estado==1) @can('abono/cambiarEstado') data-toggle="collapse" data-target="#id-{{$item->id}}" class="accordion-toggle" onclick="mostrar({{$item->id}})" style="cursor: pointer;" @endcan @endif>
                                 <th scope="row" >{{$item->id}}</th>
                                 <td>{{number_format($item->precioPagar, 0, '.', '.')}}</td>
                                 <td>{{ucwords(Date::create($item->created_at)->format('l, j F Y'))}}</td>
@@ -131,71 +131,79 @@ Abonos
                                     @endif
                                 </td>                        
                             </tr>
+                            @can('abono/cambiarEstado')
+                                <tr>
+                                    <td colspan="6" class="hiddenRow">
+                                        {{-- <div id="demo3" class="accordian-body collapse"> --}}
+                                        <div id="id-{{$item->id}}" class="accordian-body collapse">
+                                            <div class="col-md-12 col-sm-12 mt-3" id="abono"> 
+                                                {{--  --}}
+                                                <div class="mostrar">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <form id="form2-{{$item->id}}" action="/abono/AD/guardar" method="POST" enctype="multipart/form-data">
+                                                                {{ csrf_field() }}
+                                                                {{-- <input type="hidden" name="idUser" value="{{$userId}}" /> --}}
+                                                                <input type="hidden" id="idAbono-{{$item->id}}" value="" name="id">
+                                                                <div class="row mb-2">
+                                                                    <div class="col-md-12 col-sm-12">
+                                                                        <div class="form-group">
+                                                                            <label for=""><b>Razón</b> <b style="color: red" data-toggle="tooltip" data-placement="top" title="Requerido"> *</b></label>
+                                                                            <select name="estado" class="form-control @error('estado') is-invalid @enderror">
+                                                                                <option value="" >Seleccione</option>
+                                                                                <option value="2" {{old('estado' ) == 1 ? 'selected' : ''}}>Anulado</option>
+                                                                                <option value="3" {{old('estado' ) == 2 ? 'selected' : ''}}>Devuelto</option>
+                                                                            </select>
+                                                                            @error('estado')
+                                                                                <div class="alert alert-danger" role="alert">
+                                                                                    {{$message}}
+                                                                                </div>
+                                                                            @enderror
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-2">
+                                                                    <div class="col-md-2 col-sm-12">
+                                                                        <div class="form-group">
+                                                                            <label for=""><b>N° Abono</b> <b style="color: red" data-toggle="tooltip" data-placement="top" title="Requerido"> *</b></label>
+                                                                            <input type="text" class="form-control form-control-sm " id="nAbono-{{$item->id}}" value="" readonly>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2 col-sm-12">
+                                                                        <div class="form-group">
+                                                                            <label for=""><b>Precio</b> <b style="color: red" data-toggle="tooltip" data-placement="top" title="Requerido"> *</b></label>
+                                                                            <input type="text" class="form-control form-control-sm " id="precio-{{$item->id}}" value="" readonly>
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                    <div class="col-md-8 col-sm-12">
+                                                                        <div class="form-group">
+                                                                            <label for=""><b>Justificación</b> <b style="color: red" data-toggle="tooltip" data-placement="top" title="Requerido"> *</b></label>
+                                                                            <input type="text" class="form-control form-control-sm"  value="" name="justificacion" id="justificacion">
+                                                                            @error('justificacion')
+                                                                                <div class="alert alert-danger" role="alert">
+                                                                                    {{$message}}
+                                                                                </div>
+                                                                            @enderror
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="centrado">
+                                                                    <button class="btn btn-dark mb-3">Aceptar</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endcan
                         @endforeach
                     </tbody>
                 </table>
-                @can('abono/cambiarEstado')
-                    <div class="col-md-12 col-sm-12 mt-3" id="abono" style="display: none;"> 
-                        {{--  --}}
-                        <div class="mostrar">
-                            <div class="card">
-                                <div class="card-body">
-                                    <form id="form2" action="/abono/AD/guardar" method="POST" enctype="multipart/form-data">
-                                        {{ csrf_field() }}
-                                        {{-- <input type="hidden" name="idUser" value="{{$userId}}" /> --}}
-                                        <input type="hidden" id="idAbono" value="" name="id">
-                                        <div class="row mb-2">
-                                            <div class="col-md-12 col-sm-12">
-                                                <div class="form-group">
-                                                    <label for=""><b>Razón</b> <b style="color: red" data-toggle="tooltip" data-placement="top" title="Requerido"> *</b></label>
-                                                    <select name="estado" class="form-control @error('estado') is-invalid @enderror">
-                                                        <option value="" >Seleccione</option>
-                                                        <option value="2" {{old('estado' ) == 1 ? 'selected' : ''}}>Anulado</option>
-                                                        <option value="3" {{old('estado' ) == 2 ? 'selected' : ''}}>Devuelto</option>
-                                                    </select>
-                                                    @error('estado')
-                                                        <div class="alert alert-danger" role="alert">
-                                                            {{$message}}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-2">
-                                            <div class="col-md-2 col-sm-12">
-                                                <div class="form-group">
-                                                    <label for=""><b>N° Abono</b> <b style="color: red" data-toggle="tooltip" data-placement="top" title="Requerido"> *</b></label>
-                                                    <input type="text" class="form-control form-control-sm " id="nAbono" value="" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2 col-sm-12">
-                                                <div class="form-group">
-                                                    <label for=""><b>Precio</b> <b style="color: red" data-toggle="tooltip" data-placement="top" title="Requerido"> *</b></label>
-                                                    <input type="text" class="form-control form-control-sm " id="precio" value="" readonly>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-md-8 col-sm-12">
-                                                <div class="form-group">
-                                                    <label for=""><b>Justificación</b> <b style="color: red" data-toggle="tooltip" data-placement="top" title="Requerido"> *</b></label>
-                                                    <input type="text" class="form-control form-control-sm"  value="" name="justificacion" id="justificacion">
-                                                    @error('justificacion')
-                                                        <div class="alert alert-danger" role="alert">
-                                                            {{$message}}
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="centrado">
-                                            <button class="btn btn-dark mb-3">Aceptar</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endcan
+                
 
                 @if (count($abonosAnulado)!=0 && count($abonosDevuelto)!=0)
                     <div class="row mb-2 mt-4">
@@ -415,7 +423,8 @@ Abonos
         });
     }
     function mostrarVentana(id){
-        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hours: 'numeric' };
+       
         $('#verAbono').modal('toggle');
             $.ajax({
                 url: `/abono/verAbonoAjax/${id}`,
@@ -424,41 +433,33 @@ Abonos
                     $('#id').html(res.abono.id);
                     $('#precioAbono').html((number_format(res.abono.precioPagar, 0, '.', '.')));
                     $('#estado').html(res.nombre);
-                    $('#fecha').html(ucwords(new Date(res.abono.updated_at).toLocaleDateString("es-ES", options)));
+                    $('#fecha').html(ucwords(new Date(res.abono.updated_at).toLocaleDateString("es-ES", options)) );
                     $('#justificacionM').html(res.abono.justificacion);
                 },
             });
     }
-    $('#form2').validate({
-        rules: {
-            justificacion: {
-                required: true, 
-                minlength: 5,
-                maxlength:500
-            },
-            estado: {
-                required: true
-            }
-        }
-    });
-    
     function mostrar(abono) {
-        $('#idAbono').val("");
-        $('#nAbono').val("");
-        $('#precio').val("");
-        $('#justificacion').val("");
-        // $("#abono").toggle(1000);
-        $("#abono").slideToggle("slow");
         $.ajax({
-            
                 url: `/abono/AD/${abono}`,
                 type: "GET",
                 success: function (res) {
                     // $('#nombre').html(res.name);
-                    $('#idAbono').val(res.id);
-                    $('#nAbono').val(res.id);
-                    $('#precio').val(number_format(res.precioPagar, 0, '.', '.'));
+                    $('#idAbono-'+res.id).val(res.id);
+                    $('#nAbono-'+res.id).val(res.id);
+                    $('#precio-'+res.id).val(number_format(res.precioPagar, 0, '.', '.'));
                 },
+            });
+            $('#form2-'+abono).validate({
+                rules: {
+                    justificacion: {
+                        required: true, 
+                        minlength: 5,
+                        maxlength:500
+                    },
+                    estado: {
+                        required: true
+                    }
+                }
             });
     }
 </script>
