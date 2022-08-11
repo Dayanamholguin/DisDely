@@ -232,9 +232,11 @@ Abonos
                                                 </em>    
                                             </td>         
                                         </tr>
+                                        
                                     @endforeach
                                 </tbody>
                             </table>
+                            
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <div class="d-flex justify-content-center">
@@ -293,9 +295,15 @@ Abonos
                                                 </em>    
                                             </td>         
                                         </tr>
+                                        
                                     @endforeach
+                                    
                                 </tbody>
                             </table>
+                            <div class="d-flex justify-content-center align-items-center" style="size: 100%">
+                                {{ $abonosAnulado->links() }}
+                            </div>
+                            
                         </div>
                     </div>
                 @elseif(count($abonosAnulado)==0 && count($abonosDevuelto)!=0)
