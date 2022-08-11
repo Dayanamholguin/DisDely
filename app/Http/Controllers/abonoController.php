@@ -264,7 +264,8 @@ class abonoController extends Controller
         // dd($cliente);
         $precio = Pedido::select('precio')->where('pedidos.id', $pedido->id)->value('precio');
         $abonos = Abono::select("*")->where('idPedido', $pedido->id)->where('estado',1)->get();
-        $abonosAnulado = Abono::select("*")->where('idPedido', $pedido->id)->where('estado',2)->get();
+        $abonosAnulado = Abono::select("*")->where('idPedido', $pedido->id)->where('estado',2)->paginate(3);
+        // $productos = Producto::where('catalogo', 1)->where('id', '>', 1)->paginate(7);
         $abonosDevuelto = Abono::select("*")->where('idPedido', $pedido->id)->where('estado',3)->get();
         
         $nAbonos = 0;

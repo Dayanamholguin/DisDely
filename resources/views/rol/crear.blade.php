@@ -59,7 +59,7 @@ Roles
                                 </div>
                                 <div class="col-md-3">
                                     <label> 
-                                        <input type="checkbox" id="1001"  value="" class="mr-1">
+                                        <input type="checkbox" id="moduloCategorias"  value="" class="mr-1">
                                         Módulo Categorías
                                     </label>
                                 </div>
@@ -69,20 +69,37 @@ Roles
                             <div class="row">
                                 <div class="col-md-3">
                                     <label> 
-                                        <input type="checkbox" id="1001" onclick="mostrarVentana()"  value="" class="mr-1">
+                                        <input type="checkbox" id="moduloProductos"  value="" class="mr-1">
                                         Módulo Productos
                                     </label>
                                 </div>
                                 <div class="col-md-3">
                                     <label> 
-                                        <input type="checkbox" id="1001"  value="" class="mr-1">
+                                        <input type="checkbox" id="moduloPedidos"  value="" class="mr-1">
                                         Módulo Pedidos
                                     </label>
                                 </div>
                                 <div class="col-md-3">
                                     <label> 
-                                        <input type="checkbox" id="1001"  value="" class="mr-1">
+                                        <input type="checkbox" id="moduloCotizaciones"  value="" class="mr-1">
+                                        Módulo Cotizaciones
+                                    </label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label> 
+                                        <input type="checkbox" id="moduloAbonos"  value="" class="mr-1">
                                         Módulo Abonos
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-12 mt-3"> 
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label> 
+                                        <input type="checkbox" id="moduloPrincipal"  value="" class="mr-1">
+                                        Módulo editar configuración principal
                                     </label>
                                 </div>
                             </div>
@@ -160,6 +177,15 @@ function mostrarVentana(id){
     $('#verProducto').toggle();
 }
 
+$('#moduloPrincipal').change(function() {
+    if ($(this).prop("checked")) {
+        $('#60').prop('checked', true);
+        return;
+    } else {
+        $('#60').prop('checked', false);
+    }
+});
+
 $('#moduloRoles').change(function() {
     if ($(this).prop("checked")) {
         $('#1').prop('checked', true);
@@ -203,7 +229,6 @@ $('#moduloSabores').change(function() {
         $('#8').prop('checked', true);
         $('#9').prop('checked', true);
         $('#10').prop('checked', true);
-        $('#28').prop('checked', true);
         return;
     } else {
         $('#6').prop('checked', false);
@@ -211,9 +236,134 @@ $('#moduloSabores').change(function() {
         $('#8').prop('checked', false);
         $('#9').prop('checked', false);
         $('#10').prop('checked', false);
-        $('#28').prop('checked', false);
     }
 });
+
+$('#moduloCategorias').change(function() {
+    if ($(this).prop("checked")) {
+        $('#11').prop('checked', true);
+        $('#12').prop('checked', true);
+        $('#13').prop('checked', true);
+        $('#14').prop('checked', true);
+        $('#15').prop('checked', true);
+        return;
+    } else {
+        $('#11').prop('checked', false);
+        $('#12').prop('checked', false);
+        $('#13').prop('checked', false);
+        $('#14').prop('checked', false);
+        $('#15').prop('checked', false);
+    }
+});
+
+$('#moduloProductos').change(function() {
+    if ($(this).prop("checked")) {
+        $('#16').prop('checked', true);
+        $('#17').prop('checked', true);
+        $('#18').prop('checked', true);
+        $('#19').prop('checked', true);
+        $('#20').prop('checked', true);
+        $('#21').prop('checked', true);
+        $('#22').prop('checked', true);
+        return;
+    } else {
+        $('#16').prop('checked', false);
+        $('#17').prop('checked', false);
+        $('#18').prop('checked', false);
+        $('#19').prop('checked', false);
+        $('#20').prop('checked', false);
+        $('#21').prop('checked', false);
+        $('#22').prop('checked', false);
+    }
+});
+
+$('#moduloPedidos').change(function() {
+    if ($(this).prop("checked")) {
+        $('#34').prop('checked', true);
+        $('#42').prop('checked', true);
+        $('#43').prop('checked', true);
+        $('#44').prop('checked', true);
+        $('#45').prop('checked', true);
+        $('#46').prop('checked', true);
+        $('#47').prop('checked', true);
+        $('#48').prop('checked', true);
+        $('#49').prop('checked', true);
+        $('#50').prop('checked', true);
+        $('#51').prop('checked', true);
+        $('#52').prop('checked', true);
+        $('#53').prop('checked', true);
+        return;
+    } else {
+        $('#34').prop('checked', false);
+        $('#42').prop('checked', false);
+        $('#43').prop('checked', false);
+        $('#44').prop('checked', false);
+        $('#45').prop('checked', false);
+        $('#46').prop('checked', false);
+        $('#47').prop('checked', false);
+        $('#48').prop('checked', false);
+        $('#49').prop('checked', false);
+        $('#50').prop('checked', false);
+        $('#51').prop('checked', false);
+        $('#52').prop('checked', false);
+        $('#53').prop('checked', false);
+    }
+});
+
+$('#moduloCotizaciones').change(function() {
+    if ($(this).prop("checked")) {
+        $('#29').prop('checked', true);
+        $('#30').prop('checked', true);
+        $('#31').prop('checked', true);
+        $('#32').prop('checked', true);
+        $('#33').prop('checked', true);
+        $('#34').prop('checked', true);
+        $('#35').prop('checked', true);
+        $('#36').prop('checked', true);
+        $('#37').prop('checked', true);
+        $('#38').prop('checked', true);
+        $('#39').prop('checked', true);
+        $('#40').prop('checked', true);
+        $('#41').prop('checked', true);
+        return;
+    } else {
+        $('#29').prop('checked', false);
+        $('#30').prop('checked', false);
+        $('#31').prop('checked', false);
+        $('#32').prop('checked', false);
+        $('#33').prop('checked', false);
+        $('#34').prop('checked', false);
+        $('#35').prop('checked', false);
+        $('#36').prop('checked', false);
+        $('#37').prop('checked', false);
+        $('#38').prop('checked', false);
+        $('#39').prop('checked', false);
+        $('#40').prop('checked', false);
+        $('#41').prop('checked', false);
+    }
+});
+
+$('#moduloAbonos').change(function() {
+    if ($(this).prop("checked")) {
+        $('#34').prop('checked', true);
+        $('#54').prop('checked', true);
+        $('#55').prop('checked', true);
+        $('#56').prop('checked', true);
+        $('#57').prop('checked', true);
+        $('#58').prop('checked', true);
+        $('#59').prop('checked', true);
+        return;
+    } else {
+        $('#34').prop('checked', false);
+        $('#54').prop('checked', false);
+        $('#55').prop('checked', false);
+        $('#56').prop('checked', false);
+        $('#57').prop('checked', false);
+        $('#58').prop('checked', false);
+        $('#59').prop('checked', false);
+    }
+});
+
 /*
 $('#1').change(function() {
     if ($(this).prop("checked")) {
