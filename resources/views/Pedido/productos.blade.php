@@ -14,7 +14,29 @@
 @section('title')
 Productos para los pedidos
 @endsection
-
+@section('car')
+<!-- Nav Item - Search Dropdown (Visible Only XS) -->
+<li class="nav-item dropdown no-arrow d-sm-none">
+    <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-search fa-fw"></i>
+    </a>
+    <!-- Dropdown - Messages -->
+    <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+        <form class="form-inline mr-auto w-100 navbar-search">
+            <div class="input-group">
+                <input type="text" class="form-control bg-light border-0 small" id="buscarMovil"
+                    placeholder="Buscar pastel..." aria-label="Search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</li>
+@endsection
 @section('content')
 <section id="portfolio" class="portfolio">
     <div class="container" data-aos="fade-up">
@@ -29,44 +51,44 @@ Productos para los pedidos
 
         <!--Search-->
         <style>
-        .formulario {
-            border-color: black;
+        .field {
+            display: flex;
+            position: relative;
+            margin: auto;
+            width: 40%;
+            flex-direction: row;
         }
 
-        .barra input {
-            box-shadow: rgba(250, 250, 250, 0.3) -8px -8px 15px,
-                rgba(0, 0, 0, 0.1) 10px 10px 10px,
-                rgba(255, 255, 255, 0.5) -8px -8px 15px inset,
-                rgba(0, 0, 0, 0.1) 10px 10px 10px inset;
+        .field>input[type=text],
+        .field>button {
+            display: block;
         }
 
-        .barra input:hover {
-            box-shadow: rgba(250, 250, 250, 0.3) -8px -8px 15px,
-                rgba(0, 0, 0, 0.1) 10px 10px 10px,
-                rgba(255, 255, 255, 0.5) -8px -8px 15px inset;
+
+        .field>input[type=text] {
+            flex: 1;
+            padding: 0.4em;
+            border: 0.2em solid #B0535E;
         }
 
-        .icono {
-            background: #B0535E;
+
+        .field>button {
+            padding: 0.6em 0.8em;
+            background-color: #B0535E;
             color: white;
-            border-color: black;
+            border: #B0535E;
         }
 
-        input:focus {
-            border-color: black !important;
+        @media (max-width: 844px) {
+            .field {
+                width: auto;
+            }
         }
         </style>
 
-        <form class="barra">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="icono input-group-text">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </div>
-                </div>
-                <input type="text" id="buscar" class="formulario form-control" autocomplete="off"
-                    placeholder="Buscar...">
-            </div>
+        <form class="field">
+            <input type="text" id="buscar" autocomplete="off" placeholder="¿Qué deseas buscar?" />
+            <button type="button" id="search">Buscar!</button>
         </form>
 
         <br>

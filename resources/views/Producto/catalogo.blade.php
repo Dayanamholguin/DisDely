@@ -12,7 +12,29 @@
 <link href="/assetsGallery/vendor/aos/aos.css" rel="stylesheet">
 <link href="/assetsGallery/css/style.css" rel="stylesheet">
 @endsection
-
+@section('car')
+<!-- Nav Item - Search Dropdown (Visible Only XS) -->
+<li class="nav-item dropdown no-arrow d-sm-none">
+    <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-search fa-fw"></i>
+    </a>
+    <!-- Dropdown - Messages -->
+    <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+        <form class="form-inline mr-auto w-100 navbar-search">
+            <div class="input-group">
+                <input type="text" class="form-control bg-light border-0 small" id="buscarMovil"
+                    placeholder="Buscar pastel..." aria-label="Search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</li>
+@endsection
 @if ($usuarioEnSesion->hasRole('Admin')==false)
 @can('agregarCarrito')
 @section('car')
@@ -45,18 +67,19 @@
 
         <!--Search-->
         <style>
-        .formulario {
-            border-color: black;
-        }
+        /* .formulario {
+            border-color: white;
+            text-align: center;
+        } */
 
-        .barra input {
+        /* .barra input {
             box-shadow: rgba(250, 250, 250, 0.3) -8px -8px 15px,
                 rgba(0, 0, 0, 0.1) 10px 10px 10px,
                 rgba(255, 255, 255, 0.5) -8px -8px 15px inset,
                 rgba(0, 0, 0, 0.1) 10px 10px 10px inset;
-        }
+        } */
 
-        .barra input:hover {
+        /* .barra input {
             box-shadow: rgba(250, 250, 250, 0.3) -8px -8px 15px,
                 rgba(0, 0, 0, 0.1) 10px 10px 10px,
                 rgba(255, 255, 255, 0.5) -8px -8px 15px inset;
@@ -65,25 +88,65 @@
         .icono {
             background: #B0535E;
             color: white;
-            border-color: black;
+            border-color: white;
         }
 
         input:focus {
             border-color: black !important;
+        } */
+
+
+        .field {
+            display: flex;
+            position: relative;
+            margin: auto;
+            width: 40%;
+            flex-direction: row;
+        }
+
+        .field>input[type=text],
+        .field>button {
+            display: block;
+        }
+
+
+        .field>input[type=text] {
+            flex: 1;
+            padding: 0.4em;
+            border: 0.1em solid #B0535E;
+        }
+
+
+        .field>button {
+            padding: 0.6em 0.8em;
+            background-color: #B0535E;
+            color: white;
+            border: #B0535E;
+        }
+
+        @media (max-width: 844px) {
+            .field {
+                width: auto;
+            }
         }
         </style>
 
-        <form class="barra">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="icono input-group-text">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </div>
-                </div>
-                <input type="text" id="buscar" class="formulario form-control" autocomplete="off"
-                    placeholder="Buscar...">
-            </div>
+        <form class="field">
+            <input type="text" id="buscar" autocomplete="off" placeholder="¿Qué deseas buscar?" />
+            <button type="button" id="search">Buscar!</button>
         </form>
+
+        <!-- <form class=" mr-auto w-100 navbar-search">
+            <div class="input-group">
+                <input type="text" class="form-control bg-light border-0 " id="buscar" placeholder="Buscar pastel..."
+                    aria-label="Search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </form> -->
 
         <br>
         <div class="row product-list" id="product-list" data-aos="fade-up" data-aos-delay="200">
@@ -121,22 +184,22 @@
 
 @section('scripts')
 <script>
-/*  let pro = <?= json_encode($productos); ?>;
-    console.log(pro); */
-
-// document.addEventListener("keyup", e =>{
-
-//     if (e.target.matches("#buscar")) {
-//         document.querySelectorAll(".nombres").forEach(producto => {
-//             console.log(producto.textContent);
-//             producto.textContent.toLowerCase().includes(e.target.value.toLowerCase())
-//             ?producto.classList.remove("filtro")
-//             :producto.classList.add("filtro")
-//         });
-//     }
-// })
-
 $(document).ready(function() {
+    $('#buscarMovil').keyup(function() {
+        var nombres = $('.nombres');
+        var buscando = $(this).val();
+        var item = '';
+        for (var i = 0; i < nombres.length; i++) {
+            item = $(nombres[i]).html().toLowerCase();
+            for (var x = 0; x < item.length; x++) {
+                if (buscando.length == 0 || item.indexOf(buscando) > -1) {
+                    $(nombres[i]).parents('.item').show();
+                } else {
+                    $(nombres[i]).parents('.item').hide();
+                }
+            }
+        }
+    });
     $('#buscar').keyup(function() {
         var nombres = $('.nombres');
         var buscando = $(this).val();
@@ -153,79 +216,8 @@ $(document).ready(function() {
         }
     });
 });
-
-//Search
-// const search = () => {
-//     const searchbox = document.getElementById("searh-item").value.toUpperCase();
-//     const storeitems = document.getElementById("product-list");
-//     const product = document.querySelectorAll(".product");
-//     const pname = storeitems.getElementsByTagName("h4");
-
-//     for (var i = 0; i < pname.length; i++) {
-//         let match = product[i].getElementsByTagName('h4')[0];
-
-//         if (match) {
-//             let textvalue = match.textContent || match.innerHTML
-
-//             if (textvalue.toUpperCase().indexOf(searchbox) > -1) {
-//                 product[i].style.display = "";
-//             } else {
-//                 product[i].style.display = "none";
-//             }
-//         }
-//     }
-// }
-//end search
 </script>
-
-<!-- <script>
-    const productos = [{
-            nombre: 'Platanos'
-        },
-        {
-            nombre: 'Pera'
-        },
-        {
-            nombre: 'Fresa'
-        },
-        {
-            nombre: 'Sandia'
-        },
-        {
-            nombre: 'Frutillas'
-        },
-    ]
-
-    const formulario = document.querySelector('#formulario');
-    const boton = document.querySelector('#boton');
-    const resultado = document.querySelector('#resultado');
-
-    const filtrar = () => {
-        resultado.innerHTML = '';
-
-        const texto = formulario.value.toLowerCase();
-
-        for (let producto of productos) {
-            let nombre = producto.nombre.toLowerCase();
-            if (nombre.indexOf(texto) !== -1) {
-                resultado.innerHTML += `
-        <li>${producto.nombre}</li>
-        `
-            }
-        }
-        if (resultado.innerHTML === '') {
-            resultado.innerHTML += `
-            <li>Producto no encontrado...</li>
-        `
-        }
-    }
-
-    boton.addEventListener('click', filtrar)
-    formulario.addEventListener('keyup', filtrar)
-    filtrar();
-</script> -->
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script class="cssdeck" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 
 <script src="/assetsGallery/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/assetsGallery/vendor/jquery.easing/jquery.easing.min.js"></script>
