@@ -88,291 +88,297 @@ Abonos
         </div>
 
         @if (count($abonos)==0)
-        <p class="text-center">No se ha registrado ningún abono a este pedido</p>
-        @can('abono/crear')
-        @if ($estado!=3)
-        <p><a href="/abono/crear/{{$pedido->id}}" class="titulo alert-link ">Registra el primer abono dando clic
-                aquí</a></p>
-        @elseif($estado==3)
-        <em class="text-center">No se puede crear un abono a este pedido ya que está anulado</em>
-        @endif
-        @endcan
-        @else
-        <div class="d-flex justify-content-center">
-            <strong>Información detallada de la realización del abono</strong>
-            @if($nAbonos!=$precio)
+            <p class="text-center">No se ha registrado ningún abono a este pedido</p>
             @can('abono/crear')
-            @if ($estado!=3)
-            /
-            <a href="/abono/crear/{{$pedido->id}}" class="titulo alert-link">Registrar abono de este pedido</a>
-            @endif
+                @if ($estado!=3)
+                    <p><a href="/abono/crear/{{$pedido->id}}" class="titulo alert-link ">Registra el primer abono dando clic
+                        aquí</a></p>
+                @elseif($estado==3)
+                    <em class="text-center">No se puede crear un abono a este pedido ya que está anulado</em>
+                @endif
             @endcan
-            @endif
-        </div>
-        <table class="table mt-4">
-            <thead>
-                <tr id="infoAbonos" style="cursor: pointer;">
-                    <th scope="col">#</th>
-                    <th scope="col">Abono</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Comprobante</th>
-                </tr>
-            </thead>
-            <tbody id="panel">
-                @foreach ($abonos as $item)
-                <tr @if ($item->estado==1) @can('abono/cambiarEstado') data-toggle="collapse"
-                    data-target="#id-{{$item->id}}" class="accordion-toggle" onclick="mostrar({{$item->id}})"
-                    style="cursor: pointer;" @endcan @endif>
-                    <th scope="row">{{$item->id}}</th>
-                    <td>{{number_format($item->precioPagar, 0, '.', '.')}}</td>
-                    <td>{{ucwords(Date::create($item->created_at)->format('l, j F Y'))}}</td>
-                    <td>
-                        @if ($item->img==null)
-                        No hay comprobante
-                        @else
-                        <div class="portfolio-img"><a href="/ver/imagenAbono/{{$item->img}}"
-                                data-gall="portfolioGallery" class="venobox preview-link titulo alert-link"
-                                title="Comprobante del abono {{$item->id}}">Sí hay comprobante</a></div>
-                        @endif
-                    </td>
-                </tr>
-                @can('abono/cambiarEstado')
-                <tr>
-                    <td colspan="6" class="hiddenRow">
-                        {{-- <div id="demo3" class="accordian-body collapse"> --}}
-                        <div id="id-{{$item->id}}" class="accordian-body collapse">
-                            <div class="col-md-12 col-sm-12 mt-3" id="abono">
-                                {{-- --}}
-                                <div class="mostrar">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <form id="form2-{{$item->id}}" action="/abono/AD/guardar" method="POST"
-                                                enctype="multipart/form-data">
-                                                {{ csrf_field() }}
-                                                {{-- <input type="hidden" name="idUser" value="{{$userId}}" /> --}}
-                                                <input type="hidden" id="idAbono-{{$item->id}}" value="" name="id">
-                                                <div class="row mb-2">
-                                                    <div class="col-md-12 col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for=""><b>Razón</b> <b style="color: red"
-                                                                    data-toggle="tooltip" data-placement="top"
-                                                                    title="Requerido"> *</b></label>
-                                                            <select name="estado"
-                                                                class="form-control @error('estado') is-invalid @enderror">
-                                                                <option value="">Seleccione</option>
-                                                                <option value="2"
-                                                                    {{old('estado' ) == 1 ? 'selected' : ''}}>Anulado
-                                                                </option>
-                                                                <option value="3"
-                                                                    {{old('estado' ) == 2 ? 'selected' : ''}}>Devuelto
-                                                                </option>
-                                                            </select>
-                                                            @error('estado')
-                                                            <div class="alert alert-danger" role="alert">
-                                                                {{$message}}
+        @else
+            <div class="d-flex justify-content-center">
+                <strong>Información detallada de la realización del abono</strong>
+                @if($nAbonos!=$precio)
+                @can('abono/crear')
+                @if ($estado!=3)
+                /
+                <a href="/abono/crear/{{$pedido->id}}" class="titulo alert-link">Registrar abono de este pedido</a>
+                @endif
+                @endcan
+                @endif
+            </div>
+            <table class="table mt-4">
+                <thead>
+                    <tr id="infoAbonos" style="cursor: pointer;">
+                        <th scope="col">#</th>
+                        <th scope="col">Abono</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Comprobante</th>
+                    </tr>
+                </thead>
+                <tbody id="panel">
+                    @foreach ($abonos as $item)
+                        <tr @if ($item->estado==1) @can('abono/cambiarEstado') data-toggle="collapse"
+                            data-target="#id-{{$item->id}}" class="accordion-toggle" onclick="mostrar({{$item->id}})"
+                            style="cursor: pointer;" @endcan @endif>
+                            <th scope="row">{{$item->id}}</th>
+                            <td>{{number_format($item->precioPagar, 0, '.', '.')}}</td>
+                            <td>{{ucwords(Date::create($item->created_at)->format('l, j F Y'))}}</td>
+                            <td>
+                                @if ($item->img==null)
+                                No hay comprobante
+                                @else
+                                <div class="portfolio-img"><a href="/ver/imagenAbono/{{$item->img}}"
+                                        data-gall="portfolioGallery" class="venobox preview-link titulo alert-link"
+                                        title="Comprobante del abono {{$item->id}}">Sí hay comprobante</a></div>
+                                @endif
+                            </td>
+                        </tr>
+                        @can('abono/cambiarEstado')
+                            <tr>
+                                <td colspan="6" class="hiddenRow">
+                                    {{-- <div id="demo3" class="accordian-body collapse"> --}}
+                                    <div id="id-{{$item->id}}" class="accordian-body collapse">
+                                        <div class="col-md-12 col-sm-12 mt-3" id="abono">
+                                            {{-- --}}
+                                            <div class="mostrar">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <form id="form2-{{$item->id}}" action="/abono/AD/guardar" method="POST"
+                                                            enctype="multipart/form-data">
+                                                            {{ csrf_field() }}
+                                                            {{-- <input type="hidden" name="idUser" value="{{$userId}}" /> --}}
+                                                            <input type="hidden" id="idAbono-{{$item->id}}" value="" name="id">
+                                                            <div class="row mb-2">
+                                                                <div class="col-md-12 col-sm-12">
+                                                                    <div class="form-group">
+                                                                        <label for=""><b>Razón</b> <b style="color: red"
+                                                                                data-toggle="tooltip" data-placement="top"
+                                                                                title="Requerido"> *</b></label>
+                                                                        <select name="estado"
+                                                                            class="form-control @error('estado') is-invalid @enderror">
+                                                                            <option value="">Seleccione</option>
+                                                                            <option value="2"
+                                                                                {{old('estado' ) == 1 ? 'selected' : ''}}>Anulado
+                                                                            </option>
+                                                                            <option value="3"
+                                                                                {{old('estado' ) == 2 ? 'selected' : ''}}>Devuelto
+                                                                            </option>
+                                                                        </select>
+                                                                        @error('estado')
+                                                                        <div class="alert alert-danger" role="alert">
+                                                                            {{$message}}
+                                                                        </div>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row mb-2">
-                                                    <div class="col-md-2 col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for=""><b>N° Abono</b> <b style="color: red"
-                                                                    data-toggle="tooltip" data-placement="top"
-                                                                    title="Requerido"> *</b></label>
-                                                            <input type="text" class="form-control form-control-sm "
-                                                                id="nAbono-{{$item->id}}" value="" readonly>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2 col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for=""><b>Precio</b> <b style="color: red"
-                                                                    data-toggle="tooltip" data-placement="top"
-                                                                    title="Requerido"> *</b></label>
-                                                            <input type="text" class="form-control form-control-sm "
-                                                                id="precio-{{$item->id}}" value="" readonly>
-                                                        </div>
-                                                    </div>
+                                                            <div class="row mb-2">
+                                                                <div class="col-md-2 col-sm-12">
+                                                                    <div class="form-group">
+                                                                        <label for=""><b>N° Abono</b> <b style="color: red"
+                                                                                data-toggle="tooltip" data-placement="top"
+                                                                                title="Requerido"> *</b></label>
+                                                                        <input type="text" class="form-control form-control-sm "
+                                                                            id="nAbono-{{$item->id}}" value="" readonly>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2 col-sm-12">
+                                                                    <div class="form-group">
+                                                                        <label for=""><b>Precio</b> <b style="color: red"
+                                                                                data-toggle="tooltip" data-placement="top"
+                                                                                title="Requerido"> *</b></label>
+                                                                        <input type="text" class="form-control form-control-sm "
+                                                                            id="precio-{{$item->id}}" value="" readonly>
+                                                                    </div>
+                                                                </div>
 
-                                                    <div class="col-md-8 col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for=""><b>Justificación</b> <b style="color: red"
-                                                                    data-toggle="tooltip" data-placement="top"
-                                                                    title="Requerido"> *</b></label>
-                                                            <input type="text" class="form-control form-control-sm"
-                                                                value="" name="justificacion" id="justificacion">
-                                                            @error('justificacion')
-                                                            <div class="alert alert-danger" role="alert">
-                                                                {{$message}}
+                                                                <div class="col-md-8 col-sm-12">
+                                                                    <div class="form-group">
+                                                                        <label for=""><b>Justificación</b> <b style="color: red"
+                                                                                data-toggle="tooltip" data-placement="top"
+                                                                                title="Requerido"> *</b></label>
+                                                                        <input type="text" class="form-control form-control-sm"
+                                                                            value="" name="justificacion" id="justificacion">
+                                                                        @error('justificacion')
+                                                                        <div class="alert alert-danger" role="alert">
+                                                                            {{$message}}
+                                                                        </div>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                            @enderror
-                                                        </div>
+                                                            <div class="centrado">
+                                                                <button class="btn btn-dark mb-3">Aceptar</button>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
-                                                <div class="centrado">
-                                                    <button class="btn btn-dark mb-3">Aceptar</button>
-                                                </div>
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                </td>
+                            </tr>
+                        @endcan
+                    @endforeach
+                </tbody>
+            </table>
+            @if (count($abonosAnulado)!=0 && count($abonosDevuelto)!=0)
+                <div class="row mb-2 mt-4">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="d-flex justify-content-center">
+                            <strong>Información de abonos anulados</strong>
                         </div>
-                    </td>
-                </tr>
-                @endcan
-                @endforeach
-            </tbody>
-        </table>
+                        <table class="table mt-4">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Abono</th>
+                                    <th scope="col">Razón</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($abonosAnulado as $item)
+                                <tr>
+                                    <th scope="row">{{$item->id}}</th>
+                                    <td>{{number_format($item->precioPagar, 0, '.', '.')}}</td>
+                                    <td>
+                                        <em style="font-size: 12px;">
+                                            <a href="javascript:void(0)"
+                                                class="{{$item->estado==2?"text-danger":"text-primary"}}"
+                                                onclick="mostrarVentana({{$item->id}})" data-toggle="tooltip"
+                                                data-placement="top" title="Clic para ver información">
+                                                {{$item->estado==2?"(Anulado)":"(Devuelto)"}}
+                                            </a>
+                                        </em>
+                                    </td>
+                                </tr>
 
-
-        @if (count($abonosAnulado)!=0 && count($abonosDevuelto)!=0)
-        <div class="row mb-2 mt-4">
-            <div class="col-md-6 col-sm-12">
-                <div class="d-flex justify-content-center">
-                    <strong>Información de abonos anulados</strong>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-center align-items-center" style="size: 100%">
+                            {{ $abonosAnulado->links() }}
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="d-flex justify-content-center">
+                            <strong>Información de abonos devueltos</strong>
+                        </div>
+                        <table class="table mt-4" style="overflow:scroll;">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Abono</th>
+                                    <th scope="col">Razón</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($abonosDevuelto as $item)
+                                <tr>
+                                    <th scope="row">{{$item->id}}</th>
+                                    <td>{{number_format($item->precioPagar, 0, '.', '.')}}</td>
+                                    <td>
+                                        <em style="font-size: 12px;">
+                                            <a href="javascript:void(0)"
+                                                class="{{$item->estado==2?"text-danger":"text-primary"}}"
+                                                onclick="mostrarVentana({{$item->id}})" data-toggle="tooltip"
+                                                data-placement="top" title="Clic para ver información">
+                                                {{$item->estado==2?"(Anulado)":"(Devuelto)"}}
+                                            </a>
+                                        </em>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-center align-items-center" style="size: 100%">
+                            {{ $abonosDevuelto->links() }}
+                        </div>
+                    </div>
                 </div>
-                <table class="table mt-4">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Abono</th>
-                            <th scope="col">Razón</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($abonosAnulado as $item)
-                        <tr>
-                            <th scope="row">{{$item->id}}</th>
-                            <td>{{number_format($item->precioPagar, 0, '.', '.')}}</td>
-                            <td>
-                                <em style="font-size: 12px;">
-                                    <a href="javascript:void(0)"
-                                        class="{{$item->estado==2?"text-danger":"text-primary"}}"
-                                        onclick="mostrarVentana({{$item->id}})" data-toggle="tooltip"
-                                        data-placement="top" title="Clic para ver información">
-                                        {{$item->estado==2?"(Anulado)":"(Devuelto)"}}
-                                    </a>
-                                </em>
-                            </td>
-                        </tr>
+            @elseif(count($abonosAnulado)!=0 && count($abonosDevuelto)==0)
+                <div class="row mb-2 mt-4">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="d-flex justify-content-center">
+                            <strong>Información de abonos anulados</strong>
+                        </div>
+                        <table class="table mt-4">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Abono</th>
+                                    <th scope="col">Razón</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($abonosAnulado as $item)
+                                <tr>
+                                    <th scope="row">{{$item->id}}</th>
+                                    <td>{{number_format($item->precioPagar, 0, '.', '.')}}</td>
+                                    <td>
+                                        <em style="font-size: 12px;">
+                                            <a href="javascript:void(0)"
+                                                class="{{$item->estado==2?"text-danger":"text-primary"}}"
+                                                onclick="mostrarVentana({{$item->id}})" data-toggle="tooltip"
+                                                data-placement="top" title="Clic para ver información">
+                                                {{$item->estado==2?"(Anulado)":"(Devuelto)"}}
+                                            </a>
+                                        </em>
+                                    </td>
+                                </tr>
 
-                        @endforeach
-                    </tbody>
-                </table>
+                                @endforeach
 
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <div class="d-flex justify-content-center">
-                    <strong>Información de abonos devueltos</strong>
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-center align-items-center" style="size: 100%">
+                            {{ $abonosAnulado->links() }}
+                        </div>
+
+                    </div>
                 </div>
-                <table class="table mt-4" style="overflow:scroll;">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Abono</th>
-                            <th scope="col">Razón</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($abonosDevuelto as $item)
-                        <tr>
-                            <th scope="row">{{$item->id}}</th>
-                            <td>{{number_format($item->precioPagar, 0, '.', '.')}}</td>
-                            <td>
-                                <em style="font-size: 12px;">
-                                    <a href="javascript:void(0)"
-                                        class="{{$item->estado==2?"text-danger":"text-primary"}}"
-                                        onclick="mostrarVentana({{$item->id}})" data-toggle="tooltip"
-                                        data-placement="top" title="Clic para ver información">
-                                        {{$item->estado==2?"(Anulado)":"(Devuelto)"}}
-                                    </a>
-                                </em>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        @elseif(count($abonosAnulado)!=0 && count($abonosDevuelto)==0)
-        <div class="row mb-2 mt-4">
-            <div class="col-md-12 col-sm-12">
-                <div class="d-flex justify-content-center">
-                    <strong>Información de abonos anulados</strong>
+            @elseif(count($abonosAnulado)==0 && count($abonosDevuelto)!=0)
+                <div class="row mb-2 mt-4">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="d-flex justify-content-center">
+                            <strong>Información de abonos devueltos</strong>
+                        </div>
+                        <table class="table mt-4">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Abono</th>
+                                    <th scope="col">Razón</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($abonosDevuelto as $item)
+                                <tr>
+                                    <th scope="row">{{$item->id}}</th>
+                                    <td>{{number_format($item->precioPagar, 0, '.', '.')}}</td>
+                                    <td>
+                                        <em style="font-size: 12px;">
+                                            <a href="javascript:void(0)"
+                                                class="{{$item->estado==2?"text-danger":"text-primary"}}"
+                                                onclick="mostrarVentana({{$item->id}})" data-toggle="tooltip"
+                                                data-placement="top" title="Clic para ver información">
+                                                {{$item->estado==2?"(Anulado)":"(Devuelto)"}}
+                                            </a>
+                                        </em>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-center align-items-center" style="size: 100%">
+                            {{ $abonosDevuelto->links() }}
+                        </div>
+                    </div>
                 </div>
-                <table class="table mt-4">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Abono</th>
-                            <th scope="col">Razón</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($abonosAnulado as $item)
-                        <tr>
-                            <th scope="row">{{$item->id}}</th>
-                            <td>{{number_format($item->precioPagar, 0, '.', '.')}}</td>
-                            <td>
-                                <em style="font-size: 12px;">
-                                    <a href="javascript:void(0)"
-                                        class="{{$item->estado==2?"text-danger":"text-primary"}}"
-                                        onclick="mostrarVentana({{$item->id}})" data-toggle="tooltip"
-                                        data-placement="top" title="Clic para ver información">
-                                        {{$item->estado==2?"(Anulado)":"(Devuelto)"}}
-                                    </a>
-                                </em>
-                            </td>
-                        </tr>
-
-                        @endforeach
-
-                    </tbody>
-                </table>
-                <div class="d-flex justify-content-center align-items-center" style="size: 100%">
-                    {{ $abonosAnulado->links() }}
-                </div>
-
-            </div>
-        </div>
-        @elseif(count($abonosAnulado)==0 && count($abonosDevuelto)!=0)
-        <div class="row mb-2 mt-4">
-            <div class="col-md-12 col-sm-12">
-                <div class="d-flex justify-content-center">
-                    <strong>Información de abonos devueltos</strong>
-                </div>
-                <table class="table mt-4">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Abono</th>
-                            <th scope="col">Razón</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($abonosDevuelto as $item)
-                        <tr>
-                            <th scope="row">{{$item->id}}</th>
-                            <td>{{number_format($item->precioPagar, 0, '.', '.')}}</td>
-                            <td>
-                                <em style="font-size: 12px;">
-                                    <a href="javascript:void(0)"
-                                        class="{{$item->estado==2?"text-danger":"text-primary"}}"
-                                        onclick="mostrarVentana({{$item->id}})" data-toggle="tooltip"
-                                        data-placement="top" title="Clic para ver información">
-                                        {{$item->estado==2?"(Anulado)":"(Devuelto)"}}
-                                    </a>
-                                </em>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        @endif
+            @endif
         @endif
     </div>
 </div>
