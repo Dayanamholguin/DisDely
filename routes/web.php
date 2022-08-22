@@ -166,5 +166,9 @@ Route::group(['middleware' => 'auth'], function(){
             return \Intervention\Image\Facades\Image::mak($file)->response();
         }
     });*/
+    Route::get('/permiso', [RoleController::class, 'permiso']); 
+    // Route::get('/prueba', function(){
+    //     return view('prueba');
+    // });
 
 });

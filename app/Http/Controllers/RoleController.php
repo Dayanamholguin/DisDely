@@ -60,6 +60,11 @@ class RoleController extends Controller
         return view('rol.crear', compact('permissions'));
     }
 
+    public function permiso()
+    {
+        return view('rol.permiso');
+    }
+
     public function guardar(Request $request)
     {
         //$pattern="[a-zA-Z]+";

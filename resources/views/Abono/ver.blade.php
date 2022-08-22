@@ -140,7 +140,7 @@ Abonos
                             <tr>
                                 <td colspan="6" class="hiddenRow">
                                     {{-- <div id="demo3" class="accordian-body collapse"> --}}
-                                    <div id="id-{{$item->id}}" class="accordian-body collapse">
+                                    <div id="id-{{$item->id}}" class="accordian-body collapse mb-3">
                                         <div class="col-md-12 col-sm-12 mt-3" id="abono">
                                             {{-- --}}
                                             <div class="mostrar">

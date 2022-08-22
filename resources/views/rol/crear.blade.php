@@ -166,12 +166,20 @@ Roles
                 </div>
             </div>
         </form>
+        <button class="iconStu">Get External Content</button>
+        <div id="ok"><h2>Let jQuery AJAX Change This Text</h2></div>
+
     </div>
 </div>
 @endsection
 @section('scripts')
 
 <script>
+    $(function() {
+        $('.iconStu').click(function() {
+            $("#ok").load('/permiso');
+        });
+    });
 //-------------------------------ROLES
 function mostrarVentana(id){
     $('#verProducto').toggle();
