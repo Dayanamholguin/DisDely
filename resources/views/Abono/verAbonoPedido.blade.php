@@ -37,8 +37,9 @@ Abonos
     <div class="card-body text-center">
         @include('flash::message')
         @if (count($abonos)==0)
-        <p class="text-center">No se ha registrado ningún abono a este pedido</p>
+            <p class="text-center">No se ha registrado ningún abono a este pedido</p>
         @else
+<<<<<<< HEAD
         <table class="table mt-4" style="width: auto;">
             <thead>
                 <tr>
@@ -75,144 +76,176 @@ Abonos
                 @endforeach
             </tbody>
         </table>
+=======
+            <div class="col-md-12 col-sm-12">
+                <table class="table mt-4" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Abono</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Comprobante</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($abonos as $item)
+                        <tr>
+                            <th scope="row">{{$item->id}}</th>
+                            <td>{{number_format($item->precioPagar, 0, '.', '.')}}</td>
+                            <td>{{ucwords(Date::create($item->created_at)->format('l, j F Y'))}}</td>
+                            <td>
+                                @if ($item->img==null)
+                                No hay comprobante
+                                @else
+                                <div class="portfolio-img"><a href="/ver/imagenAbono/{{$item->img}}"
+                                        data-gall="portfolioGallery" class="venobox preview-link titulo alert-link"
+                                        title="Comprobante del abono {{$item->id}}">Sí hay comprobante</a></div>
+                                @endif
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+>>>>>>> 0d43b00240dfc095675b839439bfd38071edac59
         @endif
         @if (count($abonosAnulado)!=0 && count($abonosDevuelto)!=0)
-        <div class="row mb-2 mt-4">
-            <div class="col-md-6 col-sm-12">
-                <div class="d-flex justify-content-center">
-                    <strong>Información de abonos anulados</strong>
+            <div class="row mb-2 mt-4">
+                <div class="col-md-6 col-sm-12">
+                    <div class="d-flex justify-content-center">
+                        <strong>Información de abonos anulados</strong>
+                    </div>
+                    <table class="table mt-4" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Abono</th>
+                                <th scope="col">Razón</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($abonosAnulado as $item)
+                            <tr>
+                                <th scope="row">{{$item->id}}</th>
+                                <td>{{number_format($item->precioPagar, 0, '.', '.')}}</td>
+                                <td>
+                                    <em style="font-size: 12px;">
+                                        <a href="javascript:void(0)"
+                                            class="{{$item->estado==2?"text-danger":"text-primary"}}"
+                                            onclick="mostrarVentana({{$item->id}})" data-toggle="tooltip"
+                                            data-placement="top" title="Clic para ver información">
+                                            {{$item->estado==2?"(Anulado)":"(Devuelto)"}}
+                                        </a>
+                                    </em>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-                <table class="table mt-4" style="width: auto;">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Abono</th>
-                            <th scope="col">Razón</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($abonosAnulado as $item)
-                        <tr>
-                            <th scope="row">{{$item->id}}</th>
-                            <td>{{number_format($item->precioPagar, 0, '.', '.')}}</td>
-                            <td>
-                                <em style="font-size: 12px;">
-                                    <a href="javascript:void(0)"
-                                        class="{{$item->estado==2?"text-danger":"text-primary"}}"
-                                        onclick="mostrarVentana({{$item->id}})" data-toggle="tooltip"
-                                        data-placement="top" title="Clic para ver información">
-                                        {{$item->estado==2?"(Anulado)":"(Devuelto)"}}
-                                    </a>
-                                </em>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <div class="d-flex justify-content-center">
-                    <strong>Información de abonos devueltos</strong>
+                <div class="col-md-6 col-sm-12">
+                    <div class="d-flex justify-content-center">
+                        <strong>Información de abonos devueltos</strong>
+                    </div>
+                    <table class="table mt-4" style="overflow:scroll;" style="width: auto;">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Abono</th>
+                                <th scope="col">Razón</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($abonosDevuelto as $item)
+                            <tr>
+                                <th scope="row">{{$item->id}}</th>
+                                <td>{{number_format($item->precioPagar, 0, '.', '.')}}</td>
+                                <td>
+                                    <em style="font-size: 12px;">
+                                        <a href="javascript:void(0)"
+                                            class="{{$item->estado==2?"text-danger":"text-primary"}}"
+                                            onclick="mostrarVentana({{$item->id}})" data-toggle="tooltip"
+                                            data-placement="top" title="Clic para ver información">
+                                            {{$item->estado==2?"(Anulado)":"(Devuelto)"}}
+                                        </a>
+                                    </em>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-                <table class="table mt-4" style="overflow:scroll;" style="width: auto;">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Abono</th>
-                            <th scope="col">Razón</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($abonosDevuelto as $item)
-                        <tr>
-                            <th scope="row">{{$item->id}}</th>
-                            <td>{{number_format($item->precioPagar, 0, '.', '.')}}</td>
-                            <td>
-                                <em style="font-size: 12px;">
-                                    <a href="javascript:void(0)"
-                                        class="{{$item->estado==2?"text-danger":"text-primary"}}"
-                                        onclick="mostrarVentana({{$item->id}})" data-toggle="tooltip"
-                                        data-placement="top" title="Clic para ver información">
-                                        {{$item->estado==2?"(Anulado)":"(Devuelto)"}}
-                                    </a>
-                                </em>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
             </div>
-        </div>
         @elseif(count($abonosAnulado)!=0 && count($abonosDevuelto)==0)
-        <div class="row mb-2 mt-4">
-            <div class="col-md-12 col-sm-12">
-                <div class="d-flex justify-content-center">
-                    <strong>Información de abonos anulados</strong>
+            <div class="row mb-2 mt-4">
+                <div class="col-md-12 col-sm-12">
+                    <div class="d-flex justify-content-center">
+                        <strong>Información de abonos anulados</strong>
+                    </div>
+                    <table class="table mt-4" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Abono</th>
+                                <th scope="col">Razón</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($abonosAnulado as $item)
+                            <tr>
+                                <th scope="row">{{$item->id}}</th>
+                                <td>{{number_format($item->precioPagar, 0, '.', '.')}}</td>
+                                <td>
+                                    <em style="font-size: 12px;">
+                                        <a href="javascript:void(0)"
+                                            class="{{$item->estado==2?"text-danger":"text-primary"}}"
+                                            onclick="mostrarVentana({{$item->id}})" data-toggle="tooltip"
+                                            data-placement="top" title="Clic para ver información">
+                                            {{$item->estado==2?"(Anulado)":"(Devuelto)"}}
+                                        </a>
+                                    </em>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-                <table class="table mt-4" style="width: auto;">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Abono</th>
-                            <th scope="col">Razón</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($abonosAnulado as $item)
-                        <tr>
-                            <th scope="row">{{$item->id}}</th>
-                            <td>{{number_format($item->precioPagar, 0, '.', '.')}}</td>
-                            <td>
-                                <em style="font-size: 12px;">
-                                    <a href="javascript:void(0)"
-                                        class="{{$item->estado==2?"text-danger":"text-primary"}}"
-                                        onclick="mostrarVentana({{$item->id}})" data-toggle="tooltip"
-                                        data-placement="top" title="Clic para ver información">
-                                        {{$item->estado==2?"(Anulado)":"(Devuelto)"}}
-                                    </a>
-                                </em>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
             </div>
-        </div>
         @elseif(count($abonosAnulado)==0 && count($abonosDevuelto)!=0)
-        <div class="row mb-2 mt-4">
-            <div class="col-md-12 col-sm-12">
-                <div class="d-flex justify-content-center">
-                    <strong>Información de abonos devueltos</strong>
+            <div class="row mb-2 mt-4">
+                <div class="col-md-12 col-sm-12">
+                    <div class="d-flex justify-content-center">
+                        <strong>Información de abonos devueltos</strong>
+                    </div>
+                    <table class="table mt-4" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Abono</th>
+                                <th scope="col">Razón</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($abonosDevuelto as $item)
+                            <tr>
+                                <th scope="row">{{$item->id}}</th>
+                                <td>{{number_format($item->precioPagar, 0, '.', '.')}}</td>
+                                <td>
+                                    <em style="font-size: 12px;">
+                                        <a href="javascript:void(0)"
+                                            class="{{$item->estado==2?"text-danger":"text-primary"}}"
+                                            onclick="mostrarVentana({{$item->id}})" data-toggle="tooltip"
+                                            data-placement="top" title="Clic para ver información">
+                                            {{$item->estado==2?"(Anulado)":"(Devuelto)"}}
+                                        </a>
+                                    </em>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-                <table class="table mt-4" style="width: auto;">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Abono</th>
-                            <th scope="col">Razón</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($abonosDevuelto as $item)
-                        <tr>
-                            <th scope="row">{{$item->id}}</th>
-                            <td>{{number_format($item->precioPagar, 0, '.', '.')}}</td>
-                            <td>
-                                <em style="font-size: 12px;">
-                                    <a href="javascript:void(0)"
-                                        class="{{$item->estado==2?"text-danger":"text-primary"}}"
-                                        onclick="mostrarVentana({{$item->id}})" data-toggle="tooltip"
-                                        data-placement="top" title="Clic para ver información">
-                                        {{$item->estado==2?"(Anulado)":"(Devuelto)"}}
-                                    </a>
-                                </em>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
             </div>
-        </div>
         @endif
     </div>
 </div>
