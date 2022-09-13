@@ -51,44 +51,44 @@ Productos para los pedidos
 
         <!--Search-->
         <style>
-        .field {
+        .hol {
             display: flex;
-            position: relative;
-            margin: auto;
-            width: 40%;
-            flex-direction: row;
+            align-items: center;
         }
 
-        .field>input[type=text],
-        .field>button {
-            display: block;
+        form>div {
+            display: flex;
+            background: #fff;
+            padding: 9px 22px 9px 26px;
+            border-radius: 30px;
+            border: 2px solid #B0535E;
+            box-shadow: rgba(255, 255, 255, 0.5) -8px -8px 15px,
+                rgba(0, 0, 0, 0.1) 10px 10px 10px,
+                rgba(255, 255, 255, 0.5) -8px -8px 15px inset,
+                rgba(0, 0, 0, 0.1) 10px 10px 10px inset;
         }
 
-
-        .field>input[type=text] {
-            flex: 1;
-            padding: 0.4em;
-            border: 0.2em solid #B0535E;
+        form input {
+            border: none;
+            background: transparent;
+            font-weight: bold;
+            padding-left: 24px;
+            background-size: 16px;
+            width: 0px;
+            transition: all 1s;
         }
 
-
-        .field>button {
-            padding: 0.6em 0.8em;
-            background-color: #B0535E;
-            color: white;
-            border: #B0535E;
-        }
-
-        @media (max-width: 844px) {
-            .field {
-                width: auto;
-            }
+        form input:focus {
+            outline: none;
+            width: 250px;
         }
         </style>
 
-        <form class="field">
-            <input type="text" id="buscar" autocomplete="off" placeholder="¿Qué deseas buscar?" />
-            <button type="button" id="search">Buscar!</button>
+        <form class="hol">
+            <div>
+                <i class="bi bi-search"></i>
+                <input type="text" name="" id="buscar" placeholder="Buscar..." autocomplete="off">
+            </div>
         </form>
 
         <br>

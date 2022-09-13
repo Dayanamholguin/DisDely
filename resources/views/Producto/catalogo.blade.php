@@ -65,88 +65,48 @@
             <li data-filter="*" class="filter-active">Todo</li>
         </ul>
 
+
         <!--Search-->
         <style>
-        /* .formulario {
-            border-color: white;
-            text-align: center;
-        } */
+        .hol {
+            display: flex;
+            align-items: center;
+        }
 
-        /* .barra input {
-            box-shadow: rgba(250, 250, 250, 0.3) -8px -8px 15px,
+        form>div {
+            display: flex;
+            background: #fff;
+            padding: 9px 22px 9px 26px;
+            border-radius: 30px;
+            border: 2px solid #B0535E;
+            box-shadow: rgba(255, 255, 255, 0.5) -8px -8px 15px,
                 rgba(0, 0, 0, 0.1) 10px 10px 10px,
                 rgba(255, 255, 255, 0.5) -8px -8px 15px inset,
                 rgba(0, 0, 0, 0.1) 10px 10px 10px inset;
-        } */
-
-        /* .barra input {
-            box-shadow: rgba(250, 250, 250, 0.3) -8px -8px 15px,
-                rgba(0, 0, 0, 0.1) 10px 10px 10px,
-                rgba(255, 255, 255, 0.5) -8px -8px 15px inset;
         }
 
-        .icono {
-            background: #B0535E;
-            color: white;
-            border-color: white;
+        form input {
+            border: none;
+            background: transparent;
+            font-weight: bold;
+            padding-left: 24px;
+            background-size: 16px;
+            width: 0px;
+            transition: all 1s;
         }
 
-        input:focus {
-            border-color: black !important;
-        } */
-
-
-        .field {
-            display: flex;
-            position: relative;
-            margin: auto;
-            width: 40%;
-            flex-direction: row;
-        }
-
-        .field>input[type=text],
-        .field>button {
-            display: block;
-        }
-
-
-        .field>input[type=text] {
-            flex: 1;
-            padding: 0.4em;
-            border: 0.1em solid #B0535E;
-        }
-
-
-        .field>button {
-            padding: 0.6em 0.8em;
-            background-color: #B0535E;
-            color: white;
-            border: #B0535E;
-        }
-
-        @media (max-width: 844px) {
-            .field {
-                width: auto;
-            }
+        form input:focus {
+            outline: none;
+            width: 250px;
         }
         </style>
 
-        <form class="field">
-            <input type="text" id="buscar" autocomplete="off" placeholder="¿Qué deseas buscar?" />
-            <button type="button" id="search">Buscar!</button>
-        </form>
-
-        <!-- <form class=" mr-auto w-100 navbar-search">
-            <div class="input-group">
-                <input type="text" class="form-control bg-light border-0 " id="buscar" placeholder="Buscar pastel..."
-                    aria-label="Search" aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                    </button>
-                </div>
+        <form class="hol">
+            <div>
+                <i class="bi bi-search"></i>
+                <input type="text" name="" id="buscar" placeholder="Buscar..." autocomplete="off">
             </div>
-        </form> -->
+        </form>
 
         <br>
         <div class="row product-list" id="product-list" data-aos="fade-up" data-aos-delay="200">

@@ -115,7 +115,7 @@ Abonos
                     <th scope="col">#</th>
                     <th scope="col">Abono</th>
                     <th scope="col">Fecha</th>
-                    <th scope="col">Comprobante</th>
+                    <th scope="col">Imagen</th>
                 </tr>
             </thead>
             <tbody id="panel">
@@ -128,11 +128,11 @@ Abonos
                     <td>{{ucwords(Date::create($item->created_at)->format('l, j F Y'))}}</td>
                     <td>
                         @if ($item->img==null)
-                        No hay comprobante
+                        No hay imagen
                         @else
                         <div class="portfolio-img"><a href="/ver/imagenAbono/{{$item->img}}"
                                 data-gall="portfolioGallery" class="venobox preview-link titulo alert-link"
-                                title="Comprobante del abono {{$item->id}}">Sí hay comprobante</a></div>
+                                title="Comprobante del abono {{$item->id}}">Sí hay imagen</a></div>
                         @endif
                     </td>
                 </tr>
